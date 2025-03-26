@@ -485,7 +485,21 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI01_Botones_0: -8000940605761324015
+      UI01_Botones_1: -2262449423917698916
+      UI01_Botones_10: -2454501471731740418
+      UI01_Botones_11: -4209840148556747492
+      UI01_Botones_12: 3385703931021077493
+      UI01_Botones_13: 9204366062078329619
+      UI01_Botones_2: -5805582991256371356
+      UI01_Botones_3: -6943575016412599289
+      UI01_Botones_4: -2182196398433698417
+      UI01_Botones_5: 3703416679110781637
+      UI01_Botones_6: -1344110267863642795
+      UI01_Botones_7: -6081626383704206157
+      UI01_Botones_8: -5408682344336215048
+      UI01_Botones_9: 95329153448610273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,19 +2,25 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.NetCode;
 
-// Componente para marcar la entidad como agujero negro
-[GhostComponent]
+// Singleton para el único agujero negro en la partida
+[GhostComponent(PrefabType = GhostPrefabType.AllPredicted)]
 public struct BlackHoleComponent : IComponentData
 {
     // Radio del agujero negro
-    public float Radius;
+    [GhostField] public float Radius;
 
     // Fuerza de atracción máxima
-    public float MaxAttractionForce;
+    [GhostField] public float MaxAttractionForce;
 
     // Distancia máxima de efecto
-    public float MaxEffectDistance;
+    [GhostField] public float MaxEffectDistance;
 
     // Exponente para la curva de atracción (2 = gravitación normal, mayor = más agresivo)
-    public float AttractionCurve;
+    [GhostField] public float AttractionCurve;
+
+    // Flag para habilitar/deshabilitar la atracción durante la partida
+    [GhostField] public bool IsActive;
+
+    // ID único de la partida actual para sincronización
+    [GhostField] public int GameSessionId;
 }

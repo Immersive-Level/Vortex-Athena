@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 17325a53c01c18c47a6f9b48ae4fbdb7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8000940605761324015
+    second: UI01_Botones_0
+  - first:
+      213: -2262449423917698916
+    second: UI01_Botones_1
+  - first:
+      213: -5805582991256371356
+    second: UI01_Botones_2
+  - first:
+      213: -6943575016412599289
+    second: UI01_Botones_3
+  - first:
+      213: -2182196398433698417
+    second: UI01_Botones_4
+  - first:
+      213: 3703416679110781637
+    second: UI01_Botones_5
+  - first:
+      213: -1344110267863642795
+    second: UI01_Botones_6
+  - first:
+      213: -6081626383704206157
+    second: UI01_Botones_7
+  - first:
+      213: -5408682344336215048
+    second: UI01_Botones_8
+  - first:
+      213: 95329153448610273
+    second: UI01_Botones_9
+  - first:
+      213: -2454501471731740418
+    second: UI01_Botones_10
+  - first:
+      213: -4209840148556747492
+    second: UI01_Botones_11
+  - first:
+      213: 3385703931021077493
+    second: UI01_Botones_12
+  - first:
+      213: 9204366062078329619
+    second: UI01_Botones_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI01_Botones_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 1070
+        width: 448
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11cf89ce8e2f6f090800000000000000
+      internalID: -8000940605761324015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_1
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 851
+        width: 287
+        height: 317
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9039156c3a2a90e0800000000000000
+      internalID: -2262449423917698916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_2
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 878
+        width: 270
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46f3d1c570d6e6fa0800000000000000
+      internalID: -5805582991256371356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 930
+        width: 448
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70c237baf4773af90800000000000000
+      internalID: -6943575016412599289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_4
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 786
+        width: 486
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8df839ffe747b1e0800000000000000
+      internalID: -2182196398433698417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_5
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 585
+        width: 263
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5caa7ad19dd256330800000000000000
+      internalID: 3703416679110781637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_6
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 584
+        width: 270
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55d480135d2c85de0800000000000000
+      internalID: -1344110267863642795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_7
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 635
+        width: 486
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b4daae9609b99ba0800000000000000
+      internalID: -6081626383704206157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 302
+        width: 240
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f3b9e2701080f4b0800000000000000
+      internalID: -5408682344336215048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_9
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 302
+        width: 222
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e90b082c5da25100800000000000000
+      internalID: 95329153448610273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_10
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 283
+        width: 265
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef091cc7aebdfedd0800000000000000
+      internalID: -2454501471731740418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_11
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 289
+        width: 264
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1de81880b4a395c0800000000000000
+      internalID: -4209840148556747492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_12
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 4
+        width: 263
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fba72b79cf6cfe20800000000000000
+      internalID: 3385703931021077493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI01_Botones_13
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 2
+        width: 264
+        height: 264
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31307d8aa2a7cbf70800000000000000
+      internalID: 9204366062078329619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UI01_Botones_0: -8000940605761324015
+      UI01_Botones_1: -2262449423917698916
+      UI01_Botones_10: -2454501471731740418
+      UI01_Botones_11: -4209840148556747492
+      UI01_Botones_12: 3385703931021077493
+      UI01_Botones_13: 9204366062078329619
+      UI01_Botones_2: -5805582991256371356
+      UI01_Botones_3: -6943575016412599289
+      UI01_Botones_4: -2182196398433698417
+      UI01_Botones_5: 3703416679110781637
+      UI01_Botones_6: -1344110267863642795
+      UI01_Botones_7: -6081626383704206157
+      UI01_Botones_8: -5408682344336215048
+      UI01_Botones_9: 95329153448610273
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

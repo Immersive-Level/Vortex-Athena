@@ -1,12 +1,39 @@
 using UnityEngine;
-using System.Collections;
 
-public class BlackHoleController : MonoBehaviour
+public class BlackHole : MonoBehaviour
 {
-    [Header("Componentes")]
-    public SpriteRenderer blackHoleRenderer;
+    [Header("Propiedades Físicas")]
+    [Tooltip("Radio del agujero negro")]
+    public float radius = 5f;
 
-    [Header("Propiedades Básicas")]
+    [Tooltip("Fuerza máxima de atracción")]
+    public float maxAttractionForce = 20f;
+
+    [Tooltip("Distancia máxima de efecto")]
+    public float maxEffectDistance = 30f;
+
+    [Tooltip("Exponente para la curva de atracción (2 = gravitación normal, mayor = más agresivo)")]
+    [Range(1f, 10f)]
+    public float attractionCurve = 2f;
+
+    [Header("Configuración")]
+    [Tooltip("¿El agujero negro está activo?")]
+    public bool isActive = true;
+
+    [Header("Visualización")]
+    [Tooltip("Color del núcleo del agujero negro")]
+    public Color coreColor = Color.black;
+
+    [Tooltip("Color del halo exterior")]
+    public Color outerColor = new Color(0.2f, 0.05f, 0.3f, 0.7f);
+
+    // Referencia al material
+    private Material blackHoleMaterial;
+
+    // Referencia a la imagen
+    public UnityEngine.UI.Image blackHoleImage;
+
+    [Header("Efectos Visuales")]
     [Range(0.1f, 2.0f)] public float distortionStrength = 0.3f;
     [Range(0.1f, 2.0f)] public float distortionRadius = 0.5f;
     [Range(0.1f, 10.0f)] public float rotationSpeed = 2.0f;
@@ -24,12 +51,9 @@ public class BlackHoleController : MonoBehaviour
     [Range(1, 5)] public int chaosLevel = 3;
     public bool usePerlinNoise = true;
 
-    // Variables privadas
-    private Material blackHoleMaterial;
+    // Variables privadas para animación
     private float timeOffset;
-    private float noiseOffset1;
-    private float noiseOffset2;
-    private float noiseOffset3;
+    private float noiseOffset1, noiseOffset2, noiseOffset3;
     private float initialDistortionStrength;
     private float initialDistortionRadius;
     private float initialRotationSpeed;
@@ -37,9 +61,36 @@ public class BlackHoleController : MonoBehaviour
     private float[] chaosFactors;
     private Vector2[] noiseVectors;
 
-    void Start()
+    private void Start()
     {
-        // Cargar el shader y aplicarlo al renderer
+        // Inicializar efectos visuales
+        InitializeVisuals();
+
+        // Guardar valores iniciales para la animación
+        initialDistortionStrength = distortionStrength;
+        initialDistortionRadius = distortionRadius;
+        initialRotationSpeed = rotationSpeed;
+        initialEventHorizonColor = eventHorizonColor;
+
+        // Inicializar aleatoriedad para animaciones
+        InitializeRandomness();
+    }
+
+    private void InitializeVisuals()
+    {
+        // Verificar que tenemos una imagen asignada
+        if (blackHoleImage == null)
+        {
+            blackHoleImage = GetComponent<UnityEngine.UI.Image>();
+            if (blackHoleImage == null)
+            {
+                Debug.LogError("No se encontró un componente Image en el objeto. Por favor asigne uno.");
+                enabled = false;
+                return;
+            }
+        }
+
+        // Cargar y configurar el shader
         Shader blackHoleShader = Shader.Find("Custom/BlackHoleDistortion");
         if (blackHoleShader == null)
         {
@@ -49,19 +100,10 @@ public class BlackHoleController : MonoBehaviour
         }
 
         blackHoleMaterial = new Material(blackHoleShader);
-        blackHoleRenderer.material = blackHoleMaterial;
-
-        // Guardar valores iniciales para la animación
-        initialDistortionStrength = distortionStrength;
-        initialDistortionRadius = distortionRadius;
-        initialRotationSpeed = rotationSpeed;
-        initialEventHorizonColor = eventHorizonColor;
-
-        // Semilla aleatoria y factores de caos
-        InitializeRandomness();
+        blackHoleImage.material = blackHoleMaterial;
     }
 
-    void InitializeRandomness()
+    private void InitializeRandomness()
     {
         if (useRandomSeed)
         {
@@ -96,8 +138,10 @@ public class BlackHoleController : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
+        if (!isActive) return;
+
         // Aplicar animaciones si está habilitado
         if (animateProperties)
         {
@@ -110,7 +154,7 @@ public class BlackHoleController : MonoBehaviour
         }
     }
 
-    void AnimateBlackHole()
+    private void AnimateBlackHole()
     {
         float time = Time.time + timeOffset;
 
@@ -175,7 +219,7 @@ public class BlackHoleController : MonoBehaviour
         UpdateShaderProperties(pulsatingStrength, pulsatingRadius, varyingRotation, eventHorizonSharpness, cyclicColor);
     }
 
-    float GetChaosValue(float baseValue, float amplitude, float time, int index)
+    private float GetChaosValue(float baseValue, float amplitude, float time, int index)
     {
         if (chaosLevel <= 1)
             return baseValue + Mathf.Sin(time * pulseSpeed * chaosFactors[index]) * amplitude;
@@ -209,16 +253,55 @@ public class BlackHoleController : MonoBehaviour
         return baseValue + finalNoise;
     }
 
-    void UpdateShaderProperties(float strength, float radius, float rotation, float sharpness, Color color)
+    private void UpdateShaderProperties(float strength, float radius, float rotation, float sharpness, Color color)
     {
-        blackHoleMaterial.SetFloat("_DistortionStrength", strength);
-        blackHoleMaterial.SetFloat("_DistortionRadius", radius);
-        blackHoleMaterial.SetFloat("_RotationSpeed", rotation);
-        blackHoleMaterial.SetFloat("_EventHorizonSharpness", sharpness);
-        blackHoleMaterial.SetColor("_EventHorizonColor", color);
+        if (blackHoleMaterial != null)
+        {
+            blackHoleMaterial.SetFloat("_DistortionStrength", strength);
+            blackHoleMaterial.SetFloat("_DistortionRadius", radius);
+            blackHoleMaterial.SetFloat("_RotationSpeed", rotation);
+            blackHoleMaterial.SetFloat("_EventHorizonSharpness", sharpness);
+            blackHoleMaterial.SetColor("_EventHorizonColor", color);
+        }
     }
 
-    void OnValidate()
+    // Calcula la fuerza de atracción basada en la distancia
+    public float CalculateAttractionForce(float distance)
+    {
+        // Si el agujero negro está inactivo, no hay atracción
+        if (!isActive) return 0f;
+
+        // Evitar división por cero
+        if (distance < 0.0001f)
+            return maxAttractionForce;
+
+        // Si está dentro del radio, fuerza máxima
+        if (distance <= radius)
+            return maxAttractionForce;
+
+        // Calcula caída de fuerza basada en distancia y exponente de curva
+        float normalizedDistance = Mathf.Clamp01((maxEffectDistance - distance) /
+                                               (maxEffectDistance - radius));
+
+        // Aplica la curva (usa pow para exponente)
+        float forceFactor = Mathf.Pow(normalizedDistance, attractionCurve);
+
+        return forceFactor * maxAttractionForce;
+    }
+
+    // Para visualizar en el editor
+    private void OnDrawGizmos()
+    {
+        // Dibujar radio del núcleo
+        Gizmos.color = coreColor;
+        Gizmos.DrawSphere(transform.position, radius);
+
+        // Dibujar radio de efecto máximo
+        Gizmos.color = outerColor;
+        Gizmos.DrawWireSphere(transform.position, maxEffectDistance);
+    }
+
+    private void OnValidate()
     {
         if (Application.isPlaying && blackHoleMaterial != null)
         {

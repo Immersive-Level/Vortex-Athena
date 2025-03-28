@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      VA_KeyVisual_Hole_0: -1641930285771381073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

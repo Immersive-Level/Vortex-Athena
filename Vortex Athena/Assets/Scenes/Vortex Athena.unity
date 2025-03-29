@@ -204,9 +204,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1956558800}
-        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
-        m_MethodName: StartMoving
+      - m_Target: {fileID: 1956558802}
+        m_TargetAssemblyTypeName: ShipControllerSanti, Assembly-CSharp
+        m_MethodName: ActivarPropulsion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -692,7 +692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1207,8 +1207,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -1, y: -1}
+  m_SizeDelta: {x: 44.14, y: 44.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1034672504
 MonoBehaviour:
@@ -1261,9 +1261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
-  maxAttractionForce: 20
+  maxAttractionForce: 800
   maxEffectDistance: 30
-  attractionCurve: 2
+  attractionCurve: 7.34
   isActive: 1
   coreColor: {r: 1, g: 0, b: 0, a: 1}
   outerColor: {r: 0.2, g: 0.05, b: 0.3, a: 0.7}
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   animateProperties: 1
   pulseSpeed: 1
   pulseStrengthAmount: 0.2
-  pulseRadiusAmount: 0.1
+  pulseRadiusAmount: 0.075
   rotationVariation: 1
   colorCycleSpeed: 0.5
   useRandomSeed: 1
@@ -1672,6 +1672,7 @@ GameObject:
   - component: {fileID: 1956558798}
   - component: {fileID: 1956558800}
   - component: {fileID: 1956558801}
+  - component: {fileID: 1956558802}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Untagged
@@ -1688,8 +1689,8 @@ Transform:
   m_GameObject: {fileID: 1956558796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.289, y: 1.4, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
+  m_LocalPosition: {x: 3.0946, y: 1.1415, z: 0}
+  m_LocalScale: {x: 0.280644, y: 0.280644, z: 0.280644}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 572824976}
@@ -1711,7 +1712,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1785,16 +1786,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1956558796}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 5
-  fuerzaPropulsion: 10
-  velocidadRotacion: 100
-  rangoDeteccionY: 2
-  fuerzaGiro: 30
+  velocidad: 10
+  fuerzaPropulsion: 1
+  velocidadRotacion: 1
+  rangoDeteccionY: 1
+  fuerzaGiro: 1
 --- !u!114 &1956558801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1807,9 +1808,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionResistance: 1
+  attractionResistance: 3.42
   canBeAffected: 1
   isWithinEventHorizon: 0
+--- !u!114 &1956558802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956558796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be0d60f88083ed945a4ae19a7e0b4129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuerzaPropulsion2: 1.5
 --- !u!1 &1973522091
 GameObject:
   m_ObjectHideFlags: 0

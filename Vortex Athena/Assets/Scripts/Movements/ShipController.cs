@@ -22,10 +22,10 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         // Movimiento hacia adelante
-        if (isMoving)
-        {
-            rb.AddForce(transform.up * velocidad);
-        }
+        //if (isMoving)
+        //{
+          //  rb.AddForce(transform.up * velocidad);
+        //}
 
         // Propulsión extra
         if (Input.GetKey(KeyCode.F))
@@ -39,6 +39,12 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Aplicar movimiento normal si el jugador presionó el botón en pantalla
+        if (isMoving)
+        {
+            rb.AddForce(transform.up * velocidad, ForceMode2D.Force);
+        }
+
         // Aplicar el giro de forma gradual
         if (girando)
         {

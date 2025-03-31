@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 71246856}
   - component: {fileID: 71246860}
   - component: {fileID: 71246859}
+  - component: {fileID: 71246861}
   m_Layer: 5
   m_Name: Run
   m_TagString: Untagged
@@ -203,19 +204,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71246857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1956558800}
-        m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
-        m_MethodName: StartMoving
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &71246857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +301,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelSystem: {fileID: 869553110}
+--- !u!114 &71246861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71246854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1956558802}
+          m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+          m_MethodName: StartMoving
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1956558802}
+          m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+          m_MethodName: StopMoving
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &297280329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,7 +1295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
-  maxAttractionForce: 20
+  maxAttractionForce: 100
   maxEffectDistance: 30
   attractionCurve: 2
   isActive: 1
@@ -1670,8 +1704,8 @@ GameObject:
   - component: {fileID: 1956558797}
   - component: {fileID: 1956558799}
   - component: {fileID: 1956558798}
-  - component: {fileID: 1956558800}
   - component: {fileID: 1956558801}
+  - component: {fileID: 1956558802}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Untagged
@@ -1711,7 +1745,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1778,23 +1812,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1956558800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956558796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 5
-  fuerzaPropulsion: 10
-  velocidadRotacion: 100
-  rangoDeteccionY: 2
-  fuerzaGiro: 30
 --- !u!114 &1956558801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1810,6 +1827,23 @@ MonoBehaviour:
   attractionResistance: 1
   canBeAffected: 1
   isWithinEventHorizon: 0
+--- !u!114 &1956558802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956558796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 1
+  fuerzaPropulsion: 10
+  velocidadRotacion: 20
+  rangoDeteccionY: 5
+  fuerzaGiro: 20
 --- !u!1 &1973522091
 GameObject:
   m_ObjectHideFlags: 0

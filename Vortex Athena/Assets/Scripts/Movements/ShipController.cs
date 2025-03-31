@@ -3,10 +3,20 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
 
+    [Header("Propiedades de Movimiento")]
+    [Tooltip("La velocidad base con la que la nave va a moverse")]
     public float velocidad = 5f;
+
+    [Tooltip("La fuera que tendra la nave cuando presione la tecla 'F' ")]
     public float fuerzaPropulsion = 10f;
+
+    [Tooltip("La velocidad con la que la nave va a girar")]
     public float velocidadRotacion = 100f;
+
+    [Tooltip("En que distancia empiea a girar la nave con respecto al colider")]
     public float rangoDeteccionY = 2f; // Distancia en la que empieza a girar
+
+    [Tooltip("La intensidad con la que la nave va a girar")]
     public float fuerzaGiro = 30f; // Intensidad del giro automático
 
     private Rigidbody2D rb;

@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 71246856}
   - component: {fileID: 71246860}
   - component: {fileID: 71246859}
+  - component: {fileID: 71246861}
   m_Layer: 5
   m_Name: Run
   m_TagString: Untagged
@@ -203,19 +204,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71246857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1956558802}
-        m_TargetAssemblyTypeName: ShipControllerSanti, Assembly-CSharp
-        m_MethodName: ActivarPropulsion
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &71246857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +301,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelSystem: {fileID: 869553110}
+--- !u!114 &71246861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71246854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1956558802}
+          m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+          m_MethodName: StartMoving
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1956558802}
+          m_TargetAssemblyTypeName: ShipController, Assembly-CSharp
+          m_MethodName: StopMoving
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &297280329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,15 +1234,15 @@ RectTransform:
   m_GameObject: {fileID: 1034672502}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 4.375, y: 4.375, z: 4.375}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 951692193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: -1}
-  m_SizeDelta: {x: 44.14, y: 44.14}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1034672504
 MonoBehaviour:
@@ -1261,9 +1295,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 5
-  maxAttractionForce: 800
+  maxAttractionForce: 100
   maxEffectDistance: 30
-  attractionCurve: 7.34
+  attractionCurve: 2
   isActive: 1
   coreColor: {r: 1, g: 0, b: 0, a: 1}
   outerColor: {r: 0.2, g: 0.05, b: 0.3, a: 0.7}
@@ -1276,7 +1310,7 @@ MonoBehaviour:
   animateProperties: 1
   pulseSpeed: 1
   pulseStrengthAmount: 0.2
-  pulseRadiusAmount: 0.075
+  pulseRadiusAmount: 0.1
   rotationVariation: 1
   colorCycleSpeed: 0.5
   useRandomSeed: 1
@@ -1670,12 +1704,11 @@ GameObject:
   - component: {fileID: 1956558797}
   - component: {fileID: 1956558799}
   - component: {fileID: 1956558798}
-  - component: {fileID: 1956558800}
   - component: {fileID: 1956558801}
   - component: {fileID: 1956558802}
   m_Layer: 0
   m_Name: Nave A
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1689,8 +1722,8 @@ Transform:
   m_GameObject: {fileID: 1956558796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.0946, y: 1.1415, z: 0}
-  m_LocalScale: {x: 0.280644, y: 0.280644, z: 0.280644}
+  m_LocalPosition: {x: 5.01, y: -2.45, z: 0}
+  m_LocalScale: {x: 0.25983188, y: 0.24283116, z: 0.42}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 572824976}
@@ -1722,7 +1755,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1956558799
 SpriteRenderer:
@@ -1779,23 +1812,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1956558800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956558796}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 10
-  fuerzaPropulsion: 1
-  velocidadRotacion: 1
-  rangoDeteccionY: 1
-  fuerzaGiro: 1
 --- !u!114 &1956558801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1808,7 +1824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionResistance: 3.42
+  attractionResistance: 1
   canBeAffected: 1
   isWithinEventHorizon: 0
 --- !u!114 &1956558802
@@ -1820,10 +1836,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1956558796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be0d60f88083ed945a4ae19a7e0b4129, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fuerzaPropulsion2: 1.5
+  velocidad: 1
+  distanciaMaxGiro: 3
+  intensidadGiro: 0.2
+  estabilidadRotacion: 5
 --- !u!1 &1973522091
 GameObject:
   m_ObjectHideFlags: 0

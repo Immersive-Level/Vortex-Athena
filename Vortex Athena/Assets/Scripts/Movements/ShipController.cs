@@ -3,16 +3,22 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
 
+    [Header("Propiedades de Movimiento")]
+    [Tooltip("La velocidad base con la que la nave va a moverse")]
     public float velocidad = 5f;
-    public float fuerzaPropulsion = 10f;
-    public float velocidadRotacion = 100f;
-    public float rangoDeteccionY = 2f; // Distancia en la que empieza a girar
-    public float fuerzaGiro = 30f; // Intensidad del giro automático
+
+    [Tooltip("Distancia en la que la nave empieza a girar para alejarse")]
+    public float distanciaMaxGiro = 3f; // Distancia en la que la nave empieza a girar para alejarse
+
+    [Tooltip("Intensidad con la que gira al acercarse")]
+    public float intensidadGiro = 2f; // Intensidad con la que gira al acercarse
+
+    [Tooltip("Factor de estabilización cuando hay colisiones")]
+    public float estabilidadRotacion = 5f; // Factor de estabilización cuando hay colisiones
 
     private Rigidbody2D rb;
-    private bool girando = false;
-    private float direccionGiro = 0f;
     private bool isMoving = false;
+    private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
 
     void Start()
     {
@@ -22,55 +28,24 @@ public class ShipController : MonoBehaviour
     void Update()
     {
         // Movimiento hacia adelante
-        //if (isMoving)
-        //{
-          //  rb.AddForce(transform.up * velocidad);
-        //}
-
-        // Propulsión extra
-        if (Input.GetKey(KeyCode.F))
+        if (isMoving)
         {
-            rb.AddForce(transform.up * fuerzaPropulsion);
+            rb.AddForce(transform.up * velocidad);
         }
-
-        // Verificar si está cerca de un punto Y y determinar la dirección de giro
-        DetectarPuntoYGiro();
+        // Calcular distancia al centro y aplicar giro progresivo
+        float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
+        if (distanciaAlCentro < distanciaMaxGiro)
+        {
+            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve más fuerte cerca del centro
+            float anguloGiro = factorGiro * intensidadGiro;
+            transform.Rotate(Vector3.forward, anguloGiro);
+        }
     }
 
     void FixedUpdate()
     {
-        // Aplicar movimiento normal si el jugador presionó el botón en pantalla
-        if (isMoving)
-        {
-            rb.AddForce(transform.up * velocidad, ForceMode2D.Force);
-        }
-
-        // Aplicar el giro de forma gradual
-        if (girando)
-        {
-            rb.rotation += direccionGiro * velocidadRotacion * Time.fixedDeltaTime;
-        }
-    }
-
-    void DetectarPuntoYGiro()
-    {
-        float puntoY = Mathf.Round(transform.position.y / 10) * 10; // Redondear a múltiplos de 10
-        float distanciaY = Mathf.Abs(transform.position.y - puntoY);
-
-        if (distanciaY < rangoDeteccionY)
-        {
-            girando = true;
-
-            // Si la nave está a la izquierda del punto, girar a la derecha
-            if (transform.position.x < 0)
-                direccionGiro = 1f;
-            else
-                direccionGiro = -1f;
-        }
-        else
-        {
-            girando = false;
-        }
+        // Estabilizador automático para evitar giros descontrolados
+        rb.angularVelocity *= 1f - (estabilidadRotacion * Time.fixedDeltaTime);
     }
     public void StartMoving()
     {

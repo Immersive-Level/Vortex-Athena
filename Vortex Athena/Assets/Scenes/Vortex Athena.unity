@@ -726,7 +726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1234,7 +1234,7 @@ RectTransform:
   m_GameObject: {fileID: 1034672502}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalScale: {x: 4.375, y: 4.375, z: 4.375}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 951692193}
@@ -1708,7 +1708,7 @@ GameObject:
   - component: {fileID: 1956558802}
   m_Layer: 0
   m_Name: Nave A
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1722,8 +1722,8 @@ Transform:
   m_GameObject: {fileID: 1956558796}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.289, y: 1.4, z: 0}
-  m_LocalScale: {x: 0.42, y: 0.42, z: 0.42}
+  m_LocalPosition: {x: 5.01, y: -2.45, z: 0}
+  m_LocalScale: {x: 0.25983188, y: 0.24283116, z: 0.42}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 572824976}
@@ -1755,7 +1755,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1956558799
 SpriteRenderer:
@@ -1840,10 +1840,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 1
-  fuerzaPropulsion: 10
-  velocidadRotacion: 20
-  rangoDeteccionY: 5
-  fuerzaGiro: 20
+  distanciaMaxGiro: 3
+  intensidadGiro: 4
+  estabilidadRotacion: 5
 --- !u!1 &1973522091
 GameObject:
   m_ObjectHideFlags: 0

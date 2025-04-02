@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 1
   distanciaMaxGiro: 3
-  intensidadGiro: 4
+  intensidadGiro: 0.2
   estabilidadRotacion: 5
 --- !u!1 &1973522091
 GameObject:

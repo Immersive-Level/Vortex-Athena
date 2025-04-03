@@ -19,6 +19,7 @@ public class ShipController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isMoving = false;
     private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
+    private int direccionGiro = 1; // Dirección del giro (1 o -1)
 
     void Start()
     {
@@ -27,29 +28,31 @@ public class ShipController : MonoBehaviour
 
     void Update()
     {
-        // Movimiento hacia adelante
-        if (isMoving)
-        {
-            rb.AddForce(transform.up * velocidad);
-        }
-        // Calcular distancia al centro y aplicar giro progresivo
-        float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
-        if (distanciaAlCentro < distanciaMaxGiro)
-        {
-            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve más fuerte cerca del centro
-            float anguloGiro = factorGiro * intensidadGiro;
-            transform.Rotate(Vector3.forward, anguloGiro);
-        }
+        
     }
 
     void FixedUpdate()
-    {
+    {// Movimiento hacia adelante
+        if (isMoving)
+        {
+            rb.AddForce(transform.up * velocidad);
+
+        }
+        // Calcular distancia al centro y aplicar giro progresivo cuando la nave se acerca
+        float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
+        if (isMoving && distanciaAlCentro < distanciaMaxGiro)
+        {
+            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve más fuerte cerca del centro
+            float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
+            transform.Rotate(Vector3.forward, anguloGiro);
+        }
         // Estabilizador automático para evitar giros descontrolados
         rb.angularVelocity *= 1f - (estabilidadRotacion * Time.fixedDeltaTime);
     }
     public void StartMoving()
     {
         isMoving = true;
+        direccionGiro = (Random.value < 0.5f) ? -1 : 1; // Asignar una dirección de giro al iniciar el movimiento
     }
 
     public void StopMoving()

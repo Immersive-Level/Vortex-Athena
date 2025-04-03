@@ -204,7 +204,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71246857}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 543246455}
+        m_TargetAssemblyTypeName: InicioNave, Assembly-CSharp
+        m_MethodName: IniciarJuego
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71246857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,6 +594,52 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &543246454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 543246456}
+  - component: {fileID: 543246455}
+  m_Layer: 0
+  m_Name: InicioNave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &543246455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543246454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d061d8ee3be9f7347819d37b0d267ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nave: {fileID: 1367599844}
+  impulsoInicial: 2
+--- !u!4 &543246456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543246454}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.5813673, y: -0.987286, z: 1.1312085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1973522092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &571727898
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1330,11 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5000002
+--- !u!1 &1367599844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2418510514111481123, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
+  m_PrefabInstance: {fileID: 5108341258054575185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402602725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1722,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4484956932422828941, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
   m_PrefabInstance: {fileID: 5108341258054575185}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1367599844}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
@@ -1694,6 +1757,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 543246456}
   - {fileID: 1956558797}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1708,6 +1772,22 @@ PrefabInstance:
     - target: {fileID: 2418510514111481123, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
       propertyPath: m_Name
       value: Nave A
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484956932422828941, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
+      propertyPath: velocidad
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484956932422828941, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
+      propertyPath: intensidadGiro
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484956932422828941, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
+      propertyPath: distanciaMaxGiro
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484956932422828941, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
+      propertyPath: estabilidadRotacion
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5396085897911888041, guid: deadc84800b7e1e4c9c89d7b44dd91b4, type: 3}
       propertyPath: m_LocalPosition.x

@@ -30,7 +30,7 @@ public class BlackHoleAttractionManager : MonoBehaviour
     {
         // Buscar todos los agujeros negros y objetos afectables al inicio
         FindAllBlackHoles();
-        FindAllAffectableObjects();
+        //FindAllAffectableObjects();
     }
 
     private void Update()

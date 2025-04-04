@@ -625,6 +625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nave: {fileID: 1367599844}
   impulsoInicial: 2
+  blackHoleManager: {fileID: 1634088848}
 --- !u!4 &543246456
 Transform:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ public class InicioNave : MonoBehaviour
     public GameObject nave;  // Referencia a la nave
     public float impulsoInicial = 5f; // Fuerza del impulso inicial
     private bool juegoIniciado = false; // Controla si la nave ya apareció
+    [SerializeField] private BlackHoleAttractionManager blackHoleManager;
 
     void Start()
     {
@@ -38,6 +39,8 @@ public class InicioNave : MonoBehaviour
             // Aplicar impulso inicial
             Vector2 direccionInicial = new Vector2(1, 1).normalized; // Ajustable
             rb.linearVelocity = direccionInicial * impulsoInicial; // Usamos velocity en vez de AddForce
+
+            blackHoleManager.FindAllAffectableObjects();
         }
     }
 }

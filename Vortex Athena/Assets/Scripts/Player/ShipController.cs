@@ -8,19 +8,19 @@ public class ShipController : MonoBehaviour
     public float velocidad = 5f;
 
     [Tooltip("Distancia en la que la nave empieza a girar para alejarse")]
-    public float distanciaMaxGiro = 3f; // Distancia en la que la nave empieza a girar para alejarse
+    public float distanciaMaxGiro = 5f; // Distancia en la que la nave empieza a girar para alejarse
 
     [Tooltip("Intensidad con la que gira al acercarse")]
     public float intensidadGiro = 2f; // Intensidad con la que gira al acercarse
 
     [Tooltip("Factor de estabilización cuando hay colisiones")]
-    public float estabilidadRotacion = 5f; // Factor de estabilización cuando hay colisiones
+    public float estabilidadRotacion = 3f; // Factor de estabilización cuando hay colisiones
 
     [Tooltip("Distancia para empezar a girar cerca del borde (Radio indicador visual color rojo)")]
-    public float distanciaBorde = 3f; // Distancia para empezar a girar cerca del borde
+    public float distanciaBorde = 2f; // Distancia para empezar a girar cerca del borde
 
     [Tooltip("Límite de ángulo de giro al evitar el borde")]
-    public float maxAnguloBorde = 30f; // Límite de ángulo de giro al evitar el borde
+    public float maxAnguloBorde = 20f; // Límite de ángulo de giro al evitar el borde
 
     private Rigidbody2D rb;
     private bool isMoving = false;

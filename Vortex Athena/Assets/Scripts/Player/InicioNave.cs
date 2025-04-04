@@ -11,6 +11,17 @@ public class InicioNave : MonoBehaviour
     {
         // Ocultar la nave al inicio
         nave.SetActive(false);
+
+        // Obtener referencia al BlackHoleAttractionManager si no está asignada
+        if (blackHoleManager == null)
+        {
+            blackHoleManager = BlackHoleAttractionManager.Instance;
+
+            if (blackHoleManager == null)
+            {
+                Debug.LogWarning("InicioNave: No se encontró un BlackHoleAttractionManager. La atracción gravitacional podría no funcionar correctamente.");
+            }
+        }
     }
 
     void Update()
@@ -40,7 +51,34 @@ public class InicioNave : MonoBehaviour
             Vector2 direccionInicial = new Vector2(1, 1).normalized; // Ajustable
             rb.linearVelocity = direccionInicial * impulsoInicial; // Usamos velocity en vez de AddForce
 
-            blackHoleManager.FindAllAffectableObjects();
+            // Registrar explícitamente la nave en el BlackHoleAttractionManager
+            if (blackHoleManager != null)
+            {
+                AffectedByBlackHole affected = nave.GetComponent<AffectedByBlackHole>();
+                if (affected != null)
+                {
+                    blackHoleManager.RegisterAffectableObject(affected);
+                    Debug.Log("Nave registrada en BlackHoleAttractionManager");
+                }
+                else
+                {
+                    Debug.LogWarning("InicioNave: La nave no tiene el componente AffectedByBlackHole");
+                }
+            }
+        }
+    }
+
+    // Si la nave se destruye o desactiva, desregistrarla
+    void OnDisable()
+    {
+        if (blackHoleManager != null && nave != null)
+        {
+            AffectedByBlackHole affected = nave.GetComponent<AffectedByBlackHole>();
+            if (affected != null)
+            {
+                blackHoleManager.UnregisterAffectableObject(affected);
+                Debug.Log("Nave desregistrada del BlackHoleAttractionManager");
+            }
         }
     }
 }

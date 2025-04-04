@@ -16,6 +16,12 @@ public class ShipController : MonoBehaviour
     [Tooltip("Factor de estabilización cuando hay colisiones")]
     public float estabilidadRotacion = 5f; // Factor de estabilización cuando hay colisiones
 
+    [Tooltip("Distancia para empezar a girar cerca del borde (Radio indicador visual color rojo)")]
+    public float distanciaBorde = 3f; // Distancia para empezar a girar cerca del borde
+
+    [Tooltip("Límite de ángulo de giro al evitar el borde")]
+    public float maxAnguloBorde = 30f; // Límite de ángulo de giro al evitar el borde
+
     private Rigidbody2D rb;
     private bool isMoving = false;
     private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
@@ -46,9 +52,28 @@ public class ShipController : MonoBehaviour
             float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
             transform.Rotate(Vector3.forward, anguloGiro);
         }
+
+        // Evitar el borde del mapa
+        EvitarBorde();
+
         // Estabilizador automático para evitar giros descontrolados
         rb.angularVelocity *= 1f - (estabilidadRotacion * Time.fixedDeltaTime);
     }
+
+    void EvitarBorde()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, distanciaBorde, LayerMask.GetMask("Borde"));
+
+        if (hit.collider != null)
+        {
+            // Debug.Log("¡Borde detectado con Raycast!");
+
+            float factorGiroBorde = Mathf.Clamp01((distanciaBorde - hit.distance) / distanciaBorde);
+            float anguloBorde = factorGiroBorde * maxAnguloBorde * direccionGiro;
+            transform.Rotate(Vector3.forward, anguloBorde);
+        }
+    }
+
     public void StartMoving()
     {
         isMoving = true;
@@ -58,5 +83,11 @@ public class ShipController : MonoBehaviour
     public void StopMoving()
     {
         isMoving = false;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, distanciaBorde);
     }
 }

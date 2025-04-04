@@ -435,7 +435,7 @@ GameObject:
   m_Component:
   - component: {fileID: 332755335}
   - component: {fileID: 332755336}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bordes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1839,10 +1839,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 0.8
-  distanciaMaxGiro: 5
-  intensidadGiro: 0.6
+  velocidad: 5
+  distanciaMaxGiro: 2
+  intensidadGiro: 2
   estabilidadRotacion: 3
+  distanciaBorde: 1.5
+  maxAnguloBorde: 7
 --- !u!1 &1973522091
 GameObject:
   m_ObjectHideFlags: 0

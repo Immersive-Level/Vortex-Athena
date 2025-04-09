@@ -22,6 +22,10 @@ public class ShipController : MonoBehaviour
     [Tooltip("Límite de ángulo de giro al evitar el borde")]
     public float maxAnguloBorde = 20f; // Límite de ángulo de giro al evitar el borde
 
+    [Header("Referencia GameObject")]
+    [Tooltip("Referencia del GameObject que contiene el script de la gasolina")]
+    public Boton consumeFuel;
+
     [Header("Controles")]
     [Tooltip("Tecla para activar el movimiento de la nave")]
     public KeyCode teclaMovimiento = KeyCode.Alpha1;
@@ -42,10 +46,12 @@ public class ShipController : MonoBehaviour
         if (Input.GetKeyDown(teclaMovimiento))
         {
             StartMoving();
+            consumeFuel.OnPress();
         }
         else if (Input.GetKeyUp(teclaMovimiento))
         {
             StopMoving();
+            consumeFuel.OnRelease();
         }
     }
 

@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7204119507103736358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6364927539648218483}
+  - component: {fileID: 8032667224593333203}
+  m_Layer: 0
+  m_Name: ResourceSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6364927539648218483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204119507103736358}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.109120384, y: -0.75664496, z: 2129.5632}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8032667224593333203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204119507103736358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6d62a2d0117274d9e0e9d462b8d269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourceInfoList:
+  - resourceType: {fileID: 11400000, guid: 504189298a8bf3749a403ebe89315719, type: 2}
+    prefab: {fileID: 315523300840096549, guid: 2fba0b9eb1e52124a8d54b53d6634a9d, type: 3}
+    spawnProbability: 1
+    initialPoolSize: 10
+  - resourceType: {fileID: 11400000, guid: 245f0bc72ca11604b81f989ddcd7df48, type: 2}
+    prefab: {fileID: 6421371012202734267, guid: d12edecaaae6ba44db9f8af8af64eaf3, type: 3}
+    spawnProbability: 0.5
+    initialPoolSize: 10
+  blackHole: {fileID: 0}
+  minSpawnRadius: 3
+  maxSpawnRadius: 5
+  spawnInterval: 2
+  maxActiveResources: 50
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  poolContainer: {fileID: 0}

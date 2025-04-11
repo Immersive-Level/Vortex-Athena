@@ -359,6 +359,8 @@ GameObject:
   - component: {fileID: 4245581896112512108}
   - component: {fileID: 7702197824256403181}
   - component: {fileID: 7532010679819498555}
+  - component: {fileID: 7714841270529153968}
+  - component: {fileID: 2276714564275110904}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -469,3 +471,38 @@ MonoBehaviour:
   minScale: 0.3
   scaleSmooth: 5
   respawnDelay: 3
+--- !u!114 &7714841270529153968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0bc95f8da605b4bb9c7b11ec0bd168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  scoreSystem: {fileID: 2276714564275110904}
+  fuelSystem: {fileID: 0}
+  collectEffect: {fileID: 0}
+  collectionRadius: 0.8
+--- !u!114 &2276714564275110904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f477ac25a87574180c1a03a5cbdf95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
+  scoreText: {fileID: 0}
+  scoreFormat: 'Puntos: {0}'
+  scoreEffect: {fileID: 0}
+  scoreSound: {fileID: 0}
+  playerID: 1

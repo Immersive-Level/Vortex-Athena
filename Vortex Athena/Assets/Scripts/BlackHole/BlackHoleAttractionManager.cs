@@ -30,7 +30,7 @@ public class BlackHoleAttractionManager : MonoBehaviour
     {
         // Buscar todos los agujeros negros y objetos afectables al inicio
         FindAllBlackHoles();
-        //FindAllAffectableObjects();
+        FindAllAffectableObjects();
     }
 
     private void Update()
@@ -49,41 +49,42 @@ public class BlackHoleAttractionManager : MonoBehaviour
         Debug.Log($"BlackHoleAttractionManager: Se encontraron {blackHoles.Count} agujeros negros.");
     }
 
-    // Método para encontrar todos los objetos afectables en la escena
     public void FindAllAffectableObjects()
     {
-        affectableObjects.Clear();
+        // No volvemos a agregar objetos que ya están en la lista
+        HashSet<AffectedByBlackHole> existingObjects = new HashSet<AffectedByBlackHole>(affectableObjects);
+
+        // Buscar todos los objetos afectables activos
         AffectedByBlackHole[] foundObjects = FindObjectsOfType<AffectedByBlackHole>();
-        affectableObjects.AddRange(foundObjects);
 
-        Debug.Log($"BlackHoleAttractionManager: Se encontraron {affectableObjects.Count} objetos afectables.");
-    }
-
-    // Registrar un nuevo agujero negro
-    public void RegisterBlackHole(BlackHole blackHole)
-    {
-        if (!blackHoles.Contains(blackHole))
+        int newObjectsCount = 0;
+        foreach (var obj in foundObjects)
         {
-            blackHoles.Add(blackHole);
+            // Verificar si ya está en la lista
+            if (!existingObjects.Contains(obj))
+            {
+                // Si no hay filtro de capa, agregar todos
+                affectableObjects.Add(obj);
+                newObjectsCount++;
+            }
+        }
+
+        if (newObjectsCount > 0)
+        {
+            Debug.Log($"BlackHoleAttractionManager: Se encontraron {newObjectsCount} nuevos objetos afectables.");
         }
     }
 
-    // Desregistrar un agujero negro
-    public void UnregisterBlackHole(BlackHole blackHole)
-    {
-        blackHoles.Remove(blackHole);
-    }
-
-    // Registrar un objeto afectable
+    // Registrar un objeto afectable (llamado desde ResourceSpawner cuando activa un recurso)
     public void RegisterAffectableObject(AffectedByBlackHole obj)
     {
-        if (!affectableObjects.Contains(obj))
+        if (obj != null && !affectableObjects.Contains(obj))
         {
             affectableObjects.Add(obj);
         }
     }
 
-    // Desregistrar un objeto afectable
+    // Desregistrar un objeto afectable (llamado cuando se desactiva un recurso)
     public void UnregisterAffectableObject(AffectedByBlackHole obj)
     {
         affectableObjects.Remove(obj);

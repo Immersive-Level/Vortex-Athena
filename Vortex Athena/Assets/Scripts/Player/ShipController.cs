@@ -103,6 +103,23 @@ public class ShipController : MonoBehaviour
         isMoving = false;
     }
 
+    public void PushShip(Vector2 inForceDirection, float inForceMagnitude)
+    {
+        // Aplicamos la fuerza
+        rb.AddForce(inForceDirection * inForceMagnitude, ForceMode2D.Impulse);
+
+        // Calculamos los puntos inicial y final del rayo
+        Vector2 start = transform.position; // Punto inicial del rayo (posición actual de la nave)
+        Vector2 end = start + inForceDirection * inForceMagnitude; // Punto final del rayo
+
+        // Dibujamos el rayo
+        Debug.DrawRay(start, inForceDirection * inForceMagnitude, Color.red, 2.0f); // Rayo principal
+
+        Debug.DrawLine(end, end + Vector2.one * 0.1f, Color.blue, 2.0f); // Marcador en el final (azul)
+
+        Debug.Log($"Rayo dibujado desde {start} hasta {end} en dirección {inForceDirection}");
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

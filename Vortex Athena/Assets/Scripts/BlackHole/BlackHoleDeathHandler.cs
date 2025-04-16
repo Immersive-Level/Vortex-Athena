@@ -67,6 +67,11 @@ public class BlackHoleDeathHandler : MonoBehaviour
         }
     }
 
+    public void Death()
+    {
+        StartCoroutine(HandleDeathAndRespawn());
+    }
+
     private IEnumerator HandleDeathAndRespawn()
     {
         isDead = true;
@@ -107,5 +112,10 @@ public class BlackHoleDeathHandler : MonoBehaviour
         {
             shipVisual.SetActive(true);
         }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

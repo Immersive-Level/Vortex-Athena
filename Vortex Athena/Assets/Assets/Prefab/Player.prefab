@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8967864817423197334}
   m_Layer: 0
   m_Name: InicioNave A
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 4664018509971598235}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5818877364331200004}
   m_Layer: 0
   m_Name: ShipVisual
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,9 +179,10 @@ GameObject:
   m_Component:
   - component: {fileID: 469429294375549492}
   - component: {fileID: 8997046992031912739}
+  - component: {fileID: 8360383459421788156}
   m_Layer: 0
   m_Name: NA_Frente
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -259,6 +260,19 @@ PolygonCollider2D:
       - {x: 0.3769841, y: 0.17117386}
       - {x: 0.29572555, y: 0.54092216}
   m_UseDelaunayMesh: 0
+--- !u!114 &8360383459421788156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108453797240209174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d9d13f49ccf0849bab80f8825641a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,9 +283,10 @@ GameObject:
   m_Component:
   - component: {fileID: 525559470693097151}
   - component: {fileID: 5348490425132755304}
+  - component: {fileID: 2385693003566607440}
   m_Layer: 0
   m_Name: NA_Atras
-  m_TagString: Untagged
+  m_TagString: Nave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +352,7 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.52579415, y: -0.103846356}
+    - - {x: 0.5257941, y: -0.103846356}
       - {x: 0.04343533, y: -0.111718476}
       - {x: -0.4247867, y: -0.09642795}
       - {x: -0.11446467, y: -0.48744607}
@@ -346,6 +361,19 @@ PolygonCollider2D:
       - {x: 0.19057027, y: -0.49439788}
       - {x: 0.31432116, y: -0.37567484}
   m_UseDelaunayMesh: 0
+--- !u!114 &2385693003566607440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360204419760076277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d9d13f49ccf0849bab80f8825641a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
 --- !u!1 &8452753963668889667
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +389,7 @@ GameObject:
   - component: {fileID: 7532010679819498555}
   - component: {fileID: 7714841270529153968}
   - component: {fileID: 2276714564275110904}
+  - component: {fileID: 933410782465386759}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -506,3 +535,20 @@ MonoBehaviour:
   scoreEffect: {fileID: 0}
   scoreSound: {fileID: 0}
   playerID: 1
+--- !u!114 &933410782465386759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushMagnitude: 3
+  CollideDamageValue: 3
+  CollidersToIgnore:
+  - {fileID: 8997046992031912739}
+  - {fileID: 5348490425132755304}

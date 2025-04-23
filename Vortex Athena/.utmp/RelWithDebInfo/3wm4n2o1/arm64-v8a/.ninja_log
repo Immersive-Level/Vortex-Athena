@@ -1,0 +1,12 @@
+# ninja log v5
+101	983	7671346978202188	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	4ac7338f75ca9c04
+986	2287	7671346991247264	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3wm4n2o1/obj/arm64-v8a/libswappywrapper.so	e4efdd47562aae5a
+54	2727	7671346995531993	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	afb7e1871f9dd3cf
+73	2834	7671346996335804	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	429ddd5266540341
+38	2978	7671346998421754	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	4e232c0982aebdbb
+89	2991	7671346998120549	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	fc3a422fe103cfad
+4	3097	7671346999744272	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	5455a3aae4dc1857
+81	3159	7671346999801207	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	d493da261e400ac2
+62	3506	7671347003895559	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	b12e4fde4b01f087
+46	3757	7671347006411829	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	8b921f83135c7266
+3758	3951	7671347008471836	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3wm4n2o1/obj/arm64-v8a/libgame.so	3096f5e238a3d7d7

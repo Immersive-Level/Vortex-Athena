@@ -1,120 +1,140 @@
 using UnityEngine;
 
 /// <summary>
-/// Componente que permite a un jugador recolectar recursos.
-/// Se debe agregar al objeto del jugador junto con ShipController.
+/// Componente que permite al jugador recolectar recursos
 /// </summary>
 public class ResourceCollector : MonoBehaviour
 {
     [Tooltip("ID del jugador para identificación")]
     public int playerID = 1;
-    
-    [Tooltip("Referencia al sistema de puntuación del jugador")]
+
+    [Tooltip("Referencia al sistema de puntuación")]
     public PlayerScoreSystem scoreSystem;
-    
-    [Tooltip("Referencia al sistema de combustible del jugador")]
+
+    [Tooltip("Referencia al sistema de combustible")]
     public Fuel_System fuelSystem;
-    
-    [Tooltip("Efecto visual al recolectar un recurso")]
+
+    [Tooltip("Efecto visual al recolectar")]
     public GameObject collectEffect;
-    
-    [Tooltip("Radio para detectar colisiones con recursos")]
+
+    [Tooltip("Radio para detectar recursos")]
     public float collectionRadius = 0.8f;
-    
+
+    [Tooltip("Capa de recursos recolectables")]
+    public LayerMask resourceLayer;
+
+    [Tooltip("Usar verificación adicional con OverlapCircle")]
+    public bool useCircleCheck = true;
+
+    [Tooltip("Intervalo para verificación adicional")]
+    public float checkInterval = 0.2f;
+
+    // Control de tiempo para verificación adicional
+    private float lastCheckTime;
+
+    // Buffer para resultados de OverlapCircle para evitar creación de arrays
+    private Collider2D[] colliderBuffer = new Collider2D[10];
+
     private void Start()
     {
-        // Buscar componentes en el mismo objeto si no están asignados
+        // Auto-referencias si no están asignadas
         if (scoreSystem == null)
         {
             scoreSystem = GetComponent<PlayerScoreSystem>();
         }
-        
+
         if (fuelSystem == null)
         {
             fuelSystem = GetComponent<Fuel_System>();
         }
     }
-    
-    /// <summary>
-    /// Método llamado cuando un recurso de tipo Fuel es recolectado
-    /// </summary>
-    /// <param name="amount">Cantidad de combustible</param>
-    public void CollectFuel(float amount)
+
+    private void Update()
     {
-        if (fuelSystem != null)
+        // Verificación adicional con OverlapCircle si está habilitada
+        if (useCircleCheck && Time.time > lastCheckTime + checkInterval)
         {
-            fuelSystem.AddFuel(amount);
+            CheckNearbyResources();
+            lastCheckTime = Time.time;
         }
     }
-    
+
     /// <summary>
-    /// Método llamado cuando un recurso de tipo Points es recolectado
+    /// Verifica recursos cercanos usando OverlapCircle
     /// </summary>
-    /// <param name="points">Cantidad de puntos</param>
-    public void CollectPoints(int points)
+    private void CheckNearbyResources()
     {
-        if (scoreSystem != null)
+        // Usar buffer preasignado para evitar creación de arrays
+        int count = Physics2D.OverlapCircleNonAlloc(transform.position, collectionRadius, colliderBuffer, resourceLayer);
+
+        for (int i = 0; i < count; i++)
         {
-            scoreSystem.AddScore(points);
+            // Verificar si es un recurso válido
+            Collider2D collider = colliderBuffer[i];
+            if (collider == null) continue;
+
+            CollectibleResource resource = collider.GetComponent<CollectibleResource>();
+            if (resource != null && !resource.isCollected)
+            {
+                ProcessResource(resource);
+
+                // Efecto visual
+                if (collectEffect != null)
+                {
+                    Instantiate(collectEffect, collider.transform.position, Quaternion.identity);
+                }
+            }
         }
     }
-    
+
     /// <summary>
-    /// Maneja la colección de recursos mediante colisión
+    /// Procesa la recolección según el tipo de recurso
+    /// </summary>
+    private void ProcessResource(CollectibleResource resource)
+    {
+        if (resource == null || resource.resourceType == null) return;
+
+        // Aplicar efecto según tipo
+        switch (resource.resourceType.effect)
+        {
+            case ResourceType.ResourceEffect.Fuel:
+                if (fuelSystem != null)
+                {
+                    fuelSystem.AddFuel(resource.resourceType.effectAmount);
+                }
+                break;
+
+            case ResourceType.ResourceEffect.Points:
+                if (scoreSystem != null)
+                {
+                    scoreSystem.AddScore(Mathf.RoundToInt(resource.resourceType.effectAmount));
+                }
+                break;
+        }
+
+        // Marcar como recolectado
+        resource.CollectedByPlayer();
+    }
+
+    /// <summary>
+    /// Detección por colisión
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Verificar si es un recurso
         CollectibleResource resource = other.GetComponent<CollectibleResource>();
-        
-        if (resource != null)
+        if (resource != null && !resource.isCollected)
         {
-            // Procesar el recurso según su tipo
             ProcessResource(resource);
-            
-            // Crear efecto de recolección
+
+            // Efecto visual
             if (collectEffect != null)
             {
                 Instantiate(collectEffect, other.transform.position, Quaternion.identity);
             }
         }
     }
-    
-    /// <summary>
-    /// Procesa un recurso según su tipo
-    /// </summary>
-    private void ProcessResource(CollectibleResource resource)
-    {
-        if (resource.resourceType != null)
-        {
-            // Aplicar efecto según el tipo
-            if (resource.resourceType.effect == ResourceType.ResourceEffect.Fuel)
-            {
-                CollectFuel(resource.resourceType.effectAmount);
-            }
-            else if (resource.resourceType.effect == ResourceType.ResourceEffect.Points)
-            {
-                CollectPoints(Mathf.RoundToInt(resource.resourceType.effectAmount));
-            }
-            
-            // Reproducir sonido si tiene
-            if (resource.resourceType.collectSound != null)
-            {
-                AudioSource.PlayClipAtPoint(resource.resourceType.collectSound, transform.position);
-            }
-            
-            // Mostrar efecto si tiene
-            if (resource.resourceType.collectEffect != null)
-            {
-                Instantiate(resource.resourceType.collectEffect, resource.transform.position, Quaternion.identity);
-            }
-            
-            // Marcar como recolectado
-            resource.CollectedByPlayer();
-        }
-    }
-    
-    // Visualizar el radio de recolección
+
+    // Visualizar radio de recolección
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0.2f, 0.8f, 0.2f, 0.3f);

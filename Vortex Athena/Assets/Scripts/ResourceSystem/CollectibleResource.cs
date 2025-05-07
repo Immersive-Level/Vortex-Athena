@@ -2,7 +2,6 @@ using UnityEngine;
 
 /// <summary>
 /// Componente que representa un recurso recolectable en el juego
-/// Se integra con AffectedByBlackHole para ser atraído por el agujero negro
 /// </summary>
 public class CollectibleResource : MonoBehaviour
 {
@@ -23,61 +22,84 @@ public class CollectibleResource : MonoBehaviour
 
     // Referencias a componentes
     private SpriteRenderer spriteRenderer;
+    private Collider2D resourceCollider;
     private AffectedByBlackHole affectedByBlackHole;
+    private ResourceSpawner spawner;
     private Transform blackHoleTransform;
-    private bool isCollected = false;
+
+    // Estado del recurso - público para que el ResourceSpawner pueda verificarlo directamente
+    [HideInInspector] public bool isCollected = false;
 
     // Variables para efectos visuales
     private Vector3 rotationAxis;
     private float pulseTimer;
     private Vector3 originalScale;
+    private float activationTime;
 
     private void Awake()
     {
-        // Obtener referencias a los componentes
+        // Obtener referencias a componentes
         spriteRenderer = GetComponent<SpriteRenderer>();
+        resourceCollider = GetComponent<Collider2D>();
         affectedByBlackHole = GetComponent<AffectedByBlackHole>();
 
-        // Agregar el componente AffectedByBlackHole si no existe
-        if (affectedByBlackHole == null)
-        {
-            affectedByBlackHole = gameObject.AddComponent<AffectedByBlackHole>();
-        }
+        // Ejes de rotación fijos para mejorar rendimiento
+        rotationAxis = Vector3.forward;
 
-        // Configurar el sprite si tiene SpriteRenderer
-        if (spriteRenderer != null && resourceType != null && resourceType.sprite != null)
-        {
-            spriteRenderer.sprite = resourceType.sprite;
-            spriteRenderer.color = resourceType.resourceColor;
-        }
-
-        // Configurar rotación aleatoria
-        if (randomRotation)
-        {
-            rotationAxis = Vector3.forward;
-            rotationSpeed = Random.Range(20f, 50f) * (Random.value > 0.5f ? 1f : -1f);
-        }
-
-        // Guardar la escala original para efectos de pulso
+        // Guardar escala original para efectos de pulso
         originalScale = transform.localScale;
+    }
 
-        // Suscribirse a eventos del horizonte de eventos
+    private void OnEnable()
+    {
+        // Registrar tiempo de activación
+        activationTime = Time.time;
+
+        // Referencia global al spawner (singleton)
+        spawner = ResourceSpawner.Instance;
+
+        // Solo buscar el agujero negro una vez al activarse
+        if (blackHoleTransform == null)
+        {
+            BlackHole blackHole = FindObjectOfType<BlackHole>();
+            if (blackHole != null)
+            {
+                blackHoleTransform = blackHole.transform;
+            }
+        }
+
+        // Suscribirse a eventos
         if (affectedByBlackHole != null)
         {
             affectedByBlackHole.onEnterEventHorizon += OnEnterEventHorizon;
         }
 
-        // Buscar el agujero negro para efectos visuales
-        BlackHole[] blackHoles = FindObjectsOfType<BlackHole>();
-        if (blackHoles.Length > 0)
+        // Configurar visual
+        if (spriteRenderer != null && resourceType != null)
         {
-            blackHoleTransform = blackHoles[0].transform;
+            spriteRenderer.sprite = resourceType.sprite;
+            spriteRenderer.color = resourceType.resourceColor;
+        }
+
+        // Configurar rotación
+        if (randomRotation)
+        {
+            rotationSpeed = Random.Range(20f, 50f) * (Random.value > 0.5f ? 1f : -1f);
+        }
+
+        // Asegurar estado inicial correcto
+        isCollected = false;
+
+        // Asegurar collider activo
+        if (resourceCollider != null)
+        {
+            resourceCollider.enabled = true;
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        // Desuscribirse de eventos para evitar memory leaks
+        // Desuscribirse de eventos al desactivar
         if (affectedByBlackHole != null)
         {
             affectedByBlackHole.onEnterEventHorizon -= OnEnterEventHorizon;
@@ -87,6 +109,14 @@ public class CollectibleResource : MonoBehaviour
     private void Update()
     {
         if (isCollected) return;
+
+        // Verificar tiempo de seguridad (30 segundos)
+        if (Time.time > activationTime + 30f && gameObject.activeInHierarchy)
+        {
+            // Desactivar si ha estado activo demasiado tiempo
+            ReturnToPool();
+            return;
+        }
 
         // Rotación constante para efecto visual
         if (randomRotation)
@@ -108,23 +138,13 @@ public class CollectibleResource : MonoBehaviour
         }
 
         // Verificar si está dentro del radio de absorción del agujero negro
-        CheckForBlackHoleAbsorption();
-    }
-
-    /// <summary>
-    /// Verifica si el recurso está dentro del radio de absorción del agujero negro
-    /// </summary>
-    private void CheckForBlackHoleAbsorption()
-    {
-        if (blackHoleTransform == null) return;
-
-        // Buscar el componente de absorción en el agujero negro
-        BlackHoleResourceAbsorber absorber = blackHoleTransform.GetComponent<BlackHoleResourceAbsorber>();
-
-        if (absorber != null && absorber.IsWithinAbsorptionRadius(transform.position))
+        if (blackHoleTransform != null)
         {
-            // Si está dentro del radio de absorción, ser absorbido
-            AbsorbedByBlackHole();
+            BlackHoleResourceAbsorber absorber = blackHoleTransform.GetComponent<BlackHoleResourceAbsorber>();
+            if (absorber != null && absorber.IsWithinAbsorptionRadius(transform.position))
+            {
+                AbsorbedByBlackHole();
+            }
         }
     }
 
@@ -133,10 +153,11 @@ public class CollectibleResource : MonoBehaviour
     /// </summary>
     private void OnEnterEventHorizon()
     {
-        // Opcional: Activar efectos visuales específicos al entrar en el horizonte
-        if (spriteRenderer != null)
+        if (isCollected) return;
+
+        // Aumentar brillo del color
+        if (spriteRenderer != null && resourceType != null)
         {
-            // Aumentar el brillo o intensidad del color
             spriteRenderer.color = new Color(
                 resourceType.resourceColor.r * 1.5f,
                 resourceType.resourceColor.g * 1.5f,
@@ -151,40 +172,35 @@ public class CollectibleResource : MonoBehaviour
     /// </summary>
     public void AbsorbedByBlackHole()
     {
+        // Evitar múltiples recolecciones
         if (isCollected) return;
         isCollected = true;
 
-        // Solo aplicar efecto de puntos si es de ese tipo
+        // Desactivar collider
+        if (resourceCollider != null)
+        {
+            resourceCollider.enabled = false;
+        }
+
+        // Distribuir puntos a jugadores si es de tipo Points
         if (resourceType != null && resourceType.effect == ResourceType.ResourceEffect.Points)
         {
-            // En un sistema multijugador, los puntos se asignarían al jugador más cercano
-            // o podrían distribuirse entre todos los jugadores
             PlayerScoreSystem[] playerScoreSystems = FindObjectsOfType<PlayerScoreSystem>();
-
             if (playerScoreSystems.Length > 0)
             {
-                // Asignar puntos al jugador más cercano, o a todos
+                int pointsPerPlayer = Mathf.RoundToInt(resourceType.effectAmount / playerScoreSystems.Length);
                 foreach (var scoreSystem in playerScoreSystems)
                 {
-                    scoreSystem.AddScore(Mathf.RoundToInt(resourceType.effectAmount / playerScoreSystems.Length));
+                    scoreSystem.AddScore(pointsPerPlayer);
                 }
             }
         }
 
-        // Reproducir sonido si tiene
-        if (resourceType != null && resourceType.collectSound != null)
-        {
-            AudioSource.PlayClipAtPoint(resourceType.collectSound, transform.position);
-        }
+        // Reproducir efectos
+        PlayEffects();
 
-        // Mostrar efecto si tiene
-        if (resourceType != null && resourceType.collectEffect != null)
-        {
-            Instantiate(resourceType.collectEffect, transform.position, Quaternion.identity);
-        }
-
-        // Devolver al pool o destruir
-        DeactivateResource();
+        // Devolver al pool después de un breve retraso para efectos
+        Invoke("ReturnToPool", 0.1f);
     }
 
     /// <summary>
@@ -195,24 +211,55 @@ public class CollectibleResource : MonoBehaviour
         if (isCollected) return;
         isCollected = true;
 
-        // La lógica de recolección específica ya se maneja en ResourceCollector
-        // Este método solo marca el recurso como recolectado y lo desactiva
+        // Desactivar collider
+        if (resourceCollider != null)
+        {
+            resourceCollider.enabled = false;
+        }
 
-        // Devolver al pool o destruir
-        DeactivateResource();
+        // Reproducir efectos
+        PlayEffects();
+
+        // Devolver al pool después de un breve retraso para efectos
+        Invoke("ReturnToPool", 0.1f);
     }
 
     /// <summary>
-    /// Desactiva o destruye el recurso
+    /// Reproduce efectos visuales y sonoros
     /// </summary>
-    private void DeactivateResource()
+    private void PlayEffects()
     {
-        // Buscar el ResourceSpawner para devolver al pool
-        ResourceSpawner spawner = FindObjectOfType<ResourceSpawner>();
+        if (resourceType == null) return;
 
+        // Sonido
+        if (resourceType.collectSound != null)
+        {
+            AudioSource.PlayClipAtPoint(resourceType.collectSound, transform.position);
+        }
+
+        // Efecto visual
+        if (resourceType.collectEffect != null)
+        {
+            Instantiate(resourceType.collectEffect, transform.position, Quaternion.identity);
+        }
+    }
+
+    /// <summary>
+    /// Devuelve este objeto al pool de recursos
+    /// </summary>
+    private void ReturnToPool()
+    {
+        // Cancelar cualquier invocación pendiente
+        CancelInvoke();
+
+        // Usar el singleton para devolver al pool
         if (spawner != null)
         {
             spawner.ReturnToPool(gameObject);
+        }
+        else if (ResourceSpawner.Instance != null)
+        {
+            ResourceSpawner.Instance.ReturnToPool(gameObject);
         }
         else
         {

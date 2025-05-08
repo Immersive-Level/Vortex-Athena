@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushMagnitude: 3
+  SlowMagnitude: 35
   CollideDamageValue: 3
   CollidersToIgnore:
   - {fileID: 8997046992031912739}

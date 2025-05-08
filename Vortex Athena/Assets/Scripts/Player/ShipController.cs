@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
@@ -32,6 +34,7 @@ public class ShipController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isMoving = false;
+    private bool hasEffect;
     private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
     private int direccionGiro = 1; // Dirección del giro (1 o -1)
 
@@ -102,6 +105,39 @@ public class ShipController : MonoBehaviour
     {
         isMoving = false;
     }
+    public void ResetMovemnt()
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+    }
+
+    /// <summary>
+    ///  reduce la velocidad de la nave por un tiempo determinado
+    /// </summary>
+    /// <param name="inSlowMagnitude">porcentaje de reducion de vel (0% - 100%)</param>
+    /// <param name="inSlowTime">Tiempo en segundos del slow</param>
+    public void SlowShip(float inSlowMagnitude, float inSlowTime = 1)
+    {
+        if (hasEffect) return;
+
+        StartCoroutine(SlowTimer(inSlowMagnitude, inSlowTime));
+    }
+
+    private IEnumerator SlowTimer(float inSlowMagnitude, float inSlowTime)
+    {
+        hasEffect = true;
+        float saveVelocity = velocidad;
+        float slowVelocity = (inSlowMagnitude * inSlowMagnitude) / 100;
+        velocidad -= slowVelocity;
+
+        Debug.Log($"Ship: {gameObject.name} slow: {saveVelocity} -> {slowVelocity} : {velocidad} for {inSlowTime}");
+
+        yield return new WaitForSeconds(inSlowTime);
+
+        Debug.Log($"Ship: {gameObject.name} slow end.");
+
+        velocidad = saveVelocity;
+    }
 
     public void PushShip(Vector2 inForceDirection, float inForceMagnitude)
     {
@@ -124,5 +160,10 @@ public class ShipController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distanciaBorde);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

@@ -43,9 +43,11 @@ public class ShipCollider : MonoBehaviour
                 combatSystem?.deathHandler.Death();
             }
         }
+        //////Empujon
+        //Vector2 forceDirection = (collision.transform.position - transform.position).normalized; // Dirección del empujon
+        //combatSystem?.shipController.PushShip(forceDirection, combatSystem.PushMagnitude);
 
-        Vector2 forceDirection = (collision.transform.position - transform.position).normalized; // Dirección del empujon
-        combatSystem?.shipController.PushShip(forceDirection, combatSystem.PushMagnitude);
+        combatSystem?.shipController.SlowShip(combatSystem.SlowMagnitude);
 
         combatSystem?.fuelSystem.RemoveFuel(combatSystem.CollideDamageValue);
     }

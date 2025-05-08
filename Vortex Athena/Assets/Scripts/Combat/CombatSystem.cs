@@ -8,6 +8,9 @@ public class CombatSystem : MonoBehaviour
 
     [Tooltip("valor de la fuerza del empujo contra el mapa o otras naves")]
     public float PushMagnitude;
+    [Range(0, 100)]
+    [Tooltip("valor del slow contra otras naves")]
+    public float SlowMagnitude = 35;
     [Tooltip("Daño recibido al chocar")]
     public float CollideDamageValue;
 

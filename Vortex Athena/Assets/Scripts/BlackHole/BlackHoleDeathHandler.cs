@@ -4,6 +4,8 @@ using System.Collections;
 
 public class BlackHoleDeathHandler : MonoBehaviour
 {
+    private CombatSystem _combatSystem;
+
     [Header("Referencias")]
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private Transform blackHoleCenter; // Para calcular distancia
@@ -27,6 +29,8 @@ public class BlackHoleDeathHandler : MonoBehaviour
     {
         originalScale = transform.localScale;
         countdownUI.SetActive(false);
+
+        _combatSystem = GetComponent<CombatSystem>();
     }
 
     private void Update()

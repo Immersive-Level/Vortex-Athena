@@ -13,6 +13,8 @@ public class BlackHoleDeathHandler : MonoBehaviour
     [SerializeField] public TextMeshProUGUI countdownText;
     [SerializeField] private GameObject shipVisual;
 
+    private ShipInvulnerability shipInvulnerability; // <<--- Referencia automática
+
     [Header("Configuración")]
     [SerializeField] private float maxDistanceForScaling = 5f;
     [SerializeField] private float minScale = 0.2f;
@@ -27,6 +29,13 @@ public class BlackHoleDeathHandler : MonoBehaviour
     {
         originalScale = transform.localScale;
         countdownUI.SetActive(false);
+
+        // 🔥 Buscamos automáticamente el componente ShipInvulnerability en el mismo GameObject
+        shipInvulnerability = GetComponent<ShipInvulnerability>();
+        if (shipInvulnerability == null)
+        {
+            Debug.LogWarning("No se encontró el componente ShipInvulnerability en el mismo GameObject.");
+        }
     }
 
     private void Update()
@@ -41,7 +50,6 @@ public class BlackHoleDeathHandler : MonoBehaviour
         }
         else if (!isDead)
         {
-            // Volver al tamaño original si escapa
             transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * scaleSmooth);
         }
     }
@@ -76,7 +84,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
     {
         isDead = true;
 
-        OcultarVisual();  // 🔥 Nave desaparece visualmente
+        OcultarVisual();
 
         countdownUI.SetActive(true);
 
@@ -94,7 +102,14 @@ public class BlackHoleDeathHandler : MonoBehaviour
         transform.position = respawnPoint.position;
         transform.localScale = originalScale;
 
-        MostrarVisual(); // 🔥 Nave reaparece visualmente
+        MostrarVisual();
+
+        // 🚀 Activamos la invulnerabilidad después del respawn
+        if (shipInvulnerability != null)
+        {
+            shipInvulnerability.ActivarInvulnerabilidad();
+        }
+
         isDead = false;
     }
 

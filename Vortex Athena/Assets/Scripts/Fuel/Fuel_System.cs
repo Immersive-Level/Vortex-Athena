@@ -83,17 +83,17 @@ public class Fuel_System : MonoBehaviour
         // Actualizar la barra de combustible
         UpdateFuelBar();
 
-        if (!showEffects) return;
-        // Efectos visuales y sonoros
-        if (fuelCollectEffect != null)
-        {
-            Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
-        }
+        //if (!showEffects) return;
+        //// Efectos visuales y sonoros
+        //if (fuelCollectEffect != null)
+        //{
+        //    Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
+        //}
 
-        if (fuelCollectSound != null)
-        {
-            AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
-        }
+        //if (fuelCollectSound != null)
+        //{
+        //    AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
+        //}
     }
 
     /// <summary>

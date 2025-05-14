@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
@@ -13,33 +13,29 @@ public class ShipController : MonoBehaviour
     [Tooltip("Intensidad con la que gira al acercarse")]
     public float intensidadGiro = 2f; // Intensidad con la que gira al acercarse
 
-    [Tooltip("Factor de estabilizaciÛn cuando hay colisiones")]
-    public float estabilidadRotacion = 3f; // Factor de estabilizaciÛn cuando hay colisiones
+    [Tooltip("Factor de estabilizaci√≥n cuando hay colisiones")]
+    public float estabilidadRotacion = 3f; // Factor de estabilizaci√≥n cuando hay colisiones
 
     [Tooltip("Distancia para empezar a girar cerca del borde (Radio indicador visual color rojo)")]
     public float distanciaBorde = 2f; // Distancia para empezar a girar cerca del borde
 
-    [Tooltip("LÌmite de ·ngulo de giro al evitar el borde")]
-    public float maxAnguloBorde = 20f; // LÌmite de ·ngulo de giro al evitar el borde
+    [Tooltip("L√≠mite de √°ngulo de giro al evitar el borde")]
+    public float maxAnguloBorde = 20f; // L√≠mite de √°ngulo de giro al evitar el borde
+
+    public Fuel_System fuelSystem;  // ‚Üê **L√çNEA A√ëADIDA**: referencia al sistema de combustible
 
     private Rigidbody2D rb;
     private bool isMoving = false;
     private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
-    private int direccionGiro = 1; // DirecciÛn del giro (1 o -1)
+    private int direccionGiro = 1; // Direcci√≥n del giro (1 o -1)
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    void Update()
-    {
-        
-    }
-
     void FixedUpdate()
     {// Movimiento hacia adelante
-        if (isMoving)
+        if (isMoving && fuelSystem.lineFuel.fillAmount > 0f)
         {
             rb.AddForce(transform.up * velocidad);
 
@@ -48,7 +44,7 @@ public class ShipController : MonoBehaviour
         float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
         if (isMoving && distanciaAlCentro < distanciaMaxGiro)
         {
-            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve m·s fuerte cerca del centro
+            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve m√°s fuerte cerca del centro
             float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
             transform.Rotate(Vector3.forward, anguloGiro);
         }
@@ -56,7 +52,7 @@ public class ShipController : MonoBehaviour
         // Evitar el borde del mapa
         EvitarBorde();
 
-        // Estabilizador autom·tico para evitar giros descontrolados
+        // Estabilizador autom√°tico para evitar giros descontrolados
         rb.angularVelocity *= 1f - (estabilidadRotacion * Time.fixedDeltaTime);
     }
 
@@ -66,7 +62,7 @@ public class ShipController : MonoBehaviour
 
         if (hit.collider != null)
         {
-            // Debug.Log("°Borde detectado con Raycast!");
+            // Debug.Log("¬°Borde detectado con Raycast!");
 
             float factorGiroBorde = Mathf.Clamp01((distanciaBorde - hit.distance) / distanciaBorde);
             float anguloBorde = factorGiroBorde * maxAnguloBorde * direccionGiro;
@@ -77,7 +73,7 @@ public class ShipController : MonoBehaviour
     public void StartMoving()
     {
         isMoving = true;
-        direccionGiro = (Random.value < 0.5f) ? -1 : 1; // Asignar una direcciÛn de giro al iniciar el movimiento
+        direccionGiro = (Random.value < 0.5f) ? -1 : 1; // Asignar una direcci√≥n de giro al iniciar el movimiento
     }
 
     public void StopMoving()

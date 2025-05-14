@@ -142,6 +142,7 @@ MonoBehaviour:
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
+  fuelSystem: {fileID: 1396788261}
 --- !u!1001 &29600625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 9204366062078329619, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1773860560}
     - target: {fileID: 3071300827331916043, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1279.9999
@@ -416,6 +421,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelSystem
+      value: 
+      objectReference: {fileID: 1356905766}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: distanciaBorde
       value: 2
       objectReference: {fileID: 0}
@@ -642,6 +651,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &324327101 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_PrefabInstance: {fileID: 2116714162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &332755334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,6 +1592,39 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 1526805305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1188971653 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_PrefabInstance: {fileID: 9019072703971218094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1356905766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_PrefabInstance: {fileID: 29600625}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1396788261 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_PrefabInstance: {fileID: 2141245608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1402602725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,6 +2098,7 @@ MonoBehaviour:
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
+  fuelSystem: {fileID: 324327101}
 --- !u!1 &1608912524
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,6 +2335,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4209840148556747492, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1526805311}
     - target: {fileID: 3071300827331916043, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1280
@@ -2366,6 +2424,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3385703931021077493, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 2890622}
     - target: {fileID: 3071300827331916043, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1280
@@ -2492,6 +2554,10 @@ PrefabInstance:
       value: 43.72
       objectReference: {fileID: 0}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelSystem
+      value: 
+      objectReference: {fileID: 1188971653}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: distanciaBorde
       value: 2
       objectReference: {fileID: 0}
@@ -2524,6 +2590,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2454501471731740418, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1956558802}
     - target: {fileID: 3071300827331916043, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1279.9999

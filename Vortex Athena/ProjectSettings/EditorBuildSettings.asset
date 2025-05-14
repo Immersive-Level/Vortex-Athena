@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/NetcodeForEntitiesSetup/Scenes/Gameplay.unity
     guid: 0a53e03af600d2848a59c2f7b29eef1f
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8c68b0a1feb70a74887f2296aaa79eea
+  - enabled: 1
     path: Assets/Scenes/Vortex Athena.unity
     guid: c170db055d2f9dc42ac10b37a398c679
   m_configObjects:

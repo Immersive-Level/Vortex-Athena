@@ -6,6 +6,8 @@ public class Boton : MonoBehaviour
     public Fuel_System fuelSystem; // Referencia al sistema de combustible
     private bool isPressing = false; // Para saber si el botón está presionado
 
+
+
     void Update()
     {
         // Si el botón está presionado, consume combustible

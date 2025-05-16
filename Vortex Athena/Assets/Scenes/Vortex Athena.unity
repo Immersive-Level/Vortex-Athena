@@ -136,15 +136,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 5
+  velocidad: 4
   distanciaMaxGiro: 5
   intensidadGiro: 2
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
-  fuelSystem: {fileID: 2141245610}
   consumeFuel: {fileID: 2141245611}
-  teclaMovimiento: 49
+  teclaMovimiento: 51
 --- !u!1001 &29600625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -340,12 +339,24 @@ PrefabInstance:
       value: Nave
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.87
+      value: -6.65
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 2.31
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -540,6 +551,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: velocidad
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 29600627}
@@ -587,6 +602,14 @@ PrefabInstance:
       propertyPath: blackHoleManager
       value: 
       objectReference: {fileID: 1634088848}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: direccionImpulso.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: direccionImpulso.y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.13138166
@@ -1317,12 +1340,24 @@ PrefabInstance:
       value: Nave
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.08
+      value: 4.35
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2019,12 +2054,24 @@ PrefabInstance:
       value: Nave
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.11
+      value: 5.96
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.48
+      value: -2.43
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2196,11 +2243,11 @@ PrefabInstance:
       objectReference: {fileID: 1634088848}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x
-      value: -10
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.y
-      value: -1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
@@ -2316,15 +2363,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 5
+  velocidad: 4
   distanciaMaxGiro: 5
   intensidadGiro: 2
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
-  fuelSystem: {fileID: 2116714164}
   consumeFuel: {fileID: 2116714165}
-  teclaMovimiento: 49
+  teclaMovimiento: 50
 --- !u!1 &1608912524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,12 +3049,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9019072703971218095}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.908
+      objectReference: {fileID: 0}
+    - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.32
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.69
+      value: -4.05
       objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3066,6 +3124,10 @@ PrefabInstance:
       propertyPath: blackHoleAttractionZone
       value: 
       objectReference: {fileID: 518840172}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: velocidad
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 

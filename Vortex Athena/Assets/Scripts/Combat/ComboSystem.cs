@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -9,6 +10,8 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private const float shortPressThreshold = 0.3f; // tiempo para pulsasiones cortas 
     private float lastReleaseTime;
     private float entryCooldown = 2f; // Tiempo para considerar el patrón completado
+
+    public Button btn;
 
     private Dictionary<string, string> morseAbilities = new Dictionary<string, string>
     {

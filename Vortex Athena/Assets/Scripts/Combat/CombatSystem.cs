@@ -20,7 +20,7 @@ public class CombatSystem : MonoBehaviour
     {
         shipController = GetComponent<ShipController>();
         deathHandler = GetComponent<BlackHoleDeathHandler>();
-        fuelSystem = GetComponent<ResourceCollector>().fuelSystem; //Dolor T.T
+        fuelSystem = GetComponent<Fuel_System>();
     }
 
 }

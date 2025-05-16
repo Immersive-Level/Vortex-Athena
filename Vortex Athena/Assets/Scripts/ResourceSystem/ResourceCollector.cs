@@ -11,8 +11,7 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("Referencia al sistema de puntuación")]
     public PlayerScoreSystem scoreSystem;
 
-    [Tooltip("Referencia al sistema de combustible")]
-    public Fuel_System fuelSystem;
+    private Fuel_System fuelSystem;
 
     [Tooltip("Efecto visual al recolectar")]
     public GameObject collectEffect;

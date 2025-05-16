@@ -45,14 +45,11 @@ public class Fuel_System : MonoBehaviour
 
     public void ConsumeFuel()
     {
-        
-        
         if (currentFuel <= 0f) return;
         {
             currentFuel -= fuelConsumptionRate * Time.deltaTime;
             currentFuel = Mathf.Clamp(currentFuel, 0f, maxFuel);
             UpdateFuelBar();
-
 
             if (currentFuel <= 0f)
             {

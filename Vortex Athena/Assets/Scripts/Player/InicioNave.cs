@@ -5,7 +5,7 @@ public class InicioNave : MonoBehaviour
     public GameObject nave;  // Referencia a la nave
     public float impulsoInicial = 5f; // Fuerza del impulso inicial
     public Vector2 direccionImpulso = new Vector2(1, 1); // Dirección ajustable desde el Inspector
-    public KeyCode teclaInicio = KeyCode.Alpha1; // Tecla para iniciar el la nave (ajustable)
+    public KeyCode teclaInicio = KeyCode.Alpha1; // Tecla para iniciar la nave (ajustable)
 
     private bool juegoIniciado = false; // Controla si la nave ya apareció
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;

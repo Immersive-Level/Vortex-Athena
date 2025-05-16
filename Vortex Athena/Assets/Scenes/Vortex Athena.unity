@@ -142,7 +142,6 @@ MonoBehaviour:
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
-  fuelSystem: {fileID: 2141245610}
   consumeFuel: {fileID: 2141245611}
   teclaMovimiento: 49
 --- !u!1001 &29600625
@@ -157,6 +156,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 9204366062078329619, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: fuelSystem
+      value: 
+      objectReference: {fileID: 194704805}
     - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: shipController
       value: 
@@ -267,13 +270,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &29600627 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3162951109615861385, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
   m_PrefabInstance: {fileID: 29600625}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &67594059 stripped
@@ -286,7 +289,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
   m_PrefabInstance: {fileID: 9019072703971218094}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647182101}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ff045d119baf5944b794b618ed72c1c, type: 3}
@@ -495,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 6444859829539661856, guid: 5422255a386d5d042ad580623932cc73, type: 3}
+    - target: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: lineFuel
+      value: 
+      objectReference: {fileID: 29600627}
     - target: {fileID: 7360204419760076277, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -542,7 +549,7 @@ PrefabInstance:
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 29600627}
+      objectReference: {fileID: 0}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeFuel
       value: 
@@ -574,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 29600627}
+      objectReference: {fileID: 194704805}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave D
@@ -672,6 +679,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+--- !u!114 &194704805 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 194704804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &263578249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,11 +1184,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1965415830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &717618518 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &788801180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1461,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 2223891512055834710, guid: 5422255a386d5d042ad580623932cc73, type: 3}
+    - target: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: lineFuel
+      value: 
+      objectReference: {fileID: 2141245610}
     - target: {fileID: 7360204419760076277, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -1487,7 +1504,7 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 2141245610}
+      objectReference: {fileID: 900441899}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave C
@@ -1605,6 +1622,17 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 2890622}
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+--- !u!114 &900441899 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 900441898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &951692192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2142,6 +2170,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 95329153448610273, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: lineFuel
+      value: 
+      objectReference: {fileID: 2116714164}
     - target: {fileID: 7360204419760076277, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -2181,7 +2213,7 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 2116714164}
+      objectReference: {fileID: 1526805307}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave B
@@ -2304,6 +2336,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4310118365417915349, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 1526805305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1526805307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 1526805305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085465452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1526805311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2322,7 +2365,6 @@ MonoBehaviour:
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
-  fuelSystem: {fileID: 2116714164}
   consumeFuel: {fileID: 2116714165}
   teclaMovimiento: 49
 --- !u!1 &1608912524
@@ -2456,120 +2498,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1647182101 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8783336178772550900, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
-  m_PrefabInstance: {fileID: 9019072703971218094}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1647182109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647182101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624e840728d0ff945997c7653b355ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!82 &1647182110
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647182101}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1658935484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,11 +2550,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2935185804056814364, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
   m_PrefabInstance: {fileID: 8923056431530387880}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1859948048 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4310118365417915349, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1905140051 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6686215778732152954, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
@@ -2642,27 +2565,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 42232722947320369}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717618518}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1956558811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 717618518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tiempoInvulnerabilidad: 3
-  tiempoParpadeo: 0.1
-  shipVisual: {fileID: 1859948048}
 --- !u!1 &1965415829
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2618,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -4209840148556747492, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: fuelSystem
+      value: 
+      objectReference: {fileID: 1526805307}
     - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: shipController
       value: 
@@ -2828,13 +2740,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &2116714164 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3162951109615861385, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
   m_PrefabInstance: {fileID: 2116714162}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2116714165 stripped
@@ -2860,6 +2772,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 3385703931021077493, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: fuelSystem
+      value: 
+      objectReference: {fileID: 900441899}
     - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: shipController
       value: 
@@ -2966,13 +2882,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &2141245610 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3162951109615861385, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
   m_PrefabInstance: {fileID: 2141245608}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2141245611 stripped
@@ -3042,6 +2958,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 43.72
       objectReference: {fileID: 0}
+    - target: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: lineFuel
+      value: 
+      objectReference: {fileID: 9019072703971218096}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: countdownUI
       value: 
@@ -3067,17 +2987,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 518840172}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: fuelSystem
-      value: 
-      objectReference: {fileID: 9019072703971218096}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeFuel
       value: 
       objectReference: {fileID: 170116139}
-    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: fuelSystem
-      value: 
-      objectReference: {fileID: 9019072703971218096}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
@@ -3085,11 +2997,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1956558811}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+--- !u!114 &42232722947320370 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6154933987417386514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3292,10 +3212,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 951692193}
     m_Modifications:
-    - target: {fileID: 772747503909423572, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+      propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: -2454501471731740418, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+      objectReference: {fileID: 42232722947320370}
     - target: {fileID: 1820529250052596384, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
       propertyPath: shipController
       value: 
@@ -3359,13 +3279,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8783336178772550900, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1647182109}
-    - targetCorrespondingSourceObject: {fileID: 8783336178772550900, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1647182110}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
 --- !u!114 &9019072703971218095 stripped
 MonoBehaviour:
@@ -3380,13 +3294,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &9019072703971218096 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3399457998986809985, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3162951109615861385, guid: fd33af969413d614f8fb21b6c3f87daf, type: 3}
   m_PrefabInstance: {fileID: 9019072703971218094}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

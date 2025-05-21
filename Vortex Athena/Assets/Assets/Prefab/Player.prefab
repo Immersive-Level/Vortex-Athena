@@ -390,6 +390,8 @@ GameObject:
   - component: {fileID: 7714841270529153968}
   - component: {fileID: 2276714564275110904}
   - component: {fileID: 933410782465386759}
+  - component: {fileID: 977790932892868827}
+  - component: {fileID: 6734930706703215088}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -514,9 +516,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
-  fuelSystem: {fileID: 0}
+  fuelSystem: {fileID: 6734930706703215088}
   collectEffect: {fileID: 0}
   collectionRadius: 0.8
+  resourceLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  useCircleCheck: 1
+  checkInterval: 0.2
 --- !u!114 &2276714564275110904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,3 +560,36 @@ MonoBehaviour:
   CollidersToIgnore:
   - {fileID: 8997046992031912739}
   - {fileID: 5348490425132755304}
+--- !u!114 &977790932892868827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tiempoInvulnerabilidad: 3
+  tiempoParpadeo: 0.1
+  shipVisual: {fileID: 4310118365417915349}
+--- !u!114 &6734930706703215088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathHandler: {fileID: 0}
+  lineFuel: {fileID: 0}
+  maxFuel: 100
+  fuelConsumptionRate: 10
+  fuelCollectEffect: {fileID: 0}
+  fuelCollectSound: {fileID: 0}

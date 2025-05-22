@@ -4,6 +4,8 @@ using System.Collections;
 
 public class BlackHoleDeathHandler : MonoBehaviour
 {
+    private CombatSystem _combatSystem;
+
     [Header("Referencias")]
     [SerializeField] private Transform respawnPoint;
     [SerializeField] private Transform blackHoleCenter; // Para calcular distancia
@@ -30,6 +32,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
         originalScale = transform.localScale;
         countdownUI.SetActive(false);
 
+        _combatSystem = GetComponent<CombatSystem>();
         // 🔥 Buscamos automáticamente el componente ShipInvulnerability en el mismo GameObject
         shipInvulnerability = GetComponent<ShipInvulnerability>();
         if (shipInvulnerability == null)

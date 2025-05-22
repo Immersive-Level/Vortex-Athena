@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6364927539648218483}
   - component: {fileID: 8032667224593333203}
+  - component: {fileID: 1745995023543549291}
   m_Layer: 0
   m_Name: ResourceSystem
   m_TagString: Untagged
@@ -62,3 +63,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   poolContainer: {fileID: 0}
+  cleanupInterval: 15
+  maxResourceLifetime: 60
+--- !u!114 &1745995023543549291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7204119507103736358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf9e5cb8026daf44ab71203cfc0bf64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkInterval: 7
+  maxResourceLifetime: 15

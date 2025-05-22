@@ -44,20 +44,39 @@ public class ResourceSpawner : MonoBehaviour
     [Tooltip("Contenedor para los objetos inactivos del pool")]
     public Transform poolContainer;
 
-    // Diccionarios para almacenar los pools de cada tipo de recurso
+    [Header("Seguridad")]
+    [Tooltip("Intervalo para verificar recursos problemáticos (segundos)")]
+    public float cleanupInterval = 15f;
+
+    // Diccionarios para almacenar los pools y recursos activos 
     private Dictionary<ResourceType, Queue<GameObject>> resourcePools = new Dictionary<ResourceType, Queue<GameObject>>();
+    private HashSet<GameObject> activeResources = new HashSet<GameObject>();
 
-    // Lista de recursos activos
-    private List<GameObject> activeResources = new List<GameObject>();
+    // Singleton
+    private static ResourceSpawner _instance;
+    public static ResourceSpawner Instance { get { return _instance; } }
 
-    // Contador de tiempo para la generación
-    private float spawnTimer;
+    // Variables para ponderación de recursos
+    private List<ResourceInfo> weightedResourceList;
+    private int totalWeight;
 
     // Referencia al BlackHoleAttractionManager
     private BlackHoleAttractionManager attractionManager;
 
+    // Para la generación de recursos
+    private float spawnTimer;
+    private Vector3 tempSpawnPosition;
+
     private void Awake()
     {
+        // Configurar singleton
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+
         // Crear el contenedor si no existe
         if (poolContainer == null)
         {
@@ -65,6 +84,9 @@ public class ResourceSpawner : MonoBehaviour
             poolContainer = container.transform;
             poolContainer.SetParent(transform);
         }
+
+        // Precalcular lista ponderada de recursos
+        PrecalculateWeightedResources();
     }
 
     private void Start()
@@ -73,7 +95,6 @@ public class ResourceSpawner : MonoBehaviour
         if (blackHole == null)
         {
             blackHole = FindObjectOfType<BlackHole>();
-
             if (blackHole == null)
             {
                 Debug.LogWarning("ResourceSpawner: No se encontró un BlackHole en la escena.");
@@ -84,29 +105,48 @@ public class ResourceSpawner : MonoBehaviour
 
         // Obtener referencia al BlackHoleAttractionManager
         attractionManager = BlackHoleAttractionManager.Instance;
-        if (attractionManager == null)
-        {
-            Debug.LogWarning("ResourceSpawner: No se encontró BlackHoleAttractionManager. La atracción gravitacional podría no funcionar correctamente.");
-        }
 
         // Inicializar los pools
         InitializePools();
 
         // Inicializar timer
         spawnTimer = spawnInterval;
+
+        // Iniciar limpieza periódica
+        InvokeRepeating("CheckAndCleanupResources", cleanupInterval, cleanupInterval);
     }
 
     private void Update()
     {
-        // Limpiar recursos nulos de la lista
-        activeResources.RemoveAll(r => r == null);
-
         // Generar recursos si es tiempo y hay espacio
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0 && activeResources.Count < maxActiveResources)
         {
             SpawnResource();
             spawnTimer = spawnInterval;
+        }
+    }
+
+    /// <summary>
+    /// Precalcula lista ponderada de recursos para eficiencia en GetRandomResource
+    /// </summary>
+    private void PrecalculateWeightedResources()
+    {
+        weightedResourceList = new List<ResourceInfo>();
+        totalWeight = 0;
+
+        foreach (var info in resourceInfoList)
+        {
+            if (info.resourceType == null || info.prefab == null) continue;
+
+            int weight = Mathf.RoundToInt(info.spawnProbability * 100);
+            totalWeight += weight;
+
+            // Agregar referencia al info actual al weightedResourceList
+            for (int i = 0; i < weight; i++)
+            {
+                weightedResourceList.Add(info);
+            }
         }
     }
 
@@ -121,7 +161,7 @@ public class ResourceSpawner : MonoBehaviour
                 continue;
 
             // Crear una cola para este tipo de recurso
-            Queue<GameObject> pool = new Queue<GameObject>();
+            Queue<GameObject> pool = new Queue<GameObject>(resourceInfo.initialPoolSize);
 
             // Crear los objetos iniciales
             for (int i = 0; i < resourceInfo.initialPoolSize; i++)
@@ -143,24 +183,46 @@ public class ResourceSpawner : MonoBehaviour
     {
         GameObject obj = Instantiate(info.prefab, poolContainer);
 
-        // Configurar el componente CollectibleResource
+        // Configurar componentes solo si no existen
+        ConfigureCollectibleResource(obj, info.resourceType);
+        ConfigureRigidbody(obj);
+        ConfigureCollider(obj);
+
+        return obj;
+    }
+
+    /// <summary>
+    /// Configura el componente CollectibleResource
+    /// </summary>
+    private void ConfigureCollectibleResource(GameObject obj, ResourceType resourceType)
+    {
         CollectibleResource resource = obj.GetComponent<CollectibleResource>();
         if (resource == null)
         {
             resource = obj.AddComponent<CollectibleResource>();
         }
-        resource.resourceType = info.resourceType;
+        resource.resourceType = resourceType;
+    }
 
-        // Asegurarse de que tenga Rigidbody2D
+    /// <summary>
+    /// Configura el Rigidbody2D si no existe
+    /// </summary>
+    private void ConfigureRigidbody(GameObject obj)
+    {
         Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
         if (rb == null)
         {
             rb = obj.AddComponent<Rigidbody2D>();
-            rb.gravityScale = 0; // No afectado por gravedad
-            rb.linearDamping = 0.5f;      // Algo de resistencia
+            rb.gravityScale = 0;
+            rb.linearDamping = 0.5f;
         }
+    }
 
-        // Asegurarse de que tenga Collider2D
+    /// <summary>
+    /// Configura el Collider2D si no existe
+    /// </summary>
+    private void ConfigureCollider(GameObject obj)
+    {
         Collider2D collider = obj.GetComponent<Collider2D>();
         if (collider == null)
         {
@@ -172,42 +234,24 @@ public class ResourceSpawner : MonoBehaviour
         {
             collider.isTrigger = true;
         }
-
-        return obj;
     }
 
     /// <summary>
-    /// Obtiene un recurso aleatorio del pool basado en las probabilidades
+    /// Obtiene un recurso aleatorio basado en las probabilidades precalculadas
     /// </summary>
     public GameObject GetRandomResource()
     {
-        // Lista para probabilidades ponderadas
-        List<ResourceInfo> weightedList = new List<ResourceInfo>();
+        if (weightedResourceList.Count == 0) return null;
 
-        foreach (var resourceInfo in resourceInfoList)
-        {
-            if (resourceInfo.resourceType == null) continue;
-
-            // Añadir basado en probabilidad (convertir a porcentaje)
-            int weight = Mathf.RoundToInt(resourceInfo.spawnProbability * 100);
-            for (int i = 0; i < weight; i++)
-            {
-                weightedList.Add(resourceInfo);
-            }
-        }
-
-        if (weightedList.Count == 0)
-            return null;
-
-        // Seleccionar uno aleatorio
-        int randomIndex = Random.Range(0, weightedList.Count);
-        ResourceInfo selectedInfo = weightedList[randomIndex];
+        // Seleccionar recursos directo de la lista precalculada
+        int randomIndex = Random.Range(0, weightedResourceList.Count);
+        ResourceInfo selectedInfo = weightedResourceList[randomIndex];
 
         return GetResourceFromPool(selectedInfo.resourceType);
     }
 
     /// <summary>
-    /// Obtiene un recurso del pool, o crea uno nuevo si es necesario
+    /// Obtiene un recurso del pool o crea uno nuevo
     /// </summary>
     private GameObject GetResourceFromPool(ResourceType resourceType)
     {
@@ -215,122 +259,211 @@ public class ResourceSpawner : MonoBehaviour
             return null;
 
         Queue<GameObject> pool = resourcePools[resourceType];
+        GameObject obj = null;
 
-        // Si no hay objetos disponibles, crear uno nuevo
+        // Obtener del pool o crear nuevo
         if (pool.Count == 0)
         {
             ResourceInfo info = resourceInfoList.Find(r => r.resourceType == resourceType);
             if (info != null)
             {
-                return CreateResourceObject(info);
+                obj = CreateResourceObject(info);
             }
-            return null;
+        }
+        else
+        {
+            obj = pool.Dequeue();
+
+            // Si el objeto es nulo (raro pero posible), crear uno nuevo
+            if (obj == null)
+            {
+                ResourceInfo info = resourceInfoList.Find(r => r.resourceType == resourceType);
+                if (info != null)
+                {
+                    obj = CreateResourceObject(info);
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
-        // Obtener objeto del pool
-        GameObject obj = pool.Dequeue();
-        obj.SetActive(true);
-
-        // Registrar con el BlackHoleAttractionManager
-        if (attractionManager != null)
+        // Activar y registrar
+        if (obj != null)
         {
-            AffectedByBlackHole affected = obj.GetComponent<AffectedByBlackHole>();
-            if (affected != null)
+            // Activar el objeto (esto disparará OnEnable en CollectibleResource)
+            obj.SetActive(true);
+
+            // Registrar con el BlackHoleAttractionManager
+            if (attractionManager != null)
             {
-                attractionManager.RegisterAffectableObject(affected);
+                AffectedByBlackHole affected = obj.GetComponent<AffectedByBlackHole>();
+                if (affected != null)
+                {
+                    attractionManager.RegisterAffectableObject(affected);
+                }
             }
+
+            // Agregar a activos
+            activeResources.Add(obj);
         }
 
         return obj;
     }
 
     /// <summary>
-    /// Devuelve un recurso al pool para su reutilización
+    /// Devuelve un recurso al pool
     /// </summary>
     public void ReturnToPool(GameObject obj)
     {
         if (obj == null) return;
 
-        // Desactivar y devolver al pool
-        obj.SetActive(false);
-        obj.transform.SetParent(poolContainer);
+        // Evitar procesamiento redundante
+        if (!obj.activeInHierarchy) return;
+
+        // Remover de recursos activos
+        activeResources.Remove(obj);
 
         // Desregistrar del BlackHoleAttractionManager
         if (attractionManager != null)
         {
             AffectedByBlackHole affected = obj.GetComponent<AffectedByBlackHole>();
-            if (affected != null)
+            if (affected != null && attractionManager != null)
             {
                 attractionManager.UnregisterAffectableObject(affected);
             }
         }
 
-        // Obtener el tipo de recurso
+        // Obtener tipo de recurso
         CollectibleResource resource = obj.GetComponent<CollectibleResource>();
         if (resource == null || resource.resourceType == null)
         {
-            Destroy(obj); // Si no tiene el componente necesario, destruirlo
+            Destroy(obj);
             return;
         }
 
-        // Añadir a la cola correspondiente
-        if (!resourcePools.ContainsKey(resource.resourceType))
+        ResourceType resourceType = resource.resourceType;
+
+        // Desactivar y mover al contenedor
+        obj.SetActive(false);
+        obj.transform.SetParent(poolContainer);
+
+        // Añadir al pool correspondiente
+        if (!resourcePools.ContainsKey(resourceType))
         {
-            resourcePools[resource.resourceType] = new Queue<GameObject>();
+            resourcePools[resourceType] = new Queue<GameObject>();
         }
 
-        resourcePools[resource.resourceType].Enqueue(obj);
-
-        // Remover de la lista de activos
-        activeResources.Remove(obj);
+        resourcePools[resourceType].Enqueue(obj);
     }
 
     /// <summary>
-    /// Genera un recurso en una posición aleatoria alrededor del agujero negro
+    /// Genera un recurso en posición aleatoria
     /// </summary>
     private void SpawnResource()
     {
         if (blackHole == null) return;
 
-        // Obtener posición del agujero negro
-        Vector3 blackHolePosition = blackHole.transform.position;
-
-        // Generar posición aleatoria alrededor del agujero negro
+        // Generar posición aleatoria
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         float randomDistance = Random.Range(minSpawnRadius, maxSpawnRadius);
-        Vector3 spawnPosition = blackHolePosition + new Vector3(randomDirection.x, randomDirection.y, 0) * randomDistance;
+        tempSpawnPosition = blackHole.transform.position + new Vector3(randomDirection.x, randomDirection.y, 0) * randomDistance;
 
-        // Verificar si hay obstáculos
-        bool isValidPosition = !Physics2D.OverlapCircle(spawnPosition, 1f, obstacleLayer);
+        // Verificar obstáculos
+        if (Physics2D.OverlapCircle(tempSpawnPosition, 1f, obstacleLayer)) return;
 
-        if (isValidPosition)
+        // Obtener recurso y configurarlo
+        GameObject resource = GetRandomResource();
+        if (resource != null)
         {
-            // Obtener recurso aleatorio
-            GameObject resource = GetRandomResource();
+            // Configurar posición y rotación
+            resource.transform.position = tempSpawnPosition;
+            resource.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
 
-            if (resource != null)
+            // Dar velocidad inicial
+            Rigidbody2D rb = resource.GetComponent<Rigidbody2D>();
+            if (rb != null)
             {
-                // Configurar posición y rotación
-                resource.transform.position = spawnPosition;
-                resource.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+                rb.linearVelocity = Random.insideUnitCircle.normalized * Random.Range(1f, 3f);
+            }
+        }
+    }
 
-                // Añadir a la lista de activos
-                activeResources.Add(resource);
+    /// <summary>
+    /// Verifica y limpia recursos problemáticos
+    /// </summary>
+    private void CheckAndCleanupResources()
+    {
+        // Usar una lista temporal para evitar modificar la colección durante iteración
+        List<GameObject> problematicResources = new List<GameObject>();
 
-                // Dar velocidad inicial aleatoria
-                Rigidbody2D rb = resource.GetComponent<Rigidbody2D>();
-                if (rb != null)
+        foreach (GameObject resource in activeResources)
+        {
+            if (resource == null) continue;
+
+            // Verificar si debe limpiarse (colliders desactivados o marcado como recolectado)
+            bool shouldCleanup = false;
+
+            // Verificar CollectibleResource
+            CollectibleResource collectible = resource.GetComponent<CollectibleResource>();
+            if (collectible != null && collectible.isCollected)
+            {
+                shouldCleanup = true;
+            }
+            else
+            {
+                // Verificar si todos los colliders están desactivados
+                Collider2D[] colliders = resource.GetComponents<Collider2D>();
+                if (colliders.Length > 0)
                 {
-                    Vector2 randomVelocity = Random.insideUnitCircle.normalized * Random.Range(1f, 3f);
-                    rb.linearVelocity = randomVelocity;
-                }
+                    bool allDisabled = true;
+                    foreach (var collider in colliders)
+                    {
+                        if (collider != null && collider.enabled)
+                        {
+                            allDisabled = false;
+                            break;
+                        }
+                    }
 
-                AffectedByBlackHole affectedByBlackHole = resource.GetComponent<AffectedByBlackHole>();
-                if (affectedByBlackHole != null)
-                {
-                    affectedByBlackHole.canBeAffected = true;
+                    if (allDisabled)
+                    {
+                        shouldCleanup = true;
+                    }
                 }
             }
+
+            // Agregar a la lista de problemáticos si es necesario
+            if (shouldCleanup)
+            {
+                problematicResources.Add(resource);
+            }
+        }
+
+        // Limpiar los recursos problemáticos
+        int cleanedCount = 0;
+        foreach (GameObject resource in problematicResources)
+        {
+            try
+            {
+                ReturnToPool(resource);
+                cleanedCount++;
+            }
+            catch (System.Exception)
+            {
+                // En caso de error, desactivar a la fuerza
+                if (resource != null)
+                {
+                    resource.SetActive(false);
+                    activeResources.Remove(resource);
+                }
+            }
+        }
+
+        if (cleanedCount > 0)
+        {
+            Debug.Log($"ResourceSpawner: Se limpiaron {cleanedCount} recursos problemáticos.");
         }
     }
 
@@ -348,5 +481,11 @@ public class ResourceSpawner : MonoBehaviour
         // Radio máximo
         Gizmos.color = new Color(0.8f, 0.2f, 0.2f, 0.3f);
         Gizmos.DrawWireSphere(center, maxSpawnRadius);
+    }
+
+    private void OnDestroy()
+    {
+        // Limpiar timer al destruir
+        CancelInvoke();
     }
 }

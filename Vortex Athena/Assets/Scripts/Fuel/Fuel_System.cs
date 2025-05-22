@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System; // <- para Action
 
 
 public class Fuel_System : MonoBehaviour
@@ -7,18 +8,23 @@ public class Fuel_System : MonoBehaviour
     [HideInInspector] public BlackHoleDeathHandler deathHandler;
 
     public Image lineFuel; // Referencia a la imagen de la barra de combustible
-    public float maxFuel = 100f; // Cantidad máxima de combustible
+    public float maxFuel = 100f; // Cantidad mï¿½xima de combustible
     public float fuelConsumptionRate = 10f; // Consumo de combustible por segundo
 
     private float currentFuel;
     private float refuelTimer = 0f;
 
-    [Header("Recolección de Recursos")]
+    [Header("Recolecciï¿½n de Recursos")]
     [Tooltip("Efecto visual al recolectar combustible")]
     public GameObject fuelCollectEffect;
 
     [Tooltip("Sonido al recolectar combustible")]
     public AudioClip fuelCollectSound;
+    public bool HasFuel => currentFuel > 0f;  // ï¿½Queda gasolina?
+
+    // Evento que lanzamos al agotarse
+    public event Action OnFuelEmpty;
+
     void Start()
     {
         currentFuel = maxFuel; // Inicia con el tanque lleno
@@ -39,11 +45,20 @@ public class Fuel_System : MonoBehaviour
 
     public void ConsumeFuel()
     {
-        if (currentFuel > 0)
+        
+        
+        if (currentFuel <= 0f) return;
         {
             currentFuel -= fuelConsumptionRate * Time.deltaTime;
-            currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
+            currentFuel = Mathf.Clamp(currentFuel, 0f, maxFuel);
             UpdateFuelBar();
+
+
+            if (currentFuel <= 0f)
+            {
+                OnFuelEmpty?.Invoke();
+            }
+
         }
     }
 
@@ -53,32 +68,32 @@ public class Fuel_System : MonoBehaviour
     }
 
     /// <summary>
-    /// Añade combustible al jugador
+    /// Aï¿½ade combustible al jugador
     /// </summary>
-    /// <param name="amount">Cantidad de combustible a añadir</param>   
+    /// <param name="amount">Cantidad de combustible a aï¿½adir</param>   
     /// <param name="showEffects"> si se muestran los efectos, por defecto TRUE</param>
     public void AddFuel(float amount, bool showEffects = true)
     {
         if (amount <= 0) return;
 
-        // Aumentar combustible sin exceder el máximo
+        // Aumentar combustible sin exceder el mï¿½ximo
         currentFuel += amount;
         currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
 
         // Actualizar la barra de combustible
         UpdateFuelBar();
 
-        if (!showEffects) return;
-        // Efectos visuales y sonoros
-        if (fuelCollectEffect != null)
-        {
-            Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
-        }
+        //if (!showEffects) return;
+        //// Efectos visuales y sonoros
+        //if (fuelCollectEffect != null)
+        //{
+        //    Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
+        //}
 
-        if (fuelCollectSound != null)
-        {
-            AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
-        }
+        //if (fuelCollectSound != null)
+        //{
+        //    AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
+        //}
     }
 
     /// <summary>

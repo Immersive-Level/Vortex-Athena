@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4556092256326609696}
   - component: {fileID: 2681947470832607077}
   - component: {fileID: 8760876180762124774}
+  - component: {fileID: 2849664169195095629}
   m_Layer: 0
   m_Name: Point
   m_TagString: Untagged
@@ -100,6 +101,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionResistance: 2
+  attractionResistance: 5
   canBeAffected: 1
   isWithinEventHorizon: 0
+--- !u!50 &2849664169195095629
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421371012202734267}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

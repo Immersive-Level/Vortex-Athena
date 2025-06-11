@@ -1937,6 +1937,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuelCanvas_01
       objectReference: {fileID: 0}
+    - target: {fileID: 6606331671279443477, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6606331671279443477, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6606331671279443477, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8629864059130795621, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2090,6 +2102,18 @@ PrefabInstance:
     - target: {fileID: 6614138638734481107, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
       propertyPath: m_Name
       value: FuelCanvas_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597339465376883708, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597339465376883708, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7597339465376883708, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9211198801905201699, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2772,7 +2796,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 25.6, y: 16}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3058,6 +3082,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1866366312605803435, guid: d2c0b43972635cb4397bd38ad1f1ce3b, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1866366312605803435, guid: d2c0b43972635cb4397bd38ad1f1ce3b, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1866366312605803435, guid: d2c0b43972635cb4397bd38ad1f1ce3b, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2450162718184519667, guid: d2c0b43972635cb4397bd38ad1f1ce3b, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3245,6 +3281,18 @@ PrefabInstance:
       propertyPath: shipController
       value: 
       objectReference: {fileID: 1773860560}
+    - target: {fileID: 4612692461561853554, guid: 548e32e79ea67b34d98045d0e121844c, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612692461561853554, guid: 548e32e79ea67b34d98045d0e121844c, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612692461561853554, guid: 548e32e79ea67b34d98045d0e121844c, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6329755566713374846, guid: 548e32e79ea67b34d98045d0e121844c, type: 3}
       propertyPath: m_Name
       value: FuelCanvas_04

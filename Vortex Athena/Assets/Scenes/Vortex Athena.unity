@@ -144,6 +144,7 @@ MonoBehaviour:
   maxAnguloBorde: 20
   consumeFuel: {fileID: 135265278}
   teclaMovimiento: 49
+  debugMode: 1
 --- !u!114 &25262976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -1289,6 +1290,59 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &795948168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 795948170}
+  - component: {fileID: 795948169}
+  m_Layer: 0
+  m_Name: PlayerInputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &795948169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795948168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5cadd0635bdf74b8b4af1fcd4e7b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players:
+  - playerName: Player 1
+    controlKey: 49
+    naveObject: {fileID: 1285916027}
+    shipController: {fileID: 1956558802}
+    inicioNave: {fileID: 2061794381}
+    fuelButton: {fileID: 549891236}
+    isActive: 0
+  debugMode: 1
+--- !u!4 &795948170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 795948168}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1120687, y: -0.418737, z: 1423.9917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &820640922 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8252356361038875378, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
@@ -2133,6 +2187,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3764152965746837817, guid: 7d27e1da5d14faf4f955d9e95bb3c26d, type: 3}
   m_PrefabInstance: {fileID: 1204704391}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1285916027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402602725
 GameObject:
   m_ObjectHideFlags: 0
@@ -2697,6 +2756,7 @@ MonoBehaviour:
   maxAnguloBorde: 20
   consumeFuel: {fileID: 1637479791}
   teclaMovimiento: 49
+  debugMode: 1
 --- !u!114 &1543554213 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2200337272884279642, guid: 548e32e79ea67b34d98045d0e121844c, type: 3}
@@ -3129,7 +3189,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 42232722947320369}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1285916027}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
@@ -3711,3 +3771,4 @@ SceneRoots:
   - {fileID: 297280332}
   - {fileID: 610283779}
   - {fileID: 573695526}
+  - {fileID: 795948170}

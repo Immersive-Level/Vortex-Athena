@@ -1,3 +1,4 @@
+using NUnit.Compatibility;
 using UnityEngine;
 
 public enum ColliderType
@@ -36,10 +37,13 @@ public class ShipCollider : MonoBehaviour
 
         Debug.Log($"collide {collision.gameObject.name}");
 
-        if (collision.gameObject.CompareTag("Nave"))
+        PlayerMain otherPlayerMain = gameObject.GetComponent<PlayerMain>();
+        if (otherPlayerMain != null)
         {
+            Debug.Log("Collide with player" + collision.gameObject.name + " _ " + type);
             if (type == ColliderType.Back)
             {
+                otherPlayerMain.PlayerScoreSystem.AddScore(inKills: 1);//le añade una kill al oponente
                 combatSystem?.deathHandler.Death();
             }
         }

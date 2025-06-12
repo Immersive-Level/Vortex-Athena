@@ -61,7 +61,7 @@ public class CollectibleResource : MonoBehaviour
         // Solo buscar el agujero negro una vez al activarse
         if (blackHoleTransform == null)
         {
-            BlackHole blackHole = FindObjectOfType<BlackHole>();
+            BlackHole blackHole = FindAnyObjectByType<BlackHole>();
             if (blackHole != null)
             {
                 blackHoleTransform = blackHole.transform;
@@ -185,7 +185,7 @@ public class CollectibleResource : MonoBehaviour
         // Distribuir puntos a jugadores si es de tipo Points
         if (resourceType != null && resourceType.effect == ResourceType.ResourceEffect.Points)
         {
-            PlayerScoreSystem[] playerScoreSystems = FindObjectsOfType<PlayerScoreSystem>();
+            PlayerScoreSystem[] playerScoreSystems = FindObjectsByType<PlayerScoreSystem>(FindObjectsSortMode.None);
             if (playerScoreSystems.Length > 0)
             {
                 int pointsPerPlayer = Mathf.RoundToInt(resourceType.effectAmount / playerScoreSystems.Length);

@@ -33,7 +33,7 @@ public class BlackHoleAttractionManager : MonoBehaviour
         FindAllAffectableObjects();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // Procesar la atracción hacia todos los objetos afectables
         ProcessAttraction();
@@ -106,10 +106,6 @@ public class BlackHoleAttractionManager : MonoBehaviour
                 // Solo procesar objetos que pueden ser afectados
                 if (!affectable.canBeAffected) continue;
 
-                // Obtener Rigidbody2D
-                Rigidbody2D rb = affectable.GetComponent<Rigidbody2D>();
-                if (rb == null) continue;
-
                 Vector2 objectPosition = affectable.transform.position;
                 Vector2 directionToBlackHole = blackHolePosition - objectPosition;
                 float distanceSq = directionToBlackHole.sqrMagnitude;
@@ -121,30 +117,12 @@ public class BlackHoleAttractionManager : MonoBehaviour
                     float distance = Mathf.Sqrt(distanceSq);
                     Vector2 direction = directionToBlackHole / distance;
 
-                    // FÍSICA ORBITAL SIMPLE
-                    // 1. Fuerza hacia el centro (gravedad)
+                    // Calcula fuerza basada en la distancia
                     float forceMagnitude = blackHole.CalculateAttractionForce(distance);
-                    Vector2 gravityForce = direction * forceMagnitude;
 
-                    // 2. Si el objeto no tiene suficiente velocidad tangencial, darle un empujón
-                    Vector2 tangent = new Vector2(-direction.y, direction.x); // Perpendicular
-                    float tangentialSpeed = Vector2.Dot(rb.linearVelocity, tangent);
-
-                    // Si la velocidad tangencial es muy baja, añadir fuerza tangencial
-                    if (Mathf.Abs(tangentialSpeed) < 2f)
-                    {
-                        Vector2 tangentialForce = tangent * 50f;
-                        rb.AddForce(tangentialForce, ForceMode2D.Force);
-                    }
-
-                    // 3. Aplicar la gravedad
-                    rb.AddForce(gravityForce, ForceMode2D.Force);
-
-                    // 4. Limitar velocidad máxima
-                    if (rb.linearVelocity.magnitude > 5f)
-                    {
-                        rb.linearVelocity = rb.linearVelocity.normalized * 5f;
-                    }
+                    // Aplica fuerza al objeto
+                    Vector2 force = direction * forceMagnitude * Time.deltaTime;
+                    affectable.ApplyAttractionForce(force);
 
                     // Verificar si está dentro del horizonte de eventos
                     if (distance <= blackHole.radius * 1.5f)

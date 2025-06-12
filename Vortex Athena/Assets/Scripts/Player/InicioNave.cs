@@ -1,33 +1,14 @@
 using UnityEngine;
 
-/// <summary>
-/// Gestiona la inicialización y activación de una nave
-/// No maneja inputs directamente
-/// </summary>
 public class InicioNave : MonoBehaviour
 {
-    [Header("Configuración de Nave")]
-    public GameObject nave;
-    public float impulsoInicial = 5f;
-    public Vector2 direccionImpulso = new Vector2(1, 1);
+    public GameObject nave;  // Referencia a la nave
+    public float impulsoInicial = 5f; // Fuerza del impulso inicial
+    public Vector2 direccionImpulso = new Vector2(1, 1); // Dirección ajustable desde el Inspector
+    public KeyCode teclaInicio = KeyCode.Alpha1; // Tecla para iniciar la nave (ajustable)
 
-    [Header("Referencias")]
+    private bool juegoIniciado = false; // Controla si la nave ya apareció
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
-
-    // Estado
-    private bool juegoIniciado = false;
-    public bool JuegoIniciado => juegoIniciado;
-
-    void Awake()
-    {
-        // Validar referencias
-        if (nave == null)
-        {
-            Debug.LogError($"[InicioNave] No se asignó la nave en {gameObject.name}");
-            enabled = false;
-            return;
-        }
-    }
 
     void Start()
     {
@@ -38,80 +19,60 @@ public class InicioNave : MonoBehaviour
         if (blackHoleManager == null)
         {
             blackHoleManager = BlackHoleAttractionManager.Instance;
+
             if (blackHoleManager == null)
             {
-                Debug.LogWarning("[InicioNave] No se encontró un BlackHoleAttractionManager");
+                Debug.LogWarning("InicioNave: No se encontró un BlackHoleAttractionManager. La atracción gravitacional podría no funcionar correctamente.");
             }
         }
     }
 
-    /// <summary>
-    /// Inicia el juego activando la nave con impulso inicial
-    /// </summary>
+    void Update()
+    {
+        // Si el jugador presiona la tecla "1", iniciar el juego
+        if (Input.GetKeyDown(teclaInicio))
+        {
+            IniciarJuego();
+        }
+    }
+
     public void IniciarJuego()
     {
-        if (juegoIniciado || nave == null) return;
-
-        juegoIniciado = true;
-
-        // Activar la nave
-        nave.SetActive(true);
-
-        // Configurar Rigidbody2D
-        Rigidbody2D rb = nave.GetComponent<Rigidbody2D>();
-        if (rb != null)
+        if (!juegoIniciado)
         {
+            juegoIniciado = true;
+
+            // Activar la nave
+            nave.SetActive(true);
+
+            // Asegurar que el Rigidbody2D esté en Dynamic para ser afectado por la gravedad
+            Rigidbody2D rb = nave.GetComponent<Rigidbody2D>();
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.simulated = true;
 
             // Aplicar impulso inicial
-            Vector2 direccionInicial = direccionImpulso.normalized;
-            rb.linearVelocity = direccionInicial * impulsoInicial;
-        }
+            Vector2 direccionInicial = direccionImpulso.normalized; // Ajustable
+            rb.linearVelocity = direccionInicial * impulsoInicial; // Usamos velocity en vez de AddForce
 
-        // Registrar en BlackHoleAttractionManager
-        RegistrarEnBlackHole();
-
-        Debug.Log($"[InicioNave] Nave {nave.name} iniciada");
-    }
-
-    /// <summary>
-    /// Reinicia el estado de la nave
-    /// </summary>
-    public void ReiniciarNave()
-    {
-        if (nave != null)
-        {
-            // Desregistrar del BlackHole
-            DesregistrarDeBlackHole();
-
-            // Resetear componentes
-            ShipController shipController = nave.GetComponent<ShipController>();
-            if (shipController != null)
+            // Registrar explícitamente la nave en el BlackHoleAttractionManager
+            if (blackHoleManager != null)
             {
-                shipController.ResetMovement();
-            }
-
-            // Desactivar nave
-            nave.SetActive(false);
-            juegoIniciado = false;
-        }
-    }
-
-    private void RegistrarEnBlackHole()
-    {
-        if (blackHoleManager != null && nave != null)
-        {
-            AffectedByBlackHole affected = nave.GetComponent<AffectedByBlackHole>();
-            if (affected != null)
-            {
-                blackHoleManager.RegisterAffectableObject(affected);
-                Debug.Log($"[InicioNave] Nave {nave.name} registrada en BlackHoleAttractionManager");
+                AffectedByBlackHole affected = nave.GetComponent<AffectedByBlackHole>();
+                if (affected != null)
+                {
+                    blackHoleManager.RegisterAffectableObject(affected);
+                    Debug.Log("Nave registrada en BlackHoleAttractionManager");
+                }
+                else
+                {
+                    Debug.LogWarning("InicioNave: La nave no tiene el componente AffectedByBlackHole");
+                }
             }
         }
     }
 
-    private void DesregistrarDeBlackHole()
+    // Si la nave se destruye o desactiva, desregistrarla
+    void OnDisable()
     {
         if (blackHoleManager != null && nave != null)
         {
@@ -119,18 +80,8 @@ public class InicioNave : MonoBehaviour
             if (affected != null)
             {
                 blackHoleManager.UnregisterAffectableObject(affected);
-                Debug.Log($"[InicioNave] Nave {nave.name} desregistrada del BlackHoleAttractionManager");
+                Debug.Log("Nave desregistrada del BlackHoleAttractionManager");
             }
         }
-    }
-
-    void OnDisable()
-    {
-        DesregistrarDeBlackHole();
-    }
-
-    void OnDestroy()
-    {
-        DesregistrarDeBlackHole();
     }
 }

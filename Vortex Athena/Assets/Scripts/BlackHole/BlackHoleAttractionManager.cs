@@ -43,7 +43,7 @@ public class BlackHoleAttractionManager : MonoBehaviour
     public void FindAllBlackHoles()
     {
         blackHoles.Clear();
-        BlackHole[] foundBlackHoles = FindObjectsOfType<BlackHole>();
+        BlackHole[] foundBlackHoles = FindObjectsByType<BlackHole>(FindObjectsSortMode.None);
         blackHoles.AddRange(foundBlackHoles);
 
         Debug.Log($"BlackHoleAttractionManager: Se encontraron {blackHoles.Count} agujeros negros.");
@@ -55,7 +55,7 @@ public class BlackHoleAttractionManager : MonoBehaviour
         HashSet<AffectedByBlackHole> existingObjects = new HashSet<AffectedByBlackHole>(affectableObjects);
 
         // Buscar todos los objetos afectables activos
-        AffectedByBlackHole[] foundObjects = FindObjectsOfType<AffectedByBlackHole>();
+        AffectedByBlackHole[] foundObjects = FindObjectsByType<AffectedByBlackHole>(FindObjectsSortMode.None);
 
         int newObjectsCount = 0;
         foreach (var obj in foundObjects)

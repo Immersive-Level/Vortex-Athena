@@ -29,7 +29,7 @@ public class ResourceManager : MonoBehaviour
         if (ResourceSpawner.Instance != null) return;
 
         // Buscar recursos activos sin spawner
-        CollectibleResource[] resources = FindObjectsOfType<CollectibleResource>();
+        CollectibleResource[] resources = FindObjectsByType<CollectibleResource>(FindObjectsSortMode.None);
         foreach (CollectibleResource resource in resources)
         {
             if (resource != null && resource.gameObject.activeInHierarchy)

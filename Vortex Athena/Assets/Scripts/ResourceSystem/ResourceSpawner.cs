@@ -94,7 +94,7 @@ public class ResourceSpawner : MonoBehaviour
         // Buscar el agujero negro si no está asignado
         if (blackHole == null)
         {
-            blackHole = FindObjectOfType<BlackHole>();
+            blackHole = FindAnyObjectByType<BlackHole>();
             if (blackHole == null)
             {
                 Debug.LogWarning("ResourceSpawner: No se encontró un BlackHole en la escena.");

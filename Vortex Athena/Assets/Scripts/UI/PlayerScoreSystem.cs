@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro; // Importamos TextMeshPro
+using TMPro;
 
 /// <summary>
 /// Sistema de puntuación individual para cada jugador
@@ -7,72 +7,41 @@ using TMPro; // Importamos TextMeshPro
 /// </summary>
 public class PlayerScoreSystem : MonoBehaviour
 {
-    [Header("Puntuación")]
-    [Tooltip("Puntuación actual del jugador")]
-    public int score = 0;
+    private PlayerMain playerMain;
+    private ScoreSystem scoreSystem;
 
-    [Tooltip("Componente TextMeshPro para mostrar puntuación")]
+    [Header("UI")]
     public TMP_Text scoreText;
-
-    [Tooltip("Formato del texto de puntuación")]
     public string scoreFormat = "Puntos: {0}";
 
-    [Header("Efectos")]
-    [Tooltip("Efecto al ganar puntos")]
-    public GameObject scoreEffect;
-
-    [Tooltip("Sonido al ganar puntos")]
-    public AudioClip scoreSound;
-
-    [Header("Identificación")]
-    [Tooltip("ID del jugador (de 1 a 4)")]
-    public int playerID = 1;
-
-    private void Start()
+    public void Initialize(PlayerMain inPlayerMain)
     {
-        // Inicializar puntuación
-        UpdateScoreUI();
-    }
+        scoreSystem = GameManager.Instance?.ScoreSystem;
+        playerMain = inPlayerMain;
 
-    /// <summary>
-    /// Añade puntos a la puntuación del jugador
-    /// </summary>
-    /// <param name="points">Cantidad de puntos a añadir</param>
-    public void AddScore(int points)
-    {
-        if (points <= 0) return;
-
-        score += points;
-        UpdateScoreUI();
-
-        // Efectos visuales y sonoros
-        if (scoreEffect != null)
+        if (scoreSystem != null && playerMain != null)
         {
-            Instantiate(scoreEffect, transform.position, Quaternion.identity);
-        }
-
-        if (scoreSound != null)
-        {
-            AudioSource.PlayClipAtPoint(scoreSound, transform.position);
+            scoreSystem.RegisterPlayer(playerMain.data);
+            UpdateScoreUI();
         }
     }
 
-    /// <summary>
-    /// Actualiza el texto de puntuación en la UI
-    /// </summary>
+    public void AddScore(int inKills = 0, int inDeaths = 0, int inScore = 0)
+    {
+        if ( scoreSystem == null) return;
+
+        // Actualizar puntuación en el sistema global
+        scoreSystem.UpdateScore(playerMain.data.ID, inKills, inDeaths, inScore);
+        UpdateScoreUI();
+
+    }
+
     private void UpdateScoreUI()
     {
-        if (scoreText != null)
+        if (scoreText != null && scoreSystem != null)
         {
-            scoreText.text = string.Format(scoreFormat, score);
+            int currentScore = scoreSystem.GetPlayerScore(playerMain.data.ID)?.Score ?? 0;
+            scoreText.text = string.Format(scoreFormat, currentScore);
         }
-    }
-
-    /// <summary>
-    /// Obtiene la puntuación actual del jugador
-    /// </summary>
-    public int GetScore()
-    {
-        return score;
     }
 }

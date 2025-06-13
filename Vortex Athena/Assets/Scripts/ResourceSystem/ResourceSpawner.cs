@@ -14,7 +14,7 @@ public class ResourceSpawner : MonoBehaviour
         public GameObject prefab;
         [Range(0f, 1f)]
         public float spawnProbability = 0.5f;
-        public int initialPoolSize = 5;
+        public int initialPoolSize = 10;
     }
 
     [Header("Configuración de Recursos")]
@@ -31,11 +31,11 @@ public class ResourceSpawner : MonoBehaviour
     [Tooltip("Radio máximo de generación (desde el agujero negro)")]
     public float maxSpawnRadius = 5f;
 
-    [Tooltip("Tiempo entre generción de recursos (segundos)")]
-    public float spawnInterval = 4f;
+    [Tooltip("Tiempo entre generación de recursos (segundos)")]
+    public float spawnInterval = 2f;
 
     [Tooltip("Cantidad máxima de recursos activos")]
-    public int maxActiveResources = 15;
+    public int maxActiveResources = 50;
 
     [Tooltip("Capa para verificar obstáculos")]
     public LayerMask obstacleLayer;
@@ -94,7 +94,7 @@ public class ResourceSpawner : MonoBehaviour
         // Buscar el agujero negro si no está asignado
         if (blackHole == null)
         {
-            blackHole = FindObjectOfType<BlackHole>();
+            blackHole = FindAnyObjectByType<BlackHole>();
             if (blackHole == null)
             {
                 Debug.LogWarning("ResourceSpawner: No se encontró un BlackHole en la escena.");
@@ -385,13 +385,7 @@ public class ResourceSpawner : MonoBehaviour
             Rigidbody2D rb = resource.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                // Calcular dirección tangencial (perpendicular al radio)
-                Vector2 toBlackHole = (Vector2)blackHole.transform.position - (Vector2)resource.transform.position;
-                Vector2 tangent = new Vector2(-toBlackHole.y, toBlackHole.x).normalized;
-
-                // Velocidad orbital inicial
-                float orbitalSpeed = Random.Range(2f, 3f);
-                rb.linearVelocity = tangent * orbitalSpeed;
+                rb.linearVelocity = Random.insideUnitCircle.normalized * Random.Range(1f, 3f);
             }
         }
     }

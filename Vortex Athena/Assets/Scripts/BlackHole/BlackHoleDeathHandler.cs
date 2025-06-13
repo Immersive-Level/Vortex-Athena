@@ -4,6 +4,7 @@ using System.Collections;
 
 public class BlackHoleDeathHandler : MonoBehaviour
 {
+    private PlayerMain _playerMain;
     private CombatSystem _combatSystem;
 
     [Header("Referencias")]
@@ -32,6 +33,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
         originalScale = transform.localScale;
         countdownUI.SetActive(false);
 
+        _playerMain = transform.parent.GetComponent<PlayerMain>();
         _combatSystem = GetComponent<CombatSystem>();
         // 🔥 Buscamos automáticamente el componente ShipInvulnerability en el mismo GameObject
         shipInvulnerability = GetComponent<ShipInvulnerability>();
@@ -89,6 +91,8 @@ public class BlackHoleDeathHandler : MonoBehaviour
 
         OcultarVisual();
 
+        _playerMain.PlayerScoreSystem.AddScore(inDeaths: 1);
+
         countdownUI.SetActive(true);
 
         float timeLeft = respawnDelay;
@@ -105,6 +109,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
         transform.position = respawnPoint.position;
         transform.localScale = originalScale;
 
+        _playerMain.Fuel_System.AddFuel(30);
         MostrarVisual();
 
         // 🚀 Activamos la invulnerabilidad después del respawn

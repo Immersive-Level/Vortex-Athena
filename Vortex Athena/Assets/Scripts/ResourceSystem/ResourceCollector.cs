@@ -107,7 +107,7 @@ public class ResourceCollector : MonoBehaviour
             case ResourceType.ResourceEffect.Points:
                 if (scoreSystem != null)
                 {
-                    scoreSystem.AddScore(Mathf.RoundToInt(resource.resourceType.effectAmount));
+                    scoreSystem.AddScore(inScore: Mathf.RoundToInt(resource.resourceType.effectAmount));
                 }
                 break;
         }

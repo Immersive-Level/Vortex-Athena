@@ -1,80 +1,75 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-/// <summary>
-/// Controlador de la nave - Solo maneja física y movimiento
-/// No gestiona inputs ni inicialización
-/// </summary>
 public class ShipController : MonoBehaviour
 {
+
     [Header("Propiedades de Movimiento")]
     [Tooltip("La velocidad base con la que la nave va a moverse")]
     public float velocidad = 5f;
 
     [Tooltip("Distancia en la que la nave empieza a girar para alejarse")]
-    public float distanciaMaxGiro = 5f;
+    public float distanciaMaxGiro = 5f; // Distancia en la que la nave empieza a girar para alejarse
 
     [Tooltip("Intensidad con la que gira al acercarse")]
-    public float intensidadGiro = 2f;
+    public float intensidadGiro = 2f; // Intensidad con la que gira al acercarse
 
     [Tooltip("Factor de estabilización cuando hay colisiones")]
-    public float estabilidadRotacion = 3f;
+    public float estabilidadRotacion = 3f; // Factor de estabilización cuando hay colisiones
 
-    [Tooltip("Distancia para empezar a girar cerca del borde")]
-    public float distanciaBorde = 2f;
+    [Tooltip("Distancia para empezar a girar cerca del borde (Radio indicador visual color rojo)")]
+    public float distanciaBorde = 2f; // Distancia para empezar a girar cerca del borde
 
     [Tooltip("Límite de ángulo de giro al evitar el borde")]
-    public float maxAnguloBorde = 20f;
+    public float maxAnguloBorde = 20f; // Límite de ángulo de giro al evitar el borde
 
-    [Header("Debug")]
-    [Tooltip("Mostrar mensajes de debug")]
-    public bool debugMode = false;
+    [Header("Referencia GameObject")]
+    [Tooltip("Referencia del GameObject que contiene el script de la gasolina")]
+    public Boton consumeFuel;
 
-    // Estado interno
+    [Header("Controles")]
+    [Tooltip("Tecla para activar el movimiento de la nave")]
+    public KeyCode teclaMovimiento = KeyCode.Alpha1;
+
     private Rigidbody2D rb;
     private bool isMoving = false;
-    private bool hasEffect = false;
-    private Vector2 centroMapa = Vector2.zero;
-    private int direccionGiro = 1;
-
-    // Propiedades públicas de solo lectura
-    public bool IsMoving => isMoving;
-    public bool HasEffect => hasEffect;
-
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-
-        if (rb == null)
-        {
-            Debug.LogError($"[ShipController] No se encontró Rigidbody2D en {gameObject.name}");
-            enabled = false;
-        }
-    }
+    private bool hasEffect;
+    private Vector2 centroMapa = Vector2.zero; // Se asume que el centro del mapa es (0,0)
+    private int direccionGiro = 1; // Dirección del giro (1 o -1)
 
     void Start()
     {
-        if (debugMode)
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        // Comprobamos si la tecla está siendo presionada
+        if (Input.GetKeyDown(teclaMovimiento))
         {
-            Debug.Log($"[ShipController] Inicializado en {gameObject.name}");
+            StartMoving();
+            consumeFuel.OnPress();
+        }
+        else if (Input.GetKeyUp(teclaMovimiento))
+        {
+            StopMoving();
+            consumeFuel.OnRelease();
         }
     }
 
     void FixedUpdate()
-    {
-        if (!rb) return;
-
-        // Movimiento hacia adelante
+    {// Movimiento hacia adelante
         if (isMoving)
         {
             rb.AddForce(transform.up * velocidad);
-        }
 
-        // Calcular distancia al centro y aplicar giro progresivo
+        }
+        // Calcular distancia al centro y aplicar giro progresivo cuando la nave se acerca
         float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
         if (isMoving && distanciaAlCentro < distanciaMaxGiro)
         {
-            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro;
+            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro; // Se vuelve más fuerte cerca del centro
             float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
             transform.Rotate(Vector3.forward, anguloGiro);
         }
@@ -82,7 +77,7 @@ public class ShipController : MonoBehaviour
         // Evitar el borde del mapa
         EvitarBorde();
 
-        // Estabilizador automático
+        // Estabilizador automático para evitar giros descontrolados
         rb.angularVelocity *= 1f - (estabilidadRotacion * Time.fixedDeltaTime);
     }
 
@@ -92,58 +87,39 @@ public class ShipController : MonoBehaviour
 
         if (hit.collider != null)
         {
+            // Debug.Log("¡Borde detectado con Raycast!");
+
             float factorGiroBorde = Mathf.Clamp01((distanciaBorde - hit.distance) / distanciaBorde);
             float anguloBorde = factorGiroBorde * maxAnguloBorde * direccionGiro;
             transform.Rotate(Vector3.forward, anguloBorde);
         }
     }
 
-    /// <summary>
-    /// Inicia el movimiento de la nave
-    /// </summary>
     public void StartMoving()
     {
-        if (!enabled || !rb) return;
-
         isMoving = true;
-        direccionGiro = (Random.value < 0.5f) ? -1 : 1;
-
-        if (debugMode)
-            Debug.Log($"[ShipController] Movimiento iniciado en {gameObject.name}");
+        direccionGiro = (Random.value < 0.5f) ? -1 : 1; // Asignar una dirección de giro al iniciar el movimiento
     }
 
-    /// <summary>
-    /// Detiene el movimiento de la nave
-    /// </summary>
     public void StopMoving()
     {
         isMoving = false;
-
-        if (debugMode)
-            Debug.Log($"[ShipController] Movimiento detenido en {gameObject.name}");
+    }
+    public void ResetMovemnt()
+    {
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 
     /// <summary>
-    /// Reinicia completamente el estado de movimiento
+    ///  reduce la velocidad de la nave por un tiempo determinado
     /// </summary>
-    public void ResetMovement()
+    /// <param name="inSlowMagnitude">porcentaje de reducion de vel (0% - 100%)</param>
+    /// <param name="inSlowTime">Tiempo en segundos del slow</param>
+    public void SlowShip(float inSlowMagnitude, float inSlowTime = 1)
     {
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.angularVelocity = 0f;
-        }
-        isMoving = false;
-        StopAllCoroutines();
-        hasEffect = false;
-    }
+        if (hasEffect) return;
 
-    /// <summary>
-    /// Aplica un efecto de ralentización temporal
-    /// </summary>
-    public void SlowShip(float inSlowMagnitude, float inSlowTime = 1f)
-    {
-        if (hasEffect || !enabled) return;
         StartCoroutine(SlowTimer(inSlowMagnitude, inSlowTime));
     }
 
@@ -151,49 +127,33 @@ public class ShipController : MonoBehaviour
     {
         hasEffect = true;
         float saveVelocity = velocidad;
-        float slowPercentage = Mathf.Clamp01(inSlowMagnitude / 100f);
-        float slowVelocity = velocidad * slowPercentage;
+        float slowVelocity = (inSlowMagnitude * inSlowMagnitude) / 100;
         velocidad -= slowVelocity;
 
-        if (debugMode)
-        {
-            Debug.Log($"[ShipController] {gameObject.name} ralentizado: {saveVelocity} -> {velocidad} por {inSlowTime}s");
-        }
+        //Debug.Log($"Ship: {gameObject.name} slow: {saveVelocity} -> {slowVelocity} : {velocidad} for {inSlowTime}");
 
         yield return new WaitForSeconds(inSlowTime);
 
-        velocidad = saveVelocity;
-        hasEffect = false;
+        //Debug.Log($"Ship: {gameObject.name} slow end.");
 
-        if (debugMode)
-        {
-            Debug.Log($"[ShipController] {gameObject.name} velocidad restaurada");
-        }
+        velocidad = saveVelocity;
     }
 
-    /// <summary>
-    /// Aplica una fuerza de empuje instantánea
-    /// </summary>
     public void PushShip(Vector2 inForceDirection, float inForceMagnitude)
     {
-        if (rb == null || !enabled) return;
-
+        // Aplicamos la fuerza
         rb.AddForce(inForceDirection * inForceMagnitude, ForceMode2D.Impulse);
 
-        if (debugMode)
-        {
-            Vector2 start = transform.position;
-            Debug.DrawRay(start, inForceDirection * inForceMagnitude, Color.red, 2.0f);
-            Debug.Log($"[ShipController] Empuje aplicado: dirección {inForceDirection}, magnitud {inForceMagnitude}");
-        }
-    }
+        // Calculamos los puntos inicial y final del rayo
+        Vector2 start = transform.position; // Punto inicial del rayo (posición actual de la nave)
+        Vector2 end = start + inForceDirection * inForceMagnitude; // Punto final del rayo
 
-    /// <summary>
-    /// Configura el centro del mapa para cálculos de giro
-    /// </summary>
-    public void SetMapCenter(Vector2 center)
-    {
-        centroMapa = center;
+        // Dibujamos el rayo
+        Debug.DrawRay(start, inForceDirection * inForceMagnitude, Color.red, 2.0f); // Rayo principal
+
+        Debug.DrawLine(end, end + Vector2.one * 0.1f, Color.blue, 2.0f); // Marcador en el final (azul)
+
+        Debug.Log($"Rayo dibujado desde {start} hasta {end} en dirección {inForceDirection}");
     }
 
     void OnDrawGizmos()
@@ -202,7 +162,7 @@ public class ShipController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distanciaBorde);
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         StopAllCoroutines();
     }

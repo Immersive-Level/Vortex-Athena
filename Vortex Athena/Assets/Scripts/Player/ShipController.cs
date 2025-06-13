@@ -130,11 +130,11 @@ public class ShipController : MonoBehaviour
         float slowVelocity = (inSlowMagnitude * inSlowMagnitude) / 100;
         velocidad -= slowVelocity;
 
-        Debug.Log($"Ship: {gameObject.name} slow: {saveVelocity} -> {slowVelocity} : {velocidad} for {inSlowTime}");
+        //Debug.Log($"Ship: {gameObject.name} slow: {saveVelocity} -> {slowVelocity} : {velocidad} for {inSlowTime}");
 
         yield return new WaitForSeconds(inSlowTime);
 
-        Debug.Log($"Ship: {gameObject.name} slow end.");
+        //Debug.Log($"Ship: {gameObject.name} slow end.");
 
         velocidad = saveVelocity;
     }

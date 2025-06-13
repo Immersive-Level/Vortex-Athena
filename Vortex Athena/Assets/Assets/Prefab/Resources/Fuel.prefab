@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2379534232226853785}
   m_Layer: 0
   m_Name: Fuel
-  m_TagString: Untagged
+  m_TagString: Resource
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

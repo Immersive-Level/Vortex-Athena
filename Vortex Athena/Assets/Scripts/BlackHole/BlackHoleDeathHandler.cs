@@ -109,6 +109,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
         transform.position = respawnPoint.position;
         transform.localScale = originalScale;
 
+        _playerMain.Fuel_System.AddFuel(30);
         MostrarVisual();
 
         // 🚀 Activamos la invulnerabilidad después del respawn

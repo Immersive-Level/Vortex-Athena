@@ -45,8 +45,6 @@ public class Fuel_System : MonoBehaviour
 
     public void ConsumeFuel()
     {
-        
-        
         if (currentFuel <= 0f) return;
         {
             currentFuel -= fuelConsumptionRate * Time.deltaTime;
@@ -110,7 +108,7 @@ public class Fuel_System : MonoBehaviour
         // Actualizar la barra de combustible
         UpdateFuelBar();
 
-        if (deathHandler != null && currentFuel >= 0)
+        if (deathHandler != null && currentFuel <= 0)
         {
             deathHandler.Death();
         }

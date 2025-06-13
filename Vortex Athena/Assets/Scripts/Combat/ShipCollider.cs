@@ -24,8 +24,8 @@ public class ShipCollider : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         // Recorremos los colliders que queremos ignorar
+        if (collision.gameObject.CompareTag("Resource")) return;
         foreach (Collider2D ignoreCollider in combatSystem?.CollidersToIgnore)
         {
             // Si el collider actual es igual al collider de la colisión, retornamos sin hacer nada
@@ -35,24 +35,22 @@ public class ShipCollider : MonoBehaviour
             }
         }
 
-        Debug.Log($"collide {collision.gameObject.name}");
-
-        PlayerMain otherPlayerMain = gameObject.GetComponent<PlayerMain>();
-        if (otherPlayerMain != null)
+        if (collision.gameObject.CompareTag("Nave"))
         {
             Debug.Log("Collide with player" + collision.gameObject.name + " _ " + type);
             if (type == ColliderType.Back)
             {
-                otherPlayerMain.PlayerScoreSystem.AddScore(inKills: 1);//le añade una kill al oponente
+                PlayerScoreSystem otherScore = collision.gameObject.GetComponent<PlayerScoreSystem>();
+                otherScore?.AddScore(inKills: 1);//le añade una kill al oponente
+
                 combatSystem?.deathHandler.Death();
             }
         }
+
         //////Empujon
         //Vector2 forceDirection = (collision.transform.position - transform.position).normalized; // Dirección del empujon
         //combatSystem?.shipController.PushShip(forceDirection, combatSystem.PushMagnitude);
-
         combatSystem?.shipController.SlowShip(combatSystem.SlowMagnitude);
-
         combatSystem?.fuelSystem.RemoveFuel(combatSystem.CollideDamageValue);
     }
 

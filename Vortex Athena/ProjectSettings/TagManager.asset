@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Nave
   - Arena
+  - Resource
   layers:
   - Default
   - TransparentFX

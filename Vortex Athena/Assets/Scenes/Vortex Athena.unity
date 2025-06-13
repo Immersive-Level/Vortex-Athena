@@ -2786,6 +2786,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 9019072703971218095}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -2862,6 +2866,10 @@ PrefabInstance:
       propertyPath: consumeFuel
       value: 
       objectReference: {fileID: 170116139}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 

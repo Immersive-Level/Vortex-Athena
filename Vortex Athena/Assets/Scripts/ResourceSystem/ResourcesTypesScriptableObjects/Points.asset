@@ -15,7 +15,7 @@ MonoBehaviour:
   resourceName: Points
   effect: 1
   effectAmount: 10
-  sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  sprite: {fileID: 5844975914467629419, guid: 489028d5149c04f4a849b7b81a1d810b, type: 3}
   collectSound: {fileID: 0}
   collectEffect: {fileID: 0}
-  resourceColor: {r: 0.985857, g: 1, b: 0, a: 1}
+  resourceColor: {r: 1, g: 1, b: 1, a: 1}

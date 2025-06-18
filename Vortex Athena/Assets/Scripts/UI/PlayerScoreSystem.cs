@@ -12,7 +12,7 @@ public class PlayerScoreSystem : MonoBehaviour
 
     [Header("UI")]
     public TMP_Text scoreText;
-    public string scoreFormat = "Puntos: {0}";
+    public string scoreFormat = "{0}";
 
     public void Initialize(PlayerMain inPlayerMain)
     {

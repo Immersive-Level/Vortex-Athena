@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NetcodeForEntitiesSetup/Scenes/Gameplay.unity
     guid: 0a53e03af600d2848a59c2f7b29eef1f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 8c68b0a1feb70a74887f2296aaa79eea
   - enabled: 1

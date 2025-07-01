@@ -385,15 +385,15 @@ PrefabInstance:
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleCenter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651307}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleDeathZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651305}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleAttractionZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651306}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1518,6 +1518,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2141597899986631940, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
   m_PrefabInstance: {fileID: 806403710}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &806403712 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1045573329793349075, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+  m_PrefabInstance: {fileID: 806403710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff045d119baf5944b794b618ed72c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &817909504 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -1889,15 +1900,15 @@ PrefabInstance:
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleCenter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651307}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleDeathZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651305}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleAttractionZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651306}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
@@ -2284,6 +2295,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46b1bff69c2ef8941aa5e9bfb3b7c766, type: 3}
+--- !u!58 &1337651305 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 2565764439051140009, guid: 46b1bff69c2ef8941aa5e9bfb3b7c766, type: 3}
+  m_PrefabInstance: {fileID: 1337651304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1337651306 stripped
+CircleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3461160491623629873, guid: 46b1bff69c2ef8941aa5e9bfb3b7c766, type: 3}
+  m_PrefabInstance: {fileID: 1337651304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1337651307 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3192712198881460443, guid: 46b1bff69c2ef8941aa5e9bfb3b7c766, type: 3}
+  m_PrefabInstance: {fileID: 1337651304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1337651308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1533712236048954205, guid: 46b1bff69c2ef8941aa5e9bfb3b7c766, type: 3}
+  m_PrefabInstance: {fileID: 1337651304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1e270230fc91c1459d2b31fa063a13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1377089503 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1866366312605803435, guid: d2c0b43972635cb4397bd38ad1f1ce3b, type: 3}
@@ -2720,15 +2757,15 @@ PrefabInstance:
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleCenter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651307}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleDeathZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651305}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleAttractionZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651306}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
@@ -3336,15 +3373,15 @@ PrefabInstance:
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleCenter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651307}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleDeathZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651305}
     - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleAttractionZone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651306}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeFuel
       value: 
@@ -3419,6 +3456,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[0].fuelButton
+      value: 
+      objectReference: {fileID: 806403712}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[0].inicioNave
       value: 
@@ -3535,7 +3576,7 @@ PrefabInstance:
     - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: blackHole
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1337651308}
     - target: {fileID: 5382141535626216940, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: m_Name
       value: GameManager

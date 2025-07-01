@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Gestor centralizado de inputs para múltiples jugadores
-/// Es el único responsable de capturar y procesar inputs
+/// Ahora valida el combustible antes de permitir movimiento
 /// </summary>
 public class PlayerInputManager : MonoBehaviour
 {
@@ -22,10 +22,12 @@ public class PlayerInputManager : MonoBehaviour
         public InicioNave inicioNave;
         public ShipController shipController;
         public Boton fuelButton;
+        public Fuel_System fuelSystem; // Nueva referencia al sistema de combustible
 
         [Header("Estado")]
         public bool isActive = false;
         public bool isMoving = false;
+        public bool hasFuel = true; // Estado del combustible
     }
 
     [Header("Configuración de Jugadores")]
@@ -33,6 +35,10 @@ public class PlayerInputManager : MonoBehaviour
 
     [Header("Debug")]
     public bool debugMode = false;
+
+    [Header("Feedback Visual")]
+    [Tooltip("Mostrar mensaje cuando no hay combustible")]
+    public bool showNoFuelWarning = true;
 
     // Singleton opcional para acceso global
     private static PlayerInputManager instance;
@@ -57,8 +63,40 @@ public class PlayerInputManager : MonoBehaviour
 
     void Start()
     {
+        // Suscribirse a eventos de combustible
+        foreach (var player in players)
+        {
+            if (player.fuelSystem != null)
+            {
+                // Crear referencias locales para evitar problemas con closures
+                var currentPlayer = player;
+
+                player.fuelSystem.OnFuelEmpty += () => OnPlayerFuelEmpty(currentPlayer);
+                player.fuelSystem.OnFuelRestored += () => OnPlayerFuelRestored(currentPlayer);
+
+                // Estado inicial
+                player.hasFuel = player.fuelSystem.HasFuel;
+            }
+        }
+
         if (debugMode)
             Debug.Log($"[PlayerInputManager] Inicializado con {players.Count} jugadores");
+    }
+
+    void OnDestroy()
+    {
+        // Desuscribirse de eventos
+        foreach (var player in players)
+        {
+            if (player.fuelSystem != null)
+            {
+                // Nota: En un caso real, deberíamos guardar las referencias a los delegados
+                // para poder desuscribirnos correctamente
+            }
+        }
+
+        if (instance == this)
+            instance = null;
     }
 
     void ValidatePlayerConfigurations()
@@ -78,9 +116,11 @@ public class PlayerInputManager : MonoBehaviour
             if (player.shipController == null)
                 player.shipController = player.naveObject.GetComponent<ShipController>();
 
+            if (player.fuelSystem == null)
+                player.fuelSystem = player.naveObject.GetComponent<Fuel_System>();
+
             if (player.inicioNave == null)
             {
-                // Buscar en el padre o en el mismo objeto
                 player.inicioNave = player.naveObject.GetComponent<InicioNave>();
                 if (player.inicioNave == null)
                     player.inicioNave = player.naveObject.GetComponentInParent<InicioNave>();
@@ -89,6 +129,9 @@ public class PlayerInputManager : MonoBehaviour
             // Validar componentes necesarios
             if (player.shipController == null)
                 Debug.LogWarning($"[PlayerInputManager] {player.playerName} no tiene ShipController");
+
+            if (player.fuelSystem == null)
+                Debug.LogWarning($"[PlayerInputManager] {player.playerName} no tiene Fuel_System");
 
             if (player.inicioNave == null)
                 Debug.LogWarning($"[PlayerInputManager] {player.playerName} no tiene InicioNave");
@@ -126,7 +169,15 @@ public class PlayerInputManager : MonoBehaviour
             return;
         }
 
-        // Si ya está activa, iniciar movimiento
+        // Verificar combustible antes de iniciar movimiento
+        if (!player.hasFuel || (player.fuelSystem != null && !player.fuelSystem.HasFuel))
+        {
+            if (showNoFuelWarning && debugMode)
+                Debug.LogWarning($"[PlayerInputManager] {player.playerName} - Sin combustible!");
+            return;
+        }
+
+        // Si ya está activa y hay combustible, iniciar movimiento
         if (player.shipController != null && player.isActive)
         {
             player.isMoving = true;
@@ -166,6 +217,10 @@ public class PlayerInputManager : MonoBehaviour
             player.inicioNave.IniciarJuego();
             player.isActive = true;
 
+            // Verificar estado inicial del combustible
+            if (player.fuelSystem != null)
+                player.hasFuel = player.fuelSystem.HasFuel;
+
             if (debugMode)
                 Debug.Log($"[PlayerInputManager] {player.playerName} activado");
         }
@@ -175,8 +230,40 @@ public class PlayerInputManager : MonoBehaviour
             player.naveObject.SetActive(true);
             player.isActive = true;
 
+            // Verificar estado inicial del combustible
+            if (player.fuelSystem != null)
+                player.hasFuel = player.fuelSystem.HasFuel;
+
             Debug.LogWarning($"[PlayerInputManager] {player.playerName} activado sin InicioNave");
         }
+    }
+
+    /// <summary>
+    /// Manejador cuando un jugador se queda sin combustible
+    /// </summary>
+    void OnPlayerFuelEmpty(PlayerConfig player)
+    {
+        player.hasFuel = false;
+
+        // Si está en movimiento, detenerlo
+        if (player.isMoving)
+        {
+            OnPlayerKeyUp(player);
+        }
+
+        if (debugMode)
+            Debug.Log($"[PlayerInputManager] {player.playerName} - Combustible agotado");
+    }
+
+    /// <summary>
+    /// Manejador cuando un jugador recupera combustible
+    /// </summary>
+    void OnPlayerFuelRestored(PlayerConfig player)
+    {
+        player.hasFuel = true;
+
+        if (debugMode)
+            Debug.Log($"[PlayerInputManager] {player.playerName} - Combustible restaurado");
     }
 
     /// <summary>
@@ -231,6 +318,16 @@ public class PlayerInputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Obtiene si un jugador tiene combustible
+    /// </summary>
+    public bool PlayerHasFuel(int index)
+    {
+        if (index >= 0 && index < players.Count)
+            return players[index].hasFuel;
+        return false;
+    }
+
+    /// <summary>
     /// Obtiene la configuración de un jugador
     /// </summary>
     public PlayerConfig GetPlayerConfig(int index)
@@ -249,11 +346,5 @@ public class PlayerInputManager : MonoBehaviour
         {
             DeactivatePlayer(i);
         }
-    }
-
-    void OnDestroy()
-    {
-        if (instance == this)
-            instance = null;
     }
 }

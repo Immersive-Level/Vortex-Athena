@@ -182,6 +182,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 790514848}
+    - target: {fileID: 2276714564275110904, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: scoreFormat
+      value: '{0}'
+      objectReference: {fileID: 0}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1737,6 +1741,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 891286572}
+    - target: {fileID: 2276714564275110904, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: scoreFormat
+      value: '{0}'
+      objectReference: {fileID: 0}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2606,6 +2614,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1409231395}
+    - target: {fileID: 2276714564275110904, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: scoreFormat
+      value: '{0}'
+      objectReference: {fileID: 0}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3326,6 +3338,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1448216253}
+    - target: {fileID: 2276714564275110904, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: scoreFormat
+      value: '{0}'
+      objectReference: {fileID: 0}
     - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1

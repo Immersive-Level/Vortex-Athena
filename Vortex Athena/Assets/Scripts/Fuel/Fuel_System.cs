@@ -1,191 +1,267 @@
 using UnityEngine;
+
 using UnityEngine.UI;
-using System;
+
+using System; // <- para Action
+
+
+
+
 
 public class Fuel_System : MonoBehaviour
+
 {
+
     [HideInInspector] public BlackHoleDeathHandler deathHandler;
 
-    [Header("Configuración de Combustible")]
+
+
     public Image lineFuel; // Referencia a la imagen de la barra de combustible
-    public float maxFuel = 100f; // Cantidad máxima de combustible
+
+    public float maxFuel = 100f; // Cantidad m�xima de combustible
+
     public float fuelConsumptionRate = 10f; // Consumo de combustible por segundo
 
-    [Header("Regeneración Automática")]
-    [Tooltip("¿Se regenera el combustible automáticamente?")]
-    public bool autoRegenEnabled = false;
-    [Tooltip("Cantidad de combustible regenerado por segundo")]
-    public float autoRegenRate = 1f;
+
 
     private float currentFuel;
+
     private float refuelTimer = 0f;
 
-    [Header("Recolección de Recursos")]
+
+
+    [Header("Recolecci�n de Recursos")]
+
     [Tooltip("Efecto visual al recolectar combustible")]
+
     public GameObject fuelCollectEffect;
+
+
+
     [Tooltip("Sonido al recolectar combustible")]
+
     public AudioClip fuelCollectSound;
 
-    // Propiedad pública para verificar si hay combustible
-    public bool HasFuel => currentFuel > 0f;
+    public bool HasFuel => currentFuel > 0f;  // �Queda gasolina?
 
-    // Eventos
+
+
+    // Evento que lanzamos al agotarse
+
     public event Action OnFuelEmpty;
-    public event Action OnFuelRestored; // Nuevo evento cuando se recupera combustible
+
+
 
     void Start()
+
     {
+
         currentFuel = maxFuel; // Inicia con el tanque lleno
+
         UpdateFuelBar();
+
+
 
         deathHandler = GetComponent<BlackHoleDeathHandler>();
+
     }
 
-    void LateUpdate()
+
+
+    private void LateUpdate()
+
     {
-        // Solo regenerar si está habilitado
-        if (autoRegenEnabled && currentFuel < maxFuel)
+
+        refuelTimer += Time.deltaTime;
+
+        if (refuelTimer >= 1f)
+
         {
-            refuelTimer += Time.deltaTime;
-            if (refuelTimer >= 1f)
-            {
-                refuelTimer = 0f;
-                AddFuel(autoRegenRate, false); // Sin efectos visuales
-            }
+
+            refuelTimer = 0f;
+
+            AddFuel(1);
+
         }
+
     }
 
-    /// <summary>
-    /// Consume combustible si hay disponible
-    /// </summary>
-    /// <returns>True si se pudo consumir, False si no hay combustible</returns>
-    public bool ConsumeFuel()
+
+
+    public void ConsumeFuel()
+
     {
-        // Si no hay combustible, no consumir
-        if (currentFuel <= 0f)
+
+        if (currentFuel <= 0f) return;
+
         {
-            currentFuel = 0f; // Asegurar que no sea negativo
+
+            currentFuel -= fuelConsumptionRate * Time.deltaTime;
+
+            currentFuel = Mathf.Clamp(currentFuel, 0f, maxFuel);
+
             UpdateFuelBar();
-            return false;
+
+
+
+
+
+            if (currentFuel <= 0f)
+
+            {
+
+                OnFuelEmpty?.Invoke();
+
+            }
+
+
+
         }
 
-        // Consumir combustible
-        currentFuel -= fuelConsumptionRate * Time.deltaTime;
-        currentFuel = Mathf.Clamp(currentFuel, 0f, maxFuel);
-        UpdateFuelBar();
-
-        // Verificar si se agotó el combustible
-        if (currentFuel <= 0f && HasFuel == false)
-        {
-            OnFuelEmpty?.Invoke();
-        }
-
-        return true;
     }
+
+
 
     void UpdateFuelBar()
+
     {
-        if (lineFuel != null)
-        {
-            lineFuel.fillAmount = currentFuel / maxFuel;
-        }
+
+        lineFuel.fillAmount = currentFuel / maxFuel; // Actualiza el Fill Amount
+
     }
 
+
+
     /// <summary>
-    /// Añade combustible al jugador
+
+    /// A�ade combustible al jugador
+
     /// </summary>
+
+    /// <param name="amount">Cantidad de combustible a a�adir</param>   
+
+    /// <param name="showEffects"> si se muestran los efectos, por defecto TRUE</param>
+
     public void AddFuel(float amount, bool showEffects = true)
+
     {
+
         if (amount <= 0) return;
 
-        bool wasEmpty = !HasFuel;
 
-        // Aumentar combustible sin exceder el máximo
+
+        // Aumentar combustible sin exceder el m�ximo
+
         currentFuel += amount;
+
         currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
 
+
+
         // Actualizar la barra de combustible
+
         UpdateFuelBar();
 
-        // Si estaba vacío y ahora tiene combustible, lanzar evento
-        if (wasEmpty && HasFuel)
-        {
-            OnFuelRestored?.Invoke();
-        }
 
-        // Efectos visuales y sonoros
-        if (showEffects)
-        {
-            if (fuelCollectEffect != null)
-            {
-                Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
-            }
 
-            if (fuelCollectSound != null)
-            {
-                AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
-            }
-        }
+        //if (!showEffects) return;
+
+        //// Efectos visuales y sonoros
+
+        //if (fuelCollectEffect != null)
+
+        //{
+
+        //    Instantiate(fuelCollectEffect, transform.position, Quaternion.identity);
+
+        //}
+
+
+
+        //if (fuelCollectSound != null)
+
+        //{
+
+        //    AudioSource.PlayClipAtPoint(fuelCollectSound, transform.position);
+
+        //}
+
     }
 
+
+
     /// <summary>
+
     /// Quita combustible al jugador
+
     /// </summary>
+
+    /// <param name="amount"></param>
+
     public void RemoveFuel(float amount)
+
     {
+
         if (amount <= 0) return;
+
+
 
         currentFuel -= amount;
+
         currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel);
 
+
+
         // Actualizar la barra de combustible
+
         UpdateFuelBar();
 
-        // Verificar si se agotó
-        if (currentFuel <= 0)
-        {
-            OnFuelEmpty?.Invoke();
 
-            if (deathHandler != null)
-            {
-                deathHandler.Death();
-            }
+
+        if (deathHandler != null && currentFuel <= 0)
+
+        {
+
+            deathHandler.Death();
+
         }
+
     }
 
+
+
     /// <summary>
+
     /// Obtiene el porcentaje actual de combustible
+
     /// </summary>
+
+    /// <returns>Valor entre 0 y 1 que representa el porcentaje de combustible</returns>
+
     public float GetFuelPercentage()
+
     {
+
         return currentFuel / maxFuel;
+
     }
 
+
+
     /// <summary>
+
     /// Obtiene la cantidad actual de combustible
+
     /// </summary>
+
+    /// <returns>Cantidad actual de combustible</returns>
+
     public float GetCurrentFuel()
+
     {
+
         return currentFuel;
+
     }
 
-    /// <summary>
-    /// Establece el combustible actual (útil para debug o mecánicas especiales)
-    /// </summary>
-    public void SetFuel(float amount)
-    {
-        bool wasEmpty = !HasFuel;
-
-        currentFuel = Mathf.Clamp(amount, 0, maxFuel);
-        UpdateFuelBar();
-
-        if (currentFuel <= 0)
-        {
-            OnFuelEmpty?.Invoke();
-        }
-        else if (wasEmpty && HasFuel)
-        {
-            OnFuelRestored?.Invoke();
-        }
-    }
 }

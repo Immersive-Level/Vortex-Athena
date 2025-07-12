@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI01_Morse_0: 7200499729491515837
+      UI01_Morse_1: -985822151319644512
+      UI01_Morse_2: -1686752286271870002
+      UI01_Morse_3: -4462363334107751395
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -260,7 +260,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Gasolina_Fragmentos_Obstaculos 1_0: -929258255389452760
+      Gasolina_Fragmentos_Obstaculos 1_1: 5844975914467629419
+      Gasolina_Fragmentos_Obstaculos 1_2: -5127646402991765434
+      Gasolina_Fragmentos_Obstaculos 1_3: -5719371641338053233
+      Gasolina_Fragmentos_Obstaculos 1_4: 4232398360203769899
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

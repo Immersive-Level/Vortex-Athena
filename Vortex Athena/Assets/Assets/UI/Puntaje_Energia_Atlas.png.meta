@@ -260,7 +260,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Puntaje_Energia_Atlas_0: 161093475397131573
+      Puntaje_Energia_Atlas_1: -383456379719387466
+      Puntaje_Energia_Atlas_2: -8812966327267874909
+      Puntaje_Energia_Atlas_3: 6902771764552357668
+      Puntaje_Energia_Atlas_4: 1830048949480896987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      UI01_Timer_0: 5542868126025378339
+      UI01_Timer_1: 4533822282214790251
+      UI01_Timer_2: 2948654513180572857
+      UI01_Timer_3: 6115862534594848838
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

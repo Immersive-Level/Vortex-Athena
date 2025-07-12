@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      VA_FondoHD_Plano_0: 2548484410802553068
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,8 +6,12 @@ using DG.Tweening;
 
 public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [Header("Sistema")]
+    [SerializeField] private AbilityManager abilityManager;
+
     [Header("Configuración UI")]
     [SerializeField] private TextMeshProUGUI morseDisplayText;
+    private RectTransform textRect;
 
     [Header("Configuración de entrada")]
     private float pressStartTime;
@@ -17,14 +21,6 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private float entryCooldown = 1.5f;
 
     private string liveMorseCode = "";
-
-    [Header("Habilidades Morse")]
-    private Dictionary<string, string> morseAbilities = new Dictionary<string, string>
-    {
-        { ".-", "Boost de velocidad" },
-        { "--.", "Escudo temporal" },
-        { "-..", "Disparo especial" }
-    };
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -36,7 +32,7 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         float pressDuration = Time.time - pressStartTime;
         pressDurations.Add(pressDuration);
 
-        string symbol = (pressDuration <= shortPressThreshold) ? "." : "-";
+        string symbol = (pressDuration <= shortPressThreshold) ? "·" : "-";
         liveMorseCode += symbol;
         morseDisplayText.text = liveMorseCode;
         morseDisplayText.color = Color.white;
@@ -44,10 +40,13 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         lastReleaseTime = Time.time;
     }
 
-    private void Start()
+    void Start()
     {
-        morseDisplayText.text = "";
+        textRect = morseDisplayText.GetComponent<RectTransform>();
+        if (!abilityManager)
+            abilityManager = GetComponentInParent<AbilityManager>(); // fallback automático
     }
+
 
     void Update()
     {
@@ -61,23 +60,22 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         string finalCode = ConvertToMorse(pressDurations);
 
-        if (morseAbilities.ContainsKey(finalCode))
+        bool success = abilityManager.TryActivate(finalCode, gameObject);
+
+        if (success)
         {
-            morseDisplayText.color = Color.green;
-            //Scale Effect
-            Sequence bounceSequence = DOTween.Sequence();
+            morseDisplayText.color = Color.cyan;
+
             Vector3 originalScale = morseDisplayText.transform.localScale;
+            Sequence bounceSequence = DOTween.Sequence();
             bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale * 1.3f, 0.2f).SetEase(Ease.OutQuad));
             bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBounce));
-
-            Debug.Log($"¡Poder activado: {morseAbilities[finalCode]}!");
         }
         else
         {
             morseDisplayText.color = Color.red;
-            //shake effect
-            morseDisplayText.transform.DOShakeRotation(0.4f);
-            Debug.Log("Patrón desconocido.");
+
+            textRect.DOShakeRotation(0.4f).SetEase(Ease.OutQuad);
         }
 
         liveMorseCode = "";
@@ -90,10 +88,11 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         string morseCode = "";
         foreach (float duration in durations)
         {
-            morseCode += (duration <= shortPressThreshold) ? "." : "-";
+            morseCode += (duration <= shortPressThreshold) ? "·" : "-";
         }
         return morseCode;
     }
+
 
     private void ClearText()
     {

@@ -239,9 +239,9 @@ GameObject:
   - component: {fileID: 8535586222915815227}
   - component: {fileID: 575709246236196225}
   - component: {fileID: 1045573329793349075}
+  - component: {fileID: 4217657168790742491}
   - component: {fileID: 3584974756016860359}
   - component: {fileID: 8629864059130795621}
-  - component: {fileID: 4217657168790742491}
   - component: {fileID: 4536292830391241230}
   m_Layer: 5
   m_Name: Run
@@ -377,6 +377,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelSystem: {fileID: 5242596996857156812}
   shipController: {fileID: 0}
+--- !u!114 &4217657168790742491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875923459913665936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e840728d0ff945997c7653b355ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityManager: {fileID: 0}
+  morseDisplayText: {fileID: 1277905342119937795}
 --- !u!114 &3584974756016860359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,19 +481,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &4217657168790742491
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1875923459913665936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 624e840728d0ff945997c7653b355ff2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  morseDisplayText: {fileID: 1277905342119937795}
 --- !u!82 &4536292830391241230
 AudioSource:
   m_ObjectHideFlags: 0

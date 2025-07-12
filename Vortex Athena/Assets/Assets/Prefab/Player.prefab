@@ -47,7 +47,6 @@ MonoBehaviour:
   nave: {fileID: 8452753963668889667}
   impulsoInicial: 2
   direccionImpulso: {x: 1, y: 1}
-  teclaInicio: 49
   blackHoleManager: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
@@ -95,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea93062344abcc408d8c2713aba1e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    Name: 
 --- !u!1 &4310118365417915349
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2178843942267882953}
   - component: {fileID: 1834230592424447696}
+  - component: {fileID: 1300133680352463267}
   - component: {fileID: 4245581896112512108}
   - component: {fileID: 7702197824256403181}
   - component: {fileID: 7532010679819498555}
@@ -457,6 +459,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1300133680352463267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityBindings:
+  - letter: 3
+    ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
+  - letter: 22
+    ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
 --- !u!114 &4245581896112512108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,8 +509,7 @@ MonoBehaviour:
   estabilidadRotacion: 3
   distanciaBorde: 2
   maxAnguloBorde: 20
-  consumeFuel: {fileID: 0}
-  teclaMovimiento: 49
+  debugMode: 0
 --- !u!114 &7532010679819498555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,11 +567,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f477ac25a87574180c1a03a5cbdf95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
   scoreText: {fileID: 0}
   scoreFormat: 'Puntos: {0}'
-  scoreEffect: {fileID: 0}
-  scoreSound: {fileID: 0}
 --- !u!114 &933410782465386759
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
@@ -7,42 +6,52 @@ public class SplashController : MonoBehaviour
 {
     public VideoPlayer logoPlayer;
     public VideoPlayer cinePlayer;
-    public GameObject skipButton;  // Tu botón Skip
+    public GameObject skipButton;
 
     void Start()
     {
-        // Suscribirse al final de cada video
+        // Asegurarnos de que no salte frames por rendimiento
+        logoPlayer.skipOnDrop = false;
+        cinePlayer.skipOnDrop = false;
+
+        // Preparamos ambos clips
+        logoPlayer.Prepare();
+        cinePlayer.Prepare();
+
+        // Cuando el logo esté listo, forzamos tiempo 0 y lo reproducimos
+        logoPlayer.prepareCompleted += vp =>
+        {
+            vp.time = 0;          // asegúrate de apuntar al segundo 0
+            vp.Play();
+        };
+
+        // Al llegar al final, pasamos al vídeo de cinemática
         logoPlayer.loopPointReached += OnLogoFinished;
         cinePlayer.loopPointReached += OnCineFinished;
-
-        // Empezar por el logo
-        logoPlayer.Play();
     }
 
     void OnLogoFinished(VideoPlayer vp)
     {
-        // Al terminar logo, ocultar logo y lanzar cinemática
         logoPlayer.gameObject.SetActive(false);
         skipButton.SetActive(true);
+        // Igual aquí nos aseguramos de partir desde 0
+        cinePlayer.time = 0;
         cinePlayer.Play();
+    }
+
+    public void SkipCine()
+    {
+        cinePlayer.Stop();
+        LoadMainMenu();
     }
 
     void OnCineFinished(VideoPlayer vp)
     {
-        GoToMainMenu();
+        LoadMainMenu();
     }
 
-    // Llamado desde el botón Skip
-    public void SkipCine()
+    void LoadMainMenu()
     {
-        cinePlayer.Stop();
-        GoToMainMenu();
-    }
-
-    void GoToMainMenu()
-    {
-        // Asegúrate de que este sea el nombre de tu escena de menú
         SceneManager.LoadScene("MainMenu");
     }
 }
-

@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: scoreFormat
       value: '{0}'
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -438,6 +442,10 @@ PrefabInstance:
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 194704805}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave D
@@ -1745,6 +1753,10 @@ PrefabInstance:
       propertyPath: scoreFormat
       value: '{0}'
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1933,6 +1945,10 @@ PrefabInstance:
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 900441899}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave C
@@ -2622,6 +2638,10 @@ PrefabInstance:
       propertyPath: scoreFormat
       value: '{0}'
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 2726401485586827718, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2802,6 +2822,10 @@ PrefabInstance:
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 1526805307}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave B
@@ -3350,6 +3374,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -3430,6 +3458,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: collisionEffectPrefab
+      value: 
+      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 

@@ -9,7 +9,12 @@ public enum ColliderType
 
 public class ShipCollider : MonoBehaviour
 {
+    [Header("Tipo de Collider")]
     public ColliderType type;
+
+    [Header("Efecto de Colisión")]
+    public GameObject collisionEffectPrefab;  // Prefab de animación de colisión
+
     private CombatSystem combatSystem;
 
     private void OnEnable()
@@ -37,11 +42,24 @@ public class ShipCollider : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Nave"))
         {
+            // Punto de contacto de la colisión
+            ContactPoint2D contact = collision.GetContact(0);
+
+            // Instanciar el prefab de animación en el punto de impacto
+            if (collisionEffectPrefab != null)
+            {
+                Instantiate(
+                    collisionEffectPrefab,
+                    contact.point,
+                    Quaternion.identity
+                );
+            }
+
             Debug.Log("Collide with player" + collision.gameObject.name + " _ " + type);
             if (type == ColliderType.Back)
             {
                 PlayerScoreSystem otherScore = collision.gameObject.GetComponent<PlayerScoreSystem>();
-                otherScore?.AddScore(inKills: 1);//le añade una kill al oponente
+                otherScore?.AddScore(inKills: 1); // le añade una kill al oponente
 
                 combatSystem?.deathHandler.Death();
             }
@@ -53,5 +71,4 @@ public class ShipCollider : MonoBehaviour
         combatSystem?.shipController.SlowShip(combatSystem.SlowMagnitude);
         combatSystem?.fuelSystem.RemoveFuel(combatSystem.CollideDamageValue);
     }
-
 }

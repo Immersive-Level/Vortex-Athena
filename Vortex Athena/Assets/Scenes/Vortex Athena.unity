@@ -3358,6 +3358,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoParpadeo
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoInvulnerabilidad
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 1

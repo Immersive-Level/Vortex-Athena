@@ -28,6 +28,8 @@ public class AbilityManager : MonoBehaviour
 
     private Dictionary<string, AbilityData> morseRegistry = new();
 
+    private PlayerMain _playerMain;
+
     void Awake()
     {
         foreach (var item in abilityBindings)
@@ -44,11 +46,26 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
-    public bool TryActivate(string morseCode, GameObject invoker)
+    private void Start()
     {
+        _playerMain = transform.parent.GetComponent<PlayerMain>();
+        if (_playerMain == null)
+        {
+            Debug.LogError("[HabilityManager] PlayerMain is Null at " + transform.parent.name);
+        }
+    }
+
+    public bool TryActivate(string morseCode)
+    {
+        if (_playerMain.BlackHoleDeathHandler.GetIsDead)
+        {
+            return false;
+        }
+
         if (morseRegistry.TryGetValue(morseCode, out AbilityData ability))
         {
-            ability.Activate(invoker);
+            Debug.Log($"Activating {ability.abilityName}");
+            ability.Activate(gameObject);
             return true;
         }
         return false;

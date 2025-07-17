@@ -18,6 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Vortex Athena.unity
     guid: c170db055d2f9dc42ac10b37a398c679
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: fb082f2d3c440594cb1c56b11d91dc1d, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: fb2007e57fea17f4eabdbcb49da6774a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

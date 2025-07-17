@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9546407a8aa520540b98e04b48707614, type: 3}
-  m_Name: Ability - Shield
+  m_Script: {fileID: 11500000, guid: 8dedd8068bb3463f97d10eaff64ed5f3, type: 3}
+  m_Name: MultiplayerWidgetsSettings
   m_EditorClassIdentifier: 
-  abilityName: Shield
-  description: 
-  icon: {fileID: 0}
-  duration: 7
+  m_UseCustomServiceInitialization: 0

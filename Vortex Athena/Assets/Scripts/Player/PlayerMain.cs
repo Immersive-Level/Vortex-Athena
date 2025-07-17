@@ -13,6 +13,7 @@ public class PlayerData
 public class PlayerMain : MonoBehaviour
 {
     public PlayerData data;
+    public GameObject ObjetoNave;
     public InicioNave InicioNave { get; private set; }
     public ShipController ShipController { get; private set; }
     public CombatSystem CombatSystem { get; private set; }
@@ -43,6 +44,19 @@ public class PlayerMain : MonoBehaviour
     private void Start()
     {
         PlayerScoreSystem.Initialize(this);
+
+        if (ObjetoNave != null)
+        {
+            GameManager.Instance.RegisterShip(ObjetoNave);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (ObjetoNave != null)
+        {
+            GameManager.Instance.RemoveRegisterShip(ObjetoNave);
+        }
     }
 
 }

@@ -16,9 +16,9 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [Header("Configuración de entrada")]
     private float pressStartTime;
     private List<float> pressDurations = new List<float>();
-    private const float shortPressThreshold = 0.2f;
+    private const float shortPressThreshold = 0.15f;
     private float lastReleaseTime;
-    private float entryCooldown = 1.5f;
+    private float entryCooldown = 1f;
 
     private string liveMorseCode = "";
 
@@ -60,7 +60,7 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         string finalCode = ConvertToMorse(pressDurations);
 
-        bool success = abilityManager.TryActivate(finalCode, gameObject);
+        bool success = abilityManager.TryActivate(finalCode);
 
         if (success)
         {
@@ -68,14 +68,14 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             Vector3 originalScale = morseDisplayText.transform.localScale;
             Sequence bounceSequence = DOTween.Sequence();
-            bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale * 1.3f, 0.2f).SetEase(Ease.OutQuad));
+            bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale * 1.2f, 0.2f).SetEase(Ease.OutQuad));
             bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBounce));
         }
         else
         {
             morseDisplayText.color = Color.red;
 
-            textRect.DOShakeRotation(0.4f).SetEase(Ease.OutQuad);
+            textRect.DOShakeRotation(0.4f, 30).SetEase(Ease.OutQuad);
         }
 
         liveMorseCode = "";

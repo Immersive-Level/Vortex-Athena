@@ -1,21 +1,26 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
+using DG.Tweening;
 
 public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [Header("Sistema")]
+    [SerializeField] private AbilityManager abilityManager;
+
+    [Header("ConfiguraciÃ³n UI")]
+    [SerializeField] private TextMeshProUGUI morseDisplayText;
+    private RectTransform textRect;
+
+    [Header("ConfiguraciÃ³n de entrada")]
     private float pressStartTime;
     private List<float> pressDurations = new List<float>();
-    private const float shortPressThreshold = 0.3f; // tiempo para pulsasiones cortas 
+    private const float shortPressThreshold = 0.15f;
     private float lastReleaseTime;
-    private float entryCooldown = 2f; // Tiempo para considerar el patrón completado
+    private float entryCooldown = 1f;
 
-    private Dictionary<string, string> morseAbilities = new Dictionary<string, string>
-    {
-        { ".-", "Boost de velocidad" },
-        { "--.", "Escudo temporal" },
-        { "-..", "Disparo especial" }
-    };
+    private string liveMorseCode = "";
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -26,8 +31,22 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         float pressDuration = Time.time - pressStartTime;
         pressDurations.Add(pressDuration);
+
+        string symbol = (pressDuration <= shortPressThreshold) ? "Â·" : "-";
+        liveMorseCode += symbol;
+        morseDisplayText.text = liveMorseCode;
+        morseDisplayText.color = Color.white;
+
         lastReleaseTime = Time.time;
     }
+
+    void Start()
+    {
+        textRect = morseDisplayText.GetComponent<RectTransform>();
+        if (!abilityManager)
+            abilityManager = GetComponentInParent<AbilityManager>(); // fallback automÃ¡tico
+    }
+
 
     void Update()
     {
@@ -39,20 +58,29 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     private void ProcessMorseCode()
     {
-        string morseCode = ConvertToMorse(pressDurations);
-        print("Code: " + morseCode);
-        if (morseAbilities.ContainsKey(morseCode))
+        string finalCode = ConvertToMorse(pressDurations);
+
+        bool success = abilityManager.TryActivate(finalCode);
+
+        if (success)
         {
-            Debug.Log($"¡Poder activado: {morseAbilities[morseCode]}!");
-            // Aquí activas la habilidad asociada
+            morseDisplayText.color = Color.cyan;
+
+            Vector3 originalScale = morseDisplayText.transform.localScale;
+            Sequence bounceSequence = DOTween.Sequence();
+            bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale * 1.2f, 0.2f).SetEase(Ease.OutQuad));
+            bounceSequence.Append(morseDisplayText.transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBounce));
         }
         else
         {
-            Debug.Log("Patrón desconocido.");
+            morseDisplayText.color = Color.red;
+
+            textRect.DOShakeRotation(0.4f, 30).SetEase(Ease.OutQuad);
         }
 
-        // Limpia las entradas para el siguiente intento
+        liveMorseCode = "";
         pressDurations.Clear();
+        Invoke(nameof(ClearText), 1.5f);
     }
 
     private string ConvertToMorse(List<float> durations)
@@ -60,12 +88,15 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         string morseCode = "";
         foreach (float duration in durations)
         {
-            if (duration <= shortPressThreshold)
-                morseCode += ".";
-            else
-                morseCode += "-";
+            morseCode += (duration <= shortPressThreshold) ? "Â·" : "-";
         }
         return morseCode;
     }
 
+
+    private void ClearText()
+    {
+        morseDisplayText.text = "";
+        morseDisplayText.color = Color.white;
+    }
 }

@@ -13,6 +13,7 @@ public class PlayerData
 public class PlayerMain : MonoBehaviour
 {
     public PlayerData data;
+    public GameObject ObjetoNave;
     public InicioNave InicioNave { get; private set; }
     public ShipController ShipController { get; private set; }
     public CombatSystem CombatSystem { get; private set; }
@@ -22,6 +23,8 @@ public class PlayerMain : MonoBehaviour
     public ResourceCollector ResourceCollector { get; private set; }
     public ShipInvulnerability ShipInvulnerability { get; private set; }
     public Fuel_System Fuel_System { get; private set; }
+    public AbilityManager AbilityManager { get; private set; }
+
 
 
     private void Awake()
@@ -35,11 +38,25 @@ public class PlayerMain : MonoBehaviour
         ResourceCollector = GetComponentInChildren<ResourceCollector>();
         ShipInvulnerability = GetComponentInChildren<ShipInvulnerability>();
         Fuel_System = GetComponentInChildren<Fuel_System>();
+        AbilityManager = GetComponentInChildren<AbilityManager>();
     }
 
     private void Start()
     {
         PlayerScoreSystem.Initialize(this);
+
+        if (ObjetoNave != null)
+        {
+            GameManager.Instance.RegisterShip(ObjetoNave);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (ObjetoNave != null)
+        {
+            GameManager.Instance.RemoveRegisterShip(ObjetoNave);
+        }
     }
 
 }

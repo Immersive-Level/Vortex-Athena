@@ -26,6 +26,7 @@ public class BlackHoleDeathHandler : MonoBehaviour
 
     private Vector3 originalScale;
     private bool isDead = false;
+    public bool GetIsDead { get { return isDead; } }
     private bool inAttractionZone = false;
 
     private void Start()

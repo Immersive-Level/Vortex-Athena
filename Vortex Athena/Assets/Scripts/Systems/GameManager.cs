@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     //sistemas hijos del GameManager
     public ScoreSystem ScoreSystem;
+    public List<GameObject> NavesActivas { get; private set; }
+
 
     private void Awake()
     {
@@ -21,7 +24,17 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        
+
+    }
+
+    public void RegisterShip(GameObject inShip)
+    {
+        NavesActivas.Add(inShip);
+    }
+
+    public void RemoveRegisterShip(GameObject inShip)
+    {
+        NavesActivas.Remove(inShip);
     }
 
 }

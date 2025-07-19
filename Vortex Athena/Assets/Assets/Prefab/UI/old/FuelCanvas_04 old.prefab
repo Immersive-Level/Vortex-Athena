@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 2910583875615923543}
   - component: {fileID: 8897265185865409946}
   m_Layer: 5
-  m_Name: FuelCanvas_04
+  m_Name: FuelCanvas_04 old
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

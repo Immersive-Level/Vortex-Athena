@@ -35,23 +35,23 @@ public class ShipCollider : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("Nave"))
-        {
-            Debug.Log("Collide with player" + collision.gameObject.name + " _ " + type);
-            if (type == ColliderType.Back)
-            {
-                PlayerScoreSystem otherScore = collision.gameObject.GetComponent<PlayerScoreSystem>();
-                otherScore?.AddScore(inKills: 1);//le añade una kill al oponente
-
-                combatSystem?.deathHandler.Death();
-            }
-        }
-
         //////Empujon
         //Vector2 forceDirection = (collision.transform.position - transform.position).normalized; // Dirección del empujon
         //combatSystem?.shipController.PushShip(forceDirection, combatSystem.PushMagnitude);
         combatSystem?.shipController.SlowShip(combatSystem.SlowMagnitude);
         combatSystem?.fuelSystem.RemoveFuel(combatSystem.CollideDamageValue);
+
+        if (collision.gameObject.CompareTag("Nave"))
+        {
+            Debug.Log("Collide with player" + collision.gameObject.name + " _ " + type);
+            if (type == ColliderType.Back && !combatSystem.IsInvencible)
+            {
+                PlayerScoreSystem otherScore = collision.gameObject.GetComponent<PlayerScoreSystem>();
+                otherScore?.AddScore(inKills: 1);//le añade una kill al oponente
+
+                combatSystem?.Kill();
+            }
+        }
     }
 
 }

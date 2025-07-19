@@ -439,6 +439,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: playerID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 194704805}
@@ -1946,6 +1950,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1337651306}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: playerID
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
       objectReference: {fileID: 900441899}
@@ -2822,6 +2830,10 @@ PrefabInstance:
       propertyPath: blackHoleAttractionZone
       value: 
       objectReference: {fileID: 1337651306}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: playerID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 

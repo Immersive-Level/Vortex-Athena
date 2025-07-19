@@ -202,6 +202,11 @@ public class ResourceSpawner : MonoBehaviour
             resource = obj.AddComponent<CollectibleResource>();
         }
         resource.resourceType = resourceType;
+
+        // --- NUEVO --- garantizar que cada prefab posea el script ResourceLifetime
+
+        if (obj.GetComponent<ResourceLifetime>() == null)
+            obj.AddComponent<ResourceLifetime>();
     }
 
     /// <summary>

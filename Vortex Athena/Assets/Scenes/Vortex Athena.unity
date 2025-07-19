@@ -458,6 +458,10 @@ PrefabInstance:
       propertyPath: blackHoleManager
       value: 
       objectReference: {fileID: 1634088848}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: direccionImpulso.y
+      value: -4
+      objectReference: {fileID: 0}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.13138166
@@ -887,7 +891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &644467697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1967,7 +1971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.y
-      value: -1
+      value: -20
       objectReference: {fileID: 0}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
@@ -2831,6 +2835,10 @@ PrefabInstance:
       value: Nave B
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: teclaInicio
       value: 50
       objectReference: {fileID: 0}
@@ -2840,11 +2848,11 @@ PrefabInstance:
       objectReference: {fileID: 1634088848}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x
-      value: -10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.y
-      value: -1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
@@ -3661,6 +3669,14 @@ PrefabInstance:
       propertyPath: blackHole
       value: 
       objectReference: {fileID: 1337651308}
+    - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: spawnInterval
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: maxActiveResources
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5382141535626216940, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: m_Name
       value: GameManager

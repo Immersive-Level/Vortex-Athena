@@ -3686,8 +3686,20 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: maxSpawnRadius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: minSpawnRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: maxActiveResources
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638726443924154854, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: obstacleLayer.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5382141535626216940, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: m_Name

@@ -390,7 +390,7 @@ public class ResourceSpawner : MonoBehaviour
             Rigidbody2D rb = resource.GetComponent<Rigidbody2D>();
             if (rb != null)
             {
-                rb.linearVelocity = Random.insideUnitCircle.normalized * Random.Range(1f, 3f);
+                rb.linearVelocity = Random.insideUnitCircle.normalized * Random.Range(1f, 2f);
             }
         }
     }

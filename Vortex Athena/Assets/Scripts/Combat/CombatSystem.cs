@@ -13,14 +13,23 @@ public class CombatSystem : MonoBehaviour
     public float SlowMagnitude = 35;
     [Tooltip("Daño recibido al chocar")]
     public float CollideDamageValue;
-
+    public bool IsInvencible { get; set; }
     public Collider2D[] CollidersToIgnore;
+
+    public ShieldController Shield;
 
     private void OnEnable()
     {
         shipController = GetComponent<ShipController>();
         deathHandler = GetComponent<BlackHoleDeathHandler>();
         fuelSystem = GetComponent<Fuel_System>();
+    }
+
+    public void Kill()
+    {
+        if (IsInvencible) return;
+
+        deathHandler?.Death();
     }
 
 }

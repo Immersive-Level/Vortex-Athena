@@ -45,10 +45,17 @@ public class PlayerMain : MonoBehaviour
     {
         PlayerScoreSystem.Initialize(this);
 
-        if (ObjetoNave != null)
+        if (ObjetoNave == null)
         {
-            GameManager.Instance.RegisterShip(ObjetoNave);
+            Debug.LogError("ObjetoNave is Null!!");
+            return;
         }
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager is Null!!");
+            return;
+        }
+        GameManager.Instance.RegisterShip(ObjetoNave);
     }
 
     private void OnDestroy()

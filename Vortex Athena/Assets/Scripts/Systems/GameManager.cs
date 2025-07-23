@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-
+        NavesActivas = new List<GameObject>();
     }
 
     public void RegisterShip(GameObject inShip)

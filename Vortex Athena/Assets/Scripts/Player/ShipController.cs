@@ -30,6 +30,9 @@ public class ShipController : MonoBehaviour
     [Tooltip("Mostrar mensajes de debug")]
     public bool debugMode = false;
 
+    [Header("Efecto de propulsión")]
+    public GameObject thrusterFX;   // ← arrastrar aquí el objeto PropulsionFX
+
     // Estado interno
     private Rigidbody2D rb;
     private bool isMoving = false;
@@ -108,8 +111,11 @@ public class ShipController : MonoBehaviour
         isMoving = true;
         direccionGiro = (Random.value < 0.5f) ? -1 : 1;
 
-        if (debugMode)
-            Debug.Log($"[ShipController] Movimiento iniciado en {gameObject.name}");
+        if (thrusterFX != null)
+            thrusterFX.SetActive(true);   // enciende la llama
+
+        //if (debugMode)
+        //    Debug.Log($"[ShipController] Movimiento iniciado en {gameObject.name}");
     }
 
     /// <summary>
@@ -119,8 +125,11 @@ public class ShipController : MonoBehaviour
     {
         isMoving = false;
 
-        if (debugMode)
-            Debug.Log($"[ShipController] Movimiento detenido en {gameObject.name}");
+        if (thrusterFX != null)
+            thrusterFX.SetActive(false);  // apaga la llama
+
+        //if (debugMode)
+        //    Debug.Log($"[ShipController] Movimiento detenido en {gameObject.name}");
     }
 
     /// <summary>

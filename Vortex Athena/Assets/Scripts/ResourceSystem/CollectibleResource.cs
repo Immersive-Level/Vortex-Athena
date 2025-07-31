@@ -124,18 +124,18 @@ public class CollectibleResource : MonoBehaviour
             transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
         }
 
-        // Efecto de pulso cuando está cerca del agujero negro
-        if (pulseWhenClose && affectedByBlackHole != null && affectedByBlackHole.isWithinEventHorizon)
-        {
-            pulseTimer += Time.deltaTime * pulseSpeed;
-            float pulseFactor = 1f + Mathf.Sin(pulseTimer) * 0.2f;
-            transform.localScale = originalScale * pulseFactor;
-        }
-        else if (transform.localScale != originalScale)
-        {
-            // Restaurar escala original gradualmente
-            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
-        }
+        //// Efecto de pulso cuando está cerca del agujero negro
+        //if (pulseWhenClose && affectedByBlackHole != null && affectedByBlackHole.isWithinEventHorizon)
+        //{
+        //    pulseTimer += Time.deltaTime * pulseSpeed;
+        //    float pulseFactor = 1f + Mathf.Sin(pulseTimer) * 0.2f;
+        //    transform.localScale = originalScale * pulseFactor;
+        //}
+        //else if (transform.localScale != originalScale)
+        //{
+        //    // Restaurar escala original gradualmente
+        //    transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
+        //}
 
         // Verificar si está dentro del radio de absorción del agujero negro
         if (blackHoleTransform != null)

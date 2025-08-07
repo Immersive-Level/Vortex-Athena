@@ -1,44 +1,28 @@
-﻿public class CameraFollow : MonoBehaviour
+﻿using UnityEngine;
+
+public class CameraFollow : MonoBehaviour
 {
-    [Header("Seguimiento")]
-    [Tooltip("Etiqueta que tendrá la nave (por defecto: Nave)")]
-    public string targetTag = "Nave";   // ← usa exactamente la etiqueta que ya tienes
+    public Transform target;        // arrastra la nave
+    public float smoothTime = 0.2f; // suavizado
 
-    public float smoothTime = 0.2f;
-    public float searchInterval = 0.5f;
-
-    Transform target;
     Vector3 velocity = Vector3.zero;
-    float nextSearchTime;
 
-    void LateUpdate()
+    void Update()
     {
-        // 1. Buscar diana si aún no la tenemos
-        if (target == null)
-        {
-            if (Time.time >= nextSearchTime)
-            {
-                GameObject obj = GameObject.FindGameObjectWithTag(targetTag);
-                if (obj != null && obj.activeInHierarchy)
-                    target = obj.transform;
+        if (target == null) return;
 
-                nextSearchTime = Time.time + searchInterval;
-            }
-            return; // nada más que hacer este frame
-        }
-
-        // 2. Seguir suavemente
-        Vector3 tgt = target.position;
-        tgt.z = transform.position.z;
+        Vector3 targetPos = target.position;
+        targetPos.z = transform.position.z; // mantener z
 
         transform.position = Vector3.SmoothDamp(
             transform.position,
-            tgt,
+            targetPos,
             ref velocity,
             smoothTime
         );
     }
 }
+
 
 
 

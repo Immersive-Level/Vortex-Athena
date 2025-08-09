@@ -44,6 +44,52 @@ public class ShipController : MonoBehaviour
     public bool IsMoving => isMoving;
     public bool HasEffect => hasEffect;
 
+    //[Header("Asistente de Giro (opcional)")]
+    //public bool asistenteGiro = true;          // activar/desactivar fácilmente
+    //public bool soloCercaAgujeroNegro = true;  // si true, solo actúa cerca del centro
+    //public float radioAsistente = 7f;          // radio desde el centro (0,0) donde se activa
+    //public float fuerzaAsistente = 10f;         // cuánta torsión aplica
+    //public float pesoVelocidad = 0.1f;         // 0..1, cuánto seguir la dirección de la velocidad
+    //public float umbralVelocidad = 0.5f;       // mínimo para considerar dirección de velocidad
+    //public float anguloMuerto = 3f;            // grados; evita vibración al mantener
+    //public float limiteVelAng = 150f;          // clamp de angularVelocity
+
+
+
+    // === Tap Nudge (empujón con toque corto) ===
+    [Header("Tap Nudge")]
+    public bool tapNudgeEnabled = true;          // activar/desactivar
+    public float nudgeTorqueImpulse = 0.4f;      // fuerza del impulso (torque) por toque
+    public float nudgeMaxAngle = 45f;            // escalado: a mayor desalineación, más impulso
+    public float nudgeCooldown = 0.15f;          // anti-spam entre nudges
+
+    private float _nextNudgeTime = 0f;
+
+    public void TapNudge()
+    {
+        if (!tapNudgeEnabled) return;
+        if (Time.time < _nextNudgeTime) return;
+
+        // Requiere info de velocidad para saber hacia dónde corregir
+        Vector2 v = rb.linearVelocity;
+        if (v.sqrMagnitude < 0.001f) return; // si estás casi parado, no hay dirección a la cual alinear
+
+        Vector2 forward = transform.up;
+        float angDelta = Vector2.SignedAngle(forward, v); // grados (-180..180)
+
+        // Impulso proporcional: si estás muy desalineado, empuja más (hasta nudgeMaxAngle)
+        float sign = Mathf.Sign(angDelta);
+        float strength = Mathf.Clamp01(Mathf.Abs(angDelta) / nudgeMaxAngle);
+
+        float impulse = -sign * nudgeTorqueImpulse * strength; // signo contrario al error angular
+        rb.AddTorque(impulse, ForceMode2D.Impulse);
+
+        _nextNudgeTime = Time.time + nudgeCooldown;
+    }
+
+
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -73,14 +119,52 @@ public class ShipController : MonoBehaviour
             rb.AddForce(transform.up * velocidad);
         }
 
-        // Calcular distancia al centro y aplicar giro progresivo
-        float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
-        if (isMoving && distanciaAlCentro < distanciaMaxGiro)
-        {
-            float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro;
-            float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
-            transform.Rotate(Vector3.forward, anguloGiro);
-        }
+        //// --- ASISTENTE DE GIRO SUAVE ---
+        //if (asistenteGiro && isMoving)
+        //{
+        //    // Si solo debe actuar cerca del agujero negro, comprobamos el radio
+        //    float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
+        //    if (!soloCercaAgujeroNegro || distanciaAlCentro <= radioAsistente)
+        //    {
+        //        Vector2 forward = transform.up;
+        //        Vector2 desiredDir = forward;
+
+        //        // 1) Mezcla hacia la dirección de la velocidad para “limpiar” derrape
+        //        if (rb.linearVelocity.magnitude > umbralVelocidad)
+        //        {
+        //            Vector2 velDir = rb.linearVelocity.normalized;
+        //            desiredDir = Vector2.Lerp(forward, velDir, pesoVelocidad).normalized;
+        //        }
+
+        //        // 2) Si hay borde delante, empujamos desiredDir hacia adentro (normal del borde)
+        //        RaycastHit2D hit = Physics2D.Raycast(transform.position, forward, distanciaBorde, LayerMask.GetMask("Borde"));
+        //        if (hit.collider != null)
+        //        {
+        //            Vector2 awayFromWall = hit.normal;
+        //            desiredDir = Vector2.Lerp(desiredDir, awayFromWall, 0.6f).normalized;
+        //        }
+
+        //        // 3) Calcula ángulo a corregir y aplica torque con dead-zone
+        //        float angDelta = Vector2.SignedAngle(forward, desiredDir); // (-180..180)
+        //        if (Mathf.Abs(angDelta) > anguloMuerto)
+        //        {
+        //            float torque = -angDelta * fuerzaAsistente * Mathf.Deg2Rad; // proporcional
+        //            rb.AddTorque(torque, ForceMode2D.Force);
+
+        //            // 4) Limita velocidad angular para evitar oscilaciones
+        //            rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -limiteVelAng, limiteVelAng);
+        //        }
+        //    }
+        //}
+
+        //// Calcular distancia al centro y aplicar giro progresivo
+        //float distanciaAlCentro = Vector2.Distance(transform.position, centroMapa);
+        //if (isMoving && distanciaAlCentro < distanciaMaxGiro)
+        //{
+        //    float factorGiro = (distanciaMaxGiro - distanciaAlCentro) / distanciaMaxGiro;
+        //    float anguloGiro = factorGiro * intensidadGiro * direccionGiro;
+        //    transform.Rotate(Vector3.forward, anguloGiro);
+        //}
 
         // Evitar el borde del mapa
         EvitarBorde();

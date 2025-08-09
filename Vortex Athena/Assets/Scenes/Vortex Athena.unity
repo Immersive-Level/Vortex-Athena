@@ -143,7 +143,11 @@ MonoBehaviour:
   distanciaBorde: 2
   maxAnguloBorde: 20
   debugMode: 0
-  thrusterFX: {fileID: 1257044334}
+  thrusterFX: {fileID: 323166575}
+  tapNudgeEnabled: 1
+  nudgeTorqueImpulse: 0.4
+  nudgeMaxAngle: 45
+  nudgeCooldown: 0.15
 --- !u!114 &181944776 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -474,7 +478,7 @@ PrefabInstance:
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: thrusterFX
       value: 
-      objectReference: {fileID: 643647332}
+      objectReference: {fileID: 323166575}
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeFuel
       value: 
@@ -959,11 +963,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &643647332 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8240186896083609102, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 194704804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &644467696
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,6 +1790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Nave C
       objectReference: {fileID: 0}
+    - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: teclaInicio
       value: 51
@@ -2083,16 +2086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1257044334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8240186896083609102, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 900441898}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1329461766 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8240186896083609102, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 1526805305}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1337651304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2606,6 +2599,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 951692193}
     m_Modifications:
+    - target: {fileID: 903732028090478159, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1344110267863642795, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
     - target: {fileID: 954097557779431185, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3214,7 +3211,11 @@ MonoBehaviour:
   distanciaBorde: 2
   maxAnguloBorde: 20
   debugMode: 0
-  thrusterFX: {fileID: 1329461766}
+  thrusterFX: {fileID: 323166575}
+  tapNudgeEnabled: 1
+  nudgeTorqueImpulse: 0.4
+  nudgeMaxAngle: 45
+  nudgeCooldown: 0.15
 --- !u!1 &1608912524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3725,34 @@ PrefabInstance:
     - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeFuel
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: anguloMuerto
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: limiteVelAng
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: asistenteGiro
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: pesoVelocidad
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: radioAsistente
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuerzaAsistente
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: soloCercaAgujeroNegro
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled

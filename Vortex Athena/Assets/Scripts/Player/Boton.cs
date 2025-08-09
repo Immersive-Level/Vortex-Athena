@@ -1,4 +1,4 @@
-// Assets/Scripts/Boton.cs
+﻿// Assets/Scripts/Boton.cs
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +8,13 @@ public class Boton : MonoBehaviour
     public Fuel_System fuelSystem;         // Referencia al Fuel_System :contentReference[oaicite:2]{index=2}
     public ShipController shipController; // Controlador de movimiento
 
-    bool isPressing = false;             // �Est� presionando?
-    bool canPress = true;              // �Puede acelerar?
+    bool isPressing = false;             // ¿Está presionando?
+    bool canPress = true;              // ¿Puede acelerar?
+
+    [Header("Tap Nudge")]
+    public float tapThreshold = 0.15f;  // toques menores a este tiempo se consideran "tap"
+    private float pressStartTime = 0f;
+
 
     void OnEnable()
     {
@@ -20,7 +25,7 @@ public class Boton : MonoBehaviour
 
     void Start()
     {
-        // Suscripci�n al evento de tanque vac�o
+        // Suscripción al evento de tanque vacío
         fuelSystem.OnFuelEmpty += HandleFuelEmpty;
     }
 
@@ -42,6 +47,7 @@ public class Boton : MonoBehaviour
     {
         if (!canPress || !fuelSystem.HasFuel) return;
         isPressing = true;
+        pressStartTime = Time.time;   // ← medir duración del toque
         shipController.StartMoving();
     }
 
@@ -50,6 +56,14 @@ public class Boton : MonoBehaviour
     {
         isPressing = false;
         shipController.StopMoving();
+
+        float held = Time.time - pressStartTime;
+        if (held <= tapThreshold)
+        {
+            // El “nudge” NO gasta combustible y ayuda a corregir rumbo
+            shipController.TapNudge();
+        }
+
     }
 
     // Se dispara cuando el tanque llega a cero

@@ -125,8 +125,8 @@ Transform:
   m_GameObject: {fileID: 4200900407060640552}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: -0.19, y: 0.23, z: 0}
+  m_LocalScale: {x: 1.1662005, y: 1.1653692, z: 1.1667646}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2178843942267882953}
@@ -175,8 +175,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 12
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0.68600464, b: 1, a: 0.30588236}
+  m_Sprite: {fileID: 66090896, guid: 0abe96a4a5d82cc43b42a4378f0a5f10, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -425,7 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  collisionEffectPrefab: {fileID: 0}
+  collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  collisionEffectPrefab: {fileID: 0}
+  collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,12 +651,12 @@ GameObject:
   - component: {fileID: 1300133680352463267}
   - component: {fileID: 4245581896112512108}
   - component: {fileID: 7702197824256403181}
-  - component: {fileID: 7532010679819498555}
   - component: {fileID: 7714841270529153968}
   - component: {fileID: 2276714564275110904}
   - component: {fileID: 933410782465386759}
   - component: {fileID: 977790932892868827}
-  - component: {fileID: 6734930706703215088}
+  - component: {fileID: 5084323159983305511}
+  - component: {fileID: 1219413745525033032}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -762,34 +762,11 @@ MonoBehaviour:
   distanciaBorde: 2
   maxAnguloBorde: 20
   debugMode: 0
-  thrusterFX: {fileID: 0}
+  thrusterFX: {fileID: 8240186896083609102}
   tapNudgeEnabled: 1
   nudgeTorqueImpulse: 0.4
   nudgeMaxAngle: 45
   nudgeCooldown: 0.15
---- !u!114 &7532010679819498555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fde05c1d676e846b62435ea6e1a08a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 0}
-  blackHoleCenter: {fileID: 0}
-  blackHoleAttractionZone: {fileID: 0}
-  blackHoleDeathZone: {fileID: 0}
-  countdownUI: {fileID: 0}
-  countdownText: {fileID: 0}
-  shipVisual: {fileID: 4310118365417915349}
-  maxDistanceForScaling: 5
-  minScale: 0.3
-  scaleSmooth: 5
-  respawnDelay: 3
 --- !u!114 &7714841270529153968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
-  fuelSystem: {fileID: 6734930706703215088}
+  fuelSystem: {fileID: 0}
   collectEffect: {fileID: 0}
   collectionRadius: 0.8
   resourceLayer:
@@ -857,10 +834,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoInvulnerabilidad: 3
+  tiempoInvulnerabilidad: 2
   tiempoParpadeo: 0.1
   shipVisual: {fileID: 4310118365417915349}
---- !u!114 &6734930706703215088
+--- !u!114 &5084323159983305511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -869,12 +846,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 8452753963668889667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathHandler: {fileID: 0}
-  lineFuel: {fileID: 0}
   maxFuel: 100
-  fuelConsumptionRate: 10
-  fuelCollectEffect: {fileID: 0}
-  fuelCollectSound: {fileID: 0}
+  startingFuel: 100
+  consumptionRate: 10
+  autoRefuel: 1
+  autoRefuelRate: 1
+  autoRefuelDelay: 1
+  fuelBarImage: {fileID: 0}
+  debugMode: 0
+  _editorTestingHeader: 0
+--- !u!114 &1219413745525033032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
+  shipVisual: {fileID: 4310118365417915349}
+  shipController: {fileID: 7702197824256403181}
+  fuelManager: {fileID: 5084323159983305511}
+  inputController: {fileID: 0}
+  invulnerability: {fileID: 977790932892868827}
+  shipRigidbody: {fileID: 1834230592424447696}
+  respawnUI: {fileID: 0}
+  respawnText: {fileID: 0}
+  respawnButton: {fileID: 0}
+  respawnWaitTime: 3
+  fuelOnRespawn: 30
+  invulnerabilityDuration: 2
+  autoRespawn: 0
+  deathEffectPrefab: {fileID: 0}
+  deathSounds: []
+  debugMode: 0
+  _editorTestingHeader: 0

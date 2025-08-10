@@ -31,6 +31,7 @@ public class InicioNave : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.RegisterShip(nave);
         // Ocultar la nave al inicio
         nave.SetActive(false);
 

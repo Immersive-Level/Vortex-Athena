@@ -55,7 +55,6 @@ public class PlayerMain : MonoBehaviour
             Debug.LogError("GameManager is Null!!");
             return;
         }
-        GameManager.Instance.RegisterShip(ObjetoNave);
     }
 
     private void OnDestroy()

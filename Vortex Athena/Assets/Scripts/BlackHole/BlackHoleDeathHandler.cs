@@ -8,13 +8,13 @@ public class BlackHoleDeathHandler : MonoBehaviour
     private CombatSystem _combatSystem;
 
     [Header("Referencias")]
-    [SerializeField] private Transform respawnPoint;
+    [SerializeField] public Transform respawnPoint;
     [SerializeField] private Transform blackHoleCenter; // Para calcular distancia
     [SerializeField] private Collider2D blackHoleAttractionZone;
     [SerializeField] private Collider2D blackHoleDeathZone;
-    [SerializeField] private GameObject countdownUI;
+    [SerializeField] public GameObject countdownUI;
     [SerializeField] public TextMeshProUGUI countdownText;
-    [SerializeField] private GameObject shipVisual;
+    [SerializeField] public GameObject shipVisual;
 
     private ShipInvulnerability shipInvulnerability; // <<--- Referencia automática
 

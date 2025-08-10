@@ -648,15 +648,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2178843942267882953}
   - component: {fileID: 1834230592424447696}
-  - component: {fileID: 1300133680352463267}
+  - component: {fileID: 7377354669327698296}
   - component: {fileID: 4245581896112512108}
-  - component: {fileID: 7702197824256403181}
-  - component: {fileID: 7714841270529153968}
-  - component: {fileID: 2276714564275110904}
-  - component: {fileID: 933410782465386759}
-  - component: {fileID: 977790932892868827}
   - component: {fileID: 5084323159983305511}
   - component: {fileID: 1219413745525033032}
+  - component: {fileID: 933410782465386759}
+  - component: {fileID: 1300133680352463267}
+  - component: {fileID: 7714841270529153968}
+  - component: {fileID: 2276714564275110904}
+  - component: {fileID: 977790932892868827}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -711,39 +711,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1300133680352463267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityBindings:
-  - letter: 3
-    ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
-  - letter: 22
-    ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
---- !u!114 &4245581896112512108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractionResistance: 1
-  canBeAffected: 1
-  isWithinEventHorizon: 0
---- !u!114 &7702197824256403181
+--- !u!114 &7377354669327698296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -767,6 +735,106 @@ MonoBehaviour:
   nudgeTorqueImpulse: 0.4
   nudgeMaxAngle: 45
   nudgeCooldown: 0.15
+--- !u!114 &4245581896112512108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionResistance: 1
+  canBeAffected: 1
+  isWithinEventHorizon: 0
+--- !u!114 &5084323159983305511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuel: 100
+  startingFuel: 100
+  consumptionRate: 10
+  autoRefuel: 1
+  autoRefuelRate: 1
+  autoRefuelDelay: 1
+  fuelBarImage: {fileID: 0}
+  debugMode: 0
+--- !u!114 &1219413745525033032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {fileID: 0}
+  shipVisual: {fileID: 4310118365417915349}
+  shipController: {fileID: 0}
+  fuelManager: {fileID: 5084323159983305511}
+  inputController: {fileID: 0}
+  invulnerability: {fileID: 977790932892868827}
+  shipRigidbody: {fileID: 1834230592424447696}
+  respawnUI: {fileID: 0}
+  respawnText: {fileID: 0}
+  respawnButton: {fileID: 0}
+  respawnWaitTime: 3
+  fuelOnRespawn: 30
+  invulnerabilityDuration: 2
+  autoRespawn: 0
+  deathEffectPrefab: {fileID: 0}
+  deathSounds: []
+  debugMode: 0
+--- !u!114 &933410782465386759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushMagnitude: 3
+  SlowMagnitude: 35
+  CollideDamageValue: 3
+  CollidersToIgnore:
+  - {fileID: 8997046992031912739}
+  - {fileID: 5348490425132755304}
+  Shield: {fileID: 1996471282410199521}
+--- !u!114 &1300133680352463267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityBindings:
+  - letter: 3
+    ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
+  - letter: 22
+    ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
 --- !u!114 &7714841270529153968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,25 +871,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
   scoreFormat: '{0}'
---- !u!114 &933410782465386759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PushMagnitude: 3
-  SlowMagnitude: 35
-  CollideDamageValue: 3
-  CollidersToIgnore:
-  - {fileID: 8997046992031912739}
-  - {fileID: 5348490425132755304}
-  Shield: {fileID: 1996471282410199521}
 --- !u!114 &977790932892868827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,54 +886,3 @@ MonoBehaviour:
   tiempoInvulnerabilidad: 2
   tiempoParpadeo: 0.1
   shipVisual: {fileID: 4310118365417915349}
---- !u!114 &5084323159983305511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxFuel: 100
-  startingFuel: 100
-  consumptionRate: 10
-  autoRefuel: 1
-  autoRefuelRate: 1
-  autoRefuelDelay: 1
-  fuelBarImage: {fileID: 0}
-  debugMode: 0
-  _editorTestingHeader: 0
---- !u!114 &1219413745525033032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  respawnPoint: {fileID: 0}
-  shipVisual: {fileID: 4310118365417915349}
-  shipController: {fileID: 7702197824256403181}
-  fuelManager: {fileID: 5084323159983305511}
-  inputController: {fileID: 0}
-  invulnerability: {fileID: 977790932892868827}
-  shipRigidbody: {fileID: 1834230592424447696}
-  respawnUI: {fileID: 0}
-  respawnText: {fileID: 0}
-  respawnButton: {fileID: 0}
-  respawnWaitTime: 3
-  fuelOnRespawn: 30
-  invulnerabilityDuration: 2
-  autoRespawn: 0
-  deathEffectPrefab: {fileID: 0}
-  deathSounds: []
-  debugMode: 0
-  _editorTestingHeader: 0

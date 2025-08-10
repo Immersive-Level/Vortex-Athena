@@ -266,9 +266,6 @@ namespace GameSystems
         }
 
 #if UNITY_EDITOR
-        [SerializeField, Header("Editor Testing (helpers)")]
-        private bool _editorTestingHeader; // Solo decorativo
-
         [ContextMenu("Test: Add 25 Fuel")]
         private void TestAdd25Fuel() => AddFuel(25f);
 

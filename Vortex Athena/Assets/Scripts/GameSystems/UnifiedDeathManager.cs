@@ -445,8 +445,6 @@ namespace GameSystems
         }
 
 #if UNITY_EDITOR
-        [SerializeField, Header("Editor Testing (helpers)")]
-        private bool _editorTestingHeader; // Solo decorativo
 
 
         [ContextMenu("Test: Trigger Black Hole Death")]

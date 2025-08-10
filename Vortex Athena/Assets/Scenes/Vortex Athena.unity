@@ -124,30 +124,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 900441898}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2890622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2890621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  velocidad: 5
-  distanciaMaxGiro: 5
-  intensidadGiro: 2
-  estabilidadRotacion: 3
-  distanciaBorde: 2
-  maxAnguloBorde: 20
-  debugMode: 0
-  thrusterFX: {fileID: 323166575}
-  tapNudgeEnabled: 1
-  nudgeTorqueImpulse: 0.4
-  nudgeMaxAngle: 45
-  nudgeCooldown: 0.15
 --- !u!114 &181944776 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -175,6 +151,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Nave
       objectReference: {fileID: 0}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnUI
+      value: 
+      objectReference: {fileID: 1500782165}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnText
+      value: 
+      objectReference: {fileID: 1047686433}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 263578250}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnButton
+      value: 
+      objectReference: {fileID: 1495126472}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 194704805}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: inputController
+      value: 
+      objectReference: {fileID: 1495126473}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 4
@@ -303,6 +303,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -44.342
       objectReference: {fileID: 0}
+    - target: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelBarImage
+      value: 
+      objectReference: {fileID: 1495126470}
     - target: {fileID: 5108453797240209174, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -514,7 +518,11 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 194704805}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 194704808}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
@@ -522,6 +530,10 @@ PrefabInstance:
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Nave D
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: teclaInicio
@@ -622,13 +634,13 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
 --- !u!114 &194704805 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7377354669327698296, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 194704804}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194704806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &194704806 stripped
@@ -645,6 +657,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &194704808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 194704804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194704806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &194704809 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 194704804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194704806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &263578249
@@ -1350,17 +1384,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 951692193}
     m_Modifications:
     - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 543246455}
-    - target: {fileID: 1045573329793349075, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
-      propertyPath: fuelSystem
+    - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 42232722947320372}
-    - target: {fileID: 1045573329793349075, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
-      propertyPath: shipController
-      value: 
-      objectReference: {fileID: 1956558802}
+      objectReference: {fileID: 806403713}
+    - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 575709246236196225, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: InicioNave, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2141597899986631940, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1449,14 +1495,14 @@ PrefabInstance:
       propertyPath: abilityManager
       value: 
       objectReference: {fileID: 42232722947320370}
-    - target: {fileID: 8629864059130795621, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    - target: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: fuelManager
       value: 
-      objectReference: {fileID: 1956558802}
-    - target: {fileID: 8629864059130795621, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
-      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      objectReference: {fileID: 42232722947320373}
+    - target: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: shipController
       value: 
-      objectReference: {fileID: 1956558802}
+      objectReference: {fileID: 42232722947320372}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1467,15 +1513,20 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2141597899986631940, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
   m_PrefabInstance: {fileID: 806403710}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &806403712 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1045573329793349075, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+--- !u!1 &806403712 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1875923459913665936, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
   m_PrefabInstance: {fileID: 806403710}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &806403713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+  m_PrefabInstance: {fileID: 806403710}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806403712}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ff045d119baf5944b794b618ed72c1c, type: 3}
+  m_Script: {fileID: 11500000, guid: fb87dadf7bd1025449813df2cc1d27d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &817909504 stripped
@@ -1510,6 +1561,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Nave
       objectReference: {fileID: 0}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnUI
+      value: 
+      objectReference: {fileID: 1836341673}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnText
+      value: 
+      objectReference: {fileID: 400119662}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 1658935485}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnButton
+      value: 
+      objectReference: {fileID: 1378950616}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 900441899}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: inputController
+      value: 
+      objectReference: {fileID: 1378950617}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 3
@@ -1638,6 +1713,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 228.005
       objectReference: {fileID: 0}
+    - target: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelBarImage
+      value: 
+      objectReference: {fileID: 1378950614}
     - target: {fileID: 5108453797240209174, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -1781,7 +1860,11 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 900441899}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 900441901}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
@@ -1792,6 +1875,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -1902,20 +1989,17 @@ PrefabInstance:
     - {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 2890622}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
 --- !u!114 &900441899 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7377354669327698296, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 900441898}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2890621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &900441900 stripped
@@ -1927,6 +2011,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &900441901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 900441898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &900441902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 900441898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &951692192
@@ -2240,11 +2346,11 @@ PrefabInstance:
     - target: {fileID: 2940642250999746960, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 900441899}
+      objectReference: {fileID: 0}
     - target: {fileID: 2940642250999746960, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: shipController
       value: 
-      objectReference: {fileID: 2890622}
+      objectReference: {fileID: 0}
     - target: {fileID: 4320542051667073351, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2328,11 +2434,11 @@ PrefabInstance:
     - target: {fileID: 5876830589743198758, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2890622}
+      objectReference: {fileID: 0}
     - target: {fileID: 5876830589743198758, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2890622}
+      objectReference: {fileID: 0}
     - target: {fileID: 5876830589743198758, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartMoving
@@ -2341,6 +2447,14 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StopMoving
       objectReference: {fileID: 0}
+    - target: {fileID: 6783523433263422261, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 900441901}
+    - target: {fileID: 6783523433263422261, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 900441899}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2371,6 +2485,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1378950616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4342951743556282835, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
+  m_PrefabInstance: {fileID: 1378950612}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1378950617 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6783523433263422261, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
+  m_PrefabInstance: {fileID: 1378950612}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378950616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb87dadf7bd1025449813df2cc1d27d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1402602725
@@ -2599,6 +2729,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 951692193}
     m_Modifications:
+    - target: {fileID: 184922993384494594, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 194704808}
+    - target: {fileID: 184922993384494594, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 194704805}
     - target: {fileID: 903732028090478159, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2606,11 +2744,11 @@ PrefabInstance:
     - target: {fileID: 954097557779431185, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1773860560}
+      objectReference: {fileID: 0}
     - target: {fileID: 954097557779431185, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1773860560}
+      objectReference: {fileID: 0}
     - target: {fileID: 954097557779431185, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartMoving
@@ -2710,11 +2848,11 @@ PrefabInstance:
     - target: {fileID: 8393674414961466535, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 194704805}
+      objectReference: {fileID: 0}
     - target: {fileID: 8393674414961466535, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: shipController
       value: 
-      objectReference: {fileID: 1773860560}
+      objectReference: {fileID: 0}
     - target: {fileID: 9008212513480021237, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2755,6 +2893,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1495126472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6986863670011471076, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+  m_PrefabInstance: {fileID: 1495126468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1495126473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 184922993384494594, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+  m_PrefabInstance: {fileID: 1495126468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1495126472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb87dadf7bd1025449813df2cc1d27d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1500782165 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 70634533200149130, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
@@ -2776,6 +2930,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Nave
       objectReference: {fileID: 0}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnUI
+      value: 
+      objectReference: {fileID: 960301745}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnText
+      value: 
+      objectReference: {fileID: 1086468683}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 660077260}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnButton
+      value: 
+      objectReference: {fileID: 2080437832535098230}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1526805307}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: inputController
+      value: 
+      objectReference: {fileID: 2080437832535098231}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 2
@@ -2904,6 +3082,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 127.69
       objectReference: {fileID: 0}
+    - target: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelBarImage
+      value: 
+      objectReference: {fileID: 2080437832535098228}
     - target: {fileID: 5108453797240209174, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_TagString
       value: Nave
@@ -3039,7 +3221,11 @@ PrefabInstance:
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 1526805307}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 1526805309}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
@@ -3156,14 +3342,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[10].y
       value: 0.24978054
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1526805311}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
 --- !u!1 &1526805306 stripped
 GameObject:
@@ -3172,13 +3354,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1526805307 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7377354669327698296, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 1526805305}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085465452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1526805308 stripped
@@ -3192,30 +3374,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1526805311
+--- !u!114 &1526805309 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 1526805305}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1085465452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 5
-  distanciaMaxGiro: 5
-  intensidadGiro: 2
-  estabilidadRotacion: 3
-  distanciaBorde: 2
-  maxAnguloBorde: 20
-  debugMode: 0
-  thrusterFX: {fileID: 323166575}
-  tapNudgeEnabled: 1
-  nudgeTorqueImpulse: 0.4
-  nudgeMaxAngle: 45
-  nudgeCooldown: 0.15
+--- !u!114 &1526805310 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 1526805305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085465452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1608912524
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,17 +3557,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4310118365417915349, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 194704804}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1773860560 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 194704804}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 194704806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1836341673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2935185804056814364, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
@@ -3512,17 +3681,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6686215778732152954, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
   m_PrefabInstance: {fileID: 8923056431530387880}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1956558802 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 42232722947320371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1965415829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3566,18 +3724,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: tiempoParpadeo
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: tiempoInvulnerabilidad
-      value: 2
-      objectReference: {fileID: 0}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnUI
+      value: 
+      objectReference: {fileID: 1905140051}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnText
+      value: 
+      objectReference: {fileID: 637378144}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 1436867587}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: respawnButton
+      value: 
+      objectReference: {fileID: 806403712}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 42232722947320372}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: inputController
+      value: 
+      objectReference: {fileID: 806403713}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -3586,66 +3756,6 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1448216253}
-    - target: {fileID: 2276714564275110904, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: scoreFormat
-      value: '{0}'
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: collisionEffectPrefab
-      value: 
-      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
-    - target: {fileID: 2621126649779488039, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.1662005
-      objectReference: {fileID: 0}
-    - target: {fileID: 2621126649779488039, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.1653692
-      objectReference: {fileID: 0}
-    - target: {fileID: 2621126649779488039, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1667646
-      objectReference: {fileID: 0}
-    - target: {fileID: 2621126649779488039, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 2621126649779488039, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.23
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 66090896, guid: 0abe96a4a5d82cc43b42a4378f0a5f10, type: 3}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007774201266706783, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4200900407060640552, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -3686,90 +3796,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 43.72
       objectReference: {fileID: 0}
-    - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: data.Name
-      value: Player 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: lineFuel
+    - target: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelBarImage
       value: 
       objectReference: {fileID: 1142493990}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: countdownUI
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: fuelManager
       value: 
-      objectReference: {fileID: 1905140051}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: respawnPoint
-      value: 
-      objectReference: {fileID: 1436867587}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: countdownText
-      value: 
-      objectReference: {fileID: 637378144}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: blackHoleCenter
-      value: 
-      objectReference: {fileID: 1337651307}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: blackHoleDeathZone
-      value: 
-      objectReference: {fileID: 1337651305}
-    - target: {fileID: 7532010679819498555, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: blackHoleAttractionZone
-      value: 
-      objectReference: {fileID: 1337651306}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: thrusterFX
-      value: 
-      objectReference: {fileID: 323166575}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: consumeFuel
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: anguloMuerto
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: limiteVelAng
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: asistenteGiro
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: pesoVelocidad
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: radioAsistente
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: fuerzaAsistente
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7702197824256403181, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: soloCercaAgujeroNegro
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      objectReference: {fileID: 42232722947320373}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: collisionEffectPrefab
-      value: 
-      objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
       objectReference: {fileID: 1634088848}
-    - target: {fileID: 9204227350876184139, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3793,13 +3835,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &42232722947320372 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6734930706703215088, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7377354669327698296, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 42232722947320369}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42232722947320371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
+  m_Script: {fileID: 11500000, guid: c9b308915d84b5b45b431c4883673916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &42232722947320373 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5084323159983305511, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42232722947320371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &42232722947320374 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42232722947320371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2080437832535098226
@@ -3810,14 +3874,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 951692193}
     m_Modifications:
+    - target: {fileID: 1599853753976479019, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
+      propertyPath: fuelManager
+      value: 
+      objectReference: {fileID: 1526805309}
+    - target: {fileID: 1599853753976479019, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1526805307}
     - target: {fileID: 1846064993429713976, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1526805311}
+      objectReference: {fileID: 0}
     - target: {fileID: 1846064993429713976, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1526805311}
+      objectReference: {fileID: 0}
     - target: {fileID: 6113008872730478470, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: abilityManager
       value: 
@@ -3829,11 +3901,11 @@ PrefabInstance:
     - target: {fileID: 6980432708241184654, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: fuelSystem
       value: 
-      objectReference: {fileID: 1526805307}
+      objectReference: {fileID: 0}
     - target: {fileID: 6980432708241184654, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: shipController
       value: 
-      objectReference: {fileID: 1526805311}
+      objectReference: {fileID: 0}
     - target: {fileID: 7611278488307195868, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3954,6 +4026,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2080437832535098230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8382742095537270733, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
+  m_PrefabInstance: {fileID: 2080437832535098226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2080437832535098231 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1599853753976479019, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
+  m_PrefabInstance: {fileID: 2080437832535098226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080437832535098230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb87dadf7bd1025449813df2cc1d27d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4840884873299380701
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4009,7 +4097,7 @@ PrefabInstance:
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[0].fuelButton
       value: 
-      objectReference: {fileID: 806403712}
+      objectReference: {fileID: 0}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[0].inicioNave
       value: 
@@ -4055,21 +4143,69 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194704806}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[0].fuelManager
+      value: 
+      objectReference: {fileID: 42232722947320373}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[1].fuelManager
+      value: 
+      objectReference: {fileID: 1526805309}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[2].fuelManager
+      value: 
+      objectReference: {fileID: 900441901}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[3].fuelManager
+      value: 
+      objectReference: {fileID: 194704808}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[0].deathManager
+      value: 
+      objectReference: {fileID: 42232722947320374}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[1].deathManager
+      value: 
+      objectReference: {fileID: 1526805310}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[2].deathManager
+      value: 
+      objectReference: {fileID: 900441902}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[3].deathManager
+      value: 
+      objectReference: {fileID: 194704809}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[0].shipController
       value: 
-      objectReference: {fileID: 1956558802}
+      objectReference: {fileID: 42232722947320372}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[1].shipController
       value: 
-      objectReference: {fileID: 1526805311}
+      objectReference: {fileID: 1526805307}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[2].shipController
       value: 
-      objectReference: {fileID: 2890622}
+      objectReference: {fileID: 900441899}
     - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
       propertyPath: players.Array.data[3].shipController
       value: 
-      objectReference: {fileID: 1773860560}
+      objectReference: {fileID: 194704805}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[0].shipInputController
+      value: 
+      objectReference: {fileID: 806403713}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[1].shipInputController
+      value: 
+      objectReference: {fileID: 2080437832535098231}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[2].shipInputController
+      value: 
+      objectReference: {fileID: 1378950617}
+    - target: {fileID: 5036444171044500806, guid: 37bf014a6b2aaa545b9d3c53efd57d2f, type: 3}
+      propertyPath: players.Array.data[3].shipInputController
+      value: 
+      objectReference: {fileID: 1495126473}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

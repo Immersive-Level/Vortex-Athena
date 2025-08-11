@@ -15,7 +15,7 @@ namespace GameSystems
         {
             BlackHole,
             PlayerCollision,
-            FuelEmpty,
+            // FuelEmpty,       // COMENTADO: Ya no se usa muerte por combustible
             OutOfBounds
         }
 
@@ -68,11 +68,14 @@ namespace GameSystems
 
         private void Start()
         {
+            // COMENTADO: Ya no nos suscribimos a eventos de combustible para muerte
+            /*
             // Suscribirse a eventos
             if (fuelManager != null)
             {
                 fuelManager.OnFuelEmpty += () => TriggerDeath(DeathType.FuelEmpty);
             }
+            */
 
             // Ocultar UI de respawn al inicio
             if (respawnUI != null)
@@ -454,8 +457,9 @@ namespace GameSystems
         [ContextMenu("Test: Trigger Collision Death")]
         private void TestCollisionDeath() => TriggerDeath(DeathType.PlayerCollision);
 
-        [ContextMenu("Test: Trigger Fuel Death")]
-        private void TestFuelDeath() => TriggerDeath(DeathType.FuelEmpty);
+        // COMENTADO: Test de muerte por combustible ya no disponible
+        // [ContextMenu("Test: Trigger Fuel Death")]
+        // private void TestFuelDeath() => TriggerDeath(DeathType.FuelEmpty);
 
         [ContextMenu("Test: Force Respawn")]
         private void TestForceRespawn() => ExecuteRespawn();

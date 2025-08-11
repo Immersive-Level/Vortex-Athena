@@ -15,7 +15,7 @@ namespace GameSystems
         {
             Inactive,       // Antes de iniciar (alpha 0.5)
             Playing,        // Jugando normal (alpha 1.0)
-            NoFuel,         // Sin combustible (alpha 0.5)
+            // NoFuel,         // Sin combustible (alpha 0.5) - COMENTADO: No se usa muerte por combustible
             Dead,           // Muerto, esperando (alpha 0.3)
             RespawnReady    // Listo para respawn (alpha 1.0, puede parpadear)
         }
@@ -32,7 +32,7 @@ namespace GameSystems
         [Header("Visual del Botón")]
         [SerializeField] private float inactiveAlpha = 0.5f;
         [SerializeField] private float deadAlpha = 0.3f;
-        [SerializeField] private float noFuelAlpha = 0.5f;
+        // [SerializeField] private float noFuelAlpha = 0.5f; // COMENTADO: No se usa estado NoFuel
         [SerializeField] private bool blinkOnRespawnReady = true;
         [SerializeField] private float blinkSpeed = 2f;
 
@@ -77,12 +77,15 @@ namespace GameSystems
             // Estado inicial: Inactivo
             SetButtonState(ButtonState.Inactive);
 
+            // COMENTADO: Suscripciones a eventos de combustible ya no necesarias para muerte
+            /*
             // Suscribirse a eventos del sistema de combustible
             if (fuelManager != null)
             {
                 fuelManager.OnFuelEmpty += HandleFuelEmpty;
                 fuelManager.OnFuelRestored += HandleFuelRestored;
             }
+            */
 
             // Suscribirse a eventos del sistema de muerte
             if (deathManager != null)
@@ -153,11 +156,14 @@ namespace GameSystems
                     canPress = true;
                     break;
 
+                // COMENTADO: Estado NoFuel ya no se usa
+                /*
                 case ButtonState.NoFuel:
                     canvasGroup.alpha = noFuelAlpha;
                     canvasGroup.interactable = false;
                     canPress = false;
                     break;
+                */
 
                 case ButtonState.Dead:
                     canvasGroup.alpha = deadAlpha;
@@ -227,10 +233,19 @@ namespace GameSystems
                 }
             }
 
-            if (!canPress || !fuelManager.HasFuel)
+            // SIMPLIFICADO: Solo verificar si se puede presionar (sin verificar combustible para muerte)
+            if (!canPress)
             {
                 if (debugMode)
-                    Debug.Log($"[ShipInput] Press ignorado - CanPress:{canPress}, HasFuel:{fuelManager.HasFuel}, State:{currentButtonState}");
+                    Debug.Log($"[ShipInput] Press ignorado - CanPress:{canPress}, State:{currentButtonState}");
+                return;
+            }
+
+            // NOTA: Verificamos combustible solo para evitar movimiento, NO para muerte
+            if (!fuelManager.HasFuel)
+            {
+                if (debugMode)
+                    Debug.Log($"[ShipInput] Press ignorado - Sin combustible (pero no causa muerte)");
                 return;
             }
 
@@ -274,6 +289,8 @@ namespace GameSystems
             OnButtonReleased?.Invoke();
         }
 
+        // COMENTADO: Métodos de manejo de combustible ya no necesarios para muerte
+        /*
         /// <summary>
         /// Maneja cuando se agota el combustible
         /// </summary>
@@ -301,6 +318,7 @@ namespace GameSystems
                 SetButtonState(ButtonState.Playing);
             }
         }
+        */
 
         /// <summary>
         /// Maneja cuando el jugador muere
@@ -393,7 +411,7 @@ namespace GameSystems
             isRespawning = false;
             pressStartTime = 0f;
 
-            // Determinar el estado apropiado
+            // Determinar el estado apropiado (SIN considerar NoFuel)
             if (!gameStarted)
             {
                 SetButtonState(ButtonState.Inactive);
@@ -402,10 +420,13 @@ namespace GameSystems
             {
                 SetButtonState(ButtonState.Dead);
             }
+            // COMENTADO: Ya no verificamos estado sin combustible para muerte
+            /*
             else if (fuelManager != null && !fuelManager.HasFuel)
             {
                 SetButtonState(ButtonState.NoFuel);
             }
+            */
             else
             {
                 SetButtonState(ButtonState.Playing);
@@ -453,12 +474,15 @@ namespace GameSystems
 
         private void OnDestroy()
         {
+            // COMENTADO: Desuscripciones de eventos de combustible ya no necesarias
+            /*
             // Desuscribirse de eventos
             if (fuelManager != null)
             {
                 fuelManager.OnFuelEmpty -= HandleFuelEmpty;
                 fuelManager.OnFuelRestored -= HandleFuelRestored;
             }
+            */
 
             if (deathManager != null)
             {
@@ -480,7 +504,7 @@ namespace GameSystems
             tapThreshold = Mathf.Max(0.01f, tapThreshold);
             inactiveAlpha = Mathf.Clamp01(inactiveAlpha);
             deadAlpha = Mathf.Clamp01(deadAlpha);
-            noFuelAlpha = Mathf.Clamp01(noFuelAlpha);
+            // noFuelAlpha = Mathf.Clamp01(noFuelAlpha); // COMENTADO: Variable no usada
             blinkSpeed = Mathf.Max(0.1f, blinkSpeed);
         }
 #endif

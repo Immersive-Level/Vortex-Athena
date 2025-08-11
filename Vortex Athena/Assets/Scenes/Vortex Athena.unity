@@ -1556,17 +1556,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2141597899986631940, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
   m_PrefabInstance: {fileID: 806403710}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &806403712 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1875923459913665936, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
-  m_PrefabInstance: {fileID: 806403710}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &806403713 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
   m_PrefabInstance: {fileID: 806403710}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806403712}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fb87dadf7bd1025449813df2cc1d27d8, type: 3}
@@ -3849,11 +3844,6 @@ Transform:
   - {fileID: 263578250}
   m_Father: {fileID: 1402602726}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2021952162 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4310118365417915349, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &42232722947320369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3867,10 +3857,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1905140051}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: shipVisual
-      value: 
-      objectReference: {fileID: 2021952162}
-    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: respawnText
       value: 
       objectReference: {fileID: 637378144}
@@ -3878,14 +3864,6 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 1436867587}
-    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: respawnButton
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: shipController
-      value: 
-      objectReference: {fileID: 42232722947320372}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: inputController
       value: 
@@ -3898,10 +3876,6 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1448216253}
-    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: combatSystem
-      value: 
-      objectReference: {fileID: 42232722947320380}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -3946,34 +3920,6 @@ PrefabInstance:
       propertyPath: fuelBarImage
       value: 
       objectReference: {fileID: 1142493990}
-    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: fuelManager
-      value: 
-      objectReference: {fileID: 42232722947320373}
-    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: combatSystem
-      value: 
-      objectReference: {fileID: 42232722947320380}
-    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: fuelManager
-      value: 
-      objectReference: {fileID: 42232722947320373}
-    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: botonControl
-      value: 
-      objectReference: {fileID: 806403712}
-    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: deathManager
-      value: 
-      objectReference: {fileID: 42232722947320374}
-    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-      propertyPath: shipController
-      value: 
-      objectReference: {fileID: 42232722947320372}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
@@ -4034,17 +3980,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &42232722947320380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 933410782465386759, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 42232722947320371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2080437832535098226

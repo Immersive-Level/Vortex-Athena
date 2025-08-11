@@ -15,14 +15,14 @@ public class ShipCollider : MonoBehaviour
     [Header("Efecto de Colisión")]
     public GameObject collisionEffectPrefab;  // Prefab de animación de colisión
 
-    private CombatSystem combatSystem;
+    [SerializeField] private CombatSystem combatSystem;
     private UnifiedDeathManager deathManager; // NUEVO: Referencia al death manager
     private FuelManager fuelManager; // NUEVO: Referencia al fuel manager
 
     private void OnEnable()
     {
         // Obtener CombatSystem del padre
-        combatSystem = transform.parent.GetComponent<CombatSystem>();
+        //combatSystem = transform.parent.GetComponent<CombatSystem>();
         if (combatSystem == null)
         {
             Debug.LogError("[ShipCollider] CombatSystem no encontrado en el padre");

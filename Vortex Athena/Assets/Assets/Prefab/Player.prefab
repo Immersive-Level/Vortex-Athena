@@ -48,12 +48,8 @@ MonoBehaviour:
   impulsoInicial: 2
   direccionImpulso: {x: 1, y: 1}
   combustibleInicial: 100
-  botonControl: {fileID: 0}
   blackHoleManager: {fileID: 0}
-  fuelManager: {fileID: 0}
   shipInputController: {fileID: 0}
-  deathManager: {fileID: 0}
-  shipController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
+  combatSystem: {fileID: 933410782465386759}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,6 +535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
+  combatSystem: {fileID: 933410782465386759}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,7 +788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 0}
   shipVisual: {fileID: 4310118365417915349}
-  shipController: {fileID: 0}
+  shipController: {fileID: 7377354669327698296}
   fuelManager: {fileID: 5084323159983305511}
   inputController: {fileID: 0}
   invulnerability: {fileID: 977790932892868827}
@@ -855,7 +853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
-  fuelManager: {fileID: 0}
+  fuelManager: {fileID: 5084323159983305511}
   collectEffect: {fileID: 0}
   collectionRadius: 0.8
   resourceLayer:

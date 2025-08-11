@@ -192,6 +192,10 @@ PrefabInstance:
       value: '{0}'
       objectReference: {fileID: 0}
     - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 194704815}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
       objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
@@ -524,6 +528,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194704808}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 194704815}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
       objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
@@ -699,6 +707,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &194704815 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 933410782465386759, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 194704804}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194704806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &263578249
@@ -1520,6 +1539,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 42232722947320373}
     - target: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 42232722947320374}
+    - target: {fileID: 8677934505083305846, guid: 850ea73c11687024fa74c63f3af5f6af, type: 3}
       propertyPath: shipController
       value: 
       objectReference: {fileID: 42232722947320372}
@@ -1621,6 +1644,10 @@ PrefabInstance:
       propertyPath: scoreFormat
       value: '{0}'
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 900441908}
     - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
@@ -1886,6 +1913,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 900441901}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 900441908}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
       objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
@@ -2073,6 +2104,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &900441908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 933410782465386759, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 900441898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2890621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &951692192
@@ -2496,6 +2538,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 900441901}
     - target: {fileID: 6783523433263422261, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 900441902}
+    - target: {fileID: 6783523433263422261, guid: 950cb17bdd5098943b41e74e9271078b, type: 3}
       propertyPath: shipController
       value: 
       objectReference: {fileID: 900441899}
@@ -2778,6 +2824,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 194704808}
     - target: {fileID: 184922993384494594, guid: c3b4d208497a72141818f0de806575a7, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 194704809}
+    - target: {fileID: 184922993384494594, guid: c3b4d208497a72141818f0de806575a7, type: 3}
       propertyPath: shipController
       value: 
       objectReference: {fileID: 194704805}
@@ -3014,6 +3064,10 @@ PrefabInstance:
       propertyPath: scoreFormat
       value: '{0}'
       objectReference: {fileID: 0}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 1526805318}
     - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
@@ -3271,6 +3325,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1526805309}
     - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 1526805318}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collisionEffectPrefab
       value: 
       objectReference: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
@@ -3458,6 +3516,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1526805318 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 933410782465386759, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 1526805305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085465452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1608912524
@@ -3812,7 +3881,7 @@ PrefabInstance:
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: respawnButton
       value: 
-      objectReference: {fileID: 806403712}
+      objectReference: {fileID: 0}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipController
       value: 
@@ -3829,6 +3898,10 @@ PrefabInstance:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 1448216253}
+    - target: {fileID: 2385693003566607440, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 42232722947320380}
     - target: {fileID: 4664018509971598235, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -3877,6 +3950,10 @@ PrefabInstance:
       propertyPath: fuelManager
       value: 
       objectReference: {fileID: 42232722947320373}
+    - target: {fileID: 8360383459421788156, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: combatSystem
+      value: 
+      objectReference: {fileID: 42232722947320380}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -3959,6 +4036,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &42232722947320380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 933410782465386759, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42232722947320371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2080437832535098226
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3971,6 +4059,10 @@ PrefabInstance:
       propertyPath: fuelManager
       value: 
       objectReference: {fileID: 1526805309}
+    - target: {fileID: 1599853753976479019, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 1526805310}
     - target: {fileID: 1599853753976479019, guid: 1454b54af04f26f409b59a2fb758363f, type: 3}
       propertyPath: shipController
       value: 

@@ -1,10 +1,9 @@
 using UnityEngine;
 using GameSystems;
-using UnityEngine.UI;
 
 /// <summary>
-/// Gestiona la inicialización y activación de una nave
-/// FIXED: El botón NUNCA se oculta, solo cambia su función
+/// Gestiona SOLO la inicialización y activación de una nave
+/// No maneja estados del botón - eso lo hace ShipInputController
 /// </summary>
 public class InicioNave : MonoBehaviour
 {
@@ -17,16 +16,9 @@ public class InicioNave : MonoBehaviour
     [Tooltip("Combustible inicial al activar la nave")]
     public float combustibleInicial = 100f;
 
-    [Header("Referencias UI")]
-    [Tooltip("El botón de control de esta nave - NUNCA SE OCULTA")]
-    public GameObject botonControl;
-
-    [Header("Referencias Sistemas")]
+    [Header("Referencias")]
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
-    [SerializeField] private FuelManager fuelManager;
     [SerializeField] private ShipInputController shipInputController;
-    [SerializeField] private UnifiedDeathManager deathManager;
-    [SerializeField] private ShipController shipController;
 
     // Estado
     private bool juegoIniciado = false;
@@ -41,9 +33,6 @@ public class InicioNave : MonoBehaviour
             enabled = false;
             return;
         }
-
-        // Auto-buscar componentes si no están asignados
-        ValidateAndFindComponents();
     }
 
     void Start()
@@ -51,8 +40,14 @@ public class InicioNave : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.RegisterShip(nave);
 
-        // Configurar estado inicial
-        ConfigurarEstadoInicial();
+        // Ocultar la nave al inicio
+        nave.SetActive(false);
+
+        // Buscar ShipInputController si no está asignado
+        if (shipInputController == null)
+        {
+            shipInputController = GetComponentInChildren<ShipInputController>();
+        }
 
         // Obtener referencia al BlackHoleAttractionManager si no está asignada
         if (blackHoleManager == null)
@@ -62,83 +57,6 @@ public class InicioNave : MonoBehaviour
             {
                 Debug.LogWarning("[InicioNave] No se encontró un BlackHoleAttractionManager");
             }
-        }
-    }
-
-    /// <summary>
-    /// Valida y busca componentes automáticamente
-    /// </summary>
-    private void ValidateAndFindComponents()
-    {
-        // Buscar FuelManager
-        if (fuelManager == null && nave != null)
-        {
-            fuelManager = nave.GetComponent<FuelManager>();
-            if (fuelManager == null)
-                fuelManager = nave.GetComponentInChildren<FuelManager>();
-        }
-
-        // Buscar ShipInputController (puede estar en el botón)
-        if (shipInputController == null)
-        {
-            if (botonControl != null)
-            {
-                shipInputController = botonControl.GetComponent<ShipInputController>();
-            }
-            if (shipInputController == null && nave != null)
-            {
-                shipInputController = nave.GetComponentInChildren<ShipInputController>();
-            }
-        }
-
-        // Buscar UnifiedDeathManager
-        if (deathManager == null && nave != null)
-        {
-            deathManager = nave.GetComponent<UnifiedDeathManager>();
-            if (deathManager == null)
-                deathManager = nave.GetComponentInChildren<UnifiedDeathManager>();
-        }
-
-        // Buscar ShipController
-        if (shipController == null && nave != null)
-        {
-            shipController = nave.GetComponent<ShipController>();
-            if (shipController == null)
-                shipController = nave.GetComponentInChildren<ShipController>();
-        }
-    }
-
-    /// <summary>
-    /// Configura el estado inicial de la nave y UI
-    /// </summary>
-    private void ConfigurarEstadoInicial()
-    {
-        // Ocultar la nave al inicio
-        nave.SetActive(false);
-
-        // IMPORTANTE: El botón SIEMPRE está activo
-        if (botonControl != null)
-        {
-            // El botón NUNCA se desactiva, siempre visible
-            botonControl.SetActive(true);
-
-            // Solo cambiar su interactividad
-            var canvasGroup = botonControl.GetComponent<CanvasGroup>();
-            if (canvasGroup == null)
-            {
-                canvasGroup = botonControl.AddComponent<CanvasGroup>();
-            }
-
-            // Al inicio, el botón está semi-transparente esperando activación
-            canvasGroup.alpha = 0.5f;
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = true; // Siempre puede recibir clicks
-        }
-
-        // Configurar combustible inicial
-        if (fuelManager != null)
-        {
-            fuelManager.SetFuel(combustibleInicial);
         }
     }
 
@@ -169,8 +87,11 @@ public class InicioNave : MonoBehaviour
         // Configurar sistemas
         ConfigurarSistemas();
 
-        // Habilitar el botón para control
-        SetBotonModoJuego();
+        // Notificar al ShipInputController que el juego inició
+        if (shipInputController != null)
+        {
+            shipInputController.OnGameStarted();
+        }
 
         // Registrar en BlackHoleAttractionManager
         RegistrarEnBlackHole();
@@ -184,148 +105,18 @@ public class InicioNave : MonoBehaviour
     private void ConfigurarSistemas()
     {
         // Configurar combustible
+        var fuelManager = nave.GetComponentInChildren<FuelManager>();
         if (fuelManager != null)
         {
             fuelManager.SetFuel(combustibleInicial);
             fuelManager.ResetFuelSystem();
         }
 
-        // Resetear el sistema de muerte
-        if (deathManager != null)
-        {
-            // El death manager ya debería estar en buen estado
-            if (deathManager.IsDead)
-            {
-                Debug.LogWarning("[InicioNave] El DeathManager estaba en estado muerto, forzando reset");
-            }
-        }
-
         // Resetear el controlador de la nave
+        var shipController = nave.GetComponentInChildren<ShipController>();
         if (shipController != null)
         {
             shipController.ResetMovement();
-        }
-
-        // Resetear el input controller
-        if (shipInputController != null)
-        {
-            shipInputController.ResetInputState();
-        }
-    }
-
-    /// <summary>
-    /// Configura el botón para modo juego (puede controlar la nave)
-    /// </summary>
-    private void SetBotonModoJuego()
-    {
-        if (botonControl != null)
-        {
-            // El botón NUNCA se oculta
-            botonControl.SetActive(true);
-
-            // Habilitar interacción completa
-            var canvasGroup = botonControl.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f;
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
-            }
-
-            // Asegurar que el Button component esté habilitado
-            var button = botonControl.GetComponent<Button>();
-            if (button != null)
-            {
-                button.interactable = true;
-            }
-
-            // Si tiene ShipInputController, asegurarse de que esté activo
-            if (shipInputController != null)
-            {
-                shipInputController.enabled = true;
-                shipInputController.ResetInputState();
-            }
-
-            Debug.Log("[InicioNave] Botón configurado para modo juego");
-        }
-    }
-
-    /// <summary>
-    /// Configura el botón para modo espera (semi-transparente)
-    /// </summary>
-    private void SetBotonModoEspera()
-    {
-        if (botonControl != null)
-        {
-            // El botón NUNCA se oculta, solo se vuelve semi-transparente
-            botonControl.SetActive(true);
-
-            var canvasGroup = botonControl.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 0.5f;
-                canvasGroup.interactable = false;
-                canvasGroup.blocksRaycasts = true; // Aún puede recibir eventos
-            }
-
-            // El Button se deshabilita pero el GameObject sigue activo
-            var button = botonControl.GetComponent<Button>();
-            if (button != null)
-            {
-                button.interactable = false;
-            }
-
-            Debug.Log("[InicioNave] Botón configurado para modo espera");
-        }
-    }
-
-    /// <summary>
-    /// Configura el botón para modo muerte (esperando respawn)
-    /// </summary>
-    public void SetBotonModoMuerte()
-    {
-        if (botonControl != null)
-        {
-            // El botón sigue visible pero deshabilitado temporalmente
-            botonControl.SetActive(true);
-
-            var canvasGroup = botonControl.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 0.3f; // Más transparente durante muerte
-                canvasGroup.interactable = false;
-                canvasGroup.blocksRaycasts = true;
-            }
-
-            Debug.Log("[InicioNave] Botón configurado para modo muerte");
-        }
-    }
-
-    /// <summary>
-    /// Configura el botón para modo respawn (listo para presionar)
-    /// </summary>
-    public void SetBotonModoRespawn()
-    {
-        if (botonControl != null)
-        {
-            // El botón se vuelve brillante indicando que puede respawnear
-            botonControl.SetActive(true);
-
-            var canvasGroup = botonControl.GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = 1f; // Full opacidad para respawn
-                canvasGroup.interactable = true;
-                canvasGroup.blocksRaycasts = true;
-            }
-
-            var button = botonControl.GetComponent<Button>();
-            if (button != null)
-            {
-                button.interactable = true;
-            }
-
-            Debug.Log("[InicioNave] Botón configurado para modo respawn");
         }
     }
 
@@ -340,11 +131,13 @@ public class InicioNave : MonoBehaviour
             DesregistrarDeBlackHole();
 
             // Resetear todos los sistemas
+            var shipController = nave.GetComponentInChildren<ShipController>();
             if (shipController != null)
             {
                 shipController.ResetMovement();
             }
 
+            var fuelManager = nave.GetComponentInChildren<FuelManager>();
             if (fuelManager != null)
             {
                 fuelManager.ResetFuelSystem();
@@ -355,49 +148,12 @@ public class InicioNave : MonoBehaviour
                 shipInputController.ResetInputState();
             }
 
-            // Botón en modo espera (NO se oculta)
-            SetBotonModoEspera();
-
             // Desactivar nave
             nave.SetActive(false);
             juegoIniciado = false;
 
             Debug.Log($"[InicioNave] Nave {nave.name} reiniciada");
         }
-    }
-
-    /// <summary>
-    /// Método llamado cuando el jugador muere
-    /// </summary>
-    public void OnPlayerDeath()
-    {
-        SetBotonModoMuerte();
-        Debug.Log($"[InicioNave] Nave {nave.name} ha muerto");
-    }
-
-    /// <summary>
-    /// Método llamado cuando el jugador puede respawnear
-    /// </summary>
-    public void OnPlayerRespawnReady()
-    {
-        SetBotonModoRespawn();
-        Debug.Log($"[InicioNave] Nave {nave.name} lista para respawn");
-    }
-
-    /// <summary>
-    /// Método llamado cuando el jugador respawnea
-    /// </summary>
-    public void OnPlayerRespawn()
-    {
-        SetBotonModoJuego();
-
-        // Rehabilitar sistemas después del respawn
-        if (shipInputController != null)
-        {
-            shipInputController.ResetInputState();
-        }
-
-        Debug.Log($"[InicioNave] Nave {nave.name} respawneada");
     }
 
     private void RegistrarEnBlackHole()

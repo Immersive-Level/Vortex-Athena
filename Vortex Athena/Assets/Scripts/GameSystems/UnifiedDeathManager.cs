@@ -31,7 +31,6 @@ namespace GameSystems
         [Header("UI Respawn")]
         [SerializeField] private GameObject respawnUI;
         [SerializeField] private TextMeshProUGUI respawnText;
-        [SerializeField] private GameObject respawnButton; // El botón de gasolina
 
         [Header("Configuración")]
         [SerializeField] private float respawnWaitTime = 3f; // Tiempo antes de habilitar botón
@@ -78,9 +77,6 @@ namespace GameSystems
             // Ocultar UI de respawn al inicio
             if (respawnUI != null)
                 respawnUI.SetActive(false);
-
-            if (respawnButton != null)
-                respawnButton.SetActive(false);
         }
 
         /// <summary>
@@ -214,16 +210,6 @@ namespace GameSystems
         /// </summary>
         private void EnableRespawnButton()
         {
-            if (respawnButton != null)
-            {
-                respawnButton.SetActive(true);
-
-                // Añadir animación de "listo"
-                var animator = respawnButton.GetComponent<Animator>();
-                if (animator != null)
-                    animator.SetTrigger("Ready");
-            }
-
             // Notificar al input controller
             if (inputController != null)
                 inputController.EnableForRespawn();
@@ -245,9 +231,6 @@ namespace GameSystems
             // Ocultar UI
             if (respawnUI != null)
                 respawnUI.SetActive(false);
-
-            if (respawnButton != null)
-                respawnButton.SetActive(false);
 
             // Ejecutar respawn
             ExecuteRespawn();
@@ -369,7 +352,26 @@ namespace GameSystems
         private void ShowShipVisual()
         {
             if (shipVisual != null)
+            {
                 shipVisual.SetActive(true);
+
+                // Asegurar que el SpriteRenderer esté habilitado
+                var spriteRenderer = shipVisual.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.enabled = true;
+                }
+
+                // También verificar en los hijos
+                SpriteRenderer[] childSprites = shipVisual.GetComponentsInChildren<SpriteRenderer>();
+                foreach (var sprite in childSprites)
+                {
+                    sprite.enabled = true;
+                }
+
+                if (debugMode)
+                    Debug.Log("[DeathManager] Visual de la nave mostrado");
+            }
         }
 
         /// <summary>
@@ -445,6 +447,7 @@ namespace GameSystems
         }
 
 #if UNITY_EDITOR
+
         [ContextMenu("Test: Trigger Black Hole Death")]
         private void TestBlackHoleDeath() => TriggerDeath(DeathType.BlackHole);
 

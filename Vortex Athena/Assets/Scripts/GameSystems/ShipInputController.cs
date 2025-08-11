@@ -1,35 +1,56 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections;
 
 namespace GameSystems
 {
     /// <summary>
     /// Controlador de input para la nave - Reemplaza Boton.cs
-    /// Simple y robusto, maneja el input del jugador
-    /// FIXED: El botón NUNCA se oculta, solo cambia su comportamiento
+    /// FIXED: Auto-gestiona su estado visual, NUNCA se oculta
     /// </summary>
     public class ShipInputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
+        public enum ButtonState
+        {
+            Inactive,       // Antes de iniciar (alpha 0.5)
+            Playing,        // Jugando normal (alpha 1.0)
+            NoFuel,         // Sin combustible (alpha 0.5)
+            Dead,           // Muerto, esperando (alpha 0.3)
+            RespawnReady    // Listo para respawn (alpha 1.0, puede parpadear)
+        }
+
         [Header("Referencias")]
         [SerializeField] private FuelManager fuelManager;
         [SerializeField] private ShipController shipController;
+        [SerializeField] private UnifiedDeathManager deathManager;
 
         [Header("Configuración Tap")]
-        [SerializeField] private float tapThreshold = 0.15f; // Tiempo máximo para considerar "tap"
+        [SerializeField] private float tapThreshold = 0.15f;
         [SerializeField] private bool tapNudgeEnabled = true;
+
+        [Header("Visual del Botón")]
+        [SerializeField] private float inactiveAlpha = 0.5f;
+        [SerializeField] private float deadAlpha = 0.3f;
+        [SerializeField] private float noFuelAlpha = 0.5f;
+        [SerializeField] private bool blinkOnRespawnReady = true;
+        [SerializeField] private float blinkSpeed = 2f;
 
         [Header("Estado Visual")]
         [SerializeField] private Animator buttonAnimator; // Opcional: animación del botón
 
         [Header("Debug")]
         [SerializeField] private bool debugMode = false;
+        [SerializeField] private ButtonState currentButtonState = ButtonState.Inactive;
 
         // Estado interno
         private bool isPressing = false;
         private bool canPress = true;
         private float pressStartTime = 0f;
         private bool isRespawning = false;
+        private CanvasGroup canvasGroup;
+        private Coroutine blinkCoroutine;
+        private bool gameStarted = false;
 
         // Eventos
         public event Action OnButtonPressed;
@@ -38,11 +59,24 @@ namespace GameSystems
 
         private void Awake()
         {
+            // Obtener o crear CanvasGroup
+            canvasGroup = GetComponent<CanvasGroup>();
+            if (canvasGroup == null)
+            {
+                canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            }
+
+            // IMPORTANTE: El botón SIEMPRE está activo
+            gameObject.SetActive(true);
+
             ValidateReferences();
         }
 
         private void Start()
         {
+            // Estado inicial: Inactivo
+            SetButtonState(ButtonState.Inactive);
+
             // Suscribirse a eventos del sistema de combustible
             if (fuelManager != null)
             {
@@ -50,29 +84,123 @@ namespace GameSystems
                 fuelManager.OnFuelRestored += HandleFuelRestored;
             }
 
-            UpdateButtonState();
+            // Suscribirse a eventos del sistema de muerte
+            if (deathManager != null)
+            {
+                deathManager.OnDeath += HandleDeath;
+                deathManager.OnRespawn += HandleRespawn;
+                deathManager.OnRespawnReady += HandleRespawnReady;
+            }
+
+            // Detectar cuando el juego inicia
+            var inicioNave = GetComponentInParent<InicioNave>();
+            if (inicioNave != null)
+            {
+                // Podríamos suscribirnos a un evento si existiera
+                StartCoroutine(CheckGameStarted(inicioNave));
+            }
+        }
+
+        private IEnumerator CheckGameStarted(InicioNave inicioNave)
+        {
+            while (!gameStarted)
+            {
+                if (inicioNave.JuegoIniciado)
+                {
+                    gameStarted = true;
+                    SetButtonState(ButtonState.Playing);
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
         private void OnEnable()
         {
-            // Limpiar estado al activarse
-            ResetInputState();
+            // Asegurar que el botón siempre esté visible
+            if (canvasGroup != null)
+            {
+                canvasGroup.blocksRaycasts = true;
+            }
         }
 
         /// <summary>
-        /// Método público para el botón - Iniciar press
+        /// Cambia el estado visual del botón
         /// </summary>
-        public void OnButtonPress()
+        public void SetButtonState(ButtonState newState)
         {
-            OnPointerDown(null);
+            if (currentButtonState == newState) return;
+
+            currentButtonState = newState;
+
+            // Detener parpadeo si existe
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+                blinkCoroutine = null;
+            }
+
+            switch (newState)
+            {
+                case ButtonState.Inactive:
+                    canvasGroup.alpha = inactiveAlpha;
+                    canvasGroup.interactable = false;
+                    canPress = false;
+                    break;
+
+                case ButtonState.Playing:
+                    canvasGroup.alpha = 1f;
+                    canvasGroup.interactable = true;
+                    canPress = true;
+                    break;
+
+                case ButtonState.NoFuel:
+                    canvasGroup.alpha = noFuelAlpha;
+                    canvasGroup.interactable = false;
+                    canPress = false;
+                    break;
+
+                case ButtonState.Dead:
+                    canvasGroup.alpha = deadAlpha;
+                    canvasGroup.interactable = false;
+                    canPress = false;
+                    isRespawning = false;
+                    break;
+
+                case ButtonState.RespawnReady:
+                    canvasGroup.interactable = true;
+                    canPress = true;
+                    isRespawning = true;
+
+                    if (blinkOnRespawnReady)
+                    {
+                        blinkCoroutine = StartCoroutine(BlinkEffect());
+                    }
+                    else
+                    {
+                        canvasGroup.alpha = 1f;
+                    }
+                    break;
+            }
+
+            // Actualizar animación si existe
+            UpdateButtonAnimation(newState.ToString());
+
+            if (debugMode)
+                Debug.Log($"[ShipInput] Estado del botón: {newState}");
         }
 
         /// <summary>
-        /// Método público para el botón - Finalizar press
+        /// Efecto de parpadeo para respawn ready
         /// </summary>
-        public void OnButtonRelease()
+        private IEnumerator BlinkEffect()
         {
-            OnPointerUp(null);
+            while (currentButtonState == ButtonState.RespawnReady)
+            {
+                float alpha = Mathf.PingPong(Time.time * blinkSpeed, 1f);
+                alpha = Mathf.Lerp(0.5f, 1f, alpha); // Parpadeo entre 0.5 y 1
+                canvasGroup.alpha = alpha;
+                yield return null;
+            }
         }
 
         /// <summary>
@@ -80,10 +208,29 @@ namespace GameSystems
         /// </summary>
         public void OnPointerDown(PointerEventData eventData)
         {
+            // Si estamos esperando respawn, ejecutar respawn
+            if (isRespawning && currentButtonState == ButtonState.RespawnReady)
+            {
+                ExecuteRespawn();
+                return;
+            }
+
+            // Si el juego no ha iniciado, iniciar
+            if (!gameStarted)
+            {
+                var inicioNave = GetComponentInParent<InicioNave>();
+                if (inicioNave != null && !inicioNave.JuegoIniciado)
+                {
+                    // Este press iniciará el juego a través del PlayerInputManager
+                    // No hacemos nada más aquí
+                    return;
+                }
+            }
+
             if (!canPress || !fuelManager.HasFuel)
             {
                 if (debugMode)
-                    Debug.Log($"[ShipInput] Press ignorado - CanPress:{canPress}, HasFuel:{fuelManager.HasFuel}");
+                    Debug.Log($"[ShipInput] Press ignorado - CanPress:{canPress}, HasFuel:{fuelManager.HasFuel}, State:{currentButtonState}");
                 return;
             }
 
@@ -95,7 +242,6 @@ namespace GameSystems
             fuelManager.StartConsuming();
 
             OnButtonPressed?.Invoke();
-            UpdateButtonAnimation("Pressed");
 
             if (debugMode)
                 Debug.Log("[ShipInput] Botón presionado - Iniciando movimiento");
@@ -126,7 +272,6 @@ namespace GameSystems
             }
 
             OnButtonReleased?.Invoke();
-            UpdateButtonAnimation(canPress ? "Ready" : "Disabled");
         }
 
         /// <summary>
@@ -134,18 +279,16 @@ namespace GameSystems
         /// </summary>
         private void HandleFuelEmpty()
         {
-            canPress = false;
-
-            // Forzar release si está presionando
-            if (isPressing)
+            if (currentButtonState == ButtonState.Playing)
             {
-                OnPointerUp(null);
+                SetButtonState(ButtonState.NoFuel);
+
+                // Forzar release si está presionando
+                if (isPressing)
+                {
+                    OnPointerUp(null);
+                }
             }
-
-            UpdateButtonState();
-
-            if (debugMode)
-                Debug.Log("[ShipInput] Combustible agotado - Botón deshabilitado");
         }
 
         /// <summary>
@@ -153,14 +296,51 @@ namespace GameSystems
         /// </summary>
         private void HandleFuelRestored()
         {
-            if (!isRespawning) // Solo rehabilitar si no estamos en proceso de respawn
+            if (currentButtonState == ButtonState.NoFuel && !deathManager.IsDead)
             {
-                canPress = true;
-                UpdateButtonState();
-
-                if (debugMode)
-                    Debug.Log("[ShipInput] Combustible restaurado - Botón habilitado");
+                SetButtonState(ButtonState.Playing);
             }
+        }
+
+        /// <summary>
+        /// Maneja cuando el jugador muere
+        /// </summary>
+        private void HandleDeath(UnifiedDeathManager.DeathType deathType)
+        {
+            SetButtonState(ButtonState.Dead);
+
+            // Forzar release si está presionando
+            if (isPressing)
+            {
+                OnPointerUp(null);
+            }
+
+            if (debugMode)
+                Debug.Log($"[ShipInput] Jugador murió por {deathType}");
+        }
+
+        /// <summary>
+        /// Maneja cuando el respawn está listo
+        /// </summary>
+        private void HandleRespawnReady()
+        {
+            SetButtonState(ButtonState.RespawnReady);
+
+            if (debugMode)
+                Debug.Log("[ShipInput] Respawn listo - Presiona el botón");
+        }
+
+        /// <summary>
+        /// Maneja cuando el jugador respawnea
+        /// </summary>
+        private void HandleRespawn()
+        {
+            // Volver al estado de juego
+            SetButtonState(ButtonState.Playing);
+            isRespawning = false;
+
+            if (debugMode)
+                Debug.Log("[ShipInput] Jugador respawneado");
         }
 
         /// <summary>
@@ -168,12 +348,7 @@ namespace GameSystems
         /// </summary>
         public void EnableForRespawn()
         {
-            isRespawning = true;
-            canPress = true;
-            UpdateButtonAnimation("RespawnReady");
-
-            if (debugMode)
-                Debug.Log("[ShipInput] Botón habilitado para respawn");
+            SetButtonState(ButtonState.RespawnReady);
         }
 
         /// <summary>
@@ -181,33 +356,21 @@ namespace GameSystems
         /// </summary>
         public void ExecuteRespawn()
         {
-            if (!isRespawning) return;
+            if (!isRespawning || currentButtonState != ButtonState.RespawnReady) return;
 
             isRespawning = false;
 
-            // El DeathManager se encargará del respawn real
-            // Este método solo notifica que el botón fue presionado
+            // Cambiar estado visual inmediatamente
+            SetButtonState(ButtonState.Dead);
+
+            // Notificar al UnifiedDeathManager que ejecute el respawn
+            if (deathManager != null)
+            {
+                deathManager.OnRespawnButtonPressed();
+            }
 
             if (debugMode)
                 Debug.Log("[ShipInput] Respawn ejecutado");
-        }
-
-        /// <summary>
-        /// Actualiza el estado visual del botón
-        /// </summary>
-        private void UpdateButtonState()
-        {
-            bool isEnabled = canPress && fuelManager.HasFuel;
-
-            // Actualizar visual del botón (cambiar alpha, color, etc.)
-            var canvasGroup = GetComponent<CanvasGroup>();
-            if (canvasGroup != null)
-            {
-                canvasGroup.alpha = isEnabled ? 1f : 0.5f;
-                canvasGroup.interactable = isEnabled;
-            }
-
-            UpdateButtonAnimation(isEnabled ? "Ready" : "Disabled");
         }
 
         /// <summary>
@@ -227,14 +390,38 @@ namespace GameSystems
         public void ResetInputState()
         {
             isPressing = false;
-            canPress = fuelManager.HasFuel;
             isRespawning = false;
             pressStartTime = 0f;
 
-            UpdateButtonState();
+            // Determinar el estado apropiado
+            if (!gameStarted)
+            {
+                SetButtonState(ButtonState.Inactive);
+            }
+            else if (deathManager != null && deathManager.IsDead)
+            {
+                SetButtonState(ButtonState.Dead);
+            }
+            else if (fuelManager != null && !fuelManager.HasFuel)
+            {
+                SetButtonState(ButtonState.NoFuel);
+            }
+            else
+            {
+                SetButtonState(ButtonState.Playing);
+            }
 
             if (debugMode)
                 Debug.Log("[ShipInput] Estado reiniciado");
+        }
+
+        /// <summary>
+        /// Llamado cuando el juego inicia (desde InicioNave)
+        /// </summary>
+        public void OnGameStarted()
+        {
+            gameStarted = true;
+            SetButtonState(ButtonState.Playing);
         }
 
         /// <summary>
@@ -255,6 +442,13 @@ namespace GameSystems
                 if (shipController == null)
                     Debug.LogError("[ShipInput] ShipController no encontrado!");
             }
+
+            if (deathManager == null)
+            {
+                deathManager = GetComponentInParent<UnifiedDeathManager>();
+                if (deathManager == null)
+                    Debug.LogWarning("[ShipInput] UnifiedDeathManager no encontrado");
+            }
         }
 
         private void OnDestroy()
@@ -265,12 +459,29 @@ namespace GameSystems
                 fuelManager.OnFuelEmpty -= HandleFuelEmpty;
                 fuelManager.OnFuelRestored -= HandleFuelRestored;
             }
+
+            if (deathManager != null)
+            {
+                deathManager.OnDeath -= HandleDeath;
+                deathManager.OnRespawn -= HandleRespawn;
+                deathManager.OnRespawnReady -= HandleRespawnReady;
+            }
+
+            // Detener corrutinas
+            if (blinkCoroutine != null)
+            {
+                StopCoroutine(blinkCoroutine);
+            }
         }
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
             tapThreshold = Mathf.Max(0.01f, tapThreshold);
+            inactiveAlpha = Mathf.Clamp01(inactiveAlpha);
+            deadAlpha = Mathf.Clamp01(deadAlpha);
+            noFuelAlpha = Mathf.Clamp01(noFuelAlpha);
+            blinkSpeed = Mathf.Max(0.1f, blinkSpeed);
         }
 #endif
     }

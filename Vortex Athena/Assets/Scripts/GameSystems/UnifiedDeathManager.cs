@@ -31,13 +31,13 @@ namespace GameSystems
         [Header("UI Respawn")]
         [SerializeField] private GameObject respawnUI;
         [SerializeField] private TextMeshProUGUI respawnText;
-        [SerializeField] private GameObject respawnButton; // El bot�n de gasolina
+        [SerializeField] private GameObject respawnButton; // El botón de gasolina
 
-        [Header("Configuraci�n")]
-        [SerializeField] private float respawnWaitTime = 3f; // Tiempo antes de habilitar bot�n
+        [Header("Configuración")]
+        [SerializeField] private float respawnWaitTime = 3f; // Tiempo antes de habilitar botón
         [SerializeField] private float fuelOnRespawn = 30f; // Combustible al respawnear
         [SerializeField] private float invulnerabilityDuration = 2f;
-        [SerializeField] private bool autoRespawn = false; // false = respawn manual con bot�n
+        [SerializeField] private bool autoRespawn = false; // false = respawn manual con botón
 
         [Header("Efectos de Muerte")]
         [SerializeField] private GameObject deathEffectPrefab;
@@ -55,9 +55,9 @@ namespace GameSystems
         // Eventos
         public event Action<DeathType> OnDeath;
         public event Action OnRespawn;
-        public event Action OnRespawnReady; // Cuando el bot�n est� listo
+        public event Action OnRespawnReady; // Cuando el botón está listo
 
-        // Propiedades p�blicas
+        // Propiedades públicas
         public bool IsDead => isDead;
         public bool IsRespawning => isRespawning;
 
@@ -84,7 +84,7 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Trigger p�blico para iniciar muerte
+        /// Trigger público para iniciar muerte
         /// </summary>
         public void TriggerDeath(DeathType deathType)
         {
@@ -135,7 +135,7 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Secuencia de respawn autom�tico
+        /// Secuencia de respawn automático
         /// </summary>
         private IEnumerator AutoRespawnSequence()
         {
@@ -168,13 +168,13 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Secuencia de respawn manual con bot�n
+        /// Secuencia de respawn manual con botón
         /// </summary>
         private IEnumerator ManualRespawnSequence()
         {
             isRespawning = true;
 
-            // Mostrar countdown antes de habilitar bot�n
+            // Mostrar countdown antes de habilitar botón
             if (respawnUI != null)
             {
                 respawnUI.SetActive(true);
@@ -189,20 +189,20 @@ namespace GameSystems
                     timeLeft--;
                 }
 
-                // Cambiar texto para indicar que est� listo
+                // Cambiar texto para indicar que está listo
                 if (respawnText != null)
-                    respawnText.text = "�Presiona para respawn!";
+                    respawnText.text = "¡Presiona para respawn!";
             }
             else
             {
                 yield return new WaitForSeconds(respawnWaitTime);
             }
 
-            // Habilitar bot�n de respawn
+            // Habilitar botón de respawn
             EnableRespawnButton();
             OnRespawnReady?.Invoke();
 
-            // Esperar hasta que el jugador presione el bot�n
+            // Esperar hasta que el jugador presione el botón
             while (isRespawning)
             {
                 yield return null;
@@ -210,7 +210,7 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Habilita el bot�n para respawn manual
+        /// Habilita el botón para respawn manual
         /// </summary>
         private void EnableRespawnButton()
         {
@@ -218,7 +218,7 @@ namespace GameSystems
             {
                 respawnButton.SetActive(true);
 
-                // A�adir animaci�n de "listo"
+                // Añadir animación de "listo"
                 var animator = respawnButton.GetComponent<Animator>();
                 if (animator != null)
                     animator.SetTrigger("Ready");
@@ -229,18 +229,18 @@ namespace GameSystems
                 inputController.EnableForRespawn();
 
             if (debugMode)
-                Debug.Log("[DeathManager] Bot�n de respawn habilitado");
+                Debug.Log("[DeathManager] Botón de respawn habilitado");
         }
 
         /// <summary>
-        /// Llamado cuando el jugador presiona el bot�n de respawn
+        /// Llamado cuando el jugador presiona el botón de respawn
         /// </summary>
         public void OnRespawnButtonPressed()
         {
             if (!isRespawning || !isDead) return;
 
             if (debugMode)
-                Debug.Log("[DeathManager] Bot�n de respawn presionado");
+                Debug.Log("[DeathManager] Botón de respawn presionado");
 
             // Ocultar UI
             if (respawnUI != null)
@@ -262,7 +262,7 @@ namespace GameSystems
             if (debugMode)
                 Debug.Log("[DeathManager] Ejecutando respawn");
 
-            // 1. Resetear posici�n y escala
+            // 1. Resetear posición y escala
             transform.position = respawnPoint.position;
             transform.rotation = Quaternion.identity;
             transform.localScale = originalScale;
@@ -312,12 +312,12 @@ namespace GameSystems
             if (fuelManager != null)
                 fuelManager.StopConsuming();
 
-            // Limpiar f�sica
+            // Limpiar física
             ResetPhysics();
         }
 
         /// <summary>
-        /// Resetea toda la f�sica del Rigidbody
+        /// Resetea toda la física del Rigidbody
         /// </summary>
         private void ResetPhysics()
         {
@@ -334,7 +334,7 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Reproduce efectos de muerte seg�n el tipo
+        /// Reproduce efectos de muerte según el tipo
         /// </summary>
         private void PlayDeathEffects(DeathType deathType)
         {
@@ -345,7 +345,7 @@ namespace GameSystems
                 Destroy(effect, 3f);
             }
 
-            // Sonido espec�fico por tipo
+            // Sonido específico por tipo
             if (deathSounds != null && deathSounds.Length > (int)deathType)
             {
                 var clip = deathSounds[(int)deathType];
@@ -373,7 +373,7 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Valida que todas las referencias est�n configuradas
+        /// Valida que todas las referencias estén configuradas
         /// </summary>
         private void ValidateReferences()
         {
@@ -392,13 +392,13 @@ namespace GameSystems
             if (shipRigidbody == null)
                 shipRigidbody = GetComponent<Rigidbody2D>();
 
-            // Validar referencias cr�ticas
+            // Validar referencias críticas
             if (respawnPoint == null)
                 Debug.LogError("[DeathManager] respawnPoint no asignado!");
         }
 
         /// <summary>
-        /// Maneja colisi�n con agujero negro
+        /// Maneja colisión con agujero negro
         /// </summary>
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -410,16 +410,16 @@ namespace GameSystems
         }
 
         /// <summary>
-        /// Maneja colisi�n con otros jugadores
+        /// Maneja colisión con otros jugadores
         /// </summary>
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (isDead) return;
 
-            // Detectar colisi�n trasera con otro jugador
+            // Detectar colisión trasera con otro jugador
             if (collision.gameObject.CompareTag("Player"))
             {
-                // Verificar si el impacto fue por detr�s
+                // Verificar si el impacto fue por detrás
                 Vector2 impactDirection = collision.contacts[0].normal;
                 float angle = Vector2.Angle(-transform.up, impactDirection);
 
@@ -445,8 +445,6 @@ namespace GameSystems
         }
 
 #if UNITY_EDITOR
-
-
         [ContextMenu("Test: Trigger Black Hole Death")]
         private void TestBlackHoleDeath() => TriggerDeath(DeathType.BlackHole);
 

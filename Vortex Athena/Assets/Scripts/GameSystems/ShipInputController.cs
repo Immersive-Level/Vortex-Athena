@@ -7,6 +7,7 @@ namespace GameSystems
     /// <summary>
     /// Controlador de input para la nave - Reemplaza Boton.cs
     /// Simple y robusto, maneja el input del jugador
+    /// FIXED: El botón NUNCA se oculta, solo cambia su comportamiento
     /// </summary>
     public class ShipInputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
@@ -56,6 +57,22 @@ namespace GameSystems
         {
             // Limpiar estado al activarse
             ResetInputState();
+        }
+
+        /// <summary>
+        /// Método público para el botón - Iniciar press
+        /// </summary>
+        public void OnButtonPress()
+        {
+            OnPointerDown(null);
+        }
+
+        /// <summary>
+        /// Método público para el botón - Finalizar press
+        /// </summary>
+        public void OnButtonRelease()
+        {
+            OnPointerUp(null);
         }
 
         /// <summary>

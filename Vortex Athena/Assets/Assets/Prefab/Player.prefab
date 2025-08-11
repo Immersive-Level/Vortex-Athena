@@ -47,7 +47,13 @@ MonoBehaviour:
   nave: {fileID: 8452753963668889667}
   impulsoInicial: 2
   direccionImpulso: {x: 1, y: 1}
+  combustibleInicial: 100
+  botonControl: {fileID: 0}
   blackHoleManager: {fileID: 0}
+  fuelManager: {fileID: 0}
+  shipInputController: {fileID: 0}
+  deathManager: {fileID: 0}
+  shipController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,12 +130,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4200900407060640552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19, y: 0.23, z: 0}
-  m_LocalScale: {x: 1.1662005, y: 1.1653692, z: 1.1667646}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.18999964, y: 0.23000039, z: 0}
+  m_LocalScale: {x: 1.1662004, y: 1.1653693, z: 1.1667646}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3007774201266706783
 SpriteRenderer:
@@ -263,7 +269,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 469429294375549492}
+  - {fileID: 525559470693097151}
+  - {fileID: 8155790073590785452}
+  - {fileID: 2621126649779488039}
   m_Father: {fileID: 2178843942267882953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5818877364331200004
@@ -348,11 +358,11 @@ Transform:
   m_GameObject: {fileID: 5108453797240209174}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.24048771, y: -0.20475018, z: 0}
+  m_LocalPosition: {x: -0.24048783, y: -0.2047504, z: 0}
   m_LocalScale: {x: 2.3809524, y: 2.3809524, z: 2.3809524}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &8997046992031912739
 PolygonCollider2D:
@@ -453,11 +463,11 @@ Transform:
   m_GameObject: {fileID: 7360204419760076277}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16428572, y: 0, z: 0}
+  m_LocalPosition: {x: -0.16428703, y: 0, z: 0}
   m_LocalScale: {x: 2.3809524, y: 2.3809524, z: 2.3809524}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &5348490425132755304
 PolygonCollider2D:
@@ -555,11 +565,11 @@ Transform:
   m_GameObject: {fileID: 8240186896083609102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: -1.34, z: 0}
-  m_LocalScale: {x: 1.148393, y: 1.2287925, z: 0.7100458}
+  m_LocalPosition: {x: -0.039998874, y: -1.3400005, z: 0}
+  m_LocalScale: {x: 1.148393, y: 1.2287927, z: 0.7100459}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3240436367597127901
 SpriteRenderer:
@@ -677,11 +687,7 @@ Transform:
   m_LocalScale: {x: 0.43, y: 0.40186524, z: 0.69506484}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 469429294375549492}
-  - {fileID: 525559470693097151}
-  - {fileID: 2621126649779488039}
   - {fileID: 546018219249494030}
-  - {fileID: 8155790073590785452}
   m_Father: {fileID: 4664018509971598235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1834230592424447696
@@ -849,7 +855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
-  fuelSystem: {fileID: 0}
+  fuelManager: {fileID: 0}
   collectEffect: {fileID: 0}
   collectionRadius: 0.8
   resourceLayer:

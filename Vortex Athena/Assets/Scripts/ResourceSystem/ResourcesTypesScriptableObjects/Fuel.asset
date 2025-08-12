@@ -15,7 +15,7 @@ MonoBehaviour:
   resourceName: Fuel
   effect: 0
   effectAmount: 10
-  sprite: {fileID: -929258255389452760, guid: 489028d5149c04f4a849b7b81a1d810b, type: 3}
+  sprite: {fileID: -9080678887866278605, guid: 8ac66ac3c8b4d314aa46639b4a5a98d7, type: 3}
   collectSound: {fileID: 0}
   collectEffect: {fileID: 0}
   resourceColor: {r: 1, g: 1, b: 1, a: 1}

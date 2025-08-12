@@ -1,8 +1,9 @@
 using UnityEngine;
+using GameSystems;
 
 /// <summary>
-/// Gestiona la inicialización y activación de una nave
-/// No maneja inputs directamente
+/// Gestiona SOLO la inicialización y activación de una nave
+/// No maneja estados del botón - eso lo hace ShipInputController
 /// </summary>
 public class InicioNave : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class InicioNave : MonoBehaviour
     public float impulsoInicial = 5f;
     public Vector2 direccionImpulso = new Vector2(1, 1);
 
+    [Header("Configuración Inicial")]
+    [Tooltip("Combustible inicial al activar la nave")]
+    public float combustibleInicial = 100f;
+
     [Header("Referencias")]
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
+    [SerializeField] private ShipInputController shipInputController;
 
     // Estado
     private bool juegoIniciado = false;
@@ -31,8 +37,17 @@ public class InicioNave : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.Instance != null)
+            GameManager.Instance.RegisterShip(nave);
+
         // Ocultar la nave al inicio
         nave.SetActive(false);
+
+        // Buscar ShipInputController si no está asignado
+        if (shipInputController == null)
+        {
+            shipInputController = GetComponentInChildren<ShipInputController>();
+        }
 
         // Obtener referencia al BlackHoleAttractionManager si no está asignada
         if (blackHoleManager == null)
@@ -69,10 +84,40 @@ public class InicioNave : MonoBehaviour
             rb.linearVelocity = direccionInicial * impulsoInicial;
         }
 
+        // Configurar sistemas
+        ConfigurarSistemas();
+
+        // Notificar al ShipInputController que el juego inició
+        if (shipInputController != null)
+        {
+            shipInputController.OnGameStarted();
+        }
+
         // Registrar en BlackHoleAttractionManager
         RegistrarEnBlackHole();
 
-        Debug.Log($"[InicioNave] Nave {nave.name} iniciada");
+        Debug.Log($"[InicioNave] Nave {nave.name} iniciada con {combustibleInicial} de combustible");
+    }
+
+    /// <summary>
+    /// Configura los sistemas de la nave al iniciar
+    /// </summary>
+    private void ConfigurarSistemas()
+    {
+        // Configurar combustible
+        var fuelManager = nave.GetComponentInChildren<FuelManager>();
+        if (fuelManager != null)
+        {
+            fuelManager.SetFuel(combustibleInicial);
+            fuelManager.ResetFuelSystem();
+        }
+
+        // Resetear el controlador de la nave
+        var shipController = nave.GetComponentInChildren<ShipController>();
+        if (shipController != null)
+        {
+            shipController.ResetMovement();
+        }
     }
 
     /// <summary>
@@ -85,16 +130,29 @@ public class InicioNave : MonoBehaviour
             // Desregistrar del BlackHole
             DesregistrarDeBlackHole();
 
-            // Resetear componentes
-            ShipController shipController = nave.GetComponent<ShipController>();
+            // Resetear todos los sistemas
+            var shipController = nave.GetComponentInChildren<ShipController>();
             if (shipController != null)
             {
                 shipController.ResetMovement();
             }
 
+            var fuelManager = nave.GetComponentInChildren<FuelManager>();
+            if (fuelManager != null)
+            {
+                fuelManager.ResetFuelSystem();
+            }
+
+            if (shipInputController != null)
+            {
+                shipInputController.ResetInputState();
+            }
+
             // Desactivar nave
             nave.SetActive(false);
             juegoIniciado = false;
+
+            Debug.Log($"[InicioNave] Nave {nave.name} reiniciada");
         }
     }
 

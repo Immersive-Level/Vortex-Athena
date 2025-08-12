@@ -1,7 +1,9 @@
 using UnityEngine;
+using GameSystems; // Para acceder a FuelManager
 
 /// <summary>
 /// Componente que permite al jugador recolectar recursos
+/// Actualizado para trabajar con el nuevo FuelManager
 /// </summary>
 public class ResourceCollector : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class ResourceCollector : MonoBehaviour
     public PlayerScoreSystem scoreSystem;
 
     [Tooltip("Referencia al sistema de combustible")]
-    public Fuel_System fuelSystem;
+    public FuelManager fuelManager; // CAMBIADO: Fuel_System -> FuelManager
 
     [Tooltip("Efecto visual al recolectar")]
     public GameObject collectEffect;
@@ -43,9 +45,11 @@ public class ResourceCollector : MonoBehaviour
             scoreSystem = GetComponent<PlayerScoreSystem>();
         }
 
-        if (fuelSystem == null)
+        if (fuelManager == null)
         {
-            fuelSystem = GetComponent<Fuel_System>();
+            fuelManager = GetComponent<FuelManager>();
+            if (fuelManager == null)
+                fuelManager = GetComponentInParent<FuelManager>();
         }
     }
 
@@ -98,9 +102,9 @@ public class ResourceCollector : MonoBehaviour
         switch (resource.resourceType.effect)
         {
             case ResourceType.ResourceEffect.Fuel:
-                if (fuelSystem != null)
+                if (fuelManager != null)
                 {
-                    fuelSystem.AddFuel(resource.resourceType.effectAmount);
+                    fuelManager.AddFuel(resource.resourceType.effectAmount);
                 }
                 break;
 

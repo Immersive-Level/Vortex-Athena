@@ -47,7 +47,9 @@ MonoBehaviour:
   nave: {fileID: 8452753963668889667}
   impulsoInicial: 2
   direccionImpulso: {x: 1, y: 1}
+  combustibleInicial: 100
   blackHoleManager: {fileID: 0}
+  shipInputController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,12 +126,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4200900407060640552}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.18999964, y: 0.23000039, z: 0}
+  m_LocalScale: {x: 1.1662004, y: 1.1653693, z: 1.1667646}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3007774201266706783
 SpriteRenderer:
@@ -175,8 +177,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 12
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0.68600464, b: 1, a: 0.30588236}
+  m_Sprite: {fileID: 66090896, guid: 0abe96a4a5d82cc43b42a4378f0a5f10, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -263,7 +265,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 469429294375549492}
+  - {fileID: 525559470693097151}
+  - {fileID: 8155790073590785452}
+  - {fileID: 2621126649779488039}
   m_Father: {fileID: 2178843942267882953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5818877364331200004
@@ -348,11 +354,11 @@ Transform:
   m_GameObject: {fileID: 5108453797240209174}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.24048771, y: -0.20475018, z: 0}
+  m_LocalPosition: {x: -0.24048783, y: -0.2047504, z: 0}
   m_LocalScale: {x: 2.3809524, y: 2.3809524, z: 2.3809524}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &8997046992031912739
 PolygonCollider2D:
@@ -425,7 +431,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  collisionEffectPrefab: {fileID: 0}
+  collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
+  combatSystem: {fileID: 933410782465386759}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,11 +460,11 @@ Transform:
   m_GameObject: {fileID: 7360204419760076277}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.16428572, y: 0, z: 0}
+  m_LocalPosition: {x: -0.16428703, y: 0, z: 0}
   m_LocalScale: {x: 2.3809524, y: 2.3809524, z: 2.3809524}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!60 &5348490425132755304
 PolygonCollider2D:
@@ -527,7 +534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  collisionEffectPrefab: {fileID: 0}
+  collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
+  combatSystem: {fileID: 933410782465386759}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,11 +563,11 @@ Transform:
   m_GameObject: {fileID: 8240186896083609102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: -1.34, z: 0}
-  m_LocalScale: {x: 1.148393, y: 1.2287925, z: 0.7100458}
+  m_LocalPosition: {x: -0.039998874, y: -1.3400005, z: 0}
+  m_LocalScale: {x: 1.148393, y: 1.2287927, z: 0.7100459}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2178843942267882953}
+  m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3240436367597127901
 SpriteRenderer:
@@ -648,15 +656,15 @@ GameObject:
   m_Component:
   - component: {fileID: 2178843942267882953}
   - component: {fileID: 1834230592424447696}
-  - component: {fileID: 1300133680352463267}
+  - component: {fileID: 7377354669327698296}
   - component: {fileID: 4245581896112512108}
-  - component: {fileID: 7702197824256403181}
-  - component: {fileID: 7532010679819498555}
+  - component: {fileID: 5084323159983305511}
+  - component: {fileID: 1219413745525033032}
+  - component: {fileID: 933410782465386759}
+  - component: {fileID: 1300133680352463267}
   - component: {fileID: 7714841270529153968}
   - component: {fileID: 2276714564275110904}
-  - component: {fileID: 933410782465386759}
   - component: {fileID: 977790932892868827}
-  - component: {fileID: 6734930706703215088}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -677,11 +685,7 @@ Transform:
   m_LocalScale: {x: 0.43, y: 0.40186524, z: 0.69506484}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 469429294375549492}
-  - {fileID: 525559470693097151}
-  - {fileID: 2621126649779488039}
   - {fileID: 546018219249494030}
-  - {fileID: 8155790073590785452}
   m_Father: {fileID: 4664018509971598235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1834230592424447696
@@ -711,39 +715,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1300133680352463267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityBindings:
-  - letter: 3
-    ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
-  - letter: 22
-    ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
---- !u!114 &4245581896112512108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attractionResistance: 1
-  canBeAffected: 1
-  isWithinEventHorizon: 0
---- !u!114 &7702197824256403181
+--- !u!114 &7377354669327698296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -762,12 +734,12 @@ MonoBehaviour:
   distanciaBorde: 2
   maxAnguloBorde: 20
   debugMode: 0
-  thrusterFX: {fileID: 0}
+  thrusterFX: {fileID: 8240186896083609102}
   tapNudgeEnabled: 1
   nudgeTorqueImpulse: 0.4
   nudgeMaxAngle: 45
   nudgeCooldown: 0.15
---- !u!114 &7532010679819498555
+--- !u!114 &4245581896112512108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -776,20 +748,97 @@ MonoBehaviour:
   m_GameObject: {fileID: 8452753963668889667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fde05c1d676e846b62435ea6e1a08a, type: 3}
+  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attractionResistance: 1
+  canBeAffected: 1
+  isWithinEventHorizon: 0
+--- !u!114 &5084323159983305511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf3996d7bd95bd744b8ad480b0fc581c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFuel: 100
+  startingFuel: 100
+  consumptionRate: 10
+  autoRefuel: 1
+  autoRefuelRate: 1
+  autoRefuelDelay: 1
+  fuelBarImage: {fileID: 0}
+  debugMode: 0
+--- !u!114 &1219413745525033032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9316537dfa43cc14598be0e841fcc2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {fileID: 0}
-  blackHoleCenter: {fileID: 0}
-  blackHoleAttractionZone: {fileID: 0}
-  blackHoleDeathZone: {fileID: 0}
-  countdownUI: {fileID: 0}
-  countdownText: {fileID: 0}
   shipVisual: {fileID: 4310118365417915349}
-  maxDistanceForScaling: 5
-  minScale: 0.3
-  scaleSmooth: 5
-  respawnDelay: 3
+  shipController: {fileID: 7377354669327698296}
+  fuelManager: {fileID: 5084323159983305511}
+  inputController: {fileID: 0}
+  invulnerability: {fileID: 977790932892868827}
+  shipRigidbody: {fileID: 1834230592424447696}
+  respawnUI: {fileID: 0}
+  respawnText: {fileID: 0}
+  respawnButton: {fileID: 0}
+  respawnWaitTime: 3
+  fuelOnRespawn: 30
+  invulnerabilityDuration: 2
+  autoRespawn: 0
+  deathEffectPrefab: {fileID: 0}
+  deathSounds: []
+  debugMode: 0
+--- !u!114 &933410782465386759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PushMagnitude: 3
+  SlowMagnitude: 35
+  CollideDamageValue: 3
+  CollidersToIgnore:
+  - {fileID: 8997046992031912739}
+  - {fileID: 5348490425132755304}
+  Shield: {fileID: 1996471282410199521}
+--- !u!114 &1300133680352463267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d006e2d41d5a648aaecc04dd106537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityBindings:
+  - letter: 3
+    ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
+  - letter: 22
+    ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
 --- !u!114 &7714841270529153968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -804,7 +853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
-  fuelSystem: {fileID: 6734930706703215088}
+  fuelManager: {fileID: 5084323159983305511}
   collectEffect: {fileID: 0}
   collectionRadius: 0.8
   resourceLayer:
@@ -826,25 +875,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 0}
   scoreFormat: '{0}'
---- !u!114 &933410782465386759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876660b23e5ffad42b29e4944a2c9e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PushMagnitude: 3
-  SlowMagnitude: 35
-  CollideDamageValue: 3
-  CollidersToIgnore:
-  - {fileID: 8997046992031912739}
-  - {fileID: 5348490425132755304}
-  Shield: {fileID: 1996471282410199521}
 --- !u!114 &977790932892868827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,24 +887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoInvulnerabilidad: 3
+  tiempoInvulnerabilidad: 2
   tiempoParpadeo: 0.1
   shipVisual: {fileID: 4310118365417915349}
---- !u!114 &6734930706703215088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452753963668889667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e6a9a5fd98ab3419d5450fc0191aab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deathHandler: {fileID: 0}
-  lineFuel: {fileID: 0}
-  maxFuel: 100
-  fuelConsumptionRate: 10
-  fuelCollectEffect: {fileID: 0}
-  fuelCollectSound: {fileID: 0}

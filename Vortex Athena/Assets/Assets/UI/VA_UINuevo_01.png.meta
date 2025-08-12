@@ -1,0 +1,743 @@
+fileFormatVersion: 2
+guid: 764dd2e833bc9e240b7a3f689365016f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1015503036165414701
+    second: VA_UINuevo_01_0
+  - first:
+      213: -1550336770845238583
+    second: VA_UINuevo_01_1
+  - first:
+      213: -8646334708506129353
+    second: VA_UINuevo_01_2
+  - first:
+      213: 7241779291687915170
+    second: VA_UINuevo_01_3
+  - first:
+      213: 7689660558093011816
+    second: VA_UINuevo_01_4
+  - first:
+      213: 1846789562944988642
+    second: VA_UINuevo_01_5
+  - first:
+      213: -630909971718016460
+    second: VA_UINuevo_01_6
+  - first:
+      213: 1694761878041088478
+    second: VA_UINuevo_01_7
+  - first:
+      213: -4563411170322713739
+    second: VA_UINuevo_01_8
+  - first:
+      213: 7979519973008949816
+    second: VA_UINuevo_01_9
+  - first:
+      213: 5404873791736957926
+    second: VA_UINuevo_01_10
+  - first:
+      213: 6363244093521800530
+    second: VA_UINuevo_01_11
+  - first:
+      213: -4244917751013867710
+    second: VA_UINuevo_01_12
+  - first:
+      213: -7959759795463151446
+    second: VA_UINuevo_01_13
+  - first:
+      213: -3183730419619181027
+    second: VA_UINuevo_01_14
+  - first:
+      213: 1200039366903449291
+    second: VA_UINuevo_01_15
+  - first:
+      213: 4798364202131647335
+    second: VA_UINuevo_01_16
+  - first:
+      213: -382638684237949251
+    second: VA_UINuevo_01_17
+  - first:
+      213: -5547482223500328867
+    second: VA_UINuevo_01_18
+  - first:
+      213: 7649549945205557134
+    second: VA_UINuevo_01_19
+  - first:
+      213: 9018776987103822823
+    second: VA_UINuevo_01_20
+  - first:
+      213: 3725588346333264099
+    second: VA_UINuevo_01_21
+  - first:
+      213: 4274803700830203089
+    second: VA_UINuevo_01_22
+  - first:
+      213: 990427997941570461
+    second: VA_UINuevo_01_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VA_UINuevo_01_0
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 547
+        width: 775
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2f58fa81aac71e00800000000000000
+      internalID: 1015503036165414701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_1
+      rect:
+        serializedVersion: 2
+        x: 879
+        y: 964
+        width: 76
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ca1b83cbe81c7ae0800000000000000
+      internalID: -1550336770845238583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_2
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 963
+        width: 73
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73c8c52946c020880800000000000000
+      internalID: -8646334708506129353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_3
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 961
+        width: 73
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ae86dea5e7ff7460800000000000000
+      internalID: 7241779291687915170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_4
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 951
+        width: 477
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86b4778398927ba60800000000000000
+      internalID: 7689660558093011816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_5
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 936
+        width: 126
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e52c32a25d11a910800000000000000
+      internalID: 1846789562944988642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_6
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 817
+        width: 871
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 432fe7239be8e37f0800000000000000
+      internalID: -630909971718016460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_7
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 707
+        width: 649
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed15387e2f0058710800000000000000
+      internalID: 1694761878041088478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_8
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 611
+        width: 282
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5737dd4f7b18ba0c0800000000000000
+      internalID: -4563411170322713739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_9
+      rect:
+        serializedVersion: 2
+        x: 1169
+        y: 520
+        width: 86
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 832455d5323fcbe60800000000000000
+      internalID: 7979519973008949816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_10
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 521
+        width: 86
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ebcc4cc318f10b40800000000000000
+      internalID: 5404873791736957926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_11
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 137
+        width: 524
+        height: 524
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d28750ac8ce4850800000000000000
+      internalID: 6363244093521800530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_12
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 189
+        width: 283
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24f7116cbc50715c0800000000000000
+      internalID: -4244917751013867710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_13
+      rect:
+        serializedVersion: 2
+        x: 368
+        y: 211
+        width: 259
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0abfd73a0498190800000000000000
+      internalID: -7959759795463151446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_14
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 204
+        width: 292
+        height: 307
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1e4efd2d0e11d3d0800000000000000
+      internalID: -3183730419619181027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_15
+      rect:
+        serializedVersion: 2
+        x: 1035
+        y: 184
+        width: 251
+        height: 311
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc6c3c4327567a010800000000000000
+      internalID: 1200039366903449291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_16
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 33
+        width: 337
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76be10ba1d6379240800000000000000
+      internalID: 4798364202131647335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_17
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 30
+        width: 314
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db69cacd42890baf0800000000000000
+      internalID: -382638684237949251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_18
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 32
+        width: 325
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d50087e3f426303b0800000000000000
+      internalID: -5547482223500328867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_19
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 33
+        width: 316
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8706976529a82a60800000000000000
+      internalID: 7649549945205557134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_20
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 0
+        width: 137
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e38ac0e2e1292d70800000000000000
+      internalID: 9018776987103822823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_21
+      rect:
+        serializedVersion: 2
+        x: 1491
+        y: 0
+        width: 137
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e8778aacd2f3b330800000000000000
+      internalID: 3725588346333264099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_22
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 0
+        width: 136
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1dc62882157235b30800000000000000
+      internalID: 4274803700830203089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UINuevo_01_23
+      rect:
+        serializedVersion: 2
+        x: 1782
+        y: 0
+        width: 136
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9b98e04405bebd00800000000000000
+      internalID: 990427997941570461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

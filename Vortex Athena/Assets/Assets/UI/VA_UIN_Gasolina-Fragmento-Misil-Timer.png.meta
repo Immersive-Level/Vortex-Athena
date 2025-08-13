@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      VA_UIN_Gasolina-Fragmento-Misil-Timer_0: -9080678887866278605
+      VA_UIN_Gasolina-Fragmento-Misil-Timer_1: -1876848556120704046
+      VA_UIN_Gasolina-Fragmento-Misil-Timer_2: 5269771211245717903
+      VA_UIN_Gasolina-Fragmento-Misil-Timer_3: 9000003587019607546
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

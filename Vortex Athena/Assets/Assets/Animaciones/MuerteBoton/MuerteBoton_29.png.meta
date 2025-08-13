@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MuerteBoton_29_0: 4787232421153805053
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

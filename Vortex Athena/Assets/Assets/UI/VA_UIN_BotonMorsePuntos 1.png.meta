@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      VA_UIN_BotonMorsePuntos 1_0: -7636520115764744882
+      VA_UIN_BotonMorsePuntos 1_1: 7193611606758833941
+      VA_UIN_BotonMorsePuntos 1_2: 5817637352347317119
+      VA_UIN_BotonMorsePuntos 1_3: -6527524218681105848
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

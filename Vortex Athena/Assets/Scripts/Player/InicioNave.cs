@@ -10,7 +10,7 @@ public class InicioNave : MonoBehaviour
     [Header("Configuración de Nave")]
     public GameObject nave;
     public float impulsoInicial = 5f;
-    public Vector2 direccionImpulso = new Vector2(1, 1);
+    public Vector2 direccionImpulso ;
 
     [Header("Configuración Inicial")]
     [Tooltip("Combustible inicial al activar la nave")]

@@ -16,8 +16,15 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("Referencia al sistema de combustible")]
     public FuelManager fuelManager; // CAMBIADO: Fuel_System -> FuelManager
 
-    [Tooltip("Efecto visual al recolectar")]
+    [Header("Efectos visuales")]
+    [Tooltip("Efecto general de recolección (fallback si no hay específico)")]
     public GameObject collectEffect;
+
+    [Tooltip("Efecto de recolección para GASOLINA")]
+    public GameObject collectEffectFuel;
+
+    [Tooltip("Efecto de recolección para PUNTOS/FRAGMENTOS")]
+    public GameObject collectEffectPoints;
 
     [Tooltip("Radio para detectar recursos")]
     public float collectionRadius = 0.8f;
@@ -80,13 +87,11 @@ public class ResourceCollector : MonoBehaviour
             CollectibleResource resource = collider.GetComponent<CollectibleResource>();
             if (resource != null && !resource.isCollected)
             {
+                // Procesar lógica (puntaje/combustible)
                 ProcessResource(resource);
 
-                // Efecto visual
-                if (collectEffect != null)
-                {
-                    Instantiate(collectEffect, collider.transform.position, Quaternion.identity);
-                }
+                // Efecto visual (según tipo)
+                PlayCollectFX(resource, collider.transform.position);
             }
         }
     }
@@ -130,11 +135,39 @@ public class ResourceCollector : MonoBehaviour
         {
             ProcessResource(resource);
 
-            // Efecto visual
-            if (collectEffect != null)
-            {
-                Instantiate(collectEffect, other.transform.position, Quaternion.identity);
-            }
+            // Efecto visual (según tipo)
+            PlayCollectFX(resource, other.transform.position);
+        }
+    }
+
+    /// <summary>
+    /// Instancia el efecto visual adecuado según el tipo de recurso.
+    /// Si no hay efecto específico asignado, usa el general (collectEffect).
+    /// </summary>
+    private void PlayCollectFX(CollectibleResource resource, Vector3 position)
+    {
+        if (resource == null || resource.resourceType == null) return;
+
+        GameObject fxToSpawn = null;
+
+        switch (resource.resourceType.effect)
+        {
+            case ResourceType.ResourceEffect.Fuel:
+                fxToSpawn = collectEffectFuel != null ? collectEffectFuel : collectEffect;
+                break;
+
+            case ResourceType.ResourceEffect.Points:
+                fxToSpawn = collectEffectPoints != null ? collectEffectPoints : collectEffect;
+                break;
+
+            default:
+                fxToSpawn = collectEffect;
+                break;
+        }
+
+        if (fxToSpawn != null)
+        {
+            Instantiate(fxToSpawn, position, Quaternion.identity);
         }
     }
 

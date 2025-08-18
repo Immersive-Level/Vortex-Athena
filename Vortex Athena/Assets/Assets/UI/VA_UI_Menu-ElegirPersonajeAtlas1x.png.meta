@@ -466,13 +466,13 @@ TextureImporter:
       name: VA_UI_Menu-ElegirPersonajeAtlas1x_13
       rect:
         serializedVersion: 2
-        x: 652
-        y: 459
-        width: 1249
-        height: 141
+        x: 649
+        y: 415
+        width: 1256
+        height: 146
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 45, y: 43, z: 49, w: 41}
       customData: 
       outline: []
       physicsShape: []

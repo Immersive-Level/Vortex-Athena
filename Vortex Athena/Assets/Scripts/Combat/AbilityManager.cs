@@ -77,6 +77,8 @@ public class AbilityManager : MonoBehaviour
 
     public bool TryActivate(string morseCode)
     {
+        if (!GameManager.Instance.UseAbilities) return false;
+
         // ACTUALIZADO: Usar el nuevo UnifiedDeathManager
         if (_deathManager != null && _deathManager.IsDead)
         {

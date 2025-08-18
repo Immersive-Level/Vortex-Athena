@@ -795,7 +795,6 @@ MonoBehaviour:
   shipRigidbody: {fileID: 1834230592424447696}
   respawnUI: {fileID: 0}
   respawnText: {fileID: 0}
-  respawnButton: {fileID: 0}
   respawnWaitTime: 3
   fuelOnRespawn: 30
   invulnerabilityDuration: 2
@@ -855,6 +854,8 @@ MonoBehaviour:
   scoreSystem: {fileID: 2276714564275110904}
   fuelManager: {fileID: 5084323159983305511}
   collectEffect: {fileID: 0}
+  collectEffectFuel: {fileID: 2871689874047339398, guid: 686bcbbabc969e3488530b1c6c7df390, type: 3}
+  collectEffectPoints: {fileID: 0}
   collectionRadius: 0.8
   resourceLayer:
     serializedVersion: 2

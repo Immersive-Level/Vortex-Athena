@@ -20,11 +20,13 @@ public class GameManager : MonoBehaviour
     public ScoreSystem ScoreSystem;
 
     public List<GameObject> NavesActivas { get; private set; } = new();
+    public GameObject TutorialRoot;
 
     [HideInInspector] public float GameDuration = 60f;
     private float GameStartTime;
     public float Gametime { get; private set; }
     [HideInInspector] public bool UseAbilities = true;
+
 
     private void Awake()
     {
@@ -40,6 +42,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetState(GameState.InMenu);
+
+        NavesActivas = new List<GameObject>();
+
+        ToggleTutorial();
     }
 
     private void Update()
@@ -99,5 +105,18 @@ public class GameManager : MonoBehaviour
         {
             NavesActivas.Remove(inShip);
         }
+    }
+
+    public void ToggleTutorial()
+    {
+        if (Time.timeScale != 0)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+
+        if (!TutorialRoot.activeInHierarchy)
+            TutorialRoot.SetActive(true);
+        else
+            TutorialRoot.SetActive(false);
     }
 }

@@ -31,13 +31,12 @@ namespace GameSystems
 
         [Header("Visual del Botón")]
         [SerializeField] private float inactiveAlpha = 0.5f;
-        [SerializeField] private float deadAlpha = 0.3f;
+        [SerializeField] private float deadAlpha = 1f;
         // [SerializeField] private float noFuelAlpha = 0.5f; // COMENTADO: No se usa estado NoFuel
         [SerializeField] private bool blinkOnRespawnReady = true;
         [SerializeField] private float blinkSpeed = 2f;
 
-        [Header("Estado Visual")]
-        [SerializeField] private Animator buttonAnimator; // Opcional: animación del botón
+        [SerializeField] private FuelButtonRespawnFX respawnFx;
 
         [Header("Debug")]
         [SerializeField] private bool debugMode = false;
@@ -145,12 +144,14 @@ namespace GameSystems
             switch (newState)
             {
                 case ButtonState.Inactive:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.alpha = inactiveAlpha;
                     canvasGroup.interactable = false;
                     canPress = false;
                     break;
 
                 case ButtonState.Playing:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.alpha = 1f;
                     canvasGroup.interactable = true;
                     canPress = true;
@@ -167,12 +168,14 @@ namespace GameSystems
 
                 case ButtonState.Dead:
                     canvasGroup.alpha = deadAlpha;
+                    respawnFx?.Show();
                     canvasGroup.interactable = false;
                     canPress = false;
                     isRespawning = false;
                     break;
 
                 case ButtonState.RespawnReady:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.interactable = true;
                     canPress = true;
                     isRespawning = true;
@@ -187,9 +190,6 @@ namespace GameSystems
                     }
                     break;
             }
-
-            // Actualizar animación si existe
-            UpdateButtonAnimation(newState.ToString());
 
             if (debugMode)
                 Debug.Log($"[ShipInput] Estado del botón: {newState}");
@@ -389,17 +389,6 @@ namespace GameSystems
 
             if (debugMode)
                 Debug.Log("[ShipInput] Respawn ejecutado");
-        }
-
-        /// <summary>
-        /// Actualiza la animación del botón
-        /// </summary>
-        private void UpdateButtonAnimation(string stateName)
-        {
-            if (buttonAnimator != null)
-            {
-                buttonAnimator.SetTrigger(stateName);
-            }
         }
 
         /// <summary>

@@ -86,6 +86,11 @@ namespace GameSystems
             }
             */
 
+            if (fuelManager != null)
+            {
+                fuelManager.OnFuelEmpty += HandleFuelEmptyStopThrust; // corte duro al 0
+            }
+
             // Suscribirse a eventos del sistema de muerte
             if (deathManager != null)
             {
@@ -214,6 +219,8 @@ namespace GameSystems
         /// </summary>
         public void OnPointerDown(PointerEventData eventData)
         {
+            fuelManager?.BeginThrottleHold();
+
             // Si estamos esperando respawn, ejecutar respawn
             if (isRespawning && currentButtonState == ButtonState.RespawnReady)
             {
@@ -242,10 +249,10 @@ namespace GameSystems
             }
 
             // NOTA: Verificamos combustible solo para evitar movimiento, NO para muerte
-            if (!fuelManager.HasFuel)
+            if (fuelManager != null && !fuelManager.CanStartThrust())
             {
-                if (debugMode)
-                    Debug.Log($"[ShipInput] Press ignorado - Sin combustible (pero no causa muerte)");
+                fuelManager.RegisterConsumptionAttempt(); // anti-spam: reinicia delay de recarga
+                if (debugMode) Debug.Log("[ShipInput] Press ignorado - Combustible insuficiente para iniciar");
                 return;
             }
 
@@ -267,13 +274,19 @@ namespace GameSystems
         /// </summary>
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (!isPressing) return;
+            if(!isPressing)
+    {
+                fuelManager?.EndThrottleHold(); // Asegura liberar el bloqueo si no estaba presionando
+                return;
+            }
 
             isPressing = false;
 
             // Detener movimiento y consumo
             shipController.StopMoving();
             fuelManager.StopConsuming();
+
+            fuelManager?.EndThrottleHold();
 
             // Verificar si fue un tap
             float pressDuration = Time.time - pressStartTime;
@@ -325,6 +338,7 @@ namespace GameSystems
         /// </summary>
         private void HandleDeath(UnifiedDeathManager.DeathType deathType)
         {
+            fuelManager?.EndThrottleHold(); // evita quedar bloqueado en flujos raros
             SetButtonState(ButtonState.Dead);
 
             // Forzar release si está presionando
@@ -353,6 +367,7 @@ namespace GameSystems
         /// </summary>
         private void HandleRespawn()
         {
+            fuelManager?.EndThrottleHold(); // garantiza que el auto-refuel no quede bloqueado
             // Volver al estado de juego
             SetButtonState(ButtonState.Playing);
             isRespawning = false;
@@ -461,6 +476,19 @@ namespace GameSystems
             }
         }
 
+        // Nuevo método en la clase
+        private void HandleFuelEmptyStopThrust()
+        {
+            if (isPressing)
+            {
+                isPressing = false;
+                shipController.StopMoving();
+                fuelManager.StopConsuming();
+                // NO llamamos EndThrottleHold aquí: si el jugador sigue sosteniendo, mantenemos bloqueada la recarga
+            }
+        }
+
+
         private void OnDestroy()
         {
             // COMENTADO: Desuscripciones de eventos de combustible ya no necesarias
@@ -472,6 +500,7 @@ namespace GameSystems
                 fuelManager.OnFuelRestored -= HandleFuelRestored;
             }
             */
+
 
             if (deathManager != null)
             {

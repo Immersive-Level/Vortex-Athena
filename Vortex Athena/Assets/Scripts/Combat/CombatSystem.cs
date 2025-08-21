@@ -28,13 +28,9 @@ public class CombatSystem : MonoBehaviour
 
         // Buscar el nuevo UnifiedDeathManager
         deathManager = GetComponent<UnifiedDeathManager>();
-        if (deathManager == null)
-            deathManager = GetComponentInParent<UnifiedDeathManager>();
 
         // Buscar el nuevo FuelManager
         fuelManager = GetComponent<FuelManager>();
-        if (fuelManager == null)
-            fuelManager = GetComponentInParent<FuelManager>();
     }
 
     public void Kill()

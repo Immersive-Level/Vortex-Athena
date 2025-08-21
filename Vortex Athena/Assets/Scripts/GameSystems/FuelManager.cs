@@ -17,6 +17,7 @@ namespace GameSystems
         [SerializeField] private bool autoRefuel = true; // ¿Se recarga automáticamente?
         [SerializeField] private float autoRefuelRate = 1f; // Por segundo
         [SerializeField] private float autoRefuelDelay = 1f; // Delay antes de empezar a recargar
+        [SerializeField] private float minFuelToStart = 3f; // Combustible mínimo para iniciar empuje
 
         [Header("UI Reference")]
         [SerializeField] private Image fuelBarImage; // Barra de combustible UI
@@ -28,6 +29,8 @@ namespace GameSystems
         private float currentFuel;
         private float timeSinceLastConsumption = 0f;
         private bool isConsuming = false;
+        private bool throttleHeld = false;           // Botón de empuje sostenido
+
 
         // Eventos
         public event Action OnFuelEmpty;
@@ -39,6 +42,9 @@ namespace GameSystems
         public float CurrentFuel => currentFuel;
         public float MaxFuel => maxFuel;
         public float FuelPercentage => currentFuel / maxFuel;
+
+        public bool CanStartThrust() => currentFuel >= minFuelToStart;
+
 
         private void Awake()
         {
@@ -64,14 +70,11 @@ namespace GameSystems
         private void Update()
         {
             // Auto-recarga si está habilitada
-            if (autoRefuel && !isConsuming)
+            if (autoRefuel && !isConsuming && !throttleHeld)
             {
                 timeSinceLastConsumption += Time.deltaTime;
-
                 if (timeSinceLastConsumption >= autoRefuelDelay)
-                {
                     AddFuel(autoRefuelRate * Time.deltaTime);
-                }
             }
 
             // Consumo activo
@@ -247,6 +250,25 @@ namespace GameSystems
                 Debug.Log("[FuelManager] Sistema reiniciado");
         }
 
+        /// Llamar al presionar el botón, incluso si no hay combustible.
+        public void BeginThrottleHold()
+        {
+            throttleHeld = true;
+            timeSinceLastConsumption = 0f; // reset del delay de auto-refuel
+        }
+
+        /// Llamar al soltar el botón.
+        public void EndThrottleHold()
+        {
+            throttleHeld = false;
+        }
+
+        /// Llamar cuando intentan consumir sin combustible (tap/press fallido).
+        public void RegisterConsumptionAttempt()
+        {
+            timeSinceLastConsumption = 0f; // evita que aparezca “una rayita” por spam
+        }
+
         private void OnValidate()
         {
             // Validación en el editor
@@ -255,6 +277,7 @@ namespace GameSystems
             consumptionRate = Mathf.Max(0, consumptionRate);
             autoRefuelRate = Mathf.Max(0, autoRefuelRate);
             autoRefuelDelay = Mathf.Max(0, autoRefuelDelay);
+            minFuelToStart = Mathf.Clamp(minFuelToStart, 0f, maxFuel);
         }
 
         private void OnDestroy()

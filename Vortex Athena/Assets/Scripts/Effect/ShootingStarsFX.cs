@@ -23,14 +23,14 @@ public class ShootingStarsFX : MonoBehaviour
     public float trailLifetime = 0.25f;   // duración de la estela
     public float trailWidth = 0.05f;   // grosor constante en unidades de mundo
 
-    private Camera cam;
-    private ParticleSystem ps;
-    private float tNext;
-
-    // … campos existentes …
     [Header("Orden de dibujo")]
     public string sortingLayerName = "Fondo";
     public int sortingOrder = -100; // más bajo que muros/fondo
+
+    private Camera cam;
+    private ParticleSystem ps;
+    private float tNext;
+    private bool psConfigurado = false;
 
     void Awake()
     {
@@ -51,17 +51,39 @@ public class ShootingStarsFX : MonoBehaviour
 
     void OnValidate()
     {
+        // Validación de valores
         if (intervaloSpawn.x < 0.05f) intervaloSpawn.x = 0.05f;
         if (intervaloSpawn.y < intervaloSpawn.x) intervaloSpawn.y = intervaloSpawn.x;
 
+        // Solo configurar si el PS existe y no está en juego o si está detenido
         if (ps == null) ps = GetComponent<ParticleSystem>();
-        ConfigurarPS();
+
+        if (ps != null)
+        {
+            // En el editor, solo configurar si no está reproduciendo
+            // o si estamos en modo edición
+            if (!Application.isPlaying || !ps.isPlaying)
+            {
+                ConfigurarPS();
+            }
+            else
+            {
+                // Si está reproduciendo, marcar para reconfigurar después
+                psConfigurado = false;
+            }
+        }
     }
 
     void Update()
     {
         // No emitir en modo edición
         if (!Application.isPlaying) return;
+
+        // Reconfigurar si está pendiente y el sistema está detenido
+        if (!psConfigurado && ps != null && !ps.isPlaying)
+        {
+            ConfigurarPS();
+        }
 
         if (cam == null) cam = Camera.main;
         if (Time.time >= tNext)
@@ -74,15 +96,25 @@ public class ShootingStarsFX : MonoBehaviour
     // ---------- Configuración del ParticleSystem ----------
     void ConfigurarPS()
     {
+        if (ps == null) return;
+
+        // IMPORTANTE: Detener el sistema antes de modificar propiedades críticas
+        bool estabaCorriendo = ps.isPlaying;
+        if (estabaCorriendo)
+        {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
         var main = ps.main;
-        main.playOnAwake = true;
-        main.loop = true;
+        main.playOnAwake = false;  // Cambiado a false para evitar auto-inicio
+        main.loop = false;         // Sin loop ya que emitimos manualmente
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         main.maxParticles = 1024;
-        main.startSpeed = 0f;   // se lo damos por EmitParams
-        main.startSize = 1f;   // se lo damos por EmitParams
-        main.startLifetime = 1f;
-        main.duration = 10f;
+        main.startSpeed = 0f;       // se lo damos por EmitParams
+        main.startSize = 1f;        // se lo damos por EmitParams
+        main.startLifetime = 10f;   // Tiempo de vida máximo para las partículas
+        main.duration = 10f;        // Duración del sistema
+
 #if UNITY_2022_1_OR_NEWER
         main.scalingMode = ParticleSystemScalingMode.Shape;
 #endif
@@ -104,13 +136,24 @@ public class ShootingStarsFX : MonoBehaviour
 
         // Material tanto para partícula como para trail
         var r = ps.GetComponent<ParticleSystemRenderer>();
-        if (materialParticula != null)
+        if (r != null)
         {
-            r.material = materialParticula;
-            r.trailMaterial = materialParticula;
+            if (materialParticula != null)
+            {
+                r.material = materialParticula;
+                r.trailMaterial = materialParticula;
+            }
+            r.sortingLayerName = sortingLayerName;
+            r.sortingOrder = sortingOrder;
         }
-        r.sortingLayerName = sortingLayerName;  // ⟵ AQUI
-        r.sortingOrder = sortingOrder;      // ⟵ AQUI
+
+        psConfigurado = true;
+
+        // Si el sistema debe estar corriendo en modo Play, reiniciarlo
+        if (Application.isPlaying && estabaCorriendo)
+        {
+            ps.Play();
+        }
     }
 
     // ---------- Emisión de una estrella fugaz ----------
@@ -122,6 +165,13 @@ public class ShootingStarsFX : MonoBehaviour
     void EmitirUna()
     {
         if (cam == null || !cam.orthographic) return;
+        if (ps == null) return;
+
+        // Asegurar que el sistema esté corriendo para poder emitir
+        if (!ps.isPlaying)
+        {
+            ps.Play();
+        }
 
         float halfH = cam.orthographicSize;
         float halfW = halfH * cam.aspect;
@@ -133,10 +183,22 @@ public class ShootingStarsFX : MonoBehaviour
 
         switch (borde)
         {
-            case 0: pos = new Vector3(-halfW - padding, Random.Range(-halfH, halfH), zDepth); dirBase = Vector2.right; break;
-            case 1: pos = new Vector3(halfW + padding, Random.Range(-halfH, halfH), zDepth); dirBase = Vector2.left; break;
-            case 2: pos = new Vector3(Random.Range(-halfW, halfW), -halfH - padding, zDepth); dirBase = Vector2.up; break;
-            default: pos = new Vector3(Random.Range(-halfW, halfW), halfH + padding, zDepth); dirBase = Vector2.down; break;
+            case 0:
+                pos = new Vector3(-halfW - padding, Random.Range(-halfH, halfH), zDepth);
+                dirBase = Vector2.right;
+                break;
+            case 1:
+                pos = new Vector3(halfW + padding, Random.Range(-halfH, halfH), zDepth);
+                dirBase = Vector2.left;
+                break;
+            case 2:
+                pos = new Vector3(Random.Range(-halfW, halfW), -halfH - padding, zDepth);
+                dirBase = Vector2.up;
+                break;
+            default:
+                pos = new Vector3(Random.Range(-halfW, halfW), halfH + padding, zDepth);
+                dirBase = Vector2.down;
+                break;
         }
 
         // Centrar respecto a la posición actual de la cámara
@@ -165,5 +227,22 @@ public class ShootingStarsFX : MonoBehaviour
 
         ps.Emit(ep, 1);
     }
-}
 
+    void OnDestroy()
+    {
+        // Limpiar el sistema de partículas al destruir
+        if (ps != null && ps.isPlaying)
+        {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    void OnDisable()
+    {
+        // Detener emisión al desactivar
+        if (ps != null && ps.isPlaying)
+        {
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+    }
+}

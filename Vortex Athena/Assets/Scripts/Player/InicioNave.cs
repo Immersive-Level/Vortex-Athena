@@ -10,11 +10,16 @@ public class InicioNave : MonoBehaviour
     [Header("Configuración de Nave")]
     public GameObject nave;
     public float impulsoInicial = 5f;
-    public Vector2 direccionImpulso ;
+    public Vector2 direccionImpulso;
 
     [Header("Configuración Inicial")]
     [Tooltip("Combustible inicial al activar la nave")]
     public float combustibleInicial = 100f;
+
+    [Header("Órbita inicial")]
+    [SerializeField] private bool usarOrbitaInicial = true;
+    [SerializeField] private Transform orbitaCentro; // Asigna el Transform del agujero negro
+    [SerializeField] private int sentidoOrbita = 1;  // 1 = CCW, -1 = CW
 
     [Header("Referencias")]
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
@@ -24,39 +29,14 @@ public class InicioNave : MonoBehaviour
     private bool juegoIniciado = false;
     public bool JuegoIniciado => juegoIniciado;
 
-    void Awake()
-    {
-        // Validar referencias
-        if (nave == null)
-        {
-            Debug.LogError($"[InicioNave] No se asignó la nave en {gameObject.name}");
-            enabled = false;
-            return;
-        }
-    }
-
     void Start()
     {
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.RegisterShip(nave);
 
-        // Ocultar la nave al inicio
-        nave.SetActive(false);
-
-        // Buscar ShipInputController si no está asignado
-        if (shipInputController == null)
-        {
-            shipInputController = GetComponentInChildren<ShipInputController>();
-        }
-
-        // Obtener referencia al BlackHoleAttractionManager si no está asignada
-        if (blackHoleManager == null)
-        {
-            blackHoleManager = BlackHoleAttractionManager.Instance;
-            if (blackHoleManager == null)
-            {
-                Debug.LogWarning("[InicioNave] No se encontró un BlackHoleAttractionManager");
-            }
+            // Ocultar la nave al inicio
+            //nave.SetActive(false);
         }
     }
 
@@ -79,9 +59,34 @@ public class InicioNave : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.simulated = true;
 
-            // Aplicar impulso inicial
-            Vector2 direccionInicial = direccionImpulso.normalized;
-            rb.linearVelocity = direccionInicial * impulsoInicial;
+            Vector2 vDir;
+
+            if (usarOrbitaInicial)
+            {
+                // Centro de órbita: usa override -> manager -> fallback a (0,0)
+                Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
+                                 (blackHoleManager ? (Vector2)blackHoleManager.transform.position : Vector2.zero);
+
+                // Vector radial desde centro -> nave
+                Vector2 radial = ((Vector2)rb.worldCenterOfMass - centro);
+                if (radial.sqrMagnitude < 0.0001f)
+                    radial = Vector2.right; // evita división por cero
+
+                radial.Normalize();
+
+                // Tangente 2D: (-y, x). Aplica sentido de órbita.
+                Vector2 tangente = new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+
+                vDir = tangente;
+            }
+            else
+            {
+                // Comportamiento previo: dirección configurable
+                vDir = direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
+            }
+
+            // Usa impulsoInicial como velocidad orbital inicial
+            //rb.linearVelocity = vDir * impulsoInicial;
         }
 
         // Configurar sistemas
@@ -181,6 +186,13 @@ public class InicioNave : MonoBehaviour
             }
         }
     }
+
+    private void OnValidate()
+    {
+        impulsoInicial = Mathf.Max(0f, impulsoInicial);
+        if (sentidoOrbita == 0) sentidoOrbita = 1;
+    }
+
 
     void OnDisable()
     {

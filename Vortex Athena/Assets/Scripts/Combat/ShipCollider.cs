@@ -16,8 +16,8 @@ public class ShipCollider : MonoBehaviour
     public GameObject collisionEffectPrefab;  // Prefab de animación de colisión
 
     [SerializeField] private CombatSystem combatSystem;
-    private UnifiedDeathManager deathManager; // NUEVO: Referencia al death manager
-    private FuelManager fuelManager; // NUEVO: Referencia al fuel manager
+    [SerializeField] private UnifiedDeathManager deathManager; // NUEVO: Referencia al death manager
+    [SerializeField] private FuelManager fuelManager; // NUEVO: Referencia al fuel manager
 
     private void OnEnable()
     {
@@ -27,30 +27,6 @@ public class ShipCollider : MonoBehaviour
         {
             Debug.LogError("[ShipCollider] CombatSystem no encontrado en el padre");
         }
-
-        // NUEVO: Obtener referencias a los nuevos sistemas
-        // Primero intentar obtener del CombatSystem
-        if (combatSystem != null)
-        {
-            deathManager = combatSystem.deathManager;
-            fuelManager = combatSystem.fuelManager;
-        }
-
-        // Si no se encontraron, buscar en el padre
-        if (deathManager == null)
-        {
-            deathManager = transform.parent.GetComponent<UnifiedDeathManager>();
-            if (deathManager == null)
-                deathManager = transform.parent.GetComponentInChildren<UnifiedDeathManager>();
-        }
-
-        if (fuelManager == null)
-        {
-            fuelManager = transform.parent.GetComponent<FuelManager>();
-            if (fuelManager == null)
-                fuelManager = transform.parent.GetComponentInChildren<FuelManager>();
-        }
-
         // Validar que se encontraron los componentes necesarios
         if (deathManager == null)
             Debug.LogWarning("[ShipCollider] UnifiedDeathManager no encontrado");

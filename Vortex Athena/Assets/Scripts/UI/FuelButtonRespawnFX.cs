@@ -23,6 +23,5 @@ public class FuelButtonRespawnFX : MonoBehaviour
     {
         if (fxRoot == null) return;
         fxRoot.SetActive(false);
-        Debug.LogError("Hide ejecutado");
     }
 }

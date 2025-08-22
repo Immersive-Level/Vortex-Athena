@@ -9860,6 +9860,10 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 806403713}
+    - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_AngularDamping
+      value: 0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -9981,9 +9985,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1337651309}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: impulsoInicial
+      value: 99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
       objectReference: {fileID: 1634088848}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: direccionImpulso.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: direccionImpulso.y
+      value: -500
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipInputController
       value: 

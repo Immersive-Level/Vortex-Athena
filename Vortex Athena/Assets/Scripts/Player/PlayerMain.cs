@@ -17,37 +17,20 @@ public class PlayerMain : MonoBehaviour
     public GameObject ObjetoNave;
 
     // Referencias a los componentes
-    public InicioNave InicioNave { get; private set; }
-    public ShipController ShipController { get; private set; }
-    public CombatSystem CombatSystem { get; private set; }
-    public PlayerScoreSystem PlayerScoreSystem { get; private set; }
-    public AffectedByBlackHole AffectedByBlackHole { get; private set; }
-    public UnifiedDeathManager UnifiedDeathManager { get; private set; } // CAMBIADO
-    public ResourceCollector ResourceCollector { get; private set; }
-    public ShipInvulnerability ShipInvulnerability { get; private set; }
-    public FuelManager FuelManager { get; private set; } // CAMBIADO
-    public ShipInputController ShipInputController { get; private set; } // NUEVO
-    public AbilityManager AbilityManager { get; private set; }
+    public InicioNave InicioNave;
+    public ShipController ShipController;
+    public CombatSystem CombatSystem;
+    public PlayerScoreSystem PlayerScoreSystem;
+    public AffectedByBlackHole AffectedByBlackHole;
+    public UnifiedDeathManager UnifiedDeathManager; // CAMBIADO
+    public ResourceCollector ResourceCollector;
+    public ShipInvulnerability ShipInvulnerability;
+    public FuelManager FuelManager; // CAMBIADO
+    public ShipInputController ShipInputController; // NUEVO
+    public AbilityManager AbilityManager;
 
     private void Awake()
     {
-        // Buscar componentes en los hijos
-        InicioNave = GetComponentInChildren<InicioNave>();
-        ShipController = GetComponentInChildren<ShipController>();
-        CombatSystem = GetComponentInChildren<CombatSystem>();
-        PlayerScoreSystem = GetComponentInChildren<PlayerScoreSystem>();
-        AffectedByBlackHole = GetComponentInChildren<AffectedByBlackHole>();
-
-        // Buscar nuevos componentes
-        UnifiedDeathManager = GetComponentInChildren<UnifiedDeathManager>();
-        FuelManager = GetComponentInChildren<FuelManager>();
-        ShipInputController = GetComponentInChildren<ShipInputController>();
-
-        // Componentes existentes
-        ResourceCollector = GetComponentInChildren<ResourceCollector>();
-        ShipInvulnerability = GetComponentInChildren<ShipInvulnerability>();
-        AbilityManager = GetComponentInChildren<AbilityManager>();
-
         // Validación de componentes críticos
         ValidateComponents();
     }

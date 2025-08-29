@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Fusion;
-using Fusion.Sockets;
-using System;
 
-public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
+public class NetworkManager : MonoBehaviour
 {
+    public static NetworkManager Instance { get; private set; }
+
     [Header("Connection Settings")]
     [SerializeField] private bool _autoConnect = true;
     [SerializeField] private bool _createPrivateRoom = true;
@@ -16,22 +16,20 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
     [Header("Player Settings")]
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private bool _spawnPlayer = true;
-    [SerializeField] Vector3 _p1StartLoc;
+    [SerializeField] private Vector3 _p1StartLoc;
 
     [Header("Debug")]
     [SerializeField] private bool _showDebugLogs = true;
 
-    public static NetworkManager Instance { get; private set; }
-
     private NetworkRunner _runner;
-    private Dictionary<PlayerRef, NetworkObject> _spawnedPlayers = new Dictionary<PlayerRef, NetworkObject>();
+    private Dictionary<PlayerRef, NetworkObject> _spawnedPlayers = new();
 
-    //Estados publicos para otros scripts
     public bool IsConnected => _runner != null && _runner.IsRunning;
-    public bool IsHost => _runner != null && _runner.IsServer;
+    public bool IsHost => _runner != null && _runner.IsSharedModeMasterClient;
     public NetworkRunner Runner => _runner;
 
     #region Unity Life Cycle
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,11 +37,9 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             Destroy(gameObject);
             return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     async void Start()
@@ -61,32 +57,27 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             _runner.Shutdown();
         }
     }
+
     #endregion
 
-    public async Task StartConnection()
+    #region Connection Logic
+
+    public async Task<bool> StartConnection()
     {
         if (IsConnected)
         {
-            Debug.Log("Ya esta conectado");
-            return;
+            LogDebug("Ya está conectado");
+            return false;
         }
 
-        Debug.Log("Iniciando conexion");
+        LogDebug("Iniciando conexión");
 
-        //Crear runner si no existe
-        if (_runner == null)
-        {
-            _runner = gameObject.GetComponent<NetworkRunner>();
-            if (_runner == null)
-            {
-                _runner = gameObject.AddComponent<NetworkRunner>();
-            }
-        }
-
-        //Config runner
+        _runner = GetOrAddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
 
-        _runner.AddCallbacks(this);
+        // Delegar callbacks a handler externo
+        var handler = GetOrAddComponent<NetworkCallbacksHandler>();
+        _runner.AddCallbacks(handler);
 
         var startArgs = new StartGameArgs()
         {
@@ -94,46 +85,40 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = GenerateRoomName()
         };
 
-        //Iniciar conexion
         var result = await _runner.StartGame(startArgs);
 
         if (result.Ok)
         {
-            Debug.Log($"Conectado exitosamente a: {startArgs.SessionName}");
+            LogDebug($"Conectado exitosamente a: {startArgs.SessionName}");
+            return true;
         }
-        else
-        {
-            Debug.LogError($"Error de conexion: {result.ShutdownReason}");
-        }
+        //else
+        Debug.LogError($"Error de conexión: {result.ShutdownReason}");
+        return false;
     }
 
     public async Task Disconnect()
     {
         if (_runner != null && _runner.IsRunning)
         {
-            Debug.Log("Desconectando");
+            LogDebug("Desconectando");
             await _runner.Shutdown();
         }
     }
 
     public async Task Reconnect()
     {
-        Debug.Log("Reconectando");
+        LogDebug("Reconectando");
         await Disconnect();
-        await Task.Delay(500); //small pause
+        await Task.Delay(500);
         await StartConnection();
     }
 
     string GenerateRoomName()
     {
-        if (_createPrivateRoom)
-        {
-            return $"{_roomName}_Private_{UnityEngine.Random.Range(10000, 99999)}";
-        }
-        else
-        {
-            return _roomName;
-        }
+        return _createPrivateRoom
+            ? $"{_roomName}_Private_{Random.Range(10000, 99999)}"
+            : _roomName;
     }
 
     public async Task JoinSpecificRoom(string roomName)
@@ -149,65 +134,95 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             _roomName = customRoomName;
         }
+
         _createPrivateRoom = true;
         await Reconnect();
     }
 
-    //----Fusion Callbacks----//
-    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
+    public async Task<bool> TryJoinRoom(string roomCode)
     {
-        Debug.Log($"Jugador {player} se unio");
-
-        if (_spawnPlayer && _playerPrefab != null && runner.IsServer)
+        if (string.IsNullOrEmpty(roomCode))
         {
-            //Vector3 spawnPos = GetSpawnPosition(); //Por ahora default en vector2 de P1
-            NetworkObject playerObj = runner.Spawn(_playerPrefab, _p1StartLoc, Quaternion.identity, player);
-            _spawnedPlayers[player] = playerObj;
+            Debug.LogWarning("Código de sala vacío");
+            return false;
+        }
 
-            Debug.Log($"Player spawned en {_p1StartLoc}");
+        _roomName = roomCode;
+        _createPrivateRoom = false;
+
+        var result = await StartConnection();
+        return result;
+    }
+
+    public async Task<bool> CreateRoom()
+    {
+        _roomName = GenerateRoomName();
+        _createPrivateRoom = true;
+
+        var result = await StartConnection();
+        return result;
+    }
+
+    public void LoadGameScene(string sceneName)
+    {
+        if (!IsHost)
+        {
+            Debug.LogWarning("Solo el host puede cargar escenas en modo Shared");
+            return;
+        }
+
+        _runner.LoadScene(sceneName);
+
+    }
+
+    #endregion
+
+    #region Public API
+
+    public void HandlePlayerJoined(PlayerRef player)
+    {
+        LogDebug($"Jugador {player} se unió");
+
+        if (_spawnPlayer && _playerPrefab != null && IsHost)
+        {
+            var obj = _runner.Spawn(_playerPrefab, _p1StartLoc, Quaternion.identity, player);
+            _spawnedPlayers[player] = obj;
+
+            LogDebug($"Player instanciado en {_p1StartLoc}");
         }
     }
 
-    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
+    public void HandlePlayerLeft(PlayerRef player)
     {
-        Debug.Log($"Jugador {player} se desconecto");
+        LogDebug($"Jugador {player} se desconectó");
 
-        if (_spawnedPlayers.TryGetValue(player, out NetworkObject playerObj))
+        if (_spawnedPlayers.TryGetValue(player, out var obj))
         {
-            if (playerObj != null)
-            {
-                runner.Despawn(playerObj);
-            }
+            if (obj != null)
+                _runner.Despawn(obj);
+
             _spawnedPlayers.Remove(player);
         }
     }
 
-    public void OnConnectedToServer(NetworkRunner runner)
+    public void HandleShutdown(ShutdownReason reason)
     {
-        Debug.Log("Conectado al servidor Photon");
-    }
-
-    public void OnDisconnectedFromServer(NetworkRunner runner)
-    {
-        Debug.Log("Desconectado del servidor");
-    }
-
-    //-----Spawn Management------//
-    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-    {
-        Debug.Log($"Shutdown: {shutdownReason}");
+        LogDebug($"Shutdown: {reason}");
+        _spawnedPlayers.Clear();
     }
 
     public NetworkObject SpawnNetworkObject(GameObject prefab, Vector3 position, Quaternion rotation, PlayerRef? player = null)
     {
         if (!IsConnected)
         {
-            Debug.Log("No conectado, no se puede hacer spawn");
+            LogDebug("No conectado, no se puede hacer spawn");
             return null;
         }
 
         return _runner.Spawn(prefab, position, rotation, player);
     }
+
+    #endregion
 
     #region Utility
 
@@ -221,87 +236,25 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     T GetOrAddComponent<T>() where T : Component
     {
-        T component = GetComponent<T>();
-        if (component == null)
-        {
-            component = gameObject.AddComponent<T>();
-        }
-        return component;
+        var comp = GetComponent<T>();
+        return comp != null ? comp : gameObject.AddComponent<T>();
     }
 
     #endregion
 
-    #region Public API (Para expandir funcionalidad)
-
-    /// <summary>
-    /// Conecta manualmente (útil si AutoConnect está desactivado)
-    /// </summary>
-    [ContextMenu("Connect")]
-    public void Connect()
-    {
-        _ = StartConnection();
-    }
-
-    /// <summary>
-    /// Desconecta manualmente
-    /// </summary>
-    [ContextMenu("Disconnect")]
-    public void DisconnectManual()
-    {
-        _ = Disconnect();
-    }
-
-    /// <summary>
-    /// Reconecta manualmente
-    /// </summary>
-    [ContextMenu("Reconnect")]
-    public void ReconnectManual()
-    {
-        _ = Reconnect();
-    }
-
-    #endregion
-
-    #region Required Fusion Callbacks (Vacíos)
-
-    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
-    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
-    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
-    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
-    public void OnInput(NetworkRunner runner, NetworkInput input) { }
-    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
-    public void OnSceneLoadDone(NetworkRunner runner) { }
-    public void OnSceneLoadStart(NetworkRunner runner) { }
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
-    public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
-    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject networkObject, PlayerRef player) { }
-    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject networkObject, PlayerRef player) { }
-    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason) { }
-    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey reliableKey, ArraySegment<byte> vs) { }
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey reliableKey, float progress) { }
-
-    #endregion
-
-    #region Editor Helpers
+    #region Editor Tools
 
 #if UNITY_EDITOR
     [Header("Editor Tools")]
-    [Space]
-    [UnityEngine.SerializeField] private bool _editorFoldout = false;
+    [SerializeField] private bool _editorFoldout = false;
 
     void OnValidate()
     {
-        // Validaciones en editor
         if (string.IsNullOrEmpty(_roomName))
-        {
             _roomName = "DevRoom";
-        }
 
         if (_maxPlayers < 1)
-        {
             _maxPlayers = 1;
-        }
     }
 #endif
 

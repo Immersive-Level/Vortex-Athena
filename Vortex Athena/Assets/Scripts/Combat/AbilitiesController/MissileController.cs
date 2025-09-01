@@ -102,7 +102,7 @@ public class MissileController : MonoBehaviour
         Debug.Log("Missil collide wit: " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Nave"))
         {
-            GameObject otherShip = collision.gameObject.transform.parent.gameObject;
+            GameObject otherShip = collision.gameObject.transform.parent.gameObject.transform.parent.gameObject;
             if (otherShip != OwnerObject)
             {
                 Debug.Log($"Misil hit player {otherShip.name}");

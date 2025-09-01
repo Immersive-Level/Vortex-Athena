@@ -1,20 +1,25 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using GameSystems;
 
 /// <summary>
-/// Gestiona SOLO la inicialización y activación de una nave
-/// No maneja estados del botón - eso lo hace ShipInputController
+/// Gestiona SOLO la inicializaciÃ³n y activaciÃ³n de una nave
+/// No maneja estados del botÃ³n - eso lo hace ShipInputController
 /// </summary>
 public class InicioNave : MonoBehaviour
 {
-    [Header("Configuración de Nave")]
+    [Header("ConfiguraciÃ³n de Nave")]
     public GameObject nave;
     public float impulsoInicial = 5f;
-    public Vector2 direccionImpulso ;
+    public Vector2 direccionImpulso;
 
-    [Header("Configuración Inicial")]
+    [Header("ConfiguraciÃ³n Inicial")]
     [Tooltip("Combustible inicial al activar la nave")]
     public float combustibleInicial = 100f;
+
+    [Header("Ã“rbita inicial")]
+    [SerializeField] private bool usarOrbitaInicial = true;
+    [SerializeField] private Transform orbitaCentro; // Asigna el Transform del agujero negro
+    [SerializeField] private int sentidoOrbita = 1;  // 1 = CCW, -1 = CW
 
     [Header("Referencias")]
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
@@ -24,76 +29,82 @@ public class InicioNave : MonoBehaviour
     private bool juegoIniciado = false;
     public bool JuegoIniciado => juegoIniciado;
 
-    void Awake()
-    {
-        // Validar referencias
-        if (nave == null)
-        {
-            Debug.LogError($"[InicioNave] No se asignó la nave en {gameObject.name}");
-            enabled = false;
-            return;
-        }
-    }
-
     void Start()
     {
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.RegisterShip(nave);
-
-        // Ocultar la nave al inicio
-        nave.SetActive(false);
-
-        // Buscar ShipInputController si no está asignado
-        if (shipInputController == null)
-        {
-            shipInputController = GetComponentInChildren<ShipInputController>();
-        }
-
-        // Obtener referencia al BlackHoleAttractionManager si no está asignada
-        if (blackHoleManager == null)
-        {
-            blackHoleManager = BlackHoleAttractionManager.Instance;
-            if (blackHoleManager == null)
-            {
-                Debug.LogWarning("[InicioNave] No se encontró un BlackHoleAttractionManager");
-            }
+            //nave.SetActive(false);
         }
     }
 
     /// <summary>
-    /// Inicia el juego activando la nave con impulso inicial
+    /// Inicia el juego activando la nave con impulso inicial y velocidad angular de Ã³rbita
     /// </summary>
     public void IniciarJuego()
     {
         if (juegoIniciado || nave == null) return;
 
         juegoIniciado = true;
-
-        // Activar la nave
         nave.SetActive(true);
 
-        // Configurar Rigidbody2D
         Rigidbody2D rb = nave.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.simulated = true;
 
-            // Aplicar impulso inicial
-            Vector2 direccionInicial = direccionImpulso.normalized;
-            rb.linearVelocity = direccionInicial * impulsoInicial;
+            Vector2 vDir;
+            Vector2 centroParaOrbita = Vector2.zero; // guardamos para calcular Ï‰
+
+            if (usarOrbitaInicial)
+            {
+                // Centro de Ã³rbita: override -> manager -> (0,0)
+                centroParaOrbita = orbitaCentro ? (Vector2)orbitaCentro.position :
+                                   (blackHoleManager ? (Vector2)blackHoleManager.transform.position : Vector2.zero);
+
+                // Vector radial desde centro -> nave
+                Vector2 radial = ((Vector2)rb.worldCenterOfMass - centroParaOrbita);
+                if (radial.sqrMagnitude < 0.0001f) radial = Vector2.right;
+                radial.Normalize();
+
+                // Tangente 2D: (-y, x). Aplica sentido de Ã³rbita.
+                Vector2 tangente = new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+                vDir = tangente;
+            }
+            else
+            {
+                vDir = direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
+            }
+
+            // Velocidad lineal inicial
+            rb.linearVelocity = vDir * impulsoInicial;
+
+            // Velocidad angular inicial: Ï‰ = v / r (en grados/seg para 2D)
+            if (usarOrbitaInicial)
+            {
+                float r = Vector2.Distance(rb.worldCenterOfMass, centroParaOrbita);
+                if (r > 0.001f)
+                {
+                    float omegaDegPerSec = (impulsoInicial / r) * Mathf.Rad2Deg;
+                    rb.angularVelocity = omegaDegPerSec * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+                }
+                else
+                {
+                    rb.angularVelocity = 0f;
+                }
+            }
+            else
+            {
+                rb.angularVelocity = 0f;
+            }
         }
 
-        // Configurar sistemas
         ConfigurarSistemas();
 
-        // Notificar al ShipInputController que el juego inició
         if (shipInputController != null)
-        {
             shipInputController.OnGameStarted();
-        }
 
-        // Registrar en BlackHoleAttractionManager
         RegistrarEnBlackHole();
 
         Debug.Log($"[InicioNave] Nave {nave.name} iniciada con {combustibleInicial} de combustible");
@@ -104,7 +115,6 @@ public class InicioNave : MonoBehaviour
     /// </summary>
     private void ConfigurarSistemas()
     {
-        // Configurar combustible
         var fuelManager = nave.GetComponentInChildren<FuelManager>();
         if (fuelManager != null)
         {
@@ -112,7 +122,6 @@ public class InicioNave : MonoBehaviour
             fuelManager.ResetFuelSystem();
         }
 
-        // Resetear el controlador de la nave
         var shipController = nave.GetComponentInChildren<ShipController>();
         if (shipController != null)
         {
@@ -127,28 +136,19 @@ public class InicioNave : MonoBehaviour
     {
         if (nave != null)
         {
-            // Desregistrar del BlackHole
             DesregistrarDeBlackHole();
 
-            // Resetear todos los sistemas
             var shipController = nave.GetComponentInChildren<ShipController>();
             if (shipController != null)
-            {
                 shipController.ResetMovement();
-            }
 
             var fuelManager = nave.GetComponentInChildren<FuelManager>();
             if (fuelManager != null)
-            {
                 fuelManager.ResetFuelSystem();
-            }
 
             if (shipInputController != null)
-            {
                 shipInputController.ResetInputState();
-            }
 
-            // Desactivar nave
             nave.SetActive(false);
             juegoIniciado = false;
 
@@ -182,13 +182,12 @@ public class InicioNave : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnValidate()
     {
-        DesregistrarDeBlackHole();
+        impulsoInicial = Mathf.Max(0f, impulsoInicial);
+        if (sentidoOrbita == 0) sentidoOrbita = 1;
     }
 
-    void OnDestroy()
-    {
-        DesregistrarDeBlackHole();
-    }
+    void OnDisable() => DesregistrarDeBlackHole();
+    void OnDestroy() => DesregistrarDeBlackHole();
 }

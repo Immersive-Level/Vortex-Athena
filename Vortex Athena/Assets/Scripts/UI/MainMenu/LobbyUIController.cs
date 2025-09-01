@@ -36,6 +36,7 @@ public class LobbyUIController : MonoBehaviour
 
     public void ShowRoomCode(string code)
     {
+        Debug.Log($"Código de sala: {code}");
         _roomCodeDisplay.text = $"Código de sala: {code}";
         _errorText.text = "";
     }

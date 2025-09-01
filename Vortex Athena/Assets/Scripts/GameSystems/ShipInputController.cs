@@ -31,13 +31,12 @@ namespace GameSystems
 
         [Header("Visual del Botón")]
         [SerializeField] private float inactiveAlpha = 0.5f;
-        [SerializeField] private float deadAlpha = 0.3f;
+        [SerializeField] private float deadAlpha = 1f;
         // [SerializeField] private float noFuelAlpha = 0.5f; // COMENTADO: No se usa estado NoFuel
         [SerializeField] private bool blinkOnRespawnReady = true;
         [SerializeField] private float blinkSpeed = 2f;
 
-        [Header("Estado Visual")]
-        [SerializeField] private Animator buttonAnimator; // Opcional: animación del botón
+        [SerializeField] private FuelButtonRespawnFX respawnFx;
 
         [Header("Debug")]
         [SerializeField] private bool debugMode = false;
@@ -86,6 +85,11 @@ namespace GameSystems
                 fuelManager.OnFuelRestored += HandleFuelRestored;
             }
             */
+
+            if (fuelManager != null)
+            {
+                fuelManager.OnFuelEmpty += HandleFuelEmptyStopThrust; // corte duro al 0
+            }
 
             // Suscribirse a eventos del sistema de muerte
             if (deathManager != null)
@@ -145,12 +149,14 @@ namespace GameSystems
             switch (newState)
             {
                 case ButtonState.Inactive:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.alpha = inactiveAlpha;
                     canvasGroup.interactable = false;
                     canPress = false;
                     break;
 
                 case ButtonState.Playing:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.alpha = 1f;
                     canvasGroup.interactable = true;
                     canPress = true;
@@ -167,12 +173,14 @@ namespace GameSystems
 
                 case ButtonState.Dead:
                     canvasGroup.alpha = deadAlpha;
+                    respawnFx?.Show();
                     canvasGroup.interactable = false;
                     canPress = false;
                     isRespawning = false;
                     break;
 
                 case ButtonState.RespawnReady:
+                    respawnFx?.FuelButtonRespawnFXHide();
                     canvasGroup.interactable = true;
                     canPress = true;
                     isRespawning = true;
@@ -187,9 +195,6 @@ namespace GameSystems
                     }
                     break;
             }
-
-            // Actualizar animación si existe
-            UpdateButtonAnimation(newState.ToString());
 
             if (debugMode)
                 Debug.Log($"[ShipInput] Estado del botón: {newState}");
@@ -214,6 +219,8 @@ namespace GameSystems
         /// </summary>
         public void OnPointerDown(PointerEventData eventData)
         {
+            fuelManager?.BeginThrottleHold();
+
             // Si estamos esperando respawn, ejecutar respawn
             if (isRespawning && currentButtonState == ButtonState.RespawnReady)
             {
@@ -242,10 +249,10 @@ namespace GameSystems
             }
 
             // NOTA: Verificamos combustible solo para evitar movimiento, NO para muerte
-            if (!fuelManager.HasFuel)
+            if (fuelManager != null && !fuelManager.CanStartThrust())
             {
-                if (debugMode)
-                    Debug.Log($"[ShipInput] Press ignorado - Sin combustible (pero no causa muerte)");
+                fuelManager.RegisterConsumptionAttempt(); // anti-spam: reinicia delay de recarga
+                if (debugMode) Debug.Log("[ShipInput] Press ignorado - Combustible insuficiente para iniciar");
                 return;
             }
 
@@ -267,13 +274,19 @@ namespace GameSystems
         /// </summary>
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (!isPressing) return;
+            if(!isPressing)
+    {
+                fuelManager?.EndThrottleHold(); // Asegura liberar el bloqueo si no estaba presionando
+                return;
+            }
 
             isPressing = false;
 
             // Detener movimiento y consumo
             shipController.StopMoving();
             fuelManager.StopConsuming();
+
+            fuelManager?.EndThrottleHold();
 
             // Verificar si fue un tap
             float pressDuration = Time.time - pressStartTime;
@@ -325,6 +338,7 @@ namespace GameSystems
         /// </summary>
         private void HandleDeath(UnifiedDeathManager.DeathType deathType)
         {
+            fuelManager?.EndThrottleHold(); // evita quedar bloqueado en flujos raros
             SetButtonState(ButtonState.Dead);
 
             // Forzar release si está presionando
@@ -353,6 +367,7 @@ namespace GameSystems
         /// </summary>
         private void HandleRespawn()
         {
+            fuelManager?.EndThrottleHold(); // garantiza que el auto-refuel no quede bloqueado
             // Volver al estado de juego
             SetButtonState(ButtonState.Playing);
             isRespawning = false;
@@ -389,17 +404,6 @@ namespace GameSystems
 
             if (debugMode)
                 Debug.Log("[ShipInput] Respawn ejecutado");
-        }
-
-        /// <summary>
-        /// Actualiza la animación del botón
-        /// </summary>
-        private void UpdateButtonAnimation(string stateName)
-        {
-            if (buttonAnimator != null)
-            {
-                buttonAnimator.SetTrigger(stateName);
-            }
         }
 
         /// <summary>
@@ -472,6 +476,19 @@ namespace GameSystems
             }
         }
 
+        // Nuevo método en la clase
+        private void HandleFuelEmptyStopThrust()
+        {
+            if (isPressing)
+            {
+                isPressing = false;
+                shipController.StopMoving();
+                fuelManager.StopConsuming();
+                // NO llamamos EndThrottleHold aquí: si el jugador sigue sosteniendo, mantenemos bloqueada la recarga
+            }
+        }
+
+
         private void OnDestroy()
         {
             // COMENTADO: Desuscripciones de eventos de combustible ya no necesarias
@@ -483,6 +500,7 @@ namespace GameSystems
                 fuelManager.OnFuelRestored -= HandleFuelRestored;
             }
             */
+
 
             if (deathManager != null)
             {

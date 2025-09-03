@@ -235,7 +235,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      VA_UIN_Botones_0: 1992803429738892993
+      VA_UIN_Botones_1: -4652109332334545477
+      VA_UIN_Botones_2: 508639277149223566
+      VA_UIN_Botones_3: -8287893866184457321
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,7 +12,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Mixer (asset)")]
     [Tooltip("Arrastra aquí tu asset 'AudioMixer' desde el Project.")]
-    public AudioMixer mixer;                 // ← tu AudioMixer (nombre del asset da igual)
+    public AudioMixer mixer;                 // AudioMixer 
 
     [Header("Nombres de parámetros EXPUESTOS en el Mixer (dB)")]
     [Tooltip("Parámetro expuesto en MASTER (ej: MasterVol)")]

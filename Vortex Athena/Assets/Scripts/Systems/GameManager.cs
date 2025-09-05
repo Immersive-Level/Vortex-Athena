@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public ScoreSystem ScoreSystem;
 
     public List<GameObject> NavesActivas { get; private set; } = new();
+
+    [SerializeField] bool isMultiplayer;
     public GameObject TutorialRoot;
 
     [HideInInspector] public float GameDuration = 60f;
@@ -45,7 +47,11 @@ public class GameManager : MonoBehaviour
 
         NavesActivas = new List<GameObject>();
 
-        ToggleTutorial();
+        if (TutorialRoot != null)
+        {
+            if (!isMultiplayer)
+                ToggleTutorial();
+        }
     }
 
     private void Update()

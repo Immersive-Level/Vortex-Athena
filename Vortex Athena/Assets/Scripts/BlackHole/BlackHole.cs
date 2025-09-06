@@ -1,312 +1,407 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
+/// <summary>
+/// Sistema de agujero negro enfocado exclusivamente en las propiedades f√≠sicas.
+/// Maneja la atracci√≥n gravitacional de objetos cercanos.
+/// </summary>
+[RequireComponent(typeof(CircleCollider2D))]
 public class BlackHole : MonoBehaviour
 {
-    [Header("Propiedades FÌsicas")]
-    [Tooltip("Radio del agujero negro")]
-    public float radius = 5f;
+    #region Inspector Properties
 
-    [Tooltip("Fuerza m·xima de atracciÛn")]
-    public float maxAttractionForce = 20f;
+    [Header("‚öôÔ∏è Propiedades F√≠sicas")]
+    [Space(10)]
 
-    [Tooltip("Distancia m·xima de efecto")]
-    public float maxEffectDistance = 30f;
+    [Tooltip("Radio del n√∫cleo del agujero negro (zona de absorci√≥n instant√°nea)")]
+    [SerializeField, Range(0.5f, 10f)]
+    private float coreRadius = 2f;
 
-    [Tooltip("Exponente para la curva de atracciÛn (2 = gravitaciÛn normal, mayor = m·s agresivo)")]
-    [Range(1f, 10f)]
-    public float attractionCurve = 2f;
+    [Tooltip("Radio del horizonte de eventos (zona de no retorno)")]
+    [SerializeField, Range(1f, 15f)]
+    private float eventHorizonRadius = 5f;
 
-    [Header("ConfiguraciÛn")]
-    [Tooltip("øEl agujero negro est· activo?")]
-    public bool isActive = true;
+    [Tooltip("Distancia m√°xima de atracci√≥n gravitacional")]
+    [SerializeField, Range(5f, 50f)]
+    private float maxEffectDistance = 30f;
 
-    [Header("VisualizaciÛn")]
-    [Tooltip("Color del n˙cleo del agujero negro")]
-    public Color coreColor = Color.black;
+    [Tooltip("Fuerza m√°xima de atracci√≥n en el borde del horizonte de eventos")]
+    [SerializeField, Range(10f, 200f)]
+    private float maxAttractionForce = 50f;
 
-    [Tooltip("Color del halo exterior")]
-    public Color outerColor = new Color(0.2f, 0.05f, 0.3f, 0.7f);
+    [Tooltip("Curva de atracci√≥n (1 = lineal, 2 = cuadr√°tica, >2 = m√°s agresiva)")]
+    [SerializeField, Range(1f, 5f)]
+    private float attractionCurve = 2f;
 
-    // Referencia al material
-    private Material blackHoleMaterial;
+    [Tooltip("Multiplicador de fuerza rotacional (efecto de espiral)")]
+    [SerializeField, Range(0f, 2f)]
+    private float rotationalForceMultiplier = 0.5f;
 
-    // Referencia a la imagen
-    public UnityEngine.UI.Image blackHoleImage;
+    [Header("‚öôÔ∏è Configuraci√≥n")]
+    [Space(10)]
 
-    [Header("Efectos Visuales")]
-    [Range(0.1f, 2.0f)] public float distortionStrength = 0.3f;
-    [Range(0.1f, 2.0f)] public float distortionRadius = 0.5f;
-    [Range(0.1f, 10.0f)] public float rotationSpeed = 2.0f;
-    [Range(1.0f, 20.0f)] public float eventHorizonSharpness = 8.0f;
-    public Color eventHorizonColor = new Color(0.1f, 0.4f, 1.0f, 1.0f);
+    [Tooltip("¬øEl agujero negro est√° activo?")]
+    [SerializeField]
+    private bool isActive = true;
 
-    [Header("AnimaciÛn")]
-    public bool animateProperties = true;
-    [Range(0.1f, 5.0f)] public float pulseSpeed = 1.0f;
-    [Range(0.0f, 1.0f)] public float pulseStrengthAmount = 0.2f;
-    [Range(0.0f, 0.5f)] public float pulseRadiusAmount = 0.1f;
-    [Range(0.0f, 5.0f)] public float rotationVariation = 1.0f;
-    [Range(0.0f, 5.0f)] public float colorCycleSpeed = 0.5f;
-    public bool useRandomSeed = true;
-    [Range(1, 5)] public int chaosLevel = 3;
-    public bool usePerlinNoise = true;
+    [Tooltip("Capas de f√≠sica que pueden ser afectadas")]
+    [SerializeField]
+    private LayerMask affectedLayers = -1;
 
-    // Variables privadas para animaciÛn
-    private float timeOffset;
-    private float noiseOffset1, noiseOffset2, noiseOffset3;
-    private float initialDistortionStrength;
-    private float initialDistortionRadius;
-    private float initialRotationSpeed;
-    private Color initialEventHorizonColor;
-    private float[] chaosFactors;
-    private Vector2[] noiseVectors;
+    [Header("üìä Debug")]
+    [Space(10)]
 
-    private void Start()
+    [Tooltip("Mostrar informaci√≥n de debug en consola")]
+    [SerializeField]
+    private bool debugMode = false;
+
+    [Tooltip("Mostrar gizmos en el editor")]
+    [SerializeField]
+    private bool showGizmos = true;
+
+    #endregion
+
+    #region Private Variables
+
+    private CircleCollider2D detectionCollider;
+    private int objectsInRange = 0;
+    private float lastForceCalculation = 0f;
+
+    #endregion
+
+    #region Properties
+
+    /// <summary>
+    /// Estado activo del agujero negro
+    /// </summary>
+    public bool IsActive
     {
-        // Inicializar efectos visuales
-        InitializeVisuals();
-
-        // Guardar valores iniciales para la animaciÛn
-        initialDistortionStrength = distortionStrength;
-        initialDistortionRadius = distortionRadius;
-        initialRotationSpeed = rotationSpeed;
-        initialEventHorizonColor = eventHorizonColor;
-
-        // Inicializar aleatoriedad para animaciones
-        InitializeRandomness();
-    }
-
-    private void InitializeVisuals()
-    {
-        // Verificar que tenemos una imagen asignada
-        if (blackHoleImage == null)
+        get => isActive;
+        set
         {
-            blackHoleImage = GetComponent<UnityEngine.UI.Image>();
-            if (blackHoleImage == null)
+            isActive = value;
+            if (!isActive && debugMode)
             {
-                Debug.LogError("No se encontrÛ un componente Image en el objeto. Por favor asigne uno.");
-                enabled = false;
-                return;
+                Debug.Log($"[BlackHole] {name} desactivado");
             }
         }
-
-        // Cargar y configurar el shader
-        Shader blackHoleShader = Shader.Find("Custom/BlackHoleDistortion");
-        if (blackHoleShader == null)
-        {
-            Debug.LogError("No se encontrÛ el shader 'Custom/BlackHoleDistortion'. Aseg˙rate de que est· incluido en el proyecto.");
-            enabled = false;
-            return;
-        }
-
-        blackHoleMaterial = new Material(blackHoleShader);
-        blackHoleImage.material = blackHoleMaterial;
     }
 
-    private void InitializeRandomness()
+    /// <summary>
+    /// Radio del n√∫cleo del agujero negro
+    /// </summary>
+    public float CoreRadius => coreRadius;
+
+    /// <summary>
+    /// Radio del horizonte de eventos
+    /// </summary>
+    public float EventHorizonRadius => eventHorizonRadius;
+
+    /// <summary>
+    /// Distancia m√°xima de efecto
+    /// </summary>
+    public float MaxEffectDistance => maxEffectDistance;
+
+    #endregion
+
+    #region Unity Lifecycle
+
+    private void Awake()
     {
-        if (useRandomSeed)
-        {
-            timeOffset = Random.Range(0f, 1000f);
-            noiseOffset1 = Random.Range(0f, 1000f);
-            noiseOffset2 = Random.Range(0f, 1000f);
-            noiseOffset3 = Random.Range(0f, 1000f);
-        }
-        else
-        {
-            timeOffset = 0f;
-            noiseOffset1 = 0f;
-            noiseOffset2 = 100f;
-            noiseOffset3 = 200f;
-        }
-
-        // Inicializar factores de caos para comportamiento impredecible
-        chaosFactors = new float[10];
-        for (int i = 0; i < chaosFactors.Length; i++)
-        {
-            chaosFactors[i] = Random.Range(0.5f, 1.5f);
-        }
-
-        // Vectores para ruido de Perlin
-        noiseVectors = new Vector2[5];
-        for (int i = 0; i < noiseVectors.Length; i++)
-        {
-            noiseVectors[i] = new Vector2(
-                Random.Range(-1f, 1f),
-                Random.Range(-1f, 1f)
-            ).normalized;
-        }
-    }
-
-    private void Update()
-    {
-        if (!isActive) return;
-
-        // Aplicar animaciones si est· habilitado
-        if (animateProperties)
-        {
-            AnimateBlackHole();
-        }
-        else
-        {
-            // Actualizar propiedades est·ticas
-            UpdateShaderProperties(distortionStrength, distortionRadius, rotationSpeed, eventHorizonSharpness, eventHorizonColor);
-        }
-    }
-
-    private void AnimateBlackHole()
-    {
-        float time = Time.time + timeOffset;
-
-        float pulsatingStrength, pulsatingRadius, varyingRotation;
-        Color cyclicColor;
-
-        if (usePerlinNoise && chaosLevel >= 3)
-        {
-            // Usar ruido de Perlin para valores m·s caÛticos e impredecibles
-            pulsatingStrength = GetChaosValue(initialDistortionStrength, pulseStrengthAmount * 1.5f, time, 0);
-            pulsatingRadius = GetChaosValue(initialDistortionRadius, pulseRadiusAmount * 1.5f, time, 1);
-            varyingRotation = GetChaosValue(initialRotationSpeed, rotationVariation * 1.5f, time, 2);
-
-            // Color con variaciÛn caÛtica
-            float hue = Mathf.PerlinNoise(time * colorCycleSpeed * 0.1f * chaosFactors[3] + noiseOffset1,
-                                          time * colorCycleSpeed * 0.05f * chaosFactors[4] + noiseOffset2);
-            Color.RGBToHSV(initialEventHorizonColor, out float _, out float s, out float v);
-            cyclicColor = Color.HSVToRGB(hue, s, v);
-            cyclicColor.a = initialEventHorizonColor.a;
-        }
-        else
-        {
-            // VariaciÛn m·s tradicional basada en senos
-            float chaosMultiplier = 1f + (chaosLevel * 0.1f);
-
-            // Agregar funciones trigonomÈtricas m˙ltiples para mayor complejidad
-            pulsatingStrength = initialDistortionStrength +
-                (Mathf.Sin(time * pulseSpeed * chaosFactors[0]) * 0.6f +
-                Mathf.Sin(time * pulseSpeed * 1.3f * chaosFactors[1]) * 0.4f) *
-                pulseStrengthAmount * chaosMultiplier;
-
-            pulsatingRadius = initialDistortionRadius +
-                (Mathf.Sin(time * pulseSpeed * 0.7f * chaosFactors[2]) * 0.65f +
-                Mathf.Cos(time * pulseSpeed * 1.1f * chaosFactors[3]) * 0.35f) *
-                pulseRadiusAmount * chaosMultiplier;
-
-            varyingRotation = initialRotationSpeed +
-                (Mathf.Sin(time * pulseSpeed * 0.5f * chaosFactors[4]) * 0.7f +
-                Mathf.Sin(time * pulseSpeed * 1.7f * chaosFactors[5]) * 0.3f) *
-                rotationVariation * chaosMultiplier;
-
-            // Color con varias frecuencias
-            float hueShift = (Mathf.Sin(time * colorCycleSpeed * 0.1f * chaosFactors[6]) * 0.6f +
-                             Mathf.Sin(time * colorCycleSpeed * 0.27f * chaosFactors[7]) * 0.4f) * 0.5f;
-
-            float baseHue;
-            Color.RGBToHSV(initialEventHorizonColor, out baseHue, out float s, out float v);
-            float newHue = Mathf.Repeat(baseHue + hueShift, 1f);
-            cyclicColor = Color.HSVToRGB(newHue, s, v);
-            cyclicColor.a = initialEventHorizonColor.a;
-        }
-
-        // AÒadir pequeÒos temblores aleatorios en niveles altos de caos
-        if (chaosLevel >= 4)
-        {
-            pulsatingStrength += Random.Range(-0.05f, 0.05f) * chaosLevel * 0.02f;
-            pulsatingRadius += Random.Range(-0.02f, 0.02f) * chaosLevel * 0.02f;
-            varyingRotation += Random.Range(-0.1f, 0.1f) * chaosLevel * 0.1f;
-        }
-
-        // Actualizar propiedades en el shader
-        UpdateShaderProperties(pulsatingStrength, pulsatingRadius, varyingRotation, eventHorizonSharpness, cyclicColor);
-    }
-
-    private float GetChaosValue(float baseValue, float amplitude, float time, int index)
-    {
-        if (chaosLevel <= 1)
-            return baseValue + Mathf.Sin(time * pulseSpeed * chaosFactors[index]) * amplitude;
-
-        // Usar m˙ltiples capas de ruido de Perlin para crear patrones complejos
-        float noise1 = Mathf.PerlinNoise(
-            time * pulseSpeed * 0.2f * chaosFactors[index] + noiseOffset1,
-            time * pulseSpeed * 0.3f * chaosFactors[index + 1] + noiseOffset2
-        ) * 2f - 1f; // Convertir de 0-1 a -1 a 1
-
-        float noise2 = Mathf.PerlinNoise(
-            time * pulseSpeed * 0.15f * chaosFactors[index + 2] + noiseOffset2,
-            time * pulseSpeed * 0.25f * chaosFactors[index + 3] + noiseOffset3
-        ) * 2f - 1f;
-
-        // AÒadir un componente direccional al ruido
-        float directionalNoise = Vector2.Dot(
-            new Vector2(noise1, noise2).normalized,
-            noiseVectors[index % noiseVectors.Length]
-        ) * 0.5f;
-
-        // Mezclar diferentes tipos de ruido
-        float finalNoise = (noise1 * 0.5f + noise2 * 0.3f + directionalNoise * 0.2f) * amplitude;
-
-        // AÒadir pequeÒos saltos aleatorios en niveles altos de caos
-        if (chaosLevel >= 4 && Random.value < 0.01f * chaosLevel)
-        {
-            finalNoise += Random.Range(-0.1f, 0.1f) * chaosLevel * 0.05f;
-        }
-
-        return baseValue + finalNoise;
-    }
-
-    private void UpdateShaderProperties(float strength, float radius, float rotation, float sharpness, Color color)
-    {
-        if (blackHoleMaterial != null)
-        {
-            blackHoleMaterial.SetFloat("_DistortionStrength", strength);
-            blackHoleMaterial.SetFloat("_DistortionRadius", radius);
-            blackHoleMaterial.SetFloat("_RotationSpeed", rotation);
-            blackHoleMaterial.SetFloat("_EventHorizonSharpness", sharpness);
-            blackHoleMaterial.SetColor("_EventHorizonColor", color);
-        }
-    }
-
-    // Calcula la fuerza de atracciÛn basada en la distancia
-    public float CalculateAttractionForce(float distance)
-    {
-        // Si el agujero negro est· inactivo, no hay atracciÛn
-        if (!isActive) return 0f;
-
-        // Evitar divisiÛn por cero
-        if (distance < 0.0001f)
-            return maxAttractionForce;
-
-        // Si est· dentro del radio, fuerza m·xima
-        if (distance <= radius)
-            return maxAttractionForce;
-
-        // Calcula caÌda de fuerza basada en distancia y exponente de curva
-        float normalizedDistance = Mathf.Clamp01((maxEffectDistance - distance) /
-                                               (maxEffectDistance - radius));
-
-        // Aplica la curva (usa pow para exponente)
-        float forceFactor = Mathf.Pow(normalizedDistance, attractionCurve);
-
-        return forceFactor * maxAttractionForce;
-    }
-
-    // Para visualizar en el editor
-    private void OnDrawGizmos()
-    {
-        // Dibujar radio del n˙cleo
-        Gizmos.color = coreColor;
-        Gizmos.DrawSphere(transform.position, radius);
-
-        // Dibujar radio de efecto m·ximo
-        Gizmos.color = outerColor;
-        Gizmos.DrawWireSphere(transform.position, maxEffectDistance);
+        ValidateConfiguration();
+        SetupCollider();
     }
 
     private void OnValidate()
     {
-        if (Application.isPlaying && blackHoleMaterial != null)
+        // Asegurar que los radios tengan sentido l√≥gico
+        if (coreRadius > eventHorizonRadius)
         {
-            // Reinicializar randomizaciÛn al cambiar par·metros en tiempo de ejecuciÛn
-            InitializeRandomness();
+            coreRadius = eventHorizonRadius * 0.5f;
+        }
+
+        if (eventHorizonRadius > maxEffectDistance)
+        {
+            eventHorizonRadius = maxEffectDistance * 0.5f;
+        }
+
+        // Actualizar collider si existe
+        if (Application.isPlaying && detectionCollider != null)
+        {
+            detectionCollider.radius = maxEffectDistance;
         }
     }
+
+    #endregion
+
+    #region Initialization
+
+    /// <summary>
+    /// Valida la configuraci√≥n inicial del agujero negro
+    /// </summary>
+    private void ValidateConfiguration()
+    {
+        // Validar jerarqu√≠a de radios
+        if (coreRadius > eventHorizonRadius || eventHorizonRadius > maxEffectDistance)
+        {
+            Debug.LogError($"[BlackHole] {name}: Configuraci√≥n inv√°lida de radios. " +
+                          $"Debe ser: CoreRadius < EventHorizonRadius < MaxEffectDistance");
+            enabled = false;
+            return;
+        }
+
+        // Validar que no est√© en un Canvas UI
+        if (GetComponentInParent<Canvas>() != null)
+        {
+            Debug.LogWarning($"[BlackHole] {name}: Detectado dentro de un Canvas UI. " +
+                           "El agujero negro debe estar en el espacio del mundo 2D.");
+        }
+    }
+
+    /// <summary>
+    /// Configura el collider de detecci√≥n
+    /// </summary>
+    private void SetupCollider()
+    {
+        detectionCollider = GetComponent<CircleCollider2D>();
+        if (detectionCollider == null)
+        {
+            detectionCollider = gameObject.AddComponent<CircleCollider2D>();
+        }
+
+        detectionCollider.isTrigger = true;
+        detectionCollider.radius = maxEffectDistance;
+    }
+
+    #endregion
+
+    #region Physics Calculations
+
+    /// <summary>
+    /// Calcula la fuerza de atracci√≥n basada en la distancia
+    /// </summary>
+    /// <param name="distance">Distancia al centro del agujero negro</param>
+    /// <returns>Magnitud de la fuerza de atracci√≥n</returns>
+    public float CalculateAttractionForce(float distance)
+    {
+        if (!isActive || distance > maxEffectDistance)
+            return 0f;
+
+        // Zona del n√∫cleo - fuerza m√°xima absoluta
+        if (distance <= coreRadius)
+        {
+            lastForceCalculation = maxAttractionForce * 2f; // Fuerza duplicada en el n√∫cleo
+            return lastForceCalculation;
+        }
+
+        // Zona del horizonte de eventos - fuerza muy alta
+        if (distance <= eventHorizonRadius)
+        {
+            float t = (distance - coreRadius) / (eventHorizonRadius - coreRadius);
+            lastForceCalculation = Mathf.Lerp(maxAttractionForce * 2f, maxAttractionForce, t);
+            return lastForceCalculation;
+        }
+
+        // Zona de atracci√≥n normal
+        float normalizedDistance = (maxEffectDistance - distance) / (maxEffectDistance - eventHorizonRadius);
+        normalizedDistance = Mathf.Clamp01(normalizedDistance);
+
+        // Aplicar curva de atracci√≥n
+        float forceFactor = Mathf.Pow(normalizedDistance, attractionCurve);
+        lastForceCalculation = forceFactor * maxAttractionForce;
+
+        return lastForceCalculation;
+    }
+
+    /// <summary>
+    /// Calcula el vector completo de fuerza incluyendo direcci√≥n y rotaci√≥n
+    /// </summary>
+    /// <param name="targetPosition">Posici√≥n del objeto afectado</param>
+    /// <returns>Vector de fuerza a aplicar</returns>
+    public Vector2 CalculateAttractionVector(Vector2 targetPosition)
+    {
+        Vector2 myPosition = transform.position;
+        Vector2 direction = myPosition - targetPosition;
+        float distance = direction.magnitude;
+
+        if (distance < 0.001f) // Evitar divisi√≥n por cero
+            return Vector2.zero;
+
+        // Normalizar direcci√≥n
+        direction /= distance;
+
+        // Calcular fuerza base
+        float forceMagnitude = CalculateAttractionForce(distance);
+        Vector2 attractionForce = direction * forceMagnitude;
+
+        // A√±adir componente rotacional si est√° configurado
+        if (rotationalForceMultiplier > 0f && distance > coreRadius)
+        {
+            // Crear vector perpendicular para rotaci√≥n
+            Vector2 tangent = new Vector2(-direction.y, direction.x);
+
+            // La rotaci√≥n es m√°s fuerte cerca del horizonte de eventos
+            float rotationStrength = 1f - Mathf.Clamp01((distance - eventHorizonRadius) /
+                                                        (maxEffectDistance - eventHorizonRadius));
+
+            attractionForce += tangent * (forceMagnitude * rotationalForceMultiplier * rotationStrength);
+        }
+
+        return attractionForce;
+    }
+
+    /// <summary>
+    /// Aplica la fuerza de atracci√≥n a un objeto espec√≠fico
+    /// </summary>
+    /// <param name="affectedObject">Componente del objeto afectado</param>
+    public void ApplyAttractionToObject(AffectedByBlackHole affectedObject)
+    {
+        if (affectedObject == null || !affectedObject.canBeAffected || !isActive)
+            return;
+
+        Vector2 attractionForce = CalculateAttractionVector(affectedObject.transform.position);
+        affectedObject.ApplyAttractionForce(attractionForce * Time.fixedDeltaTime);
+
+        // Verificar zonas especiales
+        float distance = Vector2.Distance(transform.position, affectedObject.transform.position);
+
+        if (distance <= eventHorizonRadius && !affectedObject.isWithinEventHorizon)
+        {
+            affectedObject.EnterEventHorizon();
+            if (debugMode)
+            {
+                Debug.Log($"[BlackHole] {affectedObject.name} entr√≥ al horizonte de eventos");
+            }
+        }
+        else if (distance > eventHorizonRadius && affectedObject.isWithinEventHorizon)
+        {
+            affectedObject.ExitEventHorizon();
+            if (debugMode)
+            {
+                Debug.Log($"[BlackHole] {affectedObject.name} sali√≥ del horizonte de eventos");
+            }
+        }
+    }
+
+    /// <summary>
+    /// Determina en qu√© zona se encuentra un punto
+    /// </summary>
+    public enum GravityZone
+    {
+        Outside,        // Fuera del √°rea de efecto
+        Attraction,     // Zona de atracci√≥n normal
+        EventHorizon,   // Horizonte de eventos
+        Core           // N√∫cleo del agujero negro
+    }
+
+    /// <summary>
+    /// Obtiene la zona gravitacional de una posici√≥n
+    /// </summary>
+    public GravityZone GetGravityZone(Vector2 position)
+    {
+        float distance = Vector2.Distance(transform.position, position);
+
+        if (distance <= coreRadius)
+            return GravityZone.Core;
+        if (distance <= eventHorizonRadius)
+            return GravityZone.EventHorizon;
+        if (distance <= maxEffectDistance)
+            return GravityZone.Attraction;
+
+        return GravityZone.Outside;
+    }
+
+    #endregion
+
+    #region Trigger Events
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        // Verificar si el objeto est√° en las capas afectadas
+        if (((1 << other.gameObject.layer) & affectedLayers) == 0)
+            return;
+
+        objectsInRange++;
+
+        if (debugMode)
+        {
+            Debug.Log($"[BlackHole] {other.name} entr√≥ al √°rea de efecto. Total objetos: {objectsInRange}");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        // Verificar si el objeto est√° en las capas afectadas
+        if (((1 << other.gameObject.layer) & affectedLayers) == 0)
+            return;
+
+        objectsInRange = Mathf.Max(0, objectsInRange - 1);
+
+        // Asegurar que se limpie el estado del horizonte de eventos
+        var affectedObject = other.GetComponent<AffectedByBlackHole>();
+        if (affectedObject != null && affectedObject.isWithinEventHorizon)
+        {
+            affectedObject.ExitEventHorizon();
+        }
+
+        if (debugMode)
+        {
+            Debug.Log($"[BlackHole] {other.name} sali√≥ del √°rea de efecto. Total objetos: {objectsInRange}");
+        }
+    }
+
+    #endregion
+
+    #region Debug & Visualization
+
+    private void OnDrawGizmos()
+    {
+        if (!showGizmos) return;
+
+        // N√∫cleo - Rojo oscuro
+        Gizmos.color = new Color(0.5f, 0f, 0f, 0.8f);
+        Gizmos.DrawSphere(transform.position, coreRadius);
+
+        // Horizonte de eventos - Naranja
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);
+        Gizmos.DrawWireSphere(transform.position, eventHorizonRadius);
+
+        // √Årea de efecto m√°ximo - Amarillo
+        Gizmos.color = new Color(1f, 1f, 0f, 0.3f);
+        Gizmos.DrawWireSphere(transform.position, maxEffectDistance);
+
+        // Mostrar informaci√≥n adicional cuando est√° seleccionado
+        if (UnityEditor.Selection.activeGameObject == gameObject)
+        {
+            DrawDetailedGizmos();
+        }
+    }
+
+    private void DrawDetailedGizmos()
+    {
+        // Dibujar anillos de fuerza para visualizar la curva de atracci√≥n
+        int rings = 10;
+        for (int i = 1; i <= rings; i++)
+        {
+            float distance = Mathf.Lerp(eventHorizonRadius, maxEffectDistance, i / (float)rings);
+            float force = CalculateAttractionForce(distance);
+            float intensity = force / maxAttractionForce;
+
+            Gizmos.color = new Color(1f - intensity, intensity, 0f, 0.2f);
+            Gizmos.DrawWireSphere(transform.position, distance);
+        }
+    }
+
+    /// <summary>
+    /// Obtiene estad√≠sticas del sistema para debug
+    /// </summary>
+    public string GetDebugInfo()
+    {
+        return $"BlackHole '{name}'\n" +
+               $"Estado: {(isActive ? "Activo" : "Inactivo")}\n" +
+               $"Objetos en rango: {objectsInRange}\n" +
+               $"√öltima fuerza calculada: {lastForceCalculation:F2}\n" +
+               $"Radios: Core={coreRadius:F1}, Horizon={eventHorizonRadius:F1}, Max={maxEffectDistance:F1}";
+    }
+
+    #endregion
 }

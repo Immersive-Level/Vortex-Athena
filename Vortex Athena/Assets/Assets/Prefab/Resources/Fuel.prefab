@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 4908448291456769018}
   - component: {fileID: -8649505946164484562}
   - component: {fileID: 2379534232226853785}
-  m_Layer: 0
+  - component: {fileID: 4862527830493524961}
+  m_Layer: 7
   m_Name: Fuel
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -128,6 +129,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canBeAffected: 1
   attractionResistance: 0.1
-  canBeAffected: 1
-  isWithinEventHorizon: 0
+  maxVelocityFromBlackHole: 50
+  _isWithinEventHorizon: 0
+  currentAttractionForce: {x: 0, y: 0}
+  onEnterEventHorizon:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitEventHorizon:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyedByBlackHole:
+    m_PersistentCalls:
+      m_Calls: []
+  debugMode: 0
+--- !u!58 &4862527830493524961
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315523300840096549}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.745

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2681947470832607077}
   - component: {fileID: 5403765935550118423}
   - component: {fileID: 8760876180762124774}
-  m_Layer: 0
+  - component: {fileID: 6309810847166660952}
+  m_Layer: 7
   m_Name: Point
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -128,6 +129,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canBeAffected: 1
   attractionResistance: 0.1
-  canBeAffected: 1
-  isWithinEventHorizon: 0
+  maxVelocityFromBlackHole: 50
+  _isWithinEventHorizon: 0
+  currentAttractionForce: {x: 0, y: 0}
+  onEnterEventHorizon:
+    m_PersistentCalls:
+      m_Calls: []
+  onExitEventHorizon:
+    m_PersistentCalls:
+      m_Calls: []
+  onDestroyedByBlackHole:
+    m_PersistentCalls:
+      m_Calls: []
+  debugMode: 0
+--- !u!58 &6309810847166660952
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421371012202734267}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.825

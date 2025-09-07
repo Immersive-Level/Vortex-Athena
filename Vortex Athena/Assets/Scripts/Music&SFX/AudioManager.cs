@@ -1,178 +1,160 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 
-[AddComponentMenu("Audio/AudioManager")]
+/// <summary>
+/// Núcleo de mezcla: SOLO gestiona el AudioMixer, grupos y volúmenes.
+/// No reproduce nada. Otros sistemas (Música, SFX, VO, Ambientes) deben
+/// usar sus propios scripts y ruteo hacia estos grupos.
+/// </summary>
+[AddComponentMenu("Audio/AudioManager (Mixer Core)")]
 [DisallowMultipleComponent]
 public class AudioManager : MonoBehaviour
 {
-    // =======================
-    // CONFIGURACIÓN GENERAL
-    // =======================
+    // ====== Singleton (opcional, útil si lo usas desde varias escenas) ======
+    public static AudioManager Instance { get; private set; }
 
+    [Header("Ciclo de vida")]
+    [Tooltip("Mantener una única instancia y no destruir al cambiar de escena.")]
+    public bool useSingleton = true;
+    public bool dontDestroyOnLoad = true;
+
+    // ====== Mixer y parámetros expuestos (dB) ======
     [Header("Mixer (asset)")]
-    [Tooltip("Arrastra aquí tu asset 'AudioMixer' desde el Project.")]
-    public AudioMixer mixer;                 // AudioMixer 
+    [Tooltip("Arrastra aquí tu asset 'AudioMixer'.")]
+    public AudioMixer mixer;
 
-    [Header("Nombres de parámetros EXPUESTOS en el Mixer (dB)")]
-    [Tooltip("Parámetro expuesto en MASTER (ej: MasterVol)")]
+    [Header("Parámetros EXPUESTOS en el Mixer (dB)")]
+    [Tooltip("Nombre del parámetro expuesto para MASTER (p.ej. 'MasterVol').")]
     public string masterParam = "MasterVol";
-    [Tooltip("Parámetro expuesto en el grupo MUS (ej: MUSVol)")]
+    [Tooltip("Nombre del parámetro expuesto para MUS (p.ej. 'MUSVol').")]
     public string musParam = "MUSVol";
-    [Tooltip("Parámetro expuesto en el grupo SFX (ej: SFXVol)")]
+    [Tooltip("Nombre del parámetro expuesto para SFX (p.ej. 'SFXVol').")]
     public string sfxParam = "SFXVol";
-    [Tooltip("Parámetro expuesto en el grupo AX (ambiente)")]
+    [Tooltip("Nombre del parámetro expuesto para AX (p.ej. 'AXVol').")]
     public string axParam = "AXVol";
-    [Tooltip("Parámetro expuesto en el grupo UI")]
+    [Tooltip("Nombre del parámetro expuesto para UI (p.ej. 'UIVol').")]
     public string uiParam = "UIVol";
-    [Tooltip("Parámetro expuesto en el grupo VO (voice-over)")]
+    [Tooltip("Nombre del parámetro expuesto para VO (p.ej. 'VOVol').")]
     public string voParam = "VOVol";
 
-    [Header("Salidas del Mixer (opcional pero recomendado)")]
-    [Tooltip("Grupo MUS del AudioMixer (para música).")]
+    // ====== Grupos para ruteo ======
+    [Header("Grupos del Mixer (para ruteo desde otros sistemas)")]
     public AudioMixerGroup MUS;
-    [Tooltip("Grupo SFX del AudioMixer (para efectos).")]
     public AudioMixerGroup SFX;
-    [Tooltip("Grupo AX del AudioMixer (ambiente).")]
     public AudioMixerGroup AX;
-    [Tooltip("Grupo UI del AudioMixer (sonidos de interfaz).")]
     public AudioMixerGroup UI;
-    [Tooltip("Grupo VO del AudioMixer (locuciones).")]
     public AudioMixerGroup VO;
 
-    [Header("Pool de SFX")]
-    [Tooltip("Cantidad de AudioSources para reproducir efectos en paralelo.")]
-    public int sfxPoolSize = 8;
+    // ====== Persistencia (opcional) ======
+    [Header("Persistencia (opcional)")]
+    [Tooltip("Al activarlo, guarda/carga volúmenes en PlayerPrefs.")]
+    public bool persistVolumes = false;
 
-    // =======================
-    // CAMPOS INTERNOS
-    // =======================
+    // Claves de PlayerPrefs (por si quieres cambiarlas)
+    const string K_MASTER = "vol_master";
+    const string K_MUS = "vol_mus";
+    const string K_SFX = "vol_sfx";
+    const string K_AX = "vol_ax";
+    const string K_UI = "vol_ui";
+    const string K_VO = "vol_vo";
 
-    private AudioSource musicSrc;          // fuente dedicada a música (loop)
-    private List<AudioSource> sfxPool;     // fuentes reutilizables para SFX
-
-    // =======================
-    // CICLO DE VIDA
-    // =======================
-
+    // =========================================================
+    // Ciclo de vida
+    // =========================================================
     private void Awake()
     {
-        // --- Fuente para música (loop infinito, 2D) ---
-        musicSrc = gameObject.AddComponent<AudioSource>();
-        musicSrc.playOnAwake = false;
-        musicSrc.loop = true;
-        musicSrc.spatialBlend = 0f;              // 0 = 2D
-        if (MUS != null) musicSrc.outputAudioMixerGroup = MUS;
-
-        // --- Pool de SFX (varias fuentes 2D) ---
-        sfxPool = new List<AudioSource>(sfxPoolSize);
-        for (int i = 0; i < sfxPoolSize; i++)
+        // Singleton básico (opcional)
+        if (useSingleton)
         {
-            var child = new GameObject("SFX_" + i);
-            child.transform.SetParent(transform);
-            var src = child.AddComponent<AudioSource>();
-            src.playOnAwake = false;
-            src.loop = false;
-            src.spatialBlend = 0f;               // efectos 2D en sandbox
-            if (SFX != null) src.outputAudioMixerGroup = SFX;
-            sfxPool.Add(src);
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
         }
 
-        // Valores por defecto (lineal 0..1). El método convierte a dB.
-        SetMasterVolume(1f);
-        SetMUSVolume(1f);
-        SetSFXVolume(1f);
-        SetAXVolume(1f);
-        SetUIVolume(1f);
-        SetVOVolume(1f);
+        // Inicializa volúmenes (1.0f = 0 dB)
+        if (persistVolumes)
+        {
+            SetMasterVolume(PlayerPrefs.GetFloat(K_MASTER, 1f));
+            SetMUSVolume(PlayerPrefs.GetFloat(K_MUS, 1f));
+            SetSFXVolume(PlayerPrefs.GetFloat(K_SFX, 1f));
+            SetAXVolume(PlayerPrefs.GetFloat(K_AX, 1f));
+            SetUIVolume(PlayerPrefs.GetFloat(K_UI, 1f));
+            SetVOVolume(PlayerPrefs.GetFloat(K_VO, 1f));
+        }
+        else
+        {
+            SetMasterVolume(1f);
+            SetMUSVolume(1f);
+            SetSFXVolume(1f);
+            SetAXVolume(1f);
+            SetUIVolume(1f);
+            SetVOVolume(1f);
+        }
     }
 
-    // =======================
-    // API: MÚSICA
-    // =======================
+    // =========================================================
+    // API de volúmenes (0..1 → dB). Úsalos desde sliders/UI.
+    // =========================================================
+    public void SetMasterVolume(float v) => SetDb(masterParam, v, persistVolumes ? K_MASTER : null);
+    public void SetMUSVolume(float v) => SetDb(musParam, v, persistVolumes ? K_MUS : null);
+    public void SetSFXVolume(float v) => SetDb(sfxParam, v, persistVolumes ? K_SFX : null);
+    public void SetAXVolume(float v) => SetDb(axParam, v, persistVolumes ? K_AX : null);
+    public void SetUIVolume(float v) => SetDb(uiParam, v, persistVolumes ? K_UI : null);
+    public void SetVOVolume(float v) => SetDb(voParam, v, persistVolumes ? K_VO : null);
 
     /// <summary>
-    /// Reproduce un clip de música en loop (canal MUS).
-    /// Llamar con un botón de prueba desde UI.
+    /// Devuelve el volumen actual (0..1) leyendo del Mixer. Útil para inicializar sliders.
     /// </summary>
-    public void PlayMusic(AudioClip clip, float volume = 1f, float pitch = 1f)
+    public float GetVolumeLinear(string exposedParam, float fallback = 1f)
     {
-        if (clip == null) return;
-        musicSrc.clip = clip;
-        musicSrc.volume = Mathf.Clamp01(volume);
-        musicSrc.pitch = pitch;
-        musicSrc.Play();
+        if (mixer == null || string.IsNullOrEmpty(exposedParam)) return fallback;
+        if (mixer.GetFloat(exposedParam, out float dB))
+        {
+            // inversa de 20*log10(x)
+            float lin = Mathf.Pow(10f, dB / 20f);
+            return Mathf.Clamp01(lin);
+        }
+        return fallback;
     }
 
-    /// <summary>Detiene la música actual.</summary>
-    public void StopMusic() => musicSrc.Stop();
+    // Helpers específicos (por comodidad)
+    public float GetMasterVolume() => GetVolumeLinear(masterParam);
+    public float GetMUSVolume() => GetVolumeLinear(musParam);
+    public float GetSFXVolume() => GetVolumeLinear(sfxParam);
+    public float GetAXVolume() => GetVolumeLinear(axParam);
+    public float GetUIVolume() => GetVolumeLinear(uiParam);
+    public float GetVOVolume() => GetVolumeLinear(voParam);
 
-    // =======================
-    // API: EFECTOS (SFX)
-    // =======================
+    // =========================================================
+    // API de ruteo: grupos del Mixer para otros sistemas
+    // =========================================================
+    public AudioMixerGroup GetMUSGroup() => MUS;
+    public AudioMixerGroup GetSFXGroup() => SFX;
+    public AudioMixerGroup GetAXGroup() => AX;
+    public AudioMixerGroup GetUIGroup() => UI;
+    public AudioMixerGroup GetVOGroup() => VO;
 
-    /// <summary>
-    /// Reproduce un SFX una sola vez (no bloquea otros, usa el pool).
-    /// Ideal para asignar directo desde botones en sandbox.
-    /// </summary>
-    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f)
+    // =========================================================
+    // Internos: conversión lineal↔dB y guardado
+    // =========================================================
+    void SetDb(string exposedParam, float linear01, string prefsKeyOrNull)
     {
-        if (clip == null) return;
-        var src = GetFreeSFXSource();
-        src.outputAudioMixerGroup = SFX ?? src.outputAudioMixerGroup; // por si no se asignó
-        src.volume = Mathf.Clamp01(volume);
-        src.pitch = pitch;
-        src.PlayOneShot(clip, src.volume);
-    }
+        if (mixer != null && !string.IsNullOrEmpty(exposedParam))
+        {
+            float clamped = Mathf.Clamp(linear01, 0.0001f, 1f); // evita -∞ dB
+            float dB = Mathf.Log10(clamped) * 20f;              // 1.0 → 0 dB, 0.5 → ~-6 dB
+            mixer.SetFloat(exposedParam, dB);
+        }
 
-    /// <summary>
-    /// Reproduce un SFX en una posición del mundo (para pruebas 3D rápidas).
-    /// </summary>
-    public void PlaySFXAt(AudioClip clip, Vector3 worldPos, float volume = 1f, float pitch = 1f)
-    {
-        if (clip == null) return;
-        var src = GetFreeSFXSource();
-        src.transform.position = worldPos;
-        src.spatialBlend = 1f; // 3D
-        src.outputAudioMixerGroup = SFX ?? src.outputAudioMixerGroup;
-        src.volume = Mathf.Clamp01(volume);
-        src.pitch = pitch;
-        src.PlayOneShot(clip, src.volume);
-        src.spatialBlend = 0f; // volver a 2D para siguientes
-    }
-
-    // =======================
-    // API: VOLUMEN (sliders 0..1)
-    // =======================
-
-    public void SetMasterVolume(float v) => SetDb(masterParam, v);
-    public void SetMUSVolume(float v) => SetDb(musParam, v);
-    public void SetSFXVolume(float v) => SetDb(sfxParam, v);
-    public void SetAXVolume(float v) => SetDb(axParam, v);
-    public void SetUIVolume(float v) => SetDb(uiParam, v);
-    public void SetVOVolume(float v) => SetDb(voParam, v);
-
-    // =======================
-    // UTILIDADES INTERNAS
-    // =======================
-
-    private AudioSource GetFreeSFXSource()
-    {
-        // Busca una fuente libre; si todas están ocupadas, reutiliza la primera.
-        foreach (var s in sfxPool) if (!s.isPlaying) return s;
-        return sfxPool[0];
-    }
-
-    /// <summary>
-    /// Convierte un valor lineal [0..1] a dB y lo aplica al parámetro EXPUESTO del mixer.
-    /// 1.0 → 0 dB (unidad). 0.5 → ~-6 dB. Valores cercanos a 0 → muy atenuados.
-    /// </summary>
-    private void SetDb(string exposedParam, float linear01)
-    {
-        if (mixer == null || string.IsNullOrEmpty(exposedParam)) return;
-        float clamped = Mathf.Clamp(linear01, 0.0001f, 1f);
-        float dB = Mathf.Log10(clamped) * 20f;
-        mixer.SetFloat(exposedParam, dB);
+        if (!string.IsNullOrEmpty(prefsKeyOrNull))
+        {
+            PlayerPrefs.SetFloat(prefsKeyOrNull, Mathf.Clamp01(linear01));
+            PlayerPrefs.Save();
+        }
     }
 }
 

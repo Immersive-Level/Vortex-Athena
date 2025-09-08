@@ -662,6 +662,8 @@ GameObject:
   - component: {fileID: 435906939}
   - component: {fileID: 435906938}
   - component: {fileID: 435906937}
+  - component: {fileID: 435906941}
+  - component: {fileID: 435906940}
   m_Layer: 5
   m_Name: Choque nave
   m_TagString: Untagged
@@ -771,6 +773,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435906935}
   m_CullTransparentMesh: 1
+--- !u!114 &435906940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435906935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67197e5179c93c449a2dddd9132c7c29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outputGroup: {fileID: -1665101134238203026, guid: 2831f5ca72a7940468063f255460dbe8, type: 2}
+  layerAEnabled: 1
+  clipsA:
+  - {fileID: 8300000, guid: ec76f9b0807acc04584597cb35589756, type: 3}
+  - {fileID: 8300000, guid: 0cbee20c09d125e40a503a182c55bc82, type: 3}
+  - {fileID: 8300000, guid: 2bd99ff1dfc1e4d4ba40411400879c6a, type: 3}
+  volumeA: 1
+  layerBEnabled: 1
+  clipsB:
+  - {fileID: 8300000, guid: 476640b7fd8b16a41ae08b0b44c30090, type: 3}
+  - {fileID: 8300000, guid: 0aee59611a7f6884b805837b1b9235a9, type: 3}
+  - {fileID: 8300000, guid: ef7587c702bec86478a4c6aeaaafe330, type: 3}
+  volumeB: 1
+  randomPitch: 1
+  pitchSemitoneMin: -1
+  pitchSemitoneMax: 1
+  useLogFade: 0
+  fadeOutSeconds: 0.12
+  fadeEndDb: -80
+--- !u!114 &435906941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435906935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 435906940}
+          m_TargetAssemblyTypeName: AudioSFX, Assembly-CSharp
+          m_MethodName: OnThrustPressed
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &481095845
 GameObject:
   m_ObjectHideFlags: 0
@@ -3158,6 +3220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1877565040}
   - component: {fileID: 1877565041}
+  - component: {fileID: 1877565042}
   m_Layer: 5
   m_Name: MUS Batalla
   m_TagString: Untagged
@@ -3232,8 +3295,55 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1877565042}
+        m_TargetAssemblyTypeName: MusicTrackSections, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
+--- !u!114 &1877565042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877565039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61bc8dea6e1570548a36aeb58060f593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outputGroup: {fileID: -2133721619201226469, guid: 2831f5ca72a7940468063f255460dbe8, type: 2}
+  clip: {fileID: 8300000, guid: 83de0c5be79bdd44b89a5e5ea6da4eb1, type: 3}
+  intro:
+    enabled: 1
+    start: 0
+    end: 30
+  loop:
+    enabled: 1
+    start: 30
+    end: 138
+  loopRepeat: 1
+  outro:
+    enabled: 0
+    start: 0
+    end: 0
+  crossfadeBetweenSections: 1
+  crossfadeSectionsSeconds: 1.171
+  crossfadeLoopRepeats: 1
+  crossfadeLoopSeconds: 2
+  playOnStart: 0
+  volume: 0.705
+  scheduleLookAhead: 0.1
+  debugLogs: 1
 --- !u!1 &1916669039
 GameObject:
   m_ObjectHideFlags: 0

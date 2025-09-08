@@ -366,30 +366,38 @@ public class MusicSectionsPlayer : MonoBehaviour
     float Duration(Section sec) => Mathf.Max(0f, sec.end - sec.start);
 
     // Crossfade en tiempo real, alineado al DSP
+    // Reemplaza tu método actual por este:
     IEnumerator CrossfadeAt(double dspStart, AudioSource from, AudioSource to, float seconds)
     {
-        // Espera al instante de inicio
+        // Espera el instante DSP en el que debe comenzar el crossfade
         while (AudioSettings.dspTime < dspStart) yield return null;
 
-        // Fade simultáneo
-        float t = 0f;
-        float fromStart = from != null ? from.volume : 1f;
-        float toStart = to != null ? to.volume : 0f;
+        // Asegura estados iniciales
+        float fromStart = (from != null) ? from.volume : 0f;
+        float targetVol = volume;
+        if (to != null) to.volume = 0f; // el entrante arranca desde 0
 
+        float t = 0f;
         while (t < seconds)
         {
             t += Time.unscaledDeltaTime;
             float k = Mathf.Clamp01(t / seconds);
 
-            if (from != null) from.volume = Mathf.Lerp(fromStart, 0f, k);
-            if (to != null) to.volume = Mathf.Lerp(toStart, volume, k);
+            // Constant-power (ley cos/sin):
+            // a: 1→0 para el que sale, b: 0→1 para el que entra
+            float a = Mathf.Cos(k * 0.5f * Mathf.PI);
+            float b = Mathf.Sin(k * 0.5f * Mathf.PI);
+
+            if (from != null) from.volume = fromStart * a;
+            if (to != null) to.volume = targetVol * b;
 
             yield return null;
         }
 
         if (from != null) from.volume = 0f;
-        if (to != null) to.volume = volume;
+        if (to != null) to.volume = targetVol;
     }
+
 
     // Sanear/validar rangos en segundos
     void SanitizeAll()

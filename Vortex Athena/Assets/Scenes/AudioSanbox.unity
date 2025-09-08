@@ -799,8 +799,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef7587c702bec86478a4c6aeaaafe330, type: 3}
   volumeB: 1
   randomPitch: 1
-  pitchSemitoneMin: -1
-  pitchSemitoneMax: 1
+  pitchSemitoneMin: 5
+  pitchSemitoneMax: 8
   useLogFade: 0
   fadeOutSeconds: 0.12
   fadeEndDb: -80
@@ -3336,7 +3336,7 @@ MonoBehaviour:
     enabled: 0
     start: 0
     end: 0
-  crossfadeBetweenSections: 1
+  crossfadeBetweenSections: 0
   crossfadeSectionsSeconds: 1.171
   crossfadeLoopRepeats: 1
   crossfadeLoopSeconds: 2

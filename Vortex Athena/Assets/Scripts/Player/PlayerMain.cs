@@ -13,6 +13,9 @@ public class PlayerData
 
 public class PlayerMain : MonoBehaviour
 {
+    public bool isMultiplayer; //solo por ahora, mientras se migran todos los sistemas y local se vuelve una sala privada de fusion
+    private MultiplayerShipFuelSetup MultiplayerShipFuelSetup;
+
     public PlayerData data;
     public GameObject ObjetoNave;
 
@@ -31,6 +34,14 @@ public class PlayerMain : MonoBehaviour
 
     private void Awake()
     {
+        if (isMultiplayer)
+        {
+            MultiplayerShipFuelSetup = (MultiplayerShipFuelSetup)FindAnyObjectByType(typeof(MultiplayerShipFuelSetup));
+            if (MultiplayerShipFuelSetup)
+                Debug.Log("Initiating Ship-Fuel setup");
+            ShipInputController = MultiplayerShipFuelSetup.ShipInputController;
+        }
+
         // Validación de componentes críticos
         ValidateComponents();
     }

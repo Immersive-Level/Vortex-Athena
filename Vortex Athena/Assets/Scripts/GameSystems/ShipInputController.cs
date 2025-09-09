@@ -116,6 +116,13 @@ namespace GameSystems
             }
         }
 
+        public void SetScriptReferences(FuelManager FuelManager, ShipController ShipController, UnifiedDeathManager UnifiedDeathManager)
+        {
+            fuelManager = FuelManager;
+            shipController = ShipController;
+            deathManager = UnifiedDeathManager;
+        }
+
         private IEnumerator CheckGameStarted(InicioNave inicioNave)
         {
             while (!gameStarted)
@@ -150,7 +157,6 @@ namespace GameSystems
             var myInput = new NetworkInputData();
 
             myInput.IsPressing = isPressing;
-            Debug.Log("Networkinput state: " + myInput.IsPressing);
 
             input.Set(myInput);
         }

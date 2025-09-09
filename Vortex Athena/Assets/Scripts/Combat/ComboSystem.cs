@@ -120,4 +120,9 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         morseDisplayText.text = "";
         morseDisplayText.color = Color.white;
     }
+
+    public void SetAbilityManager(AbilityManager AbilityManager)
+    {
+        abilityManager = AbilityManager;
+    }
 }

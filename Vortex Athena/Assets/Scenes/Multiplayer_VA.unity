@@ -2245,6 +2245,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3035273222270905497, guid: 78753f72f09957741ab2fc55cef31a20, type: 3}
+      propertyPath: RunButton
+      value: 
+      objectReference: {fileID: 1930008721}
+    - target: {fileID: 3035273222270905497, guid: 78753f72f09957741ab2fc55cef31a20, type: 3}
+      propertyPath: ComboSystem
+      value: 
+      objectReference: {fileID: 1930008720}
+    - target: {fileID: 3035273222270905497, guid: 78753f72f09957741ab2fc55cef31a20, type: 3}
       propertyPath: ShipInputController
       value: 
       objectReference: {fileID: 1227342445}
@@ -3666,6 +3674,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6686215778732152954, guid: 29c6b5463fe97044180eb626bf781729, type: 3}
   m_PrefabInstance: {fileID: 8923056431530387880}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1930008720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4217657168790742491, guid: 78753f72f09957741ab2fc55cef31a20, type: 3}
+  m_PrefabInstance: {fileID: 1227342443}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624e840728d0ff945997c7653b355ff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1930008721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 575709246236196225, guid: 78753f72f09957741ab2fc55cef31a20, type: 3}
+  m_PrefabInstance: {fileID: 1227342443}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1965415829
 GameObject:
   m_ObjectHideFlags: 0
@@ -4613,6 +4643,10 @@ PrefabInstance:
     - target: {fileID: 5540546648156991507, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859687622106229307, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
+      propertyPath: isMultiplayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8596552038590240582, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
       propertyPath: m_LocalPosition.z

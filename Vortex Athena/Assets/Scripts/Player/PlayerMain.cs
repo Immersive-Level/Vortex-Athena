@@ -3,6 +3,7 @@ using System;
 using GameSystems; // Para acceder a los nuevos sistemas
 using Newtonsoft.Json.Linq;
 using UnityEngine.UIElements;
+using Fusion;
 
 [Serializable]
 public class PlayerData
@@ -39,7 +40,9 @@ public class PlayerMain : MonoBehaviour
             MultiplayerShipFuelSetup = (MultiplayerShipFuelSetup)FindAnyObjectByType(typeof(MultiplayerShipFuelSetup));
             if (MultiplayerShipFuelSetup)
                 Debug.Log("Initiating Ship-Fuel setup");
-            ShipInputController = MultiplayerShipFuelSetup.ShipInputController;
+            ShipInputController = InicioNave.shipInputController = UnifiedDeathManager.inputController = MultiplayerShipFuelSetup.ShipInputController;
+
+            MultiplayerShipFuelSetup.GetPlayerShipScripts(FuelManager, ShipController, UnifiedDeathManager, AbilityManager);
         }
 
         // Validación de componentes críticos

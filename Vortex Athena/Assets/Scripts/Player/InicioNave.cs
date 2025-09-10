@@ -23,8 +23,8 @@ public class InicioNave : MonoBehaviour
 
     [Header("Referencias")]
     [SerializeField] private BlackHoleAttractionManager blackHoleManager;
-    [SerializeField] private ShipInputController shipInputController;
-
+    [SerializeField] public ShipInputController shipInputController;
+    
     // Estado
     private bool juegoIniciado = false;
     public bool JuegoIniciado => juegoIniciado;
@@ -36,6 +36,7 @@ public class InicioNave : MonoBehaviour
             GameManager.Instance.RegisterShip(nave);
             //nave.SetActive(false);
         }
+
     }
 
     /// <summary>
@@ -189,5 +190,8 @@ public class InicioNave : MonoBehaviour
     }
 
     void OnDisable() => DesregistrarDeBlackHole();
-    void OnDestroy() => DesregistrarDeBlackHole();
+    void OnDestroy() 
+    {
+        DesregistrarDeBlackHole();
+    } 
 }

@@ -2,13 +2,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using System.Collections;
+using Fusion;
 
 namespace GameSystems
 {
+    public struct NetworkInputData : INetworkInput
+    {
+        public NetworkBool IsPressing;
+    }
+
     /// <summary>
     /// Controlador de input para la nave - Reemplaza Boton.cs
     /// FIXED: Auto-gestiona su estado visual, NUNCA se oculta
     /// </summary>
+    /// 
+
     public class ShipInputController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public enum ButtonState
@@ -108,6 +116,13 @@ namespace GameSystems
             }
         }
 
+        public void SetScriptReferences(FuelManager FuelManager, ShipController ShipController, UnifiedDeathManager UnifiedDeathManager)
+        {
+            fuelManager = FuelManager;
+            shipController = ShipController;
+            deathManager = UnifiedDeathManager;
+        }
+
         private IEnumerator CheckGameStarted(InicioNave inicioNave)
         {
             while (!gameStarted)
@@ -123,11 +138,27 @@ namespace GameSystems
 
         private void OnEnable()
         {
+            NetworkCallbacksHandler.OnPlayerInputGlobal += HandleInput;
+
             // Asegurar que el botón siempre esté visible
             if (canvasGroup != null)
             {
                 canvasGroup.blocksRaycasts = true;
             }
+        }
+
+        private void OnDisable()
+        {
+            NetworkCallbacksHandler.OnPlayerInputGlobal -= HandleInput;
+        }
+
+        void HandleInput(NetworkInput input)
+        {
+            var myInput = new NetworkInputData();
+
+            myInput.IsPressing = isPressing;
+
+            input.Set(myInput);
         }
 
         /// <summary>

@@ -24,7 +24,7 @@ namespace GameSystems
         [SerializeField] private GameObject shipVisual;
         [SerializeField] private ShipController shipController;
         [SerializeField] private FuelManager fuelManager;
-        [SerializeField] private ShipInputController inputController;
+        [SerializeField] public ShipInputController inputController;
         [SerializeField] private ShipInvulnerability invulnerability;
         [SerializeField] private Rigidbody2D shipRigidbody;
 
@@ -400,6 +400,11 @@ namespace GameSystems
             // Validar referencias críticas
             if (respawnPoint == null)
                 Debug.LogError("[DeathManager] respawnPoint no asignado!");
+        }
+
+        public void SetInputController(ShipInputController shipInputController)
+        {
+            inputController = shipInputController;
         }
 
         /// <summary>

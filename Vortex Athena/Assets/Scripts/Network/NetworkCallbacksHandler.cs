@@ -9,12 +9,18 @@ public class NetworkCallbacksHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public static event Action<PlayerRef> OnPlayerJoinedGlobal;
     public static event Action<PlayerRef> OnPlayerLeftGlobal;
+    public static event Action<NetworkInput> OnPlayerInputGlobal;
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         NetworkManager.Instance?.HandlePlayerJoined(player);
         OnPlayerJoinedGlobal?.Invoke(player);
 
+    }
+
+    public void OnInput(NetworkRunner runner, NetworkInput input) 
+    {
+        OnPlayerInputGlobal?.Invoke(input);
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
@@ -36,7 +42,6 @@ public class NetworkCallbacksHandler : MonoBehaviour, INetworkRunnerCallbacks
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) { }
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data) { }
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
-    public void OnInput(NetworkRunner runner, NetworkInput input) { }
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input) { }
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
     public void OnSceneLoadDone(NetworkRunner runner) { }

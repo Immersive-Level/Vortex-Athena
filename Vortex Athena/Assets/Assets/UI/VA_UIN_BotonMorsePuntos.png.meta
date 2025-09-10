@@ -167,7 +167,7 @@ TextureImporter:
         width: 426
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -189,7 +189,7 @@ TextureImporter:
         width: 426
         height: 92
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -211,7 +211,7 @@ TextureImporter:
         width: 439
         height: 134
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: VA_UIN_BotonMorsePuntos_3
       rect:
         serializedVersion: 2
-        x: 121
-        y: 24
-        width: 19
-        height: 19
+        x: 7
+        y: 0
+        width: 436
+        height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -250,19 +250,19 @@ TextureImporter:
       name: VA_UIN_BotonMorsePuntos_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 31
-        width: 38
-        height: 19
+        x: 313
+        y: 24
+        width: 25
+        height: 26
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6127193968d98daf0800000000000000
+      spriteID: 6b83e266f65bf8943b96511cd945a30b
       internalID: -371373767931104746
       vertices: []
       indices: 
@@ -272,53 +272,9 @@ TextureImporter:
       name: VA_UIN_BotonMorsePuntos_5
       rect:
         serializedVersion: 2
-        x: 209
-        y: 35
-        width: 38
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 98c7dcfaed056b6b0800000000000000
-      internalID: -5280944595682886519
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_6
-      rect:
-        serializedVersion: 2
-        x: 258
+        x: 203
         y: 33
-        width: 39
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7609d2e549ecab390800000000000000
-      internalID: -7801696267835436953
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_7
-      rect:
-        serializedVersion: 2
-        x: 317
-        y: 27
-        width: 19
+        width: 50
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -326,98 +282,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5706f99d31b932f20800000000000000
-      internalID: 3396729053525270645
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_8
-      rect:
-        serializedVersion: 2
-        x: 365
-        y: 19
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ab6de63cc6e50860800000000000000
-      internalID: 7495650919597304741
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_9
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 0
-        width: 19
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 236b75791cfe9c3f0800000000000000
-      internalID: -879908637427386830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_10
-      rect:
-        serializedVersion: 2
-        x: 73
-        y: 14
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5f019e072a8d1ea80800000000000000
-      internalID: -8439226034524974859
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: VA_UIN_BotonMorsePuntos_11
-      rect:
-        serializedVersion: 2
-        x: 412
-        y: 6
-        width: 19
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00be646bd1c5c7b60800000000000000
-      internalID: 7745166741852318464
+      spriteID: be68862d49bf77b468ede0b174c75326
+      internalID: -5280944595682886519
       vertices: []
       indices: 
       edges: []
@@ -426,7 +294,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 25dd0423634346a459b2a2109505ef77
     internalID: 0
     vertices: []
     indices: 

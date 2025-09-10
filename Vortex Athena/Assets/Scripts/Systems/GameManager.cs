@@ -1,34 +1,36 @@
+using Fusion;
+using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public enum GameState
+public enum GameState : byte
 {
     InMenu,
     InGame,
     InGameEnd
 }
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    //[Networked(OnChanged = nameof(OnStateChanged))]
     public GameState CurrentState { get; private set; }
+
+    //[Networked(OnChanged = nameof(OnUseAbilitiesChanged))]
+    public bool UseAbilities { get; private set; }
+
+    [Networked] public float GameDuration { get; private set; }
+    [Networked] private float GameStartTime { get; set; }
+
+    public float Gametime => Runner.SimulationTime - GameStartTime;
+
     public event Action<GameState> OnGameStateChanged;
 
-    [Header("Sistemas hijos")]
-    public ScoreSystem ScoreSystem;
-
     public List<GameObject> NavesActivas { get; private set; } = new();
-
-    [SerializeField] bool isMultiplayer;
     public GameObject TutorialRoot;
 
-    [HideInInspector] public float GameDuration = 60f;
-    private float GameStartTime;
-    public float Gametime { get; private set; }
-    [HideInInspector] public bool UseAbilities = true;
-
+    public ScoreSystem ScoreSystem { get; private set; }
 
     private void Awake()
     {
@@ -41,61 +43,58 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    public override void Spawned()
     {
-        SetState(GameState.InMenu);
-
-        NavesActivas = new List<GameObject>();
-
-        if (TutorialRoot != null)
+        if (Object.HasStateAuthority)
         {
-            if (!isMultiplayer)
-                ToggleTutorial();
-        }
-    }
-
-    private void Update()
-    {
-        if (CurrentState != GameState.InGame)
-        {
-            return;
+            SetState(GameState.InMenu);
         }
 
-        Gametime = Time.time - GameStartTime;
-        if (Gametime >= GameDuration)
+        if (TutorialRoot != null && !Runner.IsSharedModeMasterClient)
         {
-            EndGame();
+            ToggleTutorial();
         }
-    }
-
-    public void SetState(GameState newState)
-    {
-        if (newState == CurrentState) return;
-
-        CurrentState = newState;
-        Debug.Log($"Estado cambiado a: {newState}");
-        OnGameStateChanged?.Invoke(newState);
     }
 
     public void StartGame(float duration, bool abilitiesEnabled)
     {
+        if (!Object.HasStateAuthority) return;
+
         GameDuration = duration;
         UseAbilities = abilitiesEnabled;
-
-        GameStartTime = Time.time;
+        GameStartTime = Runner.SimulationTime;
 
         SetState(GameState.InGame);
     }
 
     public void EndGame()
     {
+        if (!Object.HasStateAuthority) return;
         SetState(GameState.InGameEnd);
     }
 
     public void ReturnToMenu()
     {
+        if (!Object.HasStateAuthority) return;
         SetState(GameState.InMenu);
     }
+
+    public void SetState(GameState newState)
+    {
+        if (!Object.HasStateAuthority || newState == CurrentState) return;
+        CurrentState = newState;
+    }
+
+    //private static void OnStateChanged(Changed<GameManager> changed)
+    //{
+    //    changed.Behaviour.OnGameStateChanged?.Invoke(changed.Behaviour.CurrentState);
+    //    Debug.Log($"Estado cambiado a: {changed.Behaviour.CurrentState}");
+    //}
+
+    //private static void OnUseAbilitiesChanged(Changed<GameManager> changed)
+    //{
+    //    Debug.Log($"UseAbilities cambiado a: {changed.Behaviour.UseAbilities}");
+    //}
 
     public void RegisterShip(GameObject inShip)
     {
@@ -115,14 +114,7 @@ public class GameManager : MonoBehaviour
 
     public void ToggleTutorial()
     {
-        if (Time.timeScale != 0)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
-
-        if (!TutorialRoot.activeInHierarchy)
-            TutorialRoot.SetActive(true);
-        else
-            TutorialRoot.SetActive(false);
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        TutorialRoot.SetActive(!TutorialRoot.activeInHierarchy);
     }
 }

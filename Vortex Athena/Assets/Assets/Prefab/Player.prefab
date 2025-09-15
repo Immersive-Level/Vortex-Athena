@@ -51,7 +51,8 @@ MonoBehaviour:
   usarOrbitaInicial: 1
   orbitaCentro: {fileID: 0}
   sentidoOrbita: 1
-  blackHole: {fileID: 0}
+  blackHoleCore: {fileID: 0}
+  autoFindBlackHole: 1
   shipInputController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
@@ -106,7 +107,6 @@ MonoBehaviour:
   ShipController: {fileID: 0}
   CombatSystem: {fileID: 0}
   PlayerScoreSystem: {fileID: 0}
-  GravitationalObject: {fileID: 0}
   UnifiedDeathManager: {fileID: 0}
   ResourceCollector: {fileID: 0}
   ShipInvulnerability: {fileID: 0}
@@ -766,21 +766,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8452753963668889667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
+  m_Script: {fileID: 11500000, guid: 41e23797bf77c2d4d84a273514850c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityResistance: 1
-  maxGravityVelocity: 50
-  canBeAffected: 1
-  onZoneEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  onZoneExited:
-    m_PersistentCalls:
-      m_Calls: []
-  onAbsorbed:
-    m_PersistentCalls:
-      m_Calls: []
+  gravityMultiplier: 1
+  emergencyThrustMultiplier: 1.5
+  dangerZoneMultiplier: 1.5
+  enableDangerZoneEffects: 1
+  dangerZoneRadius: 8
+  autoEmergencyOnDanger: 0
+  emergencyFuelCost: 2
+  isInGravityField: 0
+  isInDangerZone: 0
+  currentGravityIntensity: 0
+  emergencyThrustActive: 0
 --- !u!114 &5084323159983305511
 MonoBehaviour:
   m_ObjectHideFlags: 0

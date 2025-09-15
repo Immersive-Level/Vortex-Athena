@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4136620485885251413}
   - component: {fileID: 4908448291456769018}
   - component: {fileID: -8649505946164484562}
-  - component: {fileID: 2379534232226853785}
   - component: {fileID: 4862527830493524961}
   m_Layer: 7
   m_Name: Fuel
@@ -102,10 +101,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 50
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -115,32 +114,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2379534232226853785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315523300840096549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravityResistance: 1
-  maxGravityVelocity: 50
-  canBeAffected: 1
-  onZoneEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  onZoneExited:
-    m_PersistentCalls:
-      m_Calls: []
-  onAbsorbed:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!58 &4862527830493524961
 CircleCollider2D:
   m_ObjectHideFlags: 0

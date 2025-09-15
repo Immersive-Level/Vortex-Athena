@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Sistema de generación de recursos alrededor del agujero negro
 /// Maneja el object pooling y la generación de recursos
+/// MODIFICADO: Compatible con el nuevo sistema BlackHoleCore
 /// </summary>
 public class ResourceSpawner : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class ResourceSpawner : MonoBehaviour
     public List<ResourceInfo> resourceInfoList = new List<ResourceInfo>();
 
     [Header("Configuración de Spawning")]
-    [Tooltip("Referencia al agujero negro")]
-    public BlackHole blackHole;
+    [Tooltip("Referencia al agujero negro - NUEVO SISTEMA")]
+    public BlackHoleCore blackHoleCore; // MODIFICADO: Cambiado de BlackHole a BlackHoleCore
 
     [Tooltip("Radio mínimo de generación (desde el agujero negro)")]
     public float minSpawnRadius = 3f;
@@ -48,6 +49,13 @@ public class ResourceSpawner : MonoBehaviour
     [Tooltip("Intervalo para verificar recursos problemáticos (segundos)")]
     public float cleanupInterval = 15f;
 
+    [Header("NUEVO: Configuración del Sistema de Gravedad")]
+    [Tooltip("Prefab del adaptador que conecta recursos con el sistema de gravedad")]
+    public GameObject gravityAdapterPrefab;
+
+    [Tooltip("Añadir automáticamente adaptador de gravedad a recursos sin él")]
+    public bool autoAddGravityAdapter = true;
+
     // Diccionarios para almacenar los pools y recursos activos 
     private Dictionary<ResourceType, Queue<GameObject>> resourcePools = new Dictionary<ResourceType, Queue<GameObject>>();
     private HashSet<GameObject> activeResources = new HashSet<GameObject>();
@@ -60,8 +68,8 @@ public class ResourceSpawner : MonoBehaviour
     private List<ResourceInfo> weightedResourceList;
     private int totalWeight;
 
-    // Referencia al BlackHoleAttractionManager
-    private BlackHoleAttractionManager attractionManager;
+    // MODIFICADO: Referencia al sistema de atracción actualizada
+    // private BlackHoleAttractionManager attractionManager; // REMOVIDO - ya no se usa
 
     // Para la generación de recursos
     private float spawnTimer;
@@ -91,20 +99,20 @@ public class ResourceSpawner : MonoBehaviour
 
     private void Start()
     {
-        // Buscar el agujero negro si no está asignado
-        if (blackHole == null)
+        // MODIFICADO: Buscar el nuevo BlackHoleCore
+        if (blackHoleCore == null)
         {
-            blackHole = FindAnyObjectByType<BlackHole>();
-            if (blackHole == null)
+            blackHoleCore = FindAnyObjectByType<BlackHoleCore>();
+            if (blackHoleCore == null)
             {
-                Debug.LogWarning("ResourceSpawner: No se encontró un BlackHole en la escena.");
+                Debug.LogWarning("ResourceSpawner: No se encontró un BlackHoleCore en la escena.");
                 enabled = false;
                 return;
             }
         }
 
-        // Obtener referencia al BlackHoleAttractionManager
-        attractionManager = BlackHoleAttractionManager.Instance;
+        // MODIFICADO: Ya no necesitamos BlackHoleAttractionManager
+        // attractionManager = BlackHoleAttractionManager.Instance;
 
         // Inicializar los pools
         InitializePools();
@@ -114,6 +122,36 @@ public class ResourceSpawner : MonoBehaviour
 
         // Iniciar limpieza periódica
         InvokeRepeating("CheckAndCleanupResources", cleanupInterval, cleanupInterval);
+
+        // NUEVO: Suscribirse a eventos del agujero negro
+        BlackHoleEvents.ObjectConsumed += OnResourceConsumedByBlackHole;
+    }
+
+    private void OnDestroy()
+    {
+        // NUEVO: Desuscribirse de eventos
+        BlackHoleEvents.ObjectConsumed -= OnResourceConsumedByBlackHole;
+
+        // Limpiar timer al destruir
+        CancelInvoke();
+    }
+
+    // NUEVO: Método para manejar cuando un recurso es consumido por el agujero negro
+    private void OnResourceConsumedByBlackHole(IGravityAffected gravityAffected)
+    {
+        // Verificar si el objeto consumido es un recurso nuestro
+        if (gravityAffected?.Transform != null)
+        {
+            GameObject obj = gravityAffected.Transform.gameObject;
+            CollectibleResource resource = obj.GetComponent<CollectibleResource>();
+
+            if (resource != null && activeResources.Contains(obj))
+            {
+                // Marcar como recolectado y devolver al pool
+                resource.isCollected = true;
+                ReturnToPool(obj);
+            }
+        }
     }
 
     private void Update()
@@ -178,6 +216,7 @@ public class ResourceSpawner : MonoBehaviour
 
     /// <summary>
     /// Crea un objeto recurso con los componentes necesarios
+    /// MODIFICADO: Ahora incluye el adaptador de gravedad
     /// </summary>
     private GameObject CreateResourceObject(ResourceInfo info)
     {
@@ -188,7 +227,30 @@ public class ResourceSpawner : MonoBehaviour
         ConfigureRigidbody(obj);
         ConfigureCollider(obj);
 
+        // NUEVO: Configurar adaptador de gravedad
+        ConfigureGravityAdapter(obj);
+
         return obj;
+    }
+
+    /// <summary>
+    /// NUEVO: Configura el adaptador de gravedad para conectar con BlackHoleCore
+    /// </summary>
+    private void ConfigureGravityAdapter(GameObject obj)
+    {
+        // Verificar si ya tiene un componente de gravedad
+        if (obj.GetComponent<IGravityAffected>() != null)
+            return;
+
+        if (autoAddGravityAdapter)
+        {
+            // Añadir el adaptador específico para recursos
+            CollectibleResourceAdapter adapter = obj.GetComponent<CollectibleResourceAdapter>();
+            if (adapter == null)
+            {
+                adapter = obj.AddComponent<CollectibleResourceAdapter>();
+            }
+        }
     }
 
     /// <summary>
@@ -203,8 +265,7 @@ public class ResourceSpawner : MonoBehaviour
         }
         resource.resourceType = resourceType;
 
-        // --- NUEVO --- garantizar que cada prefab posea el script ResourceLifetime
-
+        // Garantizar que cada prefab posea el script ResourceLifetime
         if (obj.GetComponent<ResourceLifetime>() == null)
             obj.AddComponent<ResourceLifetime>();
     }
@@ -218,7 +279,7 @@ public class ResourceSpawner : MonoBehaviour
         if (rb == null)
         {
             rb = obj.AddComponent<Rigidbody2D>();
-            rb.gravityScale = 0;
+            rb.gravityScale = 0; // IMPORTANTE: Desactivar gravedad de Unity, usamos la del agujero negro
             rb.linearDamping = 0.5f;
         }
     }
@@ -257,6 +318,7 @@ public class ResourceSpawner : MonoBehaviour
 
     /// <summary>
     /// Obtiene un recurso del pool o crea uno nuevo
+    /// MODIFICADO: Actualizado para el nuevo sistema de gravedad
     /// </summary>
     private GameObject GetResourceFromPool(ResourceType resourceType)
     {
@@ -300,15 +362,9 @@ public class ResourceSpawner : MonoBehaviour
             // Activar el objeto (esto disparará OnEnable en CollectibleResource)
             obj.SetActive(true);
 
-            // Registrar con el BlackHoleAttractionManager
-            if (attractionManager != null)
-            {
-                AffectedByBlackHole affected = obj.GetComponent<AffectedByBlackHole>();
-                if (affected != null)
-                {
-                    attractionManager.RegisterAffectableObject(affected);
-                }
-            }
+            // MODIFICADO: El registro con el sistema de gravedad es automático
+            // cuando el objeto entra en el trigger del BlackHoleCore
+            // Ya no necesitamos registrar manualmente con BlackHoleAttractionManager
 
             // Agregar a activos
             activeResources.Add(obj);
@@ -319,6 +375,7 @@ public class ResourceSpawner : MonoBehaviour
 
     /// <summary>
     /// Devuelve un recurso al pool
+    /// MODIFICADO: Actualizado para el nuevo sistema
     /// </summary>
     public void ReturnToPool(GameObject obj)
     {
@@ -330,15 +387,8 @@ public class ResourceSpawner : MonoBehaviour
         // Remover de recursos activos
         activeResources.Remove(obj);
 
-        // Desregistrar del BlackHoleAttractionManager
-        if (attractionManager != null)
-        {
-            AffectedByBlackHole affected = obj.GetComponent<AffectedByBlackHole>();
-            if (affected != null && attractionManager != null)
-            {
-                attractionManager.UnregisterAffectableObject(affected);
-            }
-        }
+        // MODIFICADO: Ya no necesitamos desregistrar manualmente del sistema de atracción
+        // El BlackHoleCore maneja esto automáticamente cuando el objeto se desactiva
 
         // Obtener tipo de recurso
         CollectibleResource resource = obj.GetComponent<CollectibleResource>();
@@ -350,9 +400,20 @@ public class ResourceSpawner : MonoBehaviour
 
         ResourceType resourceType = resource.resourceType;
 
+        // Resetear estado del recurso
+        resource.isCollected = false;
+
         // Desactivar y mover al contenedor
         obj.SetActive(false);
         obj.transform.SetParent(poolContainer);
+
+        // Resetear física
+        Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
 
         // Añadir al pool correspondiente
         if (!resourcePools.ContainsKey(resourceType))
@@ -365,18 +426,23 @@ public class ResourceSpawner : MonoBehaviour
 
     /// <summary>
     /// Genera un recurso en posición aleatoria
+    /// MODIFICADO: Usa BlackHoleCore en lugar de BlackHole
     /// </summary>
     private void SpawnResource()
     {
-        if (blackHole == null) return;
+        if (blackHoleCore == null) return;
 
         // Generar posición aleatoria
         Vector2 randomDirection = Random.insideUnitCircle.normalized;
         float randomDistance = Random.Range(minSpawnRadius, maxSpawnRadius);
-        tempSpawnPosition = blackHole.transform.position + new Vector3(randomDirection.x, randomDirection.y, 0) * randomDistance;
+        tempSpawnPosition = blackHoleCore.transform.position + new Vector3(randomDirection.x, randomDirection.y, 0) * randomDistance;
 
         // Verificar obstáculos
         if (Physics2D.OverlapCircle(tempSpawnPosition, 1f, obstacleLayer)) return;
+
+        // NUEVO: Verificar que no esté muy cerca del horizonte de eventos
+        float distanceToCenter = Vector2.Distance(tempSpawnPosition, blackHoleCore.Position);
+        if (distanceToCenter <= blackHoleCore.EventHorizonRadius * 1.5f) return;
 
         // Obtener recurso y configurarlo
         GameObject resource = GetRandomResource();
@@ -472,12 +538,35 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
+    // NUEVO: Métodos públicos para configuración dinámica del agujero negro
+    public void SetBlackHoleReference(BlackHoleCore newBlackHole)
+    {
+        blackHoleCore = newBlackHole;
+    }
+
+    public void AdjustSpawnRadiusBasedOnBlackHole()
+    {
+        if (blackHoleCore == null) return;
+
+        // Ajustar radios basándose en la intensidad del agujero negro
+        float intensity = blackHoleCore.CurrentIntensity;
+        float baseMin = 3f;
+        float baseMax = 5f;
+
+        minSpawnRadius = baseMin + (intensity - 1f) * 2f;
+        maxSpawnRadius = baseMax + (intensity - 1f) * 3f;
+
+        // Asegurar que el mínimo no sea menor que el horizonte de eventos
+        minSpawnRadius = Mathf.Max(minSpawnRadius, blackHoleCore.EventHorizonRadius * 2f);
+    }
+
     // Visualizar radios de spawn en el editor
+    // MODIFICADO: Usa BlackHoleCore
     private void OnDrawGizmosSelected()
     {
-        if (blackHole == null) return;
+        if (blackHoleCore == null) return;
 
-        Vector3 center = blackHole.transform.position;
+        Vector3 center = blackHoleCore.transform.position;
 
         // Radio mínimo
         Gizmos.color = new Color(0.2f, 0.8f, 0.2f, 0.3f);
@@ -486,11 +575,9 @@ public class ResourceSpawner : MonoBehaviour
         // Radio máximo
         Gizmos.color = new Color(0.8f, 0.2f, 0.2f, 0.3f);
         Gizmos.DrawWireSphere(center, maxSpawnRadius);
-    }
 
-    private void OnDestroy()
-    {
-        // Limpiar timer al destruir
-        CancelInvoke();
+        // NUEVO: Mostrar zona de peligro (horizonte de eventos)
+        Gizmos.color = new Color(1f, 0f, 0f, 0.8f);
+        Gizmos.DrawWireSphere(center, blackHoleCore.EventHorizonRadius);
     }
 }

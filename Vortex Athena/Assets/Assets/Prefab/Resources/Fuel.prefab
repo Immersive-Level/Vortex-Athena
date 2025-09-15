@@ -126,24 +126,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 315523300840096549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _canBeAffected: 1
-  attractionResistance: 0.1
-  maxVelocityFromBlackHole: 50
-  _isWithinEventHorizon: 0
-  currentAttractionForce: {x: 0, y: 0}
-  onEnterEventHorizon:
+  gravityResistance: 1
+  maxGravityVelocity: 50
+  canBeAffected: 1
+  onZoneEntered:
     m_PersistentCalls:
       m_Calls: []
-  onExitEventHorizon:
+  onZoneExited:
     m_PersistentCalls:
       m_Calls: []
-  onDestroyedByBlackHole:
+  onAbsorbed:
     m_PersistentCalls:
       m_Calls: []
-  debugMode: 0
 --- !u!58 &4862527830493524961
 CircleCollider2D:
   m_ObjectHideFlags: 0

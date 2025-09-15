@@ -48,7 +48,10 @@ MonoBehaviour:
   impulsoInicial: 2
   direccionImpulso: {x: 1, y: 1}
   combustibleInicial: 100
-  blackHoleManager: {fileID: 0}
+  usarOrbitaInicial: 1
+  orbitaCentro: {fileID: 0}
+  sentidoOrbita: 1
+  blackHole: {fileID: 0}
   shipInputController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
@@ -99,6 +102,17 @@ MonoBehaviour:
   data:
     Name: Player 1
   ObjetoNave: {fileID: 8452753963668889667}
+  InicioNave: {fileID: 0}
+  ShipController: {fileID: 0}
+  CombatSystem: {fileID: 0}
+  PlayerScoreSystem: {fileID: 0}
+  GravitationalObject: {fileID: 0}
+  UnifiedDeathManager: {fileID: 0}
+  ResourceCollector: {fileID: 0}
+  ShipInvulnerability: {fileID: 0}
+  FuelManager: {fileID: 0}
+  ShipInputController: {fileID: 0}
+  AbilityManager: {fileID: 0}
 --- !u!1 &4200900407060640552
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +447,8 @@ MonoBehaviour:
   type: 0
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
+  deathManager: {fileID: 0}
+  fuelManager: {fileID: 0}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +552,8 @@ MonoBehaviour:
   type: 1
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
+  deathManager: {fileID: 0}
+  fuelManager: {fileID: 0}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,12 +766,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8452753963668889667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionResistance: 1
+  gravityResistance: 1
+  maxGravityVelocity: 50
   canBeAffected: 1
-  isWithinEventHorizon: 0
+  onZoneEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  onZoneExited:
+    m_PersistentCalls:
+      m_Calls: []
+  onAbsorbed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5084323159983305511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,6 +799,7 @@ MonoBehaviour:
   autoRefuel: 1
   autoRefuelRate: 1
   autoRefuelDelay: 1
+  minFuelToStart: 3
   fuelBarImage: {fileID: 0}
   debugMode: 0
 --- !u!114 &1219413745525033032

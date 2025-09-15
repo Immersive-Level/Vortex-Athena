@@ -124,132 +124,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8452753963668889667, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
   m_PrefabInstance: {fileID: 900441898}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &91091675
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 91091676}
-  - component: {fileID: 91091681}
-  - component: {fileID: 91091680}
-  - component: {fileID: 91091679}
-  m_Layer: 0
-  m_Name: BlackHole_Logic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &91091676
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91091675}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1280, y: -800, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1402602726}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &91091679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91091675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f9c3e19fef26d49a55e209a981b7c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  instantAbsorptionRadius: 0.5
-  useCoreRadiusForAbsorption: 1
-  absorptionDelay: 0.1
-  maxAbsorptionsPerFrame: 3
-  absorbableTags:
-  - Resource
-  - Collectible
-  absorbableLayers:
-    serializedVersion: 2
-    m_Bits: 128
-  onResourceAbsorbed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCollectibleAbsorbed:
-    m_PersistentCalls:
-      m_Calls: []
-  totalResourcesAbsorbed: 0
-  resourcesInRange: 0
-  debugMode: 0
-  absorptionGizmoColor: {r: 1, g: 0.3, b: 0.3, a: 0.4}
---- !u!114 &91091680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91091675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1e270230fc91c1459d2b31fa063a13f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coreRadius: 1
-  eventHorizonRadius: 2
-  maxEffectDistance: 10
-  maxAttractionForce: 50
-  attractionCurve: 2
-  rotationalForceMultiplier: 0.5
-  isActive: 1
-  affectedLayers:
-    serializedVersion: 2
-    m_Bits: 385
-  debugMode: 0
-  showGizmos: 1
---- !u!58 &91091681
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91091675}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 1
 --- !u!114 &169552296 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -259,17 +133,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &169552297 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4245581896112512108, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
-  m_PrefabInstance: {fileID: 42232722947320369}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 42232722947320371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &169552298 stripped
@@ -376,6 +239,10 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 1495126473}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: gravitationalObject
+      value: 
+      objectReference: {fileID: 1908159909}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 4
@@ -689,6 +556,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1908159909}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: GravitationalObject
+      value: 
+      objectReference: {fileID: 1908159909}
+    - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
       objectReference: {fileID: 1495126473}
@@ -829,6 +700,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHole
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -859,7 +734,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
-      objectReference: {fileID: 1634088848}
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.y
       value: -4
@@ -1360,6 +1235,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1965415830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &670614147 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4245581896112512108, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+  m_PrefabInstance: {fileID: 42232722947320369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42232722947320371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &715235521 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -1379,7 +1265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1085465452}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &715235523 stripped
@@ -1587,6 +1473,10 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 1378950617}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: gravitationalObject
+      value: 
+      objectReference: {fileID: 900441904}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 3
@@ -1876,6 +1766,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 900441904}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: GravitationalObject
+      value: 
+      objectReference: {fileID: 900441904}
+    - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
       objectReference: {fileID: 1378950617}
@@ -1976,6 +1870,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHole
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -2006,7 +1904,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
-      objectReference: {fileID: 1634088848}
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x
       value: -10
@@ -2176,7 +2074,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2890621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &900441905 stripped
@@ -2297,6 +2195,10 @@ PrefabInstance:
       propertyPath: abilityManager
       value: 
       objectReference: {fileID: 1526805308}
+    - target: {fileID: 7059810290833860784, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7093820299468692034, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2491,7 +2393,6 @@ RectTransform:
   - {fileID: 1608912526}
   - {fileID: 788801181}
   - {fileID: 1965415830}
-  - {fileID: 91091676}
   - {fileID: 1004705081}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2787,6 +2688,10 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 2080437832535098231}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: gravitationalObject
+      value: 
+      objectReference: {fileID: 715235522}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 2
@@ -3068,6 +2973,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 715235522}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: GravitationalObject
+      value: 
+      objectReference: {fileID: 715235522}
+    - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
       objectReference: {fileID: 2080437832535098231}
@@ -3164,6 +3073,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHole
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -3194,7 +3107,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
-      objectReference: {fileID: 1634088848}
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x
       value: 1
@@ -8289,17 +8202,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!114 &1634088848 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1320605935807777196, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
-  m_PrefabInstance: {fileID: 8806018326245066963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e2177a7a973e048838fd61dd2a9e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1658935484
 GameObject:
   m_ObjectHideFlags: 0
@@ -8365,7 +8267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 194704806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7302427d8d4c401479b6131cac4c477e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1908159910 stripped
@@ -8453,6 +8355,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: respawnUI
       value: 
@@ -8469,6 +8379,10 @@ PrefabInstance:
       propertyPath: inputController
       value: 
       objectReference: {fileID: 806403713}
+    - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: gravitationalObject
+      value: 
+      objectReference: {fileID: 670614147}
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_AngularDamping
       value: 0.005
@@ -8496,6 +8410,18 @@ PrefabInstance:
     - target: {fileID: 4200900407060640552, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245581896112512108, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245581896112512108, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: attractionResistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4245581896112512108, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: maxVelocityFromBlackHole
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4310118365417915349, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Layer
@@ -8584,7 +8510,11 @@ PrefabInstance:
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: AffectedByBlackHole
       value: 
-      objectReference: {fileID: 169552297}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: GravitationalObject
+      value: 
+      objectReference: {fileID: 670614147}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
@@ -8618,6 +8548,10 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHole
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: orbitaCentro
       value: 
       objectReference: {fileID: 0}
@@ -8628,7 +8562,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
-      objectReference: {fileID: 1634088848}
+      objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x
       value: -10

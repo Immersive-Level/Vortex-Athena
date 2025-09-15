@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Componente que representa un recurso recolectable en el juego
-/// VERSIÓN CORREGIDA para compatibilidad con el sistema de agujeros negros refactorizado
+/// ACTUALIZADO: Compatible con el nuevo sistema BlackHoleCore
 /// </summary>
 public class CollectibleResource : MonoBehaviour
 {
@@ -15,25 +15,19 @@ public class CollectibleResource : MonoBehaviour
     [Tooltip("Velocidad de rotación")]
     public float rotationSpeed = 30f;
 
-    [Tooltip("Efecto visual cuando está cerca del agujero negro")]
-    public bool pulseWhenClose = true;
-
-    [Tooltip("Velocidad del pulso")]
-    public float pulseSpeed = 2f;
-
     // Referencias a componentes
     private SpriteRenderer spriteRenderer;
     private Collider2D resourceCollider;
-    private AffectedByBlackHole affectedByBlackHole;
     private ResourceSpawner spawner;
-    private Transform blackHoleTransform;
+
+    // ACTUALIZADO: Referencia al nuevo sistema
+    private BlackHoleCore blackHoleCore;
 
     // Estado del recurso - público para que el ResourceSpawner pueda verificarlo directamente
     [HideInInspector] public bool isCollected = false;
 
     // Variables para efectos visuales
     private Vector3 rotationAxis;
-    private float pulseTimer;
     private Vector3 originalScale;
     private float activationTime;
 
@@ -42,7 +36,6 @@ public class CollectibleResource : MonoBehaviour
         // Obtener referencias a componentes
         spriteRenderer = GetComponent<SpriteRenderer>();
         resourceCollider = GetComponent<Collider2D>();
-        affectedByBlackHole = GetComponent<AffectedByBlackHole>();
 
         // Ejes de rotación fijos para mejorar rendimiento
         rotationAxis = Vector3.forward;
@@ -59,20 +52,10 @@ public class CollectibleResource : MonoBehaviour
         // Referencia global al spawner (singleton)
         spawner = ResourceSpawner.Instance;
 
-        // Solo buscar el agujero negro una vez al activarse
-        if (blackHoleTransform == null)
+        // ACTUALIZADO: Buscar el nuevo BlackHoleCore
+        if (blackHoleCore == null)
         {
-            BlackHole blackHole = FindAnyObjectByType<BlackHole>();
-            if (blackHole != null)
-            {
-                blackHoleTransform = blackHole.transform;
-            }
-        }
-
-        // Suscribirse a eventos - FIX: Usar AddListener para UnityEvent
-        if (affectedByBlackHole != null)
-        {
-            affectedByBlackHole.onEnterEventHorizon.AddListener(OnEnterEventHorizon);
+            blackHoleCore = FindAnyObjectByType<BlackHoleCore>();
         }
 
         // Configurar visual
@@ -98,15 +81,6 @@ public class CollectibleResource : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        // Desuscribirse de eventos al desactivar - FIX: Usar RemoveListener para UnityEvent
-        if (affectedByBlackHole != null)
-        {
-            affectedByBlackHole.onEnterEventHorizon.RemoveListener(OnEnterEventHorizon);
-        }
-    }
-
     private void Update()
     {
         if (isCollected) return;
@@ -125,71 +99,22 @@ public class CollectibleResource : MonoBehaviour
             transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime);
         }
 
-        // Efecto de pulso cuando está cerca del agujero negro (comentado en el original)
-        //if (pulseWhenClose && affectedByBlackHole != null && affectedByBlackHole.isWithinEventHorizon)
-        //{
-        //    pulseTimer += Time.deltaTime * pulseSpeed;
-        //    float pulseFactor = 1f + Mathf.Sin(pulseTimer) * 0.2f;
-        //    transform.localScale = originalScale * pulseFactor;
-        //}
-        //else if (transform.localScale != originalScale)
-        //{
-        //    // Restaurar escala original gradualmente
-        //    transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
-        //}
-
-        // FIX: Verificar si está dentro del radio de absorción del agujero negro
-        if (blackHoleTransform != null)
+        // ACTUALIZADO: Verificación simplificada usando BlackHoleCore
+        // El CollectibleResourceAdapter se encarga de la lógica de gravedad
+        // Solo verificamos si estamos muy cerca del centro por seguridad
+        if (blackHoleCore != null && blackHoleCore.IsActive)
         {
-            // Opción 1: Usar el BlackHoleResourceAbsorber si tiene el método IsWithinAbsorptionRadius
-            BlackHoleResourceAbsorber absorber = blackHoleTransform.GetComponent<BlackHoleResourceAbsorber>();
-            if (absorber != null)
+            float distance = Vector2.Distance(transform.position, blackHoleCore.Position);
+            if (distance <= blackHoleCore.EventHorizonRadius * 0.5f) // Muy cerca del centro
             {
-                // Usar el método IsWithinAbsorptionRadius si está disponible
-                float distance = Vector3.Distance(transform.position, blackHoleTransform.position);
-                if (distance <= absorber.AbsorptionRadius)
-                {
-                    AbsorbedByBlackHole();
-                }
+                AbsorbedByBlackHole();
             }
-            else
-            {
-                // Opción 2: Usar el BlackHole directamente para verificar el radio del núcleo
-                BlackHole blackHole = blackHoleTransform.GetComponent<BlackHole>();
-                if (blackHole != null && blackHole.IsActive)
-                {
-                    float distance = Vector2.Distance(transform.position, blackHoleTransform.position);
-                    if (distance <= blackHole.CoreRadius)
-                    {
-                        AbsorbedByBlackHole();
-                    }
-                }
-            }
-        }
-    }
-
-    /// <summary>
-    /// Se llama cuando el recurso entra en el horizonte de eventos del agujero negro
-    /// FIX: Cambiado a público para compatibilidad con UnityEvent
-    /// </summary>
-    public void OnEnterEventHorizon()
-    {
-        if (isCollected) return;
-
-        // Aumentar brillo del color
-        if (spriteRenderer != null && resourceType != null)
-        {
-            spriteRenderer.color = new Color(
-                resourceType.resourceColor.r * 1.5f,
-                resourceType.resourceColor.g * 1.5f,
-                resourceType.resourceColor.b * 1.5f,
-                resourceType.resourceColor.a
-            );
         }
     }
 
     /// <summary>
     /// Se llama cuando este objeto es absorbido por el agujero negro
+    /// ACTUALIZADO: Simplificado para trabajar con el nuevo sistema
     /// </summary>
     public void AbsorbedByBlackHole()
     {
@@ -246,6 +171,15 @@ public class CollectibleResource : MonoBehaviour
     }
 
     /// <summary>
+    /// NUEVO: Método para ser llamado por el CollectibleResourceAdapter
+    /// cuando el recurso es consumido por el agujero negro a través del nuevo sistema
+    /// </summary>
+    public void OnConsumedByGravitySystem()
+    {
+        AbsorbedByBlackHole();
+    }
+
+    /// <summary>
     /// Reproduce efectos visuales y sonoros
     /// </summary>
     private void PlayEffects()
@@ -287,5 +221,24 @@ public class CollectibleResource : MonoBehaviour
             // Si no hay spawner, simplemente destruir
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// NUEVO: Método público para verificar distancia al agujero negro
+    /// Útil para sistemas externos que necesiten esta información
+    /// </summary>
+    public float GetDistanceToBlackHole()
+    {
+        if (blackHoleCore == null) return float.MaxValue;
+        return Vector2.Distance(transform.position, blackHoleCore.Position);
+    }
+
+    /// <summary>
+    /// NUEVO: Método público para verificar si está en zona de peligro
+    /// </summary>
+    public bool IsInDangerZone()
+    {
+        if (blackHoleCore == null) return false;
+        return GetDistanceToBlackHole() <= blackHoleCore.EventHorizonRadius * 1.5f;
     }
 }

@@ -1,0 +1,94 @@
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Arcade",
+            "id": "d8858330-efa2-4daa-ba3d-63e5abd3cced",
+            "actions": [
+                {
+                    "name": "P1_Press",
+                    "type": "Button",
+                    "id": "c55be106-491a-4dba-b30b-9ca06286da61",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2_Press",
+                    "type": "Button",
+                    "id": "f94f8acc-59c6-4d24-8a5e-dba0f4dbb67d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P3_Press",
+                    "type": "Button",
+                    "id": "212f98fd-69c6-4f67-b0d5-f99135a8535d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P4_Press",
+                    "type": "Button",
+                    "id": "0c05768f-3124-43c8-a0f6-913ba584a455",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6e9410fc-ab7c-4863-8f0e-bf42dc2437fe",
+                    "path": "<Keyboard>/#(1)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P1_Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "61671bb3-3549-4c1e-90ad-3adbdeb39866",
+                    "path": "<Keyboard>/#(2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2_Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "474370f2-86f1-42fe-b912-d54b69a939f9",
+                    "path": "<Keyboard>/#(3)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P3_Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4de595d7-5f80-4119-8502-7dfa671bbda8",
+                    "path": "<Keyboard>/#(4)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P4_Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

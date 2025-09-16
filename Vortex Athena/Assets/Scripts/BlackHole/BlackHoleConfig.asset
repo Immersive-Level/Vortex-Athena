@@ -62,8 +62,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  eventHorizonRadius: 2
-  influenceRadius: 20
-  maxInfluenceRadius: 35
+  eventHorizonRadius: 0.5
+  influenceRadius: 5
+  maxInfluenceRadius: 10
   maxAffectedObjects: 50
   updateFrequency: 0.02

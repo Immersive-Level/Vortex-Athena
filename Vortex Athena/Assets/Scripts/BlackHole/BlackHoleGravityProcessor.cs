@@ -21,10 +21,17 @@ public class BlackHoleGravityProcessor : MonoBehaviour
         if (Time.time - lastUpdateTime < config.UpdateFrequency) return;
         lastUpdateTime = Time.time;
 
+        // Crear una lista temporal para evitar modificar la colección durante la iteración
+        var objectsToProcess = new List<IGravityAffected>(affectedObjects);
         var objectsToRemove = new List<IGravityAffected>();
 
-        foreach (var obj in affectedObjects)
+        // Procesar objetos usando la lista temporal
+        foreach (var obj in objectsToProcess)
         {
+            // Verificar que el objeto aún esté en la colección original
+            if (!affectedObjects.Contains(obj))
+                continue;
+
             if (!obj.IsActive || obj.Rigidbody == null)
             {
                 objectsToRemove.Add(obj);
@@ -34,6 +41,7 @@ public class BlackHoleGravityProcessor : MonoBehaviour
             ProcessObjectGravity(obj);
         }
 
+        // Remover objetos inválidos después de la iteración
         foreach (var obj in objectsToRemove)
         {
             affectedObjects.Remove(obj);

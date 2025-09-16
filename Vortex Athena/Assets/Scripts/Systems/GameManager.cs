@@ -22,11 +22,18 @@ public class GameManager : MonoBehaviour
     public List<GameObject> NavesActivas { get; private set; } = new();
     public GameObject TutorialRoot;
 
-    [HideInInspector] public float GameDuration = 60f;
+    // Hacer GameDuration público para que BlackHole pueda accederlo
+    public float GameDuration { get; private set; } = 60f;
     private float GameStartTime;
     public float Gametime { get; private set; }
     [HideInInspector] public bool UseAbilities = true;
 
+    [Header("Tutorial")]
+    [SerializeField] private bool tutorialCompletado = false;
+
+    // Propiedades públicas para InicioNave
+    public bool TutorialCompletado => tutorialCompletado;
+    public bool SkipTutorialEnabled => tutorialCompletado; // Simplificado: mismo valor
 
     private void Awake()
     {
@@ -42,24 +49,24 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         SetState(GameState.InMenu);
-
         NavesActivas = new List<GameObject>();
 
-        ToggleTutorial();
+        // Mostrar tutorial si no está completado
+        if (!tutorialCompletado && TutorialRoot != null)
+        {
+            TutorialRoot.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     private void Update()
     {
         if (CurrentState != GameState.InGame)
-        {
             return;
-        }
 
         Gametime = Time.time - GameStartTime;
         if (Gametime >= GameDuration)
-        {
             EndGame();
-        }
     }
 
     public void SetState(GameState newState)
@@ -75,8 +82,9 @@ public class GameManager : MonoBehaviour
     {
         GameDuration = duration;
         UseAbilities = abilitiesEnabled;
-
         GameStartTime = Time.time;
+
+        Debug.Log($"Iniciando juego con duración: {GameDuration} segundos");
 
         SetState(GameState.InGame);
     }
@@ -88,35 +96,66 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        Time.timeScale = 1f;
+        if (TutorialRoot != null)
+            TutorialRoot.SetActive(false);
         SetState(GameState.InMenu);
     }
 
     public void RegisterShip(GameObject inShip)
     {
-        if (inShip != null)
-        {
+        if (inShip != null && !NavesActivas.Contains(inShip))
             NavesActivas.Add(inShip);
-        }
     }
 
     public void RemoveRegisterShip(GameObject inShip)
     {
         if (inShip != null)
-        {
             NavesActivas.Remove(inShip);
+    }
+
+    /// <summary>
+    /// Alterna el tutorial - Las naves se manejan automáticamente
+    /// </summary>
+    public void ToggleTutorial()
+    {
+        if (TutorialRoot == null) return;
+
+        bool tutorialActivo = TutorialRoot.activeInHierarchy;
+
+        if (tutorialActivo)
+        {
+            // Cerrar tutorial
+            Time.timeScale = 1f;
+            TutorialRoot.SetActive(false);
+            tutorialCompletado = true;
+
+            // Las naves se desactivarán automáticamente cuando el estado cambie a InGame
+            // InicioNave maneja esto en OnGameStateChanged
+        }
+        else
+        {
+            // Abrir tutorial
+            Time.timeScale = 0f;
+            TutorialRoot.SetActive(true);
         }
     }
 
-    public void ToggleTutorial()
+    /// <summary>
+    /// Obtiene el tiempo restante del juego
+    /// </summary>
+    public float GetRemainingTime()
     {
-        if (Time.timeScale != 0)
-            Time.timeScale = 0;
-        else
-            Time.timeScale = 1;
+        if (CurrentState != GameState.InGame) return GameDuration;
+        return Mathf.Max(0f, GameDuration - Gametime);
+    }
 
-        if (!TutorialRoot.activeInHierarchy)
-            TutorialRoot.SetActive(true);
-        else
-            TutorialRoot.SetActive(false);
+    /// <summary>
+    /// Obtiene el progreso del juego (0-1)
+    /// </summary>
+    public float GetGameProgress()
+    {
+        if (CurrentState != GameState.InGame) return 0f;
+        return Mathf.Clamp01(Gametime / GameDuration);
     }
 }

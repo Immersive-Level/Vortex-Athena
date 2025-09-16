@@ -15,6 +15,7 @@ public class BlackHoleCore : MonoBehaviour
     [SerializeField, ReadOnly] private float currentIntensity = 1f;
     [SerializeField, ReadOnly] private float currentInfluenceRadius;
     [SerializeField, ReadOnly] private int objectsInField = 0;
+    [SerializeField, ReadOnly] private float gameDuration = 300f; // Duración configurada del juego
 
     private CircleCollider2D gravityTrigger;
     private BlackHoleGravityProcessor gravityProcessor;
@@ -22,6 +23,7 @@ public class BlackHoleCore : MonoBehaviour
     private readonly HashSet<IGravityAffected> affectedObjects = new HashSet<IGravityAffected>();
     private float gameStartTime;
     private bool isActive = true;
+    private bool gameDurationSet = false; // Para verificar si se configuró la duración
 
     public Vector2 Position => transform.position;
     public float CurrentIntensity => currentIntensity;
@@ -29,17 +31,69 @@ public class BlackHoleCore : MonoBehaviour
     public float EventHorizonRadius => config.EventHorizonRadius;
     public bool IsActive => isActive;
     public int AffectedObjectsCount => affectedObjects.Count;
+    public float GameDuration => gameDuration;
 
     private void Awake()
     {
         InitializeComponents();
         ValidateConfiguration();
+
+        // Suscribirse a eventos de GameManager para recibir configuración automáticamente
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        }
     }
 
     private void Start()
     {
         gameStartTime = Time.time;
         SetupInitialState();
+    }
+
+    private void OnDestroy()
+    {
+        // Desuscribirse del evento
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+        }
+    }
+
+    /// <summary>
+    /// Configura la duración del juego para el cálculo de intensidad
+    /// </summary>
+    /// <param name="duration">Duración del juego en segundos</param>
+    public void SetGameDuration(float duration)
+    {
+        gameDuration = Mathf.Max(30f, duration); // Mínimo 30 segundos para evitar valores muy pequeños
+        gameDurationSet = true;
+
+        Debug.Log($"BlackHole configurado con duración: {gameDuration} segundos", this);
+    }
+
+    /// <summary>
+    /// Maneja los cambios de estado del juego automáticamente
+    /// </summary>
+    private void OnGameStateChanged(GameState newState)
+    {
+        switch (newState)
+        {
+            case GameState.InGame:
+                // Configurar duración automáticamente cuando inicia el juego
+                if (!gameDurationSet && GameManager.Instance != null)
+                {
+                    SetGameDuration(GameManager.Instance.GameDuration);
+                }
+                gameStartTime = Time.time; // Reiniciar tiempo de inicio
+                break;
+
+            case GameState.InMenu:
+                // Resetear estado cuando vuelve al menú
+                gameDurationSet = false;
+                currentIntensity = 1f;
+                break;
+        }
     }
 
     private void InitializeComponents()
@@ -91,7 +145,9 @@ public class BlackHoleCore : MonoBehaviour
     private void UpdateIntensity()
     {
         float timeElapsed = Time.time - gameStartTime;
-        float normalizedTime = timeElapsed / 300f; // 5 minutes to max intensity
+
+        // Usar la duración configurada del juego en lugar de valor hardcodeado
+        float normalizedTime = timeElapsed / gameDuration;
 
         float newIntensity = config.IntensityOverTime.Evaluate(normalizedTime);
 
@@ -148,11 +204,18 @@ public class BlackHoleCore : MonoBehaviour
 
     public void ConsumeObject(IGravityAffected obj)
     {
-        if (affectedObjects.Remove(obj))
+        // Verificar si el objeto está en la colección antes de intentar removerlo
+        if (affectedObjects.Contains(obj))
         {
+            // Marcar el objeto como consumido antes de removerlo
             obj.OnReachEventHorizon(this);
-            BlackHoleEvents.TriggerObjectConsumed(obj);
+
+            // Remover de la colección
+            affectedObjects.Remove(obj);
+
+            // Actualizar contador y disparar evento
             objectsInField = affectedObjects.Count;
+            BlackHoleEvents.TriggerObjectConsumed(obj);
         }
     }
 
@@ -166,5 +229,16 @@ public class BlackHoleCore : MonoBehaviour
     {
         currentIntensity *= multiplier;
         BlackHoleEvents.TriggerGravityIntensityChanged(currentIntensity);
+    }
+
+    /// <summary>
+    /// Obtiene el progreso actual del agujero negro (0-1)
+    /// </summary>
+    public float GetProgressPercentage()
+    {
+        if (!gameDurationSet) return 0f;
+
+        float timeElapsed = Time.time - gameStartTime;
+        return Mathf.Clamp01(timeElapsed / gameDuration);
     }
 }

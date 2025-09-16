@@ -2,7 +2,7 @@
 using GameSystems;
 
 /// <summary>
-/// Gestiona inicialización de naves optimizado para BlackHoleCore
+/// Gestiona inicialización de naves - Simple y eficiente
 /// </summary>
 public class InicioNave : MonoBehaviour
 {
@@ -29,181 +29,156 @@ public class InicioNave : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.RegisterShip(nave);
-        }
+        // Mostrar nave durante tutorial (modo arcade - mostrar slots disponibles)
+        nave.SetActive(true);
+
+        GameManager.Instance?.RegisterShip(nave);
 
         if (autoFindBlackHole && blackHoleCore == null)
-        {
             blackHoleCore = FindAnyObjectByType<BlackHoleCore>();
-            if (blackHoleCore == null)
+
+        if (shipInputController == null)
+            shipInputController = nave.GetComponentInChildren<ShipInputController>();
+
+        // Suscribirse a cambios de estado del juego
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GameState newState)
+    {
+        if (newState == GameState.InGame)
+        {
+            // Al iniciar juego, desactivar nave para esperar join-in manual
+            if (!juegoIniciado)
             {
-                Debug.LogWarning("InicioNave: BlackHoleCore not found in scene", this);
+                nave.SetActive(false);
             }
+        }
+        else if (newState == GameState.InMenu)
+        {
+            ReiniciarNave();
         }
     }
 
+    /// <summary>
+    /// Inicialización manual (input del jugador) - Join-in durante juego
+    /// </summary>
     public void IniciarJuego()
     {
-        if (juegoIniciado || nave == null) return;
+        if (juegoIniciado) return;
 
+        ActivarYConfigurarNave();
+        shipInputController?.OnGameStarted();
+    }
+
+    private void ActivarYConfigurarNave()
+    {
         juegoIniciado = true;
         nave.SetActive(true);
 
-        Rigidbody2D rb = nave.GetComponent<Rigidbody2D>();
+        var rb = nave.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.simulated = true;
 
-            Vector2 vDir;
-            Vector2 centroParaOrbita = Vector2.zero;
-
-            if (usarOrbitaInicial)
-            {
-                centroParaOrbita = orbitaCentro ? (Vector2)orbitaCentro.position :
-                                   (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
-
-                Vector2 radial = ((Vector2)rb.worldCenterOfMass - centroParaOrbita);
-                if (radial.sqrMagnitude < 0.0001f) radial = Vector2.right;
-                radial.Normalize();
-
-                Vector2 tangente = new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
-                vDir = tangente;
-            }
-            else
-            {
-                vDir = direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
-            }
-
+            // Configurar velocidad inicial
+            Vector2 vDir = CalcularDireccionInicial(rb);
             rb.linearVelocity = vDir * impulsoInicial;
 
-            if (usarOrbitaInicial)
-            {
-                float r = Vector2.Distance(rb.worldCenterOfMass, centroParaOrbita);
-                if (r > 0.001f)
-                {
-                    float omegaDegPerSec = (impulsoInicial / r) * Mathf.Rad2Deg;
-                    rb.angularVelocity = omegaDegPerSec * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
-                }
-                else
-                {
-                    rb.angularVelocity = 0f;
-                }
-            }
-            else
-            {
-                rb.angularVelocity = 0f;
-            }
+            // Configurar rotación para órbita
+            ConfigurarRotacionInicial(rb);
         }
 
         ConfigurarSistemas();
+    }
 
-        if (shipInputController != null)
-            shipInputController.OnGameStarted();
+    private Vector2 CalcularDireccionInicial(Rigidbody2D rb)
+    {
+        if (!usarOrbitaInicial)
+            return direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
 
-        RegistrarEnBlackHole();
+        Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
+                        (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
+
+        Vector2 radial = ((Vector2)rb.worldCenterOfMass - centro);
+        if (radial.sqrMagnitude < 0.0001f) radial = Vector2.right;
+        radial.Normalize();
+
+        return new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+    }
+
+    private void ConfigurarRotacionInicial(Rigidbody2D rb)
+    {
+        if (!usarOrbitaInicial)
+        {
+            rb.angularVelocity = 0f;
+            return;
+        }
+
+        Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
+                        (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
+
+        float r = Vector2.Distance(rb.worldCenterOfMass, centro);
+        if (r > 0.001f)
+        {
+            float omega = (impulsoInicial / r) * Mathf.Rad2Deg;
+            rb.angularVelocity = omega * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+        }
     }
 
     private void ConfigurarSistemas()
     {
-        var fuelManager = nave.GetComponentInChildren<FuelManager>();
-        if (fuelManager != null)
-        {
-            fuelManager.SetFuel(combustibleInicial);
-            fuelManager.ResetFuelSystem();
-        }
+        // Combustible
+        var fuelManager = nave.GetComponent<FuelManager>();
+        fuelManager?.SetFuel(combustibleInicial);
+        fuelManager?.ResetFuelSystem();
 
-        var shipController = nave.GetComponentInChildren<ShipController>();
+        // Controlador
+        var shipController = nave.GetComponent<ShipController>();
         if (shipController != null)
         {
             shipController.ResetMovement();
+            if (blackHoleCore != null)
+                shipController.SetMapCenter(blackHoleCore.Position);
         }
 
-        var playerGravityHandler = nave.GetComponent<PlayerGravityHandler>();
-        if (playerGravityHandler != null)
-        {
-            playerGravityHandler.ResetGravityState();
-        }
+        // Gravedad
+        var gravityHandler = nave.GetComponent<PlayerGravityHandler>();
+        gravityHandler?.ResetGravityState();
     }
 
     public void ReiniciarNave()
     {
         if (nave != null)
         {
-            DesregistrarDeBlackHole();
+            var shipController = nave.GetComponent<ShipController>();
+            shipController?.ResetMovement();
 
-            var shipController = nave.GetComponentInChildren<ShipController>();
-            if (shipController != null)
-                shipController.ResetMovement();
+            var fuelManager = nave.GetComponent<FuelManager>();
+            fuelManager?.ResetFuelSystem();
 
-            var fuelManager = nave.GetComponentInChildren<FuelManager>();
-            if (fuelManager != null)
-                fuelManager.ResetFuelSystem();
+            shipInputController?.ResetInputState();
 
-            if (shipInputController != null)
-                shipInputController.ResetInputState();
+            var gravityHandler = nave.GetComponent<PlayerGravityHandler>();
+            gravityHandler?.ResetGravityState();
 
-            var playerGravityHandler = nave.GetComponent<PlayerGravityHandler>();
-            if (playerGravityHandler != null)
-            {
-                playerGravityHandler.ResetGravityState();
-            }
-
-            nave.SetActive(false);
+            // Volver al estado inicial: activa para mostrar slot disponible
+            nave.SetActive(true);
             juegoIniciado = false;
         }
-    }
-
-    private void RegistrarEnBlackHole()
-    {
-        if (blackHoleCore != null && nave != null)
-        {
-            PlayerGravityHandler playerGravityHandler = nave.GetComponent<PlayerGravityHandler>();
-            if (playerGravityHandler != null)
-            {
-                var shipController = nave.GetComponentInChildren<ShipController>();
-                if (shipController != null)
-                {
-                    shipController.SetMapCenter(blackHoleCore.Position);
-                }
-            }
-            else
-            {
-                Debug.LogError($"InicioNave: Ship {nave.name} missing PlayerGravityHandler!", this);
-            }
-        }
-    }
-
-    private void DesregistrarDeBlackHole()
-    {
-        // El BlackHoleCore maneja esto automáticamente
     }
 
     public void SetBlackHoleReference(BlackHoleCore newBlackHole)
     {
         blackHoleCore = newBlackHole;
-
         if (juegoIniciado)
         {
-            var shipController = nave?.GetComponentInChildren<ShipController>();
-            if (shipController != null && blackHoleCore != null)
-            {
+            var shipController = nave?.GetComponent<ShipController>();
+            if (shipController != null)
                 shipController.SetMapCenter(blackHoleCore.Position);
-            }
         }
-    }
-
-    public bool IsShipReadyForGravitySystem()
-    {
-        if (nave == null) return false;
-
-        var playerGravityHandler = nave.GetComponent<PlayerGravityHandler>();
-        var rigidbody = nave.GetComponent<Rigidbody2D>();
-        var collider = nave.GetComponent<Collider2D>();
-
-        return playerGravityHandler != null && rigidbody != null && collider != null;
     }
 
     private void OnValidate()
@@ -212,6 +187,9 @@ public class InicioNave : MonoBehaviour
         if (sentidoOrbita == 0) sentidoOrbita = 1;
     }
 
-    void OnDisable() => DesregistrarDeBlackHole();
-    void OnDestroy() => DesregistrarDeBlackHole();
+    private void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+    }
 }

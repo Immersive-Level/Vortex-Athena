@@ -11,15 +11,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NetcodeForEntitiesSetup/Scenes/Gameplay.unity
     guid: 0a53e03af600d2848a59c2f7b29eef1f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Splash.unity
     guid: f3c26394f3deff64cac64db22b1e0212
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 8c68b0a1feb70a74887f2296aaa79eea
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/old_save/Vortex Athena old Save Maotruko.unity
     guid: c170db055d2f9dc42ac10b37a398c679
+  - enabled: 1
+    path: Assets/Scenes/Vortex Athena.unity
+    guid: 8f5f6ee873a0f8c47b02c82337edb4f0
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: fb082f2d3c440594cb1c56b11d91dc1d, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: fb2007e57fea17f4eabdbcb49da6774a, type: 2}

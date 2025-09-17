@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Componente principal del agujero negro - maneja estados y coordinación
+/// Componente principal del agujero negro - Versión optimizada para producción
 /// </summary>
 [RequireComponent(typeof(CircleCollider2D))]
 public class BlackHoleCore : MonoBehaviour
@@ -11,38 +11,58 @@ public class BlackHoleCore : MonoBehaviour
     [SerializeField] private BlackHoleConfiguration config;
     [SerializeField] private LayerMask affectedLayers = -1;
 
-    [Header("Runtime State")]
+    [Header("Runtime State - ReadOnly")]
     [SerializeField, ReadOnly] private float currentIntensity = 1f;
     [SerializeField, ReadOnly] private float currentInfluenceRadius;
     [SerializeField, ReadOnly] private int objectsInField = 0;
-    [SerializeField, ReadOnly] private float gameDuration = 300f; // Duración configurada del juego
+    [SerializeField, ReadOnly] private float gameDuration = 300f;
 
+    // Componentes cacheados
     private CircleCollider2D gravityTrigger;
     private BlackHoleGravityProcessor gravityProcessor;
     private BlackHoleZoneManager zoneManager;
+
+    // Colección optimizada para objetos afectados
     private readonly HashSet<IGravityAffected> affectedObjects = new HashSet<IGravityAffected>();
+
+    // Estado de tiempo optimizado
     private float gameStartTime;
     private bool isActive = true;
-    private bool gameDurationSet = false; // Para verificar si se configuró la duración
+    private bool gameDurationSet = false;
 
-    public Vector2 Position => transform.position;
+    // Cache para evitar recálculos
+    private Vector2 cachedPosition;
+    private bool positionCacheValid = false;
+
+    // Propiedades públicas optimizadas
+    public Vector2 Position
+    {
+        get
+        {
+            if (!positionCacheValid)
+            {
+                cachedPosition = transform.position;
+                positionCacheValid = true;
+            }
+            return cachedPosition;
+        }
+    }
+
     public float CurrentIntensity => currentIntensity;
     public float CurrentInfluenceRadius => currentInfluenceRadius;
     public float EventHorizonRadius => config.EventHorizonRadius;
     public bool IsActive => isActive;
     public int AffectedObjectsCount => affectedObjects.Count;
-    public float GameDuration => gameDuration;
 
     private void Awake()
     {
         InitializeComponents();
         ValidateConfiguration();
 
-        // Suscribirse a eventos de GameManager para recibir configuración automáticamente
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
-        }
+        // Optimización: Solo suscribirse si GameManager existe
+        var gameManager = GameManager.Instance;
+        if (gameManager != null)
+            gameManager.OnGameStateChanged += OnGameStateChanged;
     }
 
     private void Start()
@@ -53,45 +73,34 @@ public class BlackHoleCore : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Desuscribirse del evento
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
-        }
+        var gameManager = GameManager.Instance;
+        if (gameManager != null)
+            gameManager.OnGameStateChanged -= OnGameStateChanged;
     }
 
-    /// <summary>
-    /// Configura la duración del juego para el cálculo de intensidad
-    /// </summary>
-    /// <param name="duration">Duración del juego en segundos</param>
     public void SetGameDuration(float duration)
     {
-        gameDuration = Mathf.Max(30f, duration); // Mínimo 30 segundos para evitar valores muy pequeños
+        gameDuration = Mathf.Max(30f, duration);
         gameDurationSet = true;
-
-        Debug.Log($"BlackHole configurado con duración: {gameDuration} segundos", this);
     }
 
-    /// <summary>
-    /// Maneja los cambios de estado del juego automáticamente
-    /// </summary>
     private void OnGameStateChanged(GameState newState)
     {
         switch (newState)
         {
             case GameState.InGame:
-                // Configurar duración automáticamente cuando inicia el juego
-                if (!gameDurationSet && GameManager.Instance != null)
+                if (!gameDurationSet)
                 {
-                    SetGameDuration(GameManager.Instance.GameDuration);
+                    var gameManager = GameManager.Instance;
+                    if (gameManager != null)
+                        SetGameDuration(gameManager.GameDuration);
                 }
-                gameStartTime = Time.time; // Reiniciar tiempo de inicio
+                gameStartTime = Time.time;
                 break;
 
             case GameState.InMenu:
-                // Resetear estado cuando vuelve al menú
                 gameDurationSet = false;
-                currentIntensity = 1f;
+                ResetToInitialState();
                 break;
         }
     }
@@ -101,11 +110,14 @@ public class BlackHoleCore : MonoBehaviour
         gravityTrigger = GetComponent<CircleCollider2D>();
         gravityTrigger.isTrigger = true;
 
-        gravityProcessor = GetComponent<BlackHoleGravityProcessor>() ??
-                          gameObject.AddComponent<BlackHoleGravityProcessor>();
+        // Optimización: Evitar múltiples GetComponent calls
+        gravityProcessor = GetComponent<BlackHoleGravityProcessor>();
+        if (gravityProcessor == null)
+            gravityProcessor = gameObject.AddComponent<BlackHoleGravityProcessor>();
 
-        zoneManager = GetComponent<BlackHoleZoneManager>() ??
-                     gameObject.AddComponent<BlackHoleZoneManager>();
+        zoneManager = GetComponent<BlackHoleZoneManager>();
+        if (zoneManager == null)
+            zoneManager = gameObject.AddComponent<BlackHoleZoneManager>();
 
         gravityProcessor.Initialize(this, config);
         zoneManager.Initialize(this, config);
@@ -128,29 +140,54 @@ public class BlackHoleCore : MonoBehaviour
 
     private void SetupInitialState()
     {
-        currentInfluenceRadius = config.InfluenceRadius;
+        if (config.UseConstantSize)
+        {
+            currentIntensity = config.ConstantIntensityValue;
+            currentInfluenceRadius = Mathf.Lerp(config.InfluenceRadius, config.MaxInfluenceRadius,
+                                               (currentIntensity - 1f));
+        }
+        else
+        {
+            currentIntensity = 1f;
+            currentInfluenceRadius = config.InfluenceRadius;
+        }
+
         gravityTrigger.radius = currentInfluenceRadius;
+
+        // Optimización: Solo disparar eventos si hay listeners
         BlackHoleEvents.TriggerInfluenceRadiusChanged(currentInfluenceRadius);
+        BlackHoleEvents.TriggerGravityIntensityChanged(currentIntensity);
+    }
+
+    private void ResetToInitialState()
+    {
+        currentIntensity = config.UseConstantSize ? config.ConstantIntensityValue : 1f;
     }
 
     private void Update()
     {
         if (!isActive) return;
 
-        UpdateIntensity();
-        UpdateInfluenceRadius();
+        // Invalidar cache de posición cada frame
+        positionCacheValid = false;
+
+        // Solo actualizar tamaño si no está en modo constante
+        if (!config.UseConstantSize)
+        {
+            UpdateIntensity();
+            UpdateInfluenceRadius();
+        }
+
         gravityProcessor.ProcessGravity(affectedObjects);
     }
 
     private void UpdateIntensity()
     {
         float timeElapsed = Time.time - gameStartTime;
-
-        // Usar la duración configurada del juego en lugar de valor hardcodeado
         float normalizedTime = timeElapsed / gameDuration;
-
         float newIntensity = config.IntensityOverTime.Evaluate(normalizedTime);
 
+        // Optimización: Solo actualizar si hay cambio significativo
         if (Mathf.Abs(newIntensity - currentIntensity) > 0.01f)
         {
             currentIntensity = newIntensity;
@@ -161,8 +198,9 @@ public class BlackHoleCore : MonoBehaviour
     private void UpdateInfluenceRadius()
     {
         float targetRadius = Mathf.Lerp(config.InfluenceRadius, config.MaxInfluenceRadius,
-                                       (currentIntensity - 1f) / 1f);
+                                       currentIntensity - 1f);
 
+        // Optimización: Solo actualizar si hay cambio significativo
         if (Mathf.Abs(targetRadius - currentInfluenceRadius) > 0.1f)
         {
             currentInfluenceRadius = targetRadius;
@@ -173,10 +211,11 @@ public class BlackHoleCore : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!IsValidTarget(other)) return;
+        // Optimización: Verificación rápida de layer antes de GetComponent
+        if (((1 << other.gameObject.layer) & affectedLayers) == 0) return;
 
         var gravityAffected = other.GetComponent<IGravityAffected>();
-        if (gravityAffected != null && affectedObjects.Add(gravityAffected))
+        if (gravityAffected != null && gravityAffected.IsActive && affectedObjects.Add(gravityAffected))
         {
             gravityAffected.OnEnterGravityField(this);
             BlackHoleEvents.TriggerObjectEnteredField(gravityAffected);
@@ -186,7 +225,7 @@ public class BlackHoleCore : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (!IsValidTarget(other)) return;
+        if (((1 << other.gameObject.layer) & affectedLayers) == 0) return;
 
         var gravityAffected = other.GetComponent<IGravityAffected>();
         if (gravityAffected != null && affectedObjects.Remove(gravityAffected))
@@ -197,48 +236,77 @@ public class BlackHoleCore : MonoBehaviour
         }
     }
 
-    private bool IsValidTarget(Collider2D collider)
-    {
-        return ((1 << collider.gameObject.layer) & affectedLayers) != 0;
-    }
-
     public void ConsumeObject(IGravityAffected obj)
     {
-        // Verificar si el objeto está en la colección antes de intentar removerlo
-        if (affectedObjects.Contains(obj))
+        if (obj == null || !affectedObjects.Contains(obj)) return;
+
+        obj.OnReachEventHorizon(this);
+        affectedObjects.Remove(obj);
+        objectsInField = affectedObjects.Count;
+        BlackHoleEvents.TriggerObjectConsumed(obj);
+    }
+
+    /// <summary>
+    /// Verifica manualmente si un objeto debería estar en el campo gravitacional
+    /// Optimizado para usar squared distance y evitar allocaciones
+    /// </summary>
+    public void CheckAndAddGravityObject(IGravityAffected gravityAffected)
+    {
+        if (gravityAffected?.Transform == null || !gravityAffected.IsActive) return;
+        if (affectedObjects.Contains(gravityAffected)) return;
+
+        // Optimización: Usar squared distance para evitar sqrt
+        Vector2 position = Position;
+        Vector2 objectPos = gravityAffected.Transform.position;
+        float sqrDistance = (position - objectPos).sqrMagnitude;
+        float sqrRadius = currentInfluenceRadius * currentInfluenceRadius;
+
+        if (sqrDistance <= sqrRadius)
         {
-            // Marcar el objeto como consumido antes de removerlo
-            obj.OnReachEventHorizon(this);
-
-            // Remover de la colección
-            affectedObjects.Remove(obj);
-
-            // Actualizar contador y disparar evento
-            objectsInField = affectedObjects.Count;
-            BlackHoleEvents.TriggerObjectConsumed(obj);
+            int objectLayer = gravityAffected.Transform.gameObject.layer;
+            if (((1 << objectLayer) & affectedLayers) != 0)
+            {
+                affectedObjects.Add(gravityAffected);
+                gravityAffected.OnEnterGravityField(this);
+                BlackHoleEvents.TriggerObjectEnteredField(gravityAffected);
+                objectsInField = affectedObjects.Count;
+            }
         }
     }
 
     public void SetActive(bool active)
     {
         isActive = active;
-        gravityTrigger.enabled = active;
+        if (gravityTrigger != null)
+            gravityTrigger.enabled = active;
     }
 
     public void SetIntensityMultiplier(float multiplier)
     {
-        currentIntensity *= multiplier;
+        currentIntensity = Mathf.Max(1f, currentIntensity * multiplier);
         BlackHoleEvents.TriggerGravityIntensityChanged(currentIntensity);
     }
 
-    /// <summary>
-    /// Obtiene el progreso actual del agujero negro (0-1)
-    /// </summary>
     public float GetProgressPercentage()
     {
-        if (!gameDurationSet) return 0f;
+        if (!gameDurationSet || config.UseConstantSize)
+            return 0f;
 
         float timeElapsed = Time.time - gameStartTime;
         return Mathf.Clamp01(timeElapsed / gameDuration);
     }
+
+#if UNITY_EDITOR
+    [ContextMenu("Force Gravity Check")]
+    private void ForceGravityCheck()
+    {
+        var gravityObjects = FindObjectsOfType<MonoBehaviour>();
+        foreach (var obj in gravityObjects)
+        {
+            if (obj is IGravityAffected gravityAffected)
+                CheckAndAddGravityObject(gravityAffected);
+        }
+        Debug.Log($"Gravity check completed. Objects in field: {objectsInField}");
+    }
+#endif
 }

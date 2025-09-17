@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2edc252f9652890428e1ad66a348d68b, type: 3}
   m_Name: BlackHoleConfig
   m_EditorClassIdentifier: 
-  baseGravityStrength: 500
-  maxGravityStrength: 2000
+  useConstantSize: 1
+  constantIntensityValue: 1
+  baseGravityStrength: 400
+  maxGravityStrength: 400
   gravityFalloffCurve:
     serializedVersion: 2
     m_Curve:
@@ -63,7 +65,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   eventHorizonRadius: 0.5
-  influenceRadius: 5
-  maxInfluenceRadius: 10
+  influenceRadius: 9
+  maxInfluenceRadius: 9
   maxAffectedObjects: 50
   updateFrequency: 0.02

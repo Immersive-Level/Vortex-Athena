@@ -21,6 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Vortex Athena.unity
     guid: 8f5f6ee873a0f8c47b02c82337edb4f0
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 51b2c2e7e8529244f882cf93610d094b, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: fb082f2d3c440594cb1c56b11d91dc1d, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: fb2007e57fea17f4eabdbcb49da6774a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

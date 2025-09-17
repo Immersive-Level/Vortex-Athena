@@ -2,8 +2,7 @@ using UnityEngine;
 using GameSystems;
 
 /// <summary>
-/// Maneja la interacción del jugador con el agujero negro
-/// Integra con UnifiedDeathManager, FuelManager y ShipController
+/// Maneja la interacción del jugador con el agujero negro - Versión optimizada para producción
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
@@ -21,34 +20,50 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
     [SerializeField] private bool autoEmergencyOnDanger = false;
     [SerializeField] private float emergencyFuelCost = 2f;
 
-    [Header("Runtime State")]
+    [Header("Runtime State - ReadOnly")]
     [SerializeField, ReadOnly] private bool isInGravityField = false;
     [SerializeField, ReadOnly] private bool isInDangerZone = false;
     [SerializeField, ReadOnly] private float currentGravityIntensity = 0f;
     [SerializeField, ReadOnly] private bool emergencyThrustActive = false;
 
+    // Componentes cacheados
     private Rigidbody2D rigidBody;
     private ShipController shipController;
     private FuelManager fuelManager;
     private UnifiedDeathManager deathManager;
-    private PlayerMain playerMain;
 
+    // Estado optimizado
     private BlackHoleCore currentBlackHole;
+    private BlackHoleZoneManager zoneManager; // Cache del zone manager
     private float baseGravityMultiplier;
     private bool hasBeenConsumed = false;
 
+    // Optimización de cálculos
+    private float lastDistanceCheck = 0f;
+    private const float DISTANCE_CHECK_INTERVAL = 0.1f; // Verificar distancia cada 100ms
+    private float cachedDistance = float.MaxValue;
+    private Vector2 lastPosition;
+
+    // Propiedades de la interfaz IGravityAffected
     public Transform Transform => transform;
     public Rigidbody2D Rigidbody => rigidBody;
     public float GravityMultiplier => gravityMultiplier;
     public bool IsActive => gameObject.activeInHierarchy && !hasBeenConsumed &&
                            (deathManager == null || !deathManager.IsDead);
 
+    // Propiedades públicas de estado
     public bool IsInGravityField => isInGravityField;
     public bool IsInDangerZone => isInDangerZone;
     public float CurrentGravityIntensity => currentGravityIntensity;
     public bool EmergencyThrustActive => emergencyThrustActive;
 
     private void Awake()
+    {
+        CacheComponents();
+        baseGravityMultiplier = gravityMultiplier;
+    }
+
+    private void CacheComponents()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         if (rigidBody == null)
@@ -61,38 +76,96 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
         shipController = GetComponent<ShipController>();
         fuelManager = GetComponent<FuelManager>();
         deathManager = GetComponent<UnifiedDeathManager>();
-        playerMain = GetComponentInParent<PlayerMain>();
-
-        baseGravityMultiplier = gravityMultiplier;
     }
 
     private void Update()
     {
         if (!isInGravityField || currentBlackHole == null) return;
 
-        UpdateGravityInfo();
+        UpdateGravityInfoOptimized();
         HandleAutoEmergencyThrust();
     }
 
-    private void UpdateGravityInfo()
+    private void UpdateGravityInfoOptimized()
     {
-        var zoneManager = currentBlackHole.GetComponent<BlackHoleZoneManager>();
-        if (zoneManager != null)
+        float currentTime = Time.time;
+
+        // Optimización: Solo recalcular distancia periodicamente o si la posición cambió significativamente
+        Vector2 currentPos = transform.position;
+        bool forceUpdate = (currentPos - lastPosition).sqrMagnitude > 0.01f; // Movimiento significativo
+
+        if (currentTime - lastDistanceCheck > DISTANCE_CHECK_INTERVAL || forceUpdate)
         {
-            currentGravityIntensity = zoneManager.GetZoneIntensity(transform.position);
+            lastDistanceCheck = currentTime;
+            lastPosition = currentPos;
 
-            float distanceToCenter = Vector2.Distance(transform.position, currentBlackHole.Position);
-            bool wasInDangerZone = isInDangerZone;
-            isInDangerZone = distanceToCenter <= dangerZoneRadius;
-
-            if (isInDangerZone && !wasInDangerZone)
+            // Usar ZoneManager cache si está disponible
+            if (zoneManager != null)
             {
+                // Método optimizado que calcula todo en una pasada
+                zoneManager.GetZoneInfo(currentPos, out bool inEventHorizon, out bool inInfluence, out float intensity);
+
+                currentGravityIntensity = intensity;
+
+                // Actualizar danger zone
+                Vector2 blackHolePos = currentBlackHole.Position;
+                float sqrDistance = (currentPos - blackHolePos).sqrMagnitude;
+                float sqrDangerRadius = dangerZoneRadius * dangerZoneRadius;
+
+                bool wasInDangerZone = isInDangerZone;
+                isInDangerZone = sqrDistance <= sqrDangerRadius;
+
+                if (isInDangerZone != wasInDangerZone)
+                {
+                    if (isInDangerZone)
+                        OnEnteredDangerZone();
+                    else
+                        OnExitedDangerZone();
+                }
+            }
+            else
+            {
+                // Fallback manual calculation
+                UpdateGravityInfoManual(currentPos);
+            }
+        }
+    }
+
+    private void UpdateGravityInfoManual(Vector2 position)
+    {
+        Vector2 blackHolePos = currentBlackHole.Position;
+        float sqrDistance = (position - blackHolePos).sqrMagnitude;
+
+        // Intensity calculation
+        float influenceRadius = currentBlackHole.CurrentInfluenceRadius;
+        float sqrInfluenceRadius = influenceRadius * influenceRadius;
+
+        if (sqrDistance >= sqrInfluenceRadius)
+        {
+            currentGravityIntensity = 0f;
+        }
+        else if (sqrDistance <= currentBlackHole.EventHorizonRadius * currentBlackHole.EventHorizonRadius)
+        {
+            currentGravityIntensity = 1f;
+        }
+        else
+        {
+            float distance = Mathf.Sqrt(sqrDistance);
+            float normalizedDistance = distance / influenceRadius;
+            currentGravityIntensity = 1f - normalizedDistance; // Simplified fallback
+        }
+
+        // Danger zone update
+        float sqrDangerRadius = dangerZoneRadius * dangerZoneRadius;
+        bool wasInDangerZone = isInDangerZone;
+        isInDangerZone = sqrDistance <= sqrDangerRadius;
+
+        if (isInDangerZone != wasInDangerZone)
+        {
+            if (isInDangerZone)
                 OnEnteredDangerZone();
-            }
-            else if (!isInDangerZone && wasInDangerZone)
-            {
+            else
                 OnExitedDangerZone();
-            }
         }
     }
 
@@ -100,13 +173,14 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
     {
         if (!autoEmergencyOnDanger || fuelManager == null) return;
 
-        bool shouldActivateEmergency = isInDangerZone && fuelManager.HasFuel && shipController.IsMoving;
+        bool shouldActivate = isInDangerZone && fuelManager.HasFuel &&
+                             shipController != null && shipController.IsMoving;
 
-        if (shouldActivateEmergency && !emergencyThrustActive)
+        if (shouldActivate && !emergencyThrustActive)
         {
             ActivateEmergencyThrust();
         }
-        else if (!shouldActivateEmergency && emergencyThrustActive)
+        else if (!shouldActivate && emergencyThrustActive)
         {
             DeactivateEmergencyThrust();
         }
@@ -115,13 +189,17 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
     public void OnEnterGravityField(BlackHoleCore blackHole)
     {
         currentBlackHole = blackHole;
+        zoneManager = blackHole.GetComponent<BlackHoleZoneManager>(); // Cache zone manager
         isInGravityField = true;
-        OnGravityFieldEntered();
+
+        // Reset position cache to force immediate update
+        lastDistanceCheck = 0f;
     }
 
     public void OnExitGravityField(BlackHoleCore blackHole)
     {
         currentBlackHole = null;
+        zoneManager = null;
         isInGravityField = false;
         currentGravityIntensity = 0f;
 
@@ -132,7 +210,6 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
         }
 
         DeactivateEmergencyThrust();
-        OnGravityFieldExited();
     }
 
     public void OnReachEventHorizon(BlackHoleCore blackHole)
@@ -152,19 +229,16 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
         }
     }
 
-    private void OnGravityFieldEntered() { }
-    private void OnGravityFieldExited() { }
-
     private void OnEnteredDangerZone()
     {
-        if (!enableDangerZoneEffects) return;
-        gravityMultiplier = baseGravityMultiplier * dangerZoneMultiplier;
+        if (enableDangerZoneEffects)
+            gravityMultiplier = baseGravityMultiplier * dangerZoneMultiplier;
     }
 
     private void OnExitedDangerZone()
     {
-        if (!enableDangerZoneEffects) return;
-        gravityMultiplier = baseGravityMultiplier;
+        if (enableDangerZoneEffects)
+            gravityMultiplier = baseGravityMultiplier;
     }
 
     public void ActivateEmergencyThrust()
@@ -189,6 +263,8 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
 
         ActivateEmergencyThrust();
         fuelManager.AddFuel(-emergencyFuelCost);
+
+        // Optimización: Usar Invoke en lugar de corrutina para casos simples
         Invoke(nameof(DeactivateEmergencyThrust), duration);
     }
 
@@ -199,15 +275,30 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
         isInDangerZone = false;
         currentGravityIntensity = 0f;
         currentBlackHole = null;
+        zoneManager = null;
 
         DeactivateEmergencyThrust();
         gravityMultiplier = baseGravityMultiplier;
+
+        // Reset cache
+        lastDistanceCheck = 0f;
+        cachedDistance = float.MaxValue;
     }
 
     public float GetDistanceToBlackHole()
     {
         if (currentBlackHole == null) return float.MaxValue;
-        return Vector2.Distance(transform.position, currentBlackHole.Position);
+
+        // Usar distancia cached si está disponible y reciente
+        float currentTime = Time.time;
+        if (currentTime - lastDistanceCheck < DISTANCE_CHECK_INTERVAL && cachedDistance < float.MaxValue)
+        {
+            return cachedDistance;
+        }
+
+        // Calcular nueva distancia
+        cachedDistance = Vector2.Distance(transform.position, currentBlackHole.Position);
+        return cachedDistance;
     }
 
     public bool IsNearEventHorizon(float threshold = 1.5f)
@@ -219,17 +310,13 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
     private void OnEnable()
     {
         if (deathManager != null)
-        {
             deathManager.OnRespawn += OnPlayerRespawned;
-        }
     }
 
     private void OnDisable()
     {
         if (deathManager != null)
-        {
             deathManager.OnRespawn -= OnPlayerRespawned;
-        }
     }
 
     private void OnPlayerRespawned()
@@ -239,6 +326,17 @@ public class PlayerGravityHandler : MonoBehaviour, IGravityAffected
 
     private void OnDestroy()
     {
-        CancelInvoke();
+        CancelInvoke(); // Limpiar cualquier Invoke pendiente
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        gravityMultiplier = Mathf.Max(0.1f, gravityMultiplier);
+        emergencyThrustMultiplier = Mathf.Max(1f, emergencyThrustMultiplier);
+        dangerZoneMultiplier = Mathf.Max(1f, dangerZoneMultiplier);
+        dangerZoneRadius = Mathf.Max(0.5f, dangerZoneRadius);
+        emergencyFuelCost = Mathf.Max(0f, emergencyFuelCost);
+    }
+#endif
 }

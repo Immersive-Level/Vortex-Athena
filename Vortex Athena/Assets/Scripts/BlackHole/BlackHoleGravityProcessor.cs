@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Procesa la física gravitacional para todos los objetos afectados
+/// Procesa la física gravitacional - Versión optimizada para producción
 /// </summary>
 public class BlackHoleGravityProcessor : MonoBehaviour
 {
@@ -10,27 +10,53 @@ public class BlackHoleGravityProcessor : MonoBehaviour
     private BlackHoleConfiguration config;
     private float lastUpdateTime;
 
+    // Optimización: Reutilizar listas para evitar allocaciones
+    private readonly List<IGravityAffected> objectsToRemove = new List<IGravityAffected>(10);
+
+    // Cache para valores frecuentemente calculados
+    private float cachedGravityStrength;
+    private float lastIntensityUpdate;
+    private const float GRAVITY_CACHE_DURATION = 0.1f; // Cache por 100ms
+
     public void Initialize(BlackHoleCore core, BlackHoleConfiguration configuration)
     {
         blackHole = core;
         config = configuration;
+        lastUpdateTime = Time.time;
+        lastIntensityUpdate = -1f; // Forzar primer cálculo
     }
 
     public void ProcessGravity(HashSet<IGravityAffected> affectedObjects)
     {
-        if (Time.time - lastUpdateTime < config.UpdateFrequency) return;
-        lastUpdateTime = Time.time;
+        // Optimización: Control de frecuencia más preciso
+        float currentTime = Time.time;
+        if (currentTime - lastUpdateTime < config.UpdateFrequency) return;
+        lastUpdateTime = currentTime;
 
-        // Crear una lista temporal para evitar modificar la colección durante la iteración
-        var objectsToProcess = new List<IGravityAffected>(affectedObjects);
-        var objectsToRemove = new List<IGravityAffected>();
+        // Optimización: Early return si no hay objetos
+        if (affectedObjects.Count == 0) return;
 
-        // Procesar objetos usando la lista temporal
-        foreach (var obj in objectsToProcess)
+        // Limpiar lista de objetos a remover
+        objectsToRemove.Clear();
+
+        // Actualizar strength de gravedad solo cuando sea necesario
+        UpdateGravityStrength();
+
+        // Cache de valores del agujero negro para evitar property calls
+        Vector2 blackHolePos = blackHole.Position;
+        float eventHorizonRadius = config.EventHorizonRadius;
+        float currentInfluenceRadius = blackHole.CurrentInfluenceRadius;
+        float invInfluenceRadius = 1f / currentInfluenceRadius; // Pre-calcular división
+
+        // CORRECCIÓN: Crear un array temporal para evitar modificación durante iteración
+        var objectsArray = new IGravityAffected[affectedObjects.Count];
+        affectedObjects.CopyTo(objectsArray);
+
+        // Procesar objetos usando el array temporal
+        foreach (var obj in objectsArray)
         {
             // Verificar que el objeto aún esté en la colección original
-            if (!affectedObjects.Contains(obj))
-                continue;
+            if (!affectedObjects.Contains(obj)) continue;
 
             if (!obj.IsActive || obj.Rigidbody == null)
             {
@@ -38,38 +64,76 @@ public class BlackHoleGravityProcessor : MonoBehaviour
                 continue;
             }
 
-            ProcessObjectGravity(obj);
+            ProcessObjectGravityOptimized(obj, blackHolePos, eventHorizonRadius,
+                                        currentInfluenceRadius, invInfluenceRadius);
         }
 
         // Remover objetos inválidos después de la iteración
-        foreach (var obj in objectsToRemove)
+        if (objectsToRemove.Count > 0)
         {
-            affectedObjects.Remove(obj);
+            foreach (var obj in objectsToRemove)
+            {
+                affectedObjects.Remove(obj);
+            }
         }
     }
 
-    private void ProcessObjectGravity(IGravityAffected obj)
+    private void UpdateGravityStrength()
     {
-        Vector2 direction = (blackHole.Position - (Vector2)obj.Transform.position);
-        float distance = direction.magnitude;
+        float currentTime = Time.time;
 
-        if (distance <= blackHole.EventHorizonRadius)
+        // Solo recalcular si ha pasado suficiente tiempo
+        if (currentTime - lastIntensityUpdate > GRAVITY_CACHE_DURATION)
+        {
+            float currentIntensity = blackHole.CurrentIntensity;
+            cachedGravityStrength = Mathf.Lerp(config.BaseGravityStrength,
+                                             config.MaxGravityStrength,
+                                             currentIntensity - 1f);
+            lastIntensityUpdate = currentTime;
+        }
+    }
+
+    private void ProcessObjectGravityOptimized(IGravityAffected obj, Vector2 blackHolePos,
+                                             float eventHorizonRadius, float influenceRadius,
+                                             float invInfluenceRadius)
+    {
+        Transform objTransform = obj.Transform;
+        Vector2 objPos = objTransform.position;
+
+        // Optimización: Usar squared distance para verificación inicial
+        Vector2 direction = blackHolePos - objPos;
+        float sqrDistance = direction.sqrMagnitude;
+
+        // Verificar event horizon usando squared distance
+        float eventHorizonSqr = eventHorizonRadius * eventHorizonRadius;
+        if (sqrDistance <= eventHorizonSqr)
         {
             blackHole.ConsumeObject(obj);
             return;
         }
 
-        direction.Normalize();
+        // Solo calcular distance real si es necesario
+        float distance = Mathf.Sqrt(sqrDistance);
 
-        float normalizedDistance = distance / blackHole.CurrentInfluenceRadius;
+        // Normalizar dirección usando la distancia ya calculada
+        direction /= distance;
+
+        // Calcular falloff
+        float normalizedDistance = distance * invInfluenceRadius;
         float falloffMultiplier = config.GravityFalloffCurve.Evaluate(1f - normalizedDistance);
 
-        float gravityStrength = Mathf.Lerp(config.BaseGravityStrength, config.MaxGravityStrength,
-                                          blackHole.CurrentIntensity - 1f);
-
-        Vector2 gravitationalForce = direction * gravityStrength * falloffMultiplier *
+        // Aplicar fuerza gravitacional
+        Vector2 gravitationalForce = direction * cachedGravityStrength * falloffMultiplier *
                                    obj.GravityMultiplier * Time.fixedDeltaTime;
 
         obj.Rigidbody.AddForce(gravitationalForce, ForceMode2D.Force);
+    }
+
+    private void OnDestroy()
+    {
+        // Limpiar referencias
+        blackHole = null;
+        config = null;
+        objectsToRemove?.Clear();
     }
 }

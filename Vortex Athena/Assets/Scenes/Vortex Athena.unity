@@ -8575,6 +8575,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoInvulnerabilidad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Layer
       value: 8

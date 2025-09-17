@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nave: {fileID: 8452753963668889667}
-  impulsoInicial: 2
-  direccionImpulso: {x: 1, y: 1}
+  impulsoInicial: 99999
+  direccionImpulso: {x: -10, y: -500}
   combustibleInicial: 100
+  usarOrbitaInicial: 1
+  orbitaCentro: {fileID: 0}
+  sentidoOrbita: 1
   blackHoleManager: {fileID: 0}
   shipInputController: {fileID: 0}
 --- !u!1 &2144839741039488508
@@ -96,9 +99,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea93062344abcc408d8c2713aba1e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMultiplayer: 0
   data:
     Name: Player 1
   ObjetoNave: {fileID: 8452753963668889667}
+  InicioNave: {fileID: 8967864817423197334}
+  ShipController: {fileID: 7377354669327698296}
+  CombatSystem: {fileID: 933410782465386759}
+  PlayerScoreSystem: {fileID: 2276714564275110904}
+  AffectedByBlackHole: {fileID: 4245581896112512108}
+  UnifiedDeathManager: {fileID: 1219413745525033032}
+  ResourceCollector: {fileID: 7714841270529153968}
+  ShipInvulnerability: {fileID: 977790932892868827}
+  FuelManager: {fileID: 5084323159983305511}
+  ShipInputController: {fileID: 0}
+  AbilityManager: {fileID: 1300133680352463267}
 --- !u!1 &4200900407060640552
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,8 +278,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.67, y: 0.67, z: 0.67}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 469429294375549492}
   - {fileID: 525559470693097151}
@@ -316,7 +331,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5408682344336215048, guid: 17325a53c01c18c47a6f9b48ae4fbdb7, type: 3}
+  m_Sprite: {fileID: -4244917751013867710, guid: 764dd2e833bc9e240b7a3f689365016f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -433,6 +448,8 @@ MonoBehaviour:
   type: 0
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
+  deathManager: {fileID: 1219413745525033032}
+  fuelManager: {fileID: 5084323159983305511}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +553,8 @@ MonoBehaviour:
   type: 1
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
+  deathManager: {fileID: 1219413745525033032}
+  fuelManager: {fileID: 5084323159983305511}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,7 +721,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.005
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -772,6 +791,7 @@ MonoBehaviour:
   autoRefuel: 1
   autoRefuelRate: 1
   autoRefuelDelay: 1
+  minFuelToStart: 3
   fuelBarImage: {fileID: 0}
   debugMode: 0
 --- !u!114 &1219413745525033032

@@ -825,11 +825,9 @@ MonoBehaviour:
   respawnText: {fileID: 0}
   respawnWaitTime: 3
   fuelOnRespawn: 30
-  invulnerabilityDuration: 2
   autoRespawn: 0
   deathEffectPrefab: {fileID: 0}
   deathSounds: []
-  debugMode: 0
 --- !u!114 &933410782465386759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,7 +914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoInvulnerabilidad: 2
+  tiempoInvulnerabilidad: 0.7
   tiempoParpadeo: 0.1
   shipVisual: {fileID: 4310118365417915349}
 --- !u!58 &2011099607856449822

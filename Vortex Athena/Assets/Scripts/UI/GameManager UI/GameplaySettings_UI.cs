@@ -40,6 +40,6 @@ public class GameplaySettings_UI : MonoBehaviour
 
     private void OnQuitClicked()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

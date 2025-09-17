@@ -68,6 +68,12 @@ public class PlayerInputManager : MonoBehaviour
     void Start()
     {
         SetupEventListeners();
+
+        // Marcar a todos como "muertos" al inicio - Para el arduino
+        for (int i = 0; i < players.Count; i++)
+        {
+            SerialBridge.SendState(i + 1, false); // false = muerto
+        }
     }
 
     void ValidatePlayerConfigurations()
@@ -250,6 +256,9 @@ public class PlayerInputManager : MonoBehaviour
             {
                 OnPlayerKeyUp(player);
             }
+
+            // --- NUEVO: avisar al Arduino ---
+            SerialBridge.SendState(playerIndex + 1, false);
         }
     }
 
@@ -258,6 +267,10 @@ public class PlayerInputManager : MonoBehaviour
         if (playerIndex >= 0 && playerIndex < players.Count)
         {
             players[playerIndex].canMove = true;
+
+            // --- NUEVO: avisar al Arduino ---
+            SerialBridge.SendState(playerIndex + 1, true);
+
         }
     }
 

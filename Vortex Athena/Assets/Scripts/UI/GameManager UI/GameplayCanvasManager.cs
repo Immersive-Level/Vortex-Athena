@@ -45,7 +45,7 @@ public class GameplayCanvasManager : MonoBehaviour
         {
             GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
         }
-        HandleGameStateChanged(GameState.InMenu);
+        HandleGameStateChanged();//estado de inicio inMenu;
     }
 
     private void OnDisable()
@@ -56,9 +56,12 @@ public class GameplayCanvasManager : MonoBehaviour
         }
     }
 
-    private void HandleGameStateChanged(GameState newState)
+    private void HandleGameStateChanged()
     {
-        SetActiveCanvas(newState);
+        // Validar que GameManager esté disponible y haya sido spawneado en red
+        if (GameManager.Instance == null || !GameManager.Instance.Object || !GameManager.Instance.Object.IsValid) return;
+
+        SetActiveCanvas(GameManager.Instance.CurrentState);
     }
 
     /// <summary>

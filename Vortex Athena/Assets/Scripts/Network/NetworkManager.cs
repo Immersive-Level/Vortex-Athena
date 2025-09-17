@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using Fusion;
+using System;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class NetworkManager : MonoBehaviour
 
     [Header("Connection Settings")]
     [SerializeField] private bool _autoConnect = true;
-    [SerializeField] private bool _createPrivateRoom = true;
-    [SerializeField] private string _roomName = "DevRoom";
+    [SerializeField] private bool _createRoom = true;
+    [SerializeField] public string RoomName = "DevRoom";
     [SerializeField] private int _maxPlayers = 4;
 
     [Header("Player Settings")]
@@ -27,6 +28,7 @@ public class NetworkManager : MonoBehaviour
     public bool IsConnected => _runner != null && _runner.IsRunning;
     public bool IsHost => _runner != null && _runner.IsSharedModeMasterClient;
     public NetworkRunner Runner => _runner;
+    public event Action OnConnectionReady;
 
     #region Unity Life Cycle
 
@@ -46,6 +48,7 @@ public class NetworkManager : MonoBehaviour
     {
         if (_autoConnect)
         {
+            _createRoom = false;
             await StartConnection();
         }
     }
@@ -82,7 +85,7 @@ public class NetworkManager : MonoBehaviour
         var startArgs = new StartGameArgs()
         {
             GameMode = GameMode.Shared,
-            SessionName = GenerateRoomName()
+            SessionName = GenerateRoomName(),
         };
 
         var result = await _runner.StartGame(startArgs);
@@ -90,6 +93,7 @@ public class NetworkManager : MonoBehaviour
         if (result.Ok)
         {
             LogDebug($"Conectado exitosamente a: {startArgs.SessionName}");
+            OnConnectionReady?.Invoke();
             return true;
         }
         //else
@@ -116,27 +120,12 @@ public class NetworkManager : MonoBehaviour
 
     string GenerateRoomName()
     {
-        return _createPrivateRoom
-            ? $"{_roomName}_Private_{Random.Range(10000, 99999)}"
-            : _roomName;
-    }
-
-    public async Task JoinSpecificRoom(string roomName)
-    {
-        _roomName = roomName;
-        _createPrivateRoom = false;
-        await Reconnect();
-    }
-
-    public async Task CreatePrivateRoom(string customRoomName = null)
-    {
-        if (!string.IsNullOrEmpty(customRoomName))
+        if (_createRoom)
         {
-            _roomName = customRoomName;
+            RoomName = UnityEngine.Random.Range(10000, 99999).ToString();
         }
 
-        _createPrivateRoom = true;
-        await Reconnect();
+        return RoomName;
     }
 
     public async Task<bool> TryJoinRoom(string roomCode)
@@ -147,8 +136,8 @@ public class NetworkManager : MonoBehaviour
             return false;
         }
 
-        _roomName = roomCode;
-        _createPrivateRoom = false;
+        RoomName = roomCode;
+        _createRoom = false;
 
         var result = await StartConnection();
         return result;
@@ -156,8 +145,8 @@ public class NetworkManager : MonoBehaviour
 
     public async Task<bool> CreateRoom()
     {
-        _roomName = GenerateRoomName();
-        _createPrivateRoom = true;
+        RoomName = GenerateRoomName();
+        _createRoom = true;
 
         var result = await StartConnection();
         return result;
@@ -250,8 +239,8 @@ public class NetworkManager : MonoBehaviour
 
     void OnValidate()
     {
-        if (string.IsNullOrEmpty(_roomName))
-            _roomName = "DevRoom";
+        if (string.IsNullOrEmpty(RoomName))
+            RoomName = "DevRoom";
 
         if (_maxPlayers < 1)
             _maxPlayers = 1;

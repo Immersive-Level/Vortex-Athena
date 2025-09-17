@@ -84,8 +84,9 @@ public class BlackHoleCore : MonoBehaviour
         gameDurationSet = true;
     }
 
-    private void OnGameStateChanged(GameState newState)
+    private void OnGameStateChanged()
     {
+        var newState = GameManager.Instance.CurrentState;
         switch (newState)
         {
             case GameState.InGame:

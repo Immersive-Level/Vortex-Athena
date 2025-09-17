@@ -22,7 +22,7 @@ public class InicioNave : MonoBehaviour
     [Header("Sistema BlackHole")]
     [SerializeField] private BlackHoleCore blackHoleCore;
     [SerializeField] private bool autoFindBlackHole = true;
-    [SerializeField] private ShipInputController shipInputController;
+    [SerializeField] public ShipInputController shipInputController;
 
     private bool juegoIniciado = false;
     public bool JuegoIniciado => juegoIniciado;
@@ -42,12 +42,16 @@ public class InicioNave : MonoBehaviour
 
         // Suscribirse a cambios de estado del juego
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+        }
     }
 
-    private void OnGameStateChanged(GameState newState)
+    private void OnGameStateChanged()
     {
-        if (newState == GameState.InGame)
+        var currentState = GameManager.Instance.CurrentState;
+
+        if (currentState == GameState.InGame)
         {
             // Al iniciar juego, desactivar nave para esperar join-in manual
             if (!juegoIniciado)
@@ -55,7 +59,7 @@ public class InicioNave : MonoBehaviour
                 nave.SetActive(false);
             }
         }
-        else if (newState == GameState.InMenu)
+        else if (currentState == GameState.InMenu)
         {
             ReiniciarNave();
         }
@@ -190,11 +194,9 @@ public class InicioNave : MonoBehaviour
     private void OnDestroy()
     {
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+        }
     }
-    void OnDisable() => DesregistrarDeBlackHole();
-    void OnDestroy() 
-    {
-        DesregistrarDeBlackHole();
-    } 
+
 }

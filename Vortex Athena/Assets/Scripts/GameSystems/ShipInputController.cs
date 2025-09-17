@@ -89,7 +89,9 @@ namespace GameSystems
             // Obtener referencia a InicioNave
             inicioNave = GetComponentInParent<InicioNave>();
             if (inicioNave != null)
-                StartCoroutine(CheckGameStarted());
+            {
+                StartCoroutine(CheckGameStarted(inicioNave));
+            }
         }
 
         public void SetScriptReferences(FuelManager FuelManager, ShipController ShipController, UnifiedDeathManager UnifiedDeathManager)

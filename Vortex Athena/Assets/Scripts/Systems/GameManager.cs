@@ -2,6 +2,7 @@ using Fusion;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.PlayerLoop;
 
 public enum GameState : byte
 {
@@ -16,13 +17,12 @@ public class GameManager : NetworkBehaviour
 
     [Networked, OnChangedRender(nameof(OnStateChanged))]
     public GameState CurrentState { get; private set; }
-
     [Networked]
     public bool UseAbilities { get; private set; }
-
-    [Networked] public float GameDuration { get; private set; }
-    [Networked] private float GameStartTime { get; set; }
-
+    [Networked]
+    public float GameDuration { get; private set; }
+    [Networked]
+    private float GameStartTime { get; set; }
     public float Gametime => Runner.SimulationTime - GameStartTime;
 
     public event Action OnGameStateChanged;
@@ -51,7 +51,6 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        SetState(GameState.InMenu);
         NavesActivas = new List<GameObject>();
 
         // Mostrar tutorial si no est� completado
@@ -68,12 +67,17 @@ public class GameManager : NetworkBehaviour
 
     public override void Spawned()
     {
-        if (CurrentState != GameState.InGame)
-            return;
+        SetState(GameState.InMenu);
+        Log("Spawned!");
+    }
+    private void Update()
+    {
+        if (CurrentState != GameState.InGame) return;
 
-        Gametime = Time.time - GameStartTime;
         if (Gametime >= GameDuration)
+        {
             EndGame();
+        }
     }
 
     private void HandleConnectionReady()

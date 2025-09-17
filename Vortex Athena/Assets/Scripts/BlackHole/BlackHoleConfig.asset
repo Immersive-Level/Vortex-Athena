@@ -14,28 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useConstantSize: 1
   constantIntensityValue: 1
-  baseGravityStrength: 400
-  maxGravityStrength: 400
+  baseGravityStrength: 200
+  maxGravityStrength: 350
   gravityFalloffCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1.0023499
-      inSlope: -0.98592186
-      outSlope: -0.98592186
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1.0166626
       value: 0
-      inSlope: -0.34242204
-      outSlope: -0.34242204
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33196452
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.15017217
+      value: 0.37259075
+      inSlope: 1.0329843
+      outSlope: 1.0329843
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5791111
+      value: 0.6998712
+      inSlope: 0.89218825
+      outSlope: 0.89218825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9750061
+      value: 1.0660362
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

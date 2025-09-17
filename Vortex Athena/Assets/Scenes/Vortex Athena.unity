@@ -2976,6 +2976,14 @@ PrefabInstance:
       propertyPath: gravitationalObject
       value: 
       objectReference: {fileID: 715235522}
+    - target: {fileID: 1706534302312286837, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706534302312286837, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Interpolate
       value: 1
@@ -8739,6 +8747,14 @@ PrefabInstance:
       propertyPath: gravitationalObject
       value: 
       objectReference: {fileID: 670614147}
+    - target: {fileID: 1706534302312286837, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1706534302312286837, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.45
+      objectReference: {fileID: 0}
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Interpolate
       value: 1
@@ -8937,11 +8953,15 @@ PrefabInstance:
       objectReference: {fileID: 1018058371}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: impulsoInicial
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: blackHoleManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: usarOrbitaInicial
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: direccionImpulso.x

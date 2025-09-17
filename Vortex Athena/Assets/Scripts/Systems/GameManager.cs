@@ -32,6 +32,13 @@ public class GameManager : NetworkBehaviour
 
     public ScoreSystem ScoreSystem { get; private set; }
 
+    [Header("Tutorial")]
+    [SerializeField] private bool tutorialCompletado = false;
+
+    // Propiedades pï¿½blicas para InicioNave
+    public bool TutorialCompletado => tutorialCompletado;
+    public bool SkipTutorialEnabled => tutorialCompletado; // Simplificado: mismo valor
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,6 +51,15 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
+        SetState(GameState.InMenu);
+        NavesActivas = new List<GameObject>();
+
+        // Mostrar tutorial si no estï¿½ completado
+        if (!tutorialCompletado && TutorialRoot != null)
+        {
+            TutorialRoot.SetActive(true);
+            Time.timeScale = 0;
+        }
         if (NetworkManager.Instance != null)
         {
             NetworkManager.Instance.OnConnectionReady += HandleConnectionReady;
@@ -52,17 +68,12 @@ public class GameManager : NetworkBehaviour
 
     public override void Spawned()
     {
-        Log("Spawned!");
+        if (CurrentState != GameState.InGame)
+            return;
 
-        if (Object.HasStateAuthority)
-        {
-            SetState(GameState.InMenu);
-        }
-
-        if (TutorialRoot != null && !Runner.IsSharedModeMasterClient)
-        {
-            ToggleTutorial();
-        }
+        Gametime = Time.time - GameStartTime;
+        if (Gametime >= GameDuration)
+            EndGame();
     }
 
     private void HandleConnectionReady()
@@ -71,7 +82,7 @@ public class GameManager : NetworkBehaviour
         {
             if (NetworkManager.Instance.IsHost)
             {
-                Log("Spawneando GameManager tras conexión...");
+                Log("Spawneando GameManager tras conexiï¿½n...");
                 NetworkManager.Instance.Runner.Spawn(gameObject);
             }
         }
@@ -97,6 +108,9 @@ public class GameManager : NetworkBehaviour
     public void ReturnToMenu()
     {
         if (!Object.HasStateAuthority) return;
+        Time.timeScale = 1f;
+        if (TutorialRoot != null)
+            TutorialRoot.SetActive(false);
         SetState(GameState.InMenu);
     }
 
@@ -114,22 +128,41 @@ public class GameManager : NetworkBehaviour
 
     public void RegisterShip(GameObject inShip)
     {
-        if (inShip != null)
-        {
+        if (inShip != null && !NavesActivas.Contains(inShip))
             NavesActivas.Add(inShip);
-        }
     }
 
     public void RemoveRegisterShip(GameObject inShip)
     {
         if (inShip != null)
-        {
             NavesActivas.Remove(inShip);
-        }
     }
 
+    /// <summary>
+    /// Alterna el tutorial - Las naves se manejan automï¿½ticamente
+    /// </summary>
     public void ToggleTutorial()
     {
+        if (TutorialRoot == null) return;
+
+        bool tutorialActivo = TutorialRoot.activeInHierarchy;
+
+        if (tutorialActivo)
+        {
+            // Cerrar tutorial
+            Time.timeScale = 1f;
+            TutorialRoot.SetActive(false);
+            tutorialCompletado = true;
+
+            // Las naves se desactivarï¿½n automï¿½ticamente cuando el estado cambie a InGame
+            // InicioNave maneja esto en OnGameStateChanged
+        }
+        else
+        {
+            // Abrir tutorial
+            Time.timeScale = 0f;
+            TutorialRoot.SetActive(true);
+        }
         Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         TutorialRoot.SetActive(!TutorialRoot.activeInHierarchy);
     }
@@ -152,6 +185,24 @@ public class GameManager : NetworkBehaviour
                 Debug.Log(inMessage);
                 break;
         }
+    }
+
+    /// <summary>
+    /// Obtiene el tiempo restante del juego
+    /// </summary>
+    public float GetRemainingTime()
+    {
+        if (CurrentState != GameState.InGame) return GameDuration;
+        return Mathf.Max(0f, GameDuration - Gametime);
+    }
+
+    /// <summary>
+    /// Obtiene el progreso del juego (0-1)
+    /// </summary>
+    public float GetGameProgress()
+    {
+        if (CurrentState != GameState.InGame) return 0f;
+        return Mathf.Clamp01(Gametime / GameDuration);
     }
     #endregion
 }

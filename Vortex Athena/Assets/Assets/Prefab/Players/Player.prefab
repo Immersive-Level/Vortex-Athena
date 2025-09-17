@@ -51,7 +51,8 @@ MonoBehaviour:
   usarOrbitaInicial: 1
   orbitaCentro: {fileID: 0}
   sentidoOrbita: 1
-  blackHoleManager: {fileID: 0}
+  blackHoleCore: {fileID: 0}
+  autoFindBlackHole: 1
   shipInputController: {fileID: 0}
 --- !u!1 &2144839741039488508
 GameObject:
@@ -103,17 +104,16 @@ MonoBehaviour:
   data:
     Name: Player 1
   ObjetoNave: {fileID: 8452753963668889667}
-  InicioNave: {fileID: 8967864817423197334}
-  ShipController: {fileID: 7377354669327698296}
-  CombatSystem: {fileID: 933410782465386759}
-  PlayerScoreSystem: {fileID: 2276714564275110904}
-  AffectedByBlackHole: {fileID: 4245581896112512108}
-  UnifiedDeathManager: {fileID: 1219413745525033032}
-  ResourceCollector: {fileID: 7714841270529153968}
-  ShipInvulnerability: {fileID: 977790932892868827}
-  FuelManager: {fileID: 5084323159983305511}
+  InicioNave: {fileID: 0}
+  ShipController: {fileID: 0}
+  CombatSystem: {fileID: 0}
+  PlayerScoreSystem: {fileID: 0}
+  UnifiedDeathManager: {fileID: 0}
+  ResourceCollector: {fileID: 0}
+  ShipInvulnerability: {fileID: 0}
+  FuelManager: {fileID: 0}
   ShipInputController: {fileID: 0}
-  AbilityManager: {fileID: 1300133680352463267}
+  AbilityManager: {fileID: 0}
 --- !u!1 &4200900407060640552
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,8 +448,8 @@ MonoBehaviour:
   type: 0
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
-  deathManager: {fileID: 1219413745525033032}
-  fuelManager: {fileID: 5084323159983305511}
+  deathManager: {fileID: 0}
+  fuelManager: {fileID: 0}
 --- !u!1 &7360204419760076277
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,8 +553,8 @@ MonoBehaviour:
   type: 1
   collisionEffectPrefab: {fileID: 4723825679806883976, guid: 3eb52a5ff021e8f49a614866c1f341c1, type: 3}
   combatSystem: {fileID: 933410782465386759}
-  deathManager: {fileID: 1219413745525033032}
-  fuelManager: {fileID: 5084323159983305511}
+  deathManager: {fileID: 0}
+  fuelManager: {fileID: 0}
 --- !u!1 &8240186896083609102
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +684,7 @@ GameObject:
   - component: {fileID: 7714841270529153968}
   - component: {fileID: 2276714564275110904}
   - component: {fileID: 977790932892868827}
+  - component: {fileID: 2011099607856449822}
   m_Layer: 0
   m_Name: Nave A
   m_TagString: Nave
@@ -767,12 +768,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8452753963668889667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae4addfb334a2f444b3c0eb9794b6b2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 41e23797bf77c2d4d84a273514850c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionResistance: 1
-  canBeAffected: 1
-  isWithinEventHorizon: 0
+  gravityMultiplier: 1
+  emergencyThrustMultiplier: 1.5
+  dangerZoneMultiplier: 1.5
+  enableDangerZoneEffects: 1
+  dangerZoneRadius: 8
+  autoEmergencyOnDanger: 0
+  emergencyFuelCost: 2
+  isInGravityField: 0
+  isInDangerZone: 0
+  currentGravityIntensity: 0
+  emergencyThrustActive: 0
 --- !u!114 &5084323159983305511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,11 +826,9 @@ MonoBehaviour:
   respawnText: {fileID: 0}
   respawnWaitTime: 3
   fuelOnRespawn: 30
-  invulnerabilityDuration: 2
   autoRespawn: 0
   deathEffectPrefab: {fileID: 0}
   deathSounds: []
-  debugMode: 0
 --- !u!114 &933410782465386759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,6 +915,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c42a30c0fce2c4fac4d62d69e8f3ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoInvulnerabilidad: 2
+  tiempoInvulnerabilidad: 0.7
   tiempoParpadeo: 0.1
   shipVisual: {fileID: 4310118365417915349}
+--- !u!58 &2011099607856449822
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452753963668889667}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.5

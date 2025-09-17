@@ -3693,9 +3693,12 @@ MonoBehaviour:
   anguloDesvio: {x: -20, y: 20}
   padding: 0.5
   zDepth: 0
-  tamanoRango: {x: 0.02, y: 0.05}
+  tamanoRango: {x: 0.0001, y: 0.0001}
   alphaRango: {x: 0.7, y: 1}
   materialParticula: {fileID: 2100000, guid: fba0bb1cbca040d4a86bcf3c62bc49a0, type: 2}
+  controlarTamanoDesdeScript: 1
+  usarEmitParamsParaTamano: 0
+  modoEscalado: 1
   habilitarTrail: 1
   trailLifetime: 0.05
   trailWidth: 0.05
@@ -3854,7 +3857,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 2
+  scalingMode: 1
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4032,9 +4035,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      minMaxState: 3
+      scalar: 0.0001
+      minScalar: 0.0001
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4085,7 +4088,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -4138,7 +4141,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:

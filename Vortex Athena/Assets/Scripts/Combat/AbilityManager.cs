@@ -1,18 +1,19 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
-using GameSystems; // Para acceder a UnifiedDeathManager
+using GameSystems;            // Para verificar muerte con UnifiedDeathManager
+using UnityEngine.Events;    // Para exponer eventos en el Inspector
 
 public static class MorseDictionary
 {
     public static readonly Dictionary<string, string> AlphabetToMorse = new()
     {
-        { "A", "·-" }, { "B", "-···" }, { "C", "-·-·" }, { "D", "-··" },
-        { "E", "·" }, { "F", "··-·" }, { "G", "--·" }, { "H", "····" },
-        { "I", "··" }, { "J", "·---" }, { "K", "-·-" }, { "L", "·-··" },
-        { "M", "--" }, { "N", "-·" }, { "O", "---" }, { "P", "·--·" },
-        { "Q", "--·-" }, { "R", "·-·" }, { "S", "···" }, { "T", "-" },
-        { "U", "··-" }, { "V", "···-" }, { "W", "·--" }, { "X", "-··-" },
-        { "Y", "-·--" }, { "Z", "--··" }
+        { "A", "Â·-" }, { "B", "-Â·Â·Â·" }, { "C", "-Â·-Â·" }, { "D", "-Â·Â·" },
+        { "E", "Â·" }, { "F", "Â·Â·-Â·" }, { "G", "--Â·" }, { "H", "Â·Â·Â·Â·" },
+        { "I", "Â·Â·" }, { "J", "Â·---" }, { "K", "-Â·-" }, { "L", "Â·-Â·Â·" },
+        { "M", "--" }, { "N", "-Â·" }, { "O", "---" }, { "P", "Â·--Â·" },
+        { "Q", "--Â·-" }, { "R", "Â·-Â·" }, { "S", "Â·Â·Â·" }, { "T", "-" },
+        { "U", "Â·Â·-" }, { "V", "Â·Â·Â·-" }, { "W", "Â·--" }, { "X", "-Â·Â·-" },
+        { "Y", "-Â·--" }, { "Z", "--Â·Â·" }
     };
 }
 
@@ -23,112 +24,179 @@ public enum MorseLetter
     U, V, W, X, Y, Z
 }
 
+/// <summary>
+/// Entrada de SFX por habilidad: se sincroniza con abilityBindings.
+/// Arrastra aquÃ­ tu objeto SFX (instancia en escena) y elige Play/Trigger/PlayRandom.
+/// </summary>
+[System.Serializable]
+public class AbilitySfxEntry
+{
+    public MorseLetter letter;
+    [Tooltip("Se invoca cuando ESTA habilidad se activa correctamente.")]
+    public UnityEvent onActivatedSfx;
+}
 
 public class AbilityManager : MonoBehaviour
 {
+    [Header("Bindings (letra â†’ Ability)")]
     [SerializeField] public List<LetterAbility> abilityBindings;
 
-    private Dictionary<string, AbilityData> morseRegistry = new();
+    // Registro morse â†’ Ability y morse â†’ letra para lookup rÃ¡pido
+    private readonly Dictionary<string, AbilityData> morseToAbility = new();
+    private readonly Dictionary<string, MorseLetter> morseToLetter = new();
 
     private PlayerMain _playerMain;
-    private UnifiedDeathManager _deathManager; // NUEVO: Referencia directa al death manager
+    private UnifiedDeathManager _deathManager;
+
+    [Header("Audio")]
+    [Tooltip("Se invoca SIEMPRE que cualquier habilidad se activa con Ã©xito (ademÃ¡s del SFX por-habilidad).")]
+    public UnityEvent onSfxAbilityActivatedGlobal;
+
+    [Tooltip("Lista auto-sincronizada con abilityBindings. AquÃ­ asignas el sonido especÃ­fico por habilidad.")]
+    public List<AbilitySfxEntry> perAbilitySfx = new();
+
+    [Tooltip("Mantener sincronizada perAbilitySfx con abilityBindings automÃ¡ticamente.")]
+    [SerializeField] private bool autoSyncSfxList = true;
 
     void Awake()
     {
+        // Construir registros morse â†’ ability y morse â†’ letra
+        morseToAbility.Clear();
+        morseToLetter.Clear();
+
         foreach (var item in abilityBindings)
         {
             string letterStr = item.letter.ToString();
             if (MorseDictionary.AlphabetToMorse.TryGetValue(letterStr, out string morseCode))
             {
-                morseRegistry[morseCode] = item.ability;
+                morseToAbility[morseCode] = item.ability;
+                morseToLetter[morseCode] = item.letter;
             }
             else
             {
-                Debug.LogWarning($"Letra inválida: {letterStr}");
+                Debug.LogWarning($"[AbilityManager] Letra invÃ¡lida en bindings: {letterStr}");
             }
         }
+
+        if (autoSyncSfxList)
+            SyncPerAbilitySfxWithBindings();
     }
 
     private void Start()
     {
         _playerMain = transform.parent.GetComponent<PlayerMain>();
         if (_playerMain == null)
-        {
             Debug.LogError("[AbilityManager] PlayerMain is Null at " + transform.parent.name);
-        }
 
-        // NUEVO: Obtener referencia al UnifiedDeathManager
+        // Buscar UnifiedDeathManager para bloquear activaciÃ³n si el jugador estÃ¡ muerto
         _deathManager = _playerMain?.UnifiedDeathManager;
         if (_deathManager == null)
         {
-            // Buscar en el mismo GameObject o en los hijos
-            _deathManager = GetComponent<UnifiedDeathManager>();
-            if (_deathManager == null)
-                _deathManager = GetComponentInParent<UnifiedDeathManager>();
-            if (_deathManager == null)
-                _deathManager = GetComponentInChildren<UnifiedDeathManager>();
+            _deathManager = GetComponent<UnifiedDeathManager>()
+                         ?? GetComponentInParent<UnifiedDeathManager>()
+                         ?? GetComponentInChildren<UnifiedDeathManager>();
         }
-
         if (_deathManager == null)
-        {
-            Debug.LogWarning("[AbilityManager] UnifiedDeathManager no encontrado, las habilidades no verificarán el estado de muerte");
-        }
+            Debug.LogWarning("[AbilityManager] UnifiedDeathManager no encontrado; no se verificarÃ¡ estado de muerte.");
     }
 
+    /// <summary>
+    /// Intenta activar una habilidad a partir del cÃ³digo morse.
+    /// Dispara SFX global y SFX especÃ­fico por habilidad si procede.
+    /// </summary>
     public bool TryActivate(string morseCode)
     {
-        if (!GameManager.Instance.UseAbilities) return false;
+        // Gate global: habilidades activadas en GameManager
+        if (!GameManager.Instance.UseAbilities) return false;  // no suena nada
 
-        // ACTUALIZADO: Usar el nuevo UnifiedDeathManager
+        // Gate por estado de muerte
         if (_deathManager != null && _deathManager.IsDead)
         {
-            Debug.Log("[AbilityManager] No se puede activar habilidad - jugador muerto");
+            // jugador muerto: no activar ni sonar
             return false;
         }
 
-        if (morseRegistry.TryGetValue(morseCode, out AbilityData ability))
+        if (morseToAbility.TryGetValue(morseCode, out AbilityData ability))
         {
-            Debug.Log($"[AbilityManager] Activando {ability.abilityName}");
             ability.Activate(gameObject);
+
+            // SFX global (uno para todas)
+            onSfxAbilityActivatedGlobal?.Invoke();
+
+            // SFX por-habilidad (segÃºn la letra asociada a este cÃ³digo)
+            if (morseToLetter.TryGetValue(morseCode, out MorseLetter letter))
+                InvokePerAbilitySfx(letter);
+
             return true;
         }
 
-        Debug.Log($"[AbilityManager] Código morse no reconocido: {morseCode}");
+        // CÃ³digo invÃ¡lido: no activar ni sonar (como pediste, solo AbilityActivated)
         return false;
     }
 
-    /// <summary>
-    /// Método de utilidad para verificar si el jugador está vivo
-    /// </summary>
+    /// <summary> Ãštil para otras partes del juego. </summary>
     public bool IsPlayerAlive()
     {
-        if (_deathManager != null)
-            return !_deathManager.IsDead;
-
-        // Si no hay death manager, asumimos que está vivo
+        if (_deathManager != null) return !_deathManager.IsDead;
         return true;
     }
 
-    /// <summary>
-    /// Obtiene una habilidad por su código morse
-    /// </summary>
+    /// <summary> Obtiene una habilidad por su cÃ³digo morse. </summary>
     public AbilityData GetAbilityByMorse(string morseCode)
     {
-        if (morseRegistry.TryGetValue(morseCode, out AbilityData ability))
+        if (morseToAbility.TryGetValue(morseCode, out AbilityData ability))
             return ability;
         return null;
     }
 
-    /// <summary>
-    /// Obtiene una habilidad por su letra
-    /// </summary>
+    /// <summary> Obtiene una habilidad por su letra. </summary>
     public AbilityData GetAbilityByLetter(MorseLetter letter)
     {
         string letterStr = letter.ToString();
         if (MorseDictionary.AlphabetToMorse.TryGetValue(letterStr, out string morseCode))
-        {
             return GetAbilityByMorse(morseCode);
-        }
         return null;
+    }
+
+    // ---------- Audio por-habilidad ----------
+
+    /// <summary>
+    /// Sincroniza la lista de SFX por-habilidad con abilityBindings:
+    /// crea entradas faltantes, conserva las existentes y elimina las que ya no estÃ©n.
+    /// </summary>
+    private void SyncPerAbilitySfxWithBindings()
+    {
+        // Construir set de letras presentes en abilityBindings
+        var wanted = new HashSet<MorseLetter>();
+        foreach (var bind in abilityBindings)
+            wanted.Add(bind.letter);
+
+        // Eliminar entradas de perAbilitySfx que ya no existan en bindings
+        perAbilitySfx.RemoveAll(e => !wanted.Contains(e.letter));
+
+        // AÃ±adir entradas faltantes
+        foreach (var letter in wanted)
+        {
+            if (!perAbilitySfx.Exists(e => e.letter == letter))
+                perAbilitySfx.Add(new AbilitySfxEntry { letter = letter });
+        }
+
+        // Ordenar por letra para que se vea bonito en el Inspector
+        perAbilitySfx.Sort((a, b) => a.letter.CompareTo(b.letter));
+    }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (autoSyncSfxList)
+            SyncPerAbilitySfxWithBindings();
+    }
+#endif
+
+    private void InvokePerAbilitySfx(MorseLetter letter)
+    {
+        // Busca la entrada coincidente y dispara su evento
+        var entry = perAbilitySfx.Find(e => e.letter == letter);
+        entry?.onActivatedSfx?.Invoke();
     }
 }

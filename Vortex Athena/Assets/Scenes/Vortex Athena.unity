@@ -4244,15 +4244,15 @@ MonoBehaviour:
   clipsA:
   - {fileID: 8300000, guid: 2b882d8ba7eebc741bd24a5677662e00, type: 3}
   - {fileID: 8300000, guid: 3768b9f8e2f3fe34a8a6f30b6b117b76, type: 3}
-  volumeA: 0.4
+  volumeA: 0.715
   layerBEnabled: 1
   clipsB:
   - {fileID: 8300000, guid: 369bb101cf76eb840b095232e9ca7a30, type: 3}
   - {fileID: 8300000, guid: 3768b9f8e2f3fe34a8a6f30b6b117b76, type: 3}
-  volumeB: 0.4
+  volumeB: 0.233
   randomPitch: 1
-  pitchSemitoneMin: -1
-  pitchSemitoneMax: 1
+  pitchSemitoneMin: -5.7
+  pitchSemitoneMax: -3
   useLogFade: 0
   fadeOutSeconds: 0.12
   fadeEndDb: -80
@@ -11445,6 +11445,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: volumeA
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: layerBEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: pitchSemitoneMax
+      value: -1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: pitchSemitoneMin
+      value: -3.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: clipsA.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: clipsB.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: 'clipsA.Array.data[1]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688141826573020965, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
+      propertyPath: 'clipsB.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d50094ce959767d479a4adf0613e8b75, type: 3}
     - target: {fileID: 3950659022168919701, guid: efc69d981e123494ca47a5d1c838866d, type: 3}
       propertyPath: m_Name
       value: WPNescudo
@@ -11462,6 +11494,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 382399602}
     m_Modifications:
+    - target: {fileID: 3500754935992938573, guid: f1c22bb1dfc4c034eaff35e33c9a07a3, type: 3}
+      propertyPath: volumeA
+      value: 0.674
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500754935992938573, guid: f1c22bb1dfc4c034eaff35e33c9a07a3, type: 3}
+      propertyPath: volumeB
+      value: 0.648
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500754935992938573, guid: f1c22bb1dfc4c034eaff35e33c9a07a3, type: 3}
+      propertyPath: pitchSemitoneMax
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500754935992938573, guid: f1c22bb1dfc4c034eaff35e33c9a07a3, type: 3}
+      propertyPath: pitchSemitoneMin
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 4038359684392903546, guid: f1c22bb1dfc4c034eaff35e33c9a07a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11562,6 +11610,10 @@ PrefabInstance:
     - target: {fileID: 5481251547774713816, guid: bad6b51bb261a23478ae16030732c1dd, type: 3}
       propertyPath: m_Name
       value: WPNimpacto
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605571476915428640, guid: bad6b51bb261a23478ae16030732c1dd, type: 3}
+      propertyPath: volumeA
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7605571476915428640, guid: bad6b51bb261a23478ae16030732c1dd, type: 3}
       propertyPath: randomPitch
@@ -11738,6 +11790,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8227155264827840318, guid: c2de46346cdf5324f98b90fcab995262, type: 3}
+      propertyPath: volumeA
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227155264827840318, guid: c2de46346cdf5324f98b90fcab995262, type: 3}
+      propertyPath: volumeB
+      value: 0.839
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227155264827840318, guid: c2de46346cdf5324f98b90fcab995262, type: 3}
+      propertyPath: outputGroup
+      value: 
+      objectReference: {fileID: -1665101134238203026, guid: 2831f5ca72a7940468063f255460dbe8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12252,6 +12316,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: VEHgasolina
       objectReference: {fileID: 0}
+    - target: {fileID: 9048571690473712856, guid: f421cf4ad1a761e46bdd0cdb87bebf84, type: 3}
+      propertyPath: pitchSemitoneMax
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9048571690473712856, guid: f421cf4ad1a761e46bdd0cdb87bebf84, type: 3}
+      propertyPath: pitchSemitoneMin
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9048571690473712856, guid: f421cf4ad1a761e46bdd0cdb87bebf84, type: 3}
+      propertyPath: 'clipsA.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b6684de796a9204c91f0cf6daea178b, type: 3}
+    - target: {fileID: 9048571690473712856, guid: f421cf4ad1a761e46bdd0cdb87bebf84, type: 3}
+      propertyPath: 'clipsB.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 7c7075cc8c9ffae41b667c9d9bce1cbf, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

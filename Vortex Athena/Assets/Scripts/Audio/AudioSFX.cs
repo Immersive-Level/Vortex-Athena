@@ -217,5 +217,46 @@ public class AudioSFX : MonoBehaviour
         if (src == null) return;
         src.volume = baseVol;
     }
+
+    // ===================== MENÚS CONTEXTUALES (TEST) =====================
+#if UNITY_EDITOR
+    [ContextMenu("SFX: Thrust Press")]
+    private void Ctx_TestThrustPress()
+    {
+        OnThrustPressed();
+    }
+
+    [ContextMenu("SFX: Thrust Release")]
+    private void Ctx_TestThrustRelease()
+    {
+        OnThrustReleased();
+    }
+
+    [ContextMenu("SFX: Stop Immediate")]
+    private void Ctx_TestStopImmediate()
+    {
+        StopImmediate();
+    }
+
+    [ContextMenu("SFX: Short Tap (0.1s)")]
+    private void Ctx_TestShortTap()
+    {
+        // Solo funciona en Play Mode (las corutinas no avanzan fuera de Play).
+        if (!Application.isPlaying)
+        {
+            Debug.LogWarning("[AudioSFX] Entra a Play Mode para probar el Short Tap.");
+            return;
+        }
+        StartCoroutine(Co_Tap());
+    }
+
+    private IEnumerator Co_Tap()
+    {
+        OnThrustPressed();
+        yield return new WaitForSeconds(0.1f);
+        OnThrustReleased();
+    }
+#endif
 }
+
 

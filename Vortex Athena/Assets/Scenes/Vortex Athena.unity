@@ -4332,12 +4332,12 @@ MonoBehaviour:
   clipsA:
   - {fileID: 8300000, guid: 2b882d8ba7eebc741bd24a5677662e00, type: 3}
   - {fileID: 8300000, guid: 3768b9f8e2f3fe34a8a6f30b6b117b76, type: 3}
-  volumeA: 0.715
+  volumeA: 0.218
   layerBEnabled: 1
   clipsB:
   - {fileID: 8300000, guid: 369bb101cf76eb840b095232e9ca7a30, type: 3}
   - {fileID: 8300000, guid: 3768b9f8e2f3fe34a8a6f30b6b117b76, type: 3}
-  volumeB: 0.233
+  volumeB: 0.047
   randomPitch: 1
   pitchSemitoneMin: -5.7
   pitchSemitoneMax: -3

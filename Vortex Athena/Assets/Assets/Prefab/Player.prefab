@@ -755,8 +755,8 @@ MonoBehaviour:
   debugMode: 0
   thrusterFX: {fileID: 8240186896083609102}
   tapNudgeEnabled: 1
-  nudgeTorqueImpulse: 0.4
-  nudgeMaxAngle: 20
+  nudgeTorqueImpulse: 0.2
+  nudgeMaxAngle: 10
   nudgeCooldown: 0.15
 --- !u!114 &4245581896112512108
 MonoBehaviour:

@@ -7,11 +7,11 @@ public class InGame_UI : MonoBehaviour
 
     private void Update()
     {
-        // Validación de estado del juego
-        if (GameManager.Instance.CurrentState != GameState.InGame)
-        {
-            return;
-        }
+        // Validar que GameManager esté disponible y haya sido spawneado en red
+        if (GameManager.Instance == null || !GameManager.Instance.Object || !GameManager.Instance.Object.IsValid) return;
+
+        // Validar que el estado sea InGame
+        if (GameManager.Instance.CurrentState != GameState.InGame) return;
 
         // Obtener tiempo actual de partida
         float gameTime = GameManager.Instance.Gametime;

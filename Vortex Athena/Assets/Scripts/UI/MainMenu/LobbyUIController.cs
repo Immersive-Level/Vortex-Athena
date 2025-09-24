@@ -11,7 +11,7 @@ public class LobbyUIController : MonoBehaviour
     [SerializeField] private Button _joinButton;
     [SerializeField] private Button _createButton;
     [SerializeField] private Button _startGameButton;
-    [SerializeField] private TMP_Text _roomCodeDisplay;
+    [SerializeField] private TMP_InputField _roomCodeDisplay;
     [SerializeField] private TMP_Text _errorText;
     [SerializeField] private Transform _playerListContainer;
     [SerializeField] private GameObject _playerEntryPrefab;
@@ -36,8 +36,8 @@ public class LobbyUIController : MonoBehaviour
 
     public void ShowRoomCode(string code)
     {
-        Debug.Log($"Código de sala: {code}");
-        _roomCodeDisplay.text = $"Código de sala: {code}";
+        Debug.Log($"nombre de la sala: {code}");
+        _roomCodeDisplay.text = $"{code}";
         _errorText.text = "";
     }
 

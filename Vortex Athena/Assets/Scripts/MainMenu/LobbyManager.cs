@@ -46,7 +46,7 @@ public class LobbyManager : MonoBehaviour
         bool success = await NetworkManager.Instance.CreateRoom();
         if (success)
         {
-            _ui.ShowRoomCode(NetworkManager.Instance.Runner.SessionInfo.Name);
+            _ui.ShowRoomCode(NetworkManager.Instance.RoomName);
             _ui.SetPlayButtonState(success);
         }
         else

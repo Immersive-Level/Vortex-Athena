@@ -12,6 +12,9 @@ public class PlayerData
     public string Name;
 }
 
+/// <summary>
+/// Componente principal del jugador optimizado para BlackHoleCore
+/// </summary>
 public class PlayerMain : MonoBehaviour
 {
     public bool isMultiplayer; //solo por ahora, mientras se migran todos los sistemas y local se vuelve una sala privada de fusion
@@ -20,18 +23,20 @@ public class PlayerMain : MonoBehaviour
     public PlayerData data;
     public GameObject ObjetoNave;
 
-    // Referencias a los componentes
+    [Header("Referencias Core")]
     public InicioNave InicioNave;
     public ShipController ShipController;
     public CombatSystem CombatSystem;
     public PlayerScoreSystem PlayerScoreSystem;
-    public AffectedByBlackHole AffectedByBlackHole;
-    public UnifiedDeathManager UnifiedDeathManager; // CAMBIADO
+    public UnifiedDeathManager UnifiedDeathManager;
     public ResourceCollector ResourceCollector;
     public ShipInvulnerability ShipInvulnerability;
-    public FuelManager FuelManager; // CAMBIADO
-    public ShipInputController ShipInputController; // NUEVO
+    public FuelManager FuelManager;
+    public ShipInputController ShipInputController;
     public AbilityManager AbilityManager;
+
+    [Header("Sistema de Gravedad")]
+    public PlayerGravityHandler PlayerGravityHandler { get; private set; }
 
     private void Awake()
     {
@@ -45,8 +50,17 @@ public class PlayerMain : MonoBehaviour
             MultiplayerShipFuelSetup.GetPlayerShipScripts(FuelManager, ShipController, UnifiedDeathManager, AbilityManager);
         }
 
-        // Validación de componentes críticos
+        // Validaciï¿½n de componentes crï¿½ticos
         ValidateComponents();
+
+        if (ObjetoNave != null)
+        {
+            PlayerGravityHandler = ObjetoNave.GetComponent<PlayerGravityHandler>();
+            if (PlayerGravityHandler == null)
+            {
+                PlayerGravityHandler = ObjetoNave.AddComponent<PlayerGravityHandler>();
+            }
+        }
     }
 
     private void Start()
@@ -55,38 +69,39 @@ public class PlayerMain : MonoBehaviour
 
         if (ObjetoNave == null)
         {
-            Debug.LogError($"[PlayerMain] {gameObject.name}: ObjetoNave is Null!!");
+            Debug.LogError($"PlayerMain {gameObject.name}: ObjetoNave is null!", this);
             return;
         }
 
         if (GameManager.Instance == null)
         {
-            Debug.LogError($"[PlayerMain] {gameObject.name}: GameManager is Null!!");
+            Debug.LogError($"PlayerMain {gameObject.name}: GameManager is null!", this);
             return;
         }
     }
 
-    /// <summary>
-    /// Valida que los componentes críticos estén presentes
-    /// </summary>
     private void ValidateComponents()
     {
         if (FuelManager == null)
-            Debug.LogWarning($"[PlayerMain] {gameObject.name}: FuelManager no encontrado");
+            Debug.LogWarning($"PlayerMain {gameObject.name}: FuelManager not found", this);
 
         if (UnifiedDeathManager == null)
-            Debug.LogWarning($"[PlayerMain] {gameObject.name}: UnifiedDeathManager no encontrado");
+            Debug.LogWarning($"PlayerMain {gameObject.name}: UnifiedDeathManager not found", this);
 
         if (ShipController == null)
-            Debug.LogWarning($"[PlayerMain] {gameObject.name}: ShipController no encontrado");
+            Debug.LogWarning($"PlayerMain {gameObject.name}: ShipController not found", this);
 
         if (ShipInputController == null)
-            Debug.LogWarning($"[PlayerMain] {gameObject.name}: ShipInputController no encontrado");
+            Debug.LogWarning($"PlayerMain {gameObject.name}: ShipInputController not found", this);
+
+        if (PlayerGravityHandler == null)
+        {
+            PlayerGravityHandler = ObjetoNave?.GetComponent<PlayerGravityHandler>();
+            if (PlayerGravityHandler == null)
+                Debug.LogError($"PlayerMain {gameObject.name}: PlayerGravityHandler is critical for black hole interaction!", this);
+        }
     }
 
-    /// <summary>
-    /// Método de utilidad para obtener si el jugador está vivo
-    /// </summary>
     public bool IsAlive()
     {
         if (UnifiedDeathManager != null)
@@ -94,14 +109,40 @@ public class PlayerMain : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Método de utilidad para obtener el porcentaje de combustible
-    /// </summary>
     public float GetFuelPercentage()
     {
         if (FuelManager != null)
             return FuelManager.FuelPercentage;
         return 0f;
+    }
+
+    public bool IsInGravityField()
+    {
+        if (PlayerGravityHandler != null)
+            return PlayerGravityHandler.IsInGravityField;
+        return false;
+    }
+
+    public bool IsInDangerZone()
+    {
+        if (PlayerGravityHandler != null)
+            return PlayerGravityHandler.IsInDangerZone;
+        return false;
+    }
+
+    public void ActivateEmergencyThrust(float duration = 2f)
+    {
+        if (PlayerGravityHandler != null && IsAlive())
+        {
+            PlayerGravityHandler.TriggerManualEmergencyThrust(duration);
+        }
+    }
+
+    public float GetDistanceToBlackHole()
+    {
+        if (PlayerGravityHandler != null)
+            return PlayerGravityHandler.GetDistanceToBlackHole();
+        return float.MaxValue;
     }
 
     private void OnDestroy()
@@ -111,4 +152,7 @@ public class PlayerMain : MonoBehaviour
             GameManager.Instance.RemoveRegisterShip(ObjetoNave);
         }
     }
+
+    [System.Obsolete("Use PlayerGravityHandler instead of AffectedByBlackHole")]
+    public PlayerGravityHandler AffectedByBlackHole => PlayerGravityHandler;
 }

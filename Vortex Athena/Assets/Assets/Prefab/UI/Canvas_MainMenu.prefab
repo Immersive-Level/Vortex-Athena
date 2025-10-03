@@ -3452,12 +3452,12 @@ MonoBehaviour:
     Musical]\r\n\r\nFelipe Henao Ram\xEDrez \r\n[Ingenier\xEDa Mecatr\xF3nica y Rob\xF3tica]\r\n\r\nAndrea
     Orozco Rinc\xF3n \r\n[Creaci\xF3n de Contenido para Redes]\r\n\r\nDiego Alejandro
     Garz\xF3n \r\n[Arte 3D]\r\n\r\nLaura Vanessa Pintor Ardila \r\n[Arte 3D]\r\n\r\nApolik\xE1n
-    Zaraza Moreno\r\n[Direcci\xF3n de impresi\xF3n 3D]\r"
+    Zaraza Moreno\r\n[Direcci\xF3n de impresi\xF3n 3D]\n\r"
   creditsFile: {fileID: 0}
-  speed: 80
+  speed: 90
   useUnscaledTime: 1
   autoStart: 1
-  gapPixels: 0
+  gapPixels: 10
   horizontalPadding: 24
   verticalMarginTMP: 8
 --- !u!1 &5377949131973520623
@@ -6514,7 +6514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6840649705443741588
 RectTransform:
   m_ObjectHideFlags: 0

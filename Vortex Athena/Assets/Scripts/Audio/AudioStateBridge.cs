@@ -31,11 +31,12 @@ public class AudioStateBridge : MonoBehaviour
     {
         // Alinear el audio con el estado actual al entrar a la escena
         if (GameManager.Instance != null)
-            OnGameStateChanged(GameManager.Instance.CurrentState);
+            OnGameStateChanged();
     }
 
-    private void OnGameStateChanged(GameState state)
+    private void OnGameStateChanged()
     {
+        var state = GameManager.Instance.CurrentState;
         switch (state)
         {
             case GameState.InGame:

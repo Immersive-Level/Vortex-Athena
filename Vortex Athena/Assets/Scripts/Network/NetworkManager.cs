@@ -14,11 +14,6 @@ public class NetworkManager : MonoBehaviour
     [SerializeField] public string RoomName = "DevRoom";
     [SerializeField] private int _maxPlayers = 4;
 
-    [Header("Player Settings")]
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private bool _spawnPlayer = true;
-    [SerializeField] private Vector3 _p1StartLoc;
-
     [Header("Debug")]
     [SerializeField] private bool _showDebugLogs = true;
 
@@ -172,26 +167,12 @@ public class NetworkManager : MonoBehaviour
     {
         LogDebug($"Jugador {player} se unió");
 
-        if (_spawnPlayer && _playerPrefab != null && IsHost)
-        {
-            var obj = _runner.Spawn(_playerPrefab, _p1StartLoc, Quaternion.identity, player);
-            _spawnedPlayers[player] = obj;
-
-            LogDebug($"Player instanciado en {_p1StartLoc}");
-        }
     }
 
     public void HandlePlayerLeft(PlayerRef player)
     {
         LogDebug($"Jugador {player} se desconectó");
 
-        if (_spawnedPlayers.TryGetValue(player, out var obj))
-        {
-            if (obj != null)
-                _runner.Despawn(obj);
-
-            _spawnedPlayers.Remove(player);
-        }
     }
 
     public void HandleShutdown(ShutdownReason reason)
@@ -215,11 +196,25 @@ public class NetworkManager : MonoBehaviour
 
     #region Utility
 
-    void LogDebug(string message)
+    void LogDebug(string message, UnityEngine.LogType inType = UnityEngine.LogType.Log)
     {
-        if (_showDebugLogs)
+        if (!_showDebugLogs) return;
+
+        message = $"[NetworkManager] {message}";
+
+        switch (inType)
         {
-            Debug.Log($"[NetworkManager] {message}");
+            case UnityEngine.LogType.Error:
+                Debug.LogError(message);
+                break;
+
+            case UnityEngine.LogType.Warning:
+                Debug.LogWarning(message);
+                break;
+
+            default:
+                Debug.Log(message);
+                break;
         }
     }
 

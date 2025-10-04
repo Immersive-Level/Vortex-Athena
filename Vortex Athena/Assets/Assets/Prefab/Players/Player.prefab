@@ -582,9 +582,9 @@ Transform:
   m_GameObject: {fileID: 8240186896083609102}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.039998874, y: -1.3400005, z: 0}
-  m_LocalScale: {x: 1.148393, y: 1.2287927, z: 0.7100459}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -0.02, y: -1.3400005, z: 0}
+  m_LocalScale: {x: 2.1, y: 2.2470222, z: 1.2984198}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 546018219249494030}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -749,15 +749,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocidad: 5
   distanciaMaxGiro: 5
-  intensidadGiro: 2
+  intensidadGiro: 0
   estabilidadRotacion: 3
-  distanciaBorde: 2
-  maxAnguloBorde: 20
+  distanciaBorde: 0
+  maxAnguloBorde: 0
   debugMode: 0
   thrusterFX: {fileID: 8240186896083609102}
   tapNudgeEnabled: 1
-  nudgeTorqueImpulse: 0.4
-  nudgeMaxAngle: 45
+  nudgeTorqueImpulse: 0.2
+  nudgeMaxAngle: 10
   nudgeCooldown: 0.15
 --- !u!114 &4245581896112512108
 MonoBehaviour:
@@ -803,6 +803,15 @@ MonoBehaviour:
   minFuelToStart: 3
   fuelBarImage: {fileID: 0}
   debugMode: 0
+  onPropulsionStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPropulsionStop:
+    m_PersistentCalls:
+      m_Calls: []
+  onNoFuelAttempt:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1219413745525033032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,7 +837,26 @@ MonoBehaviour:
   fuelOnRespawn: 30
   autoRespawn: 0
   deathEffectPrefab: {fileID: 0}
+  useLegacyDeathClips: 1
   deathSounds: []
+  onSfxDeathBlackHole:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxDeathPlayerCollision:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxDeathOutOfBounds:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxRespawnReady:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxRespawn:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxMissileImpact:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &933410782465386759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +893,19 @@ MonoBehaviour:
     ability: {fileID: 11400000, guid: 562365262c3f8d8488f79411cfad23e6, type: 2}
   - letter: 22
     ability: {fileID: 11400000, guid: ff8d1d27db09ac64ead7758dc533938e, type: 2}
+  onSfxAbilityActivatedGlobal:
+    m_PersistentCalls:
+      m_Calls: []
+  perAbilitySfx:
+  - letter: 3
+    onActivatedSfx:
+      m_PersistentCalls:
+        m_Calls: []
+  - letter: 22
+    onActivatedSfx:
+      m_PersistentCalls:
+        m_Calls: []
+  autoSyncSfxList: 1
 --- !u!114 &7714841270529153968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,6 +921,8 @@ MonoBehaviour:
   playerID: 1
   scoreSystem: {fileID: 2276714564275110904}
   fuelManager: {fileID: 5084323159983305511}
+  deathManager: {fileID: 0}
+  bloquearSiMuerto: 1
   collectEffect: {fileID: 0}
   collectEffectFuel: {fileID: 2871689874047339398, guid: 686bcbbabc969e3488530b1c6c7df390, type: 3}
   collectEffectPoints: {fileID: 0}
@@ -889,6 +932,15 @@ MonoBehaviour:
     m_Bits: 0
   useCircleCheck: 1
   checkInterval: 0.2
+  onSfxCollectAny:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxCollectFuel:
+    m_PersistentCalls:
+      m_Calls: []
+  onSfxCollectPoints:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &2276714564275110904
 MonoBehaviour:
   m_ObjectHideFlags: 0

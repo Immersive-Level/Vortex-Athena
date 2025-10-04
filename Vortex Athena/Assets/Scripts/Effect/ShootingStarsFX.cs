@@ -9,23 +9,42 @@ public class ShootingStarsFX : MonoBehaviour
 
     [Header("Movimiento")]
     public Vector2 velocidadRango = new Vector2(6f, 10f);    // unidades/s
-    public Vector2 anguloDesvio = new Vector2(-20f, 20f);  // grados de desvío respecto al eje de entrada
+    public Vector2 anguloDesvio = new Vector2(-20f, 20f);    // grados de desvío respecto al eje de entrada
     public float padding = 0.5f;                              // nace un poco fuera del borde
-    public float zDepth = 0f;                                // z en mundo
+    public float zDepth = 0f;                                 // z en mundo
 
     [Header("Apariencia (partícula)")]
-    public Vector2 tamanoRango = new Vector2(0.02f, 0.05f);
+    [Tooltip("Rango de tamaño de la estrella (en unidades de mundo).")]
+    public Vector2 tamanoRango = new Vector2(0.015f, 0.03f);
+
+    [Tooltip("Rango de alpha (1 = opaco).")]
     public Vector2 alphaRango = new Vector2(0.7f, 1f);
-    public Material materialParticula; // URP: Universal RP/Particles/Unlit (Transparent + Additive)
+
+    [Tooltip("Material para la partícula (y trail si se usa).")]
+    public Material materialParticula; // URP: Universal RP/Particles/Unlit (Transparent o Additive)
+
+    [Header("Control de tamaño")]
+    [Tooltip("Si está activo, el script escribe 'Start Size' del ParticleSystem con tamanoRango.")]
+    public bool controlarTamanoDesdeScript = true;
+
+    [Tooltip("Si está activo, cada emisión fija el tamaño con EmitParams (toma tamanoRango). "
+           + "Desactívalo si prefieres que lo controle el 'Start Size' del módulo Main.")]
+    public bool usarEmitParamsParaTamano = true;
+
+    [Header("Escalado (Main.scalingMode)")]
+    [Tooltip("Cómo afecta la escala del GameObject al tamaño de las partículas.")]
+    public ParticleSystemScalingMode modoEscalado = ParticleSystemScalingMode.Shape;
+    // Shape: la escala del GO NO cambia el tamaño de la partícula.
+    // Local/Hierarchy: la escala del GO SÍ cambia el tamaño.
 
     [Header("Trail (estela)")]
     public bool habilitarTrail = true;
     public float trailLifetime = 0.25f;   // duración de la estela
-    public float trailWidth = 0.05f;   // grosor constante en unidades de mundo
+    public float trailWidth = 0.05f;      // grosor constante en unidades de mundo
 
     [Header("Orden de dibujo")]
     public string sortingLayerName = "Fondo";
-    public int sortingOrder = -100; // más bajo que muros/fondo
+    public int sortingOrder = -100;       // más bajo que muros/fondo
 
     private Camera cam;
     private ParticleSystem ps;
@@ -55,20 +74,18 @@ public class ShootingStarsFX : MonoBehaviour
         if (intervaloSpawn.x < 0.05f) intervaloSpawn.x = 0.05f;
         if (intervaloSpawn.y < intervaloSpawn.x) intervaloSpawn.y = intervaloSpawn.x;
 
-        // Solo configurar si el PS existe y no está en juego o si está detenido
         if (ps == null) ps = GetComponent<ParticleSystem>();
 
         if (ps != null)
         {
-            // En el editor, solo configurar si no está reproduciendo
-            // o si estamos en modo edición
+            // En el editor, reconfigura al vuelo; en Play, si está reproduciendo,
+            // dejamos la marca para reconfigurar luego (evita pops).
             if (!Application.isPlaying || !ps.isPlaying)
             {
                 ConfigurarPS();
             }
             else
             {
-                // Si está reproduciendo, marcar para reconfigurar después
                 psConfigurado = false;
             }
         }
@@ -79,7 +96,7 @@ public class ShootingStarsFX : MonoBehaviour
         // No emitir en modo edición
         if (!Application.isPlaying) return;
 
-        // Reconfigurar si está pendiente y el sistema está detenido
+        // Reconfigurar pendiente cuando el sistema esté detenido
         if (!psConfigurado && ps != null && !ps.isPlaying)
         {
             ConfigurarPS();
@@ -98,29 +115,32 @@ public class ShootingStarsFX : MonoBehaviour
     {
         if (ps == null) return;
 
-        // IMPORTANTE: Detener el sistema antes de modificar propiedades críticas
+        // Detener antes de modificar propiedades críticas
         bool estabaCorriendo = ps.isPlaying;
         if (estabaCorriendo)
-        {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
 
         var main = ps.main;
-        main.playOnAwake = false;  // Cambiado a false para evitar auto-inicio
-        main.loop = false;         // Sin loop ya que emitimos manualmente
+        main.playOnAwake = false;   // no auto-inicio
+        main.loop = false;          // emitimos manualmente
         main.simulationSpace = ParticleSystemSimulationSpace.World;
         main.maxParticles = 1024;
-        main.startSpeed = 0f;       // se lo damos por EmitParams
-        main.startSize = 1f;        // se lo damos por EmitParams
-        main.startLifetime = 10f;   // Tiempo de vida máximo para las partículas
-        main.duration = 10f;        // Duración del sistema
+        main.startSpeed = 0f;       // velocidad se asigna en EmitParams
+        main.duration = 10f;        // no muy relevante al emitir manual
+        main.startLifetime = 10f;   // tope alto (luego se ajusta por emisión)
+        main.scalingMode = modoEscalado;
 
-#if UNITY_2022_1_OR_NEWER
-        main.scalingMode = ParticleSystemScalingMode.Shape;
-#endif
+        // ⬇️ AQUÍ el cambio importante: no forzar a 1, sino usar tu rango si lo deseas
+        if (controlarTamanoDesdeScript)
+        {
+            float min = Mathf.Min(tamanoRango.x, tamanoRango.y);
+            float max = Mathf.Max(tamanoRango.x, tamanoRango.y);
+            main.startSize = new ParticleSystem.MinMaxCurve(min, max);
+        }
+        // Si NO lo controlas desde script, no tocamos main.startSize (te respeta lo que pongas a mano).
 
         var emission = ps.emission;
-        emission.enabled = false;    // emitimos manualmente
+        emission.enabled = false;   // emitimos manualmente
 
         var shape = ps.shape;
         shape.enabled = false;
@@ -149,11 +169,9 @@ public class ShootingStarsFX : MonoBehaviour
 
         psConfigurado = true;
 
-        // Si el sistema debe estar corriendo en modo Play, reiniciarlo
+        // Si estaba corriendo, volver a arrancar
         if (Application.isPlaying && estabaCorriendo)
-        {
             ps.Play();
-        }
     }
 
     // ---------- Emisión de una estrella fugaz ----------
@@ -169,9 +187,7 @@ public class ShootingStarsFX : MonoBehaviour
 
         // Asegurar que el sistema esté corriendo para poder emitir
         if (!ps.isPlaying)
-        {
             ps.Play();
-        }
 
         float halfH = cam.orthographicSize;
         float halfW = halfH * cam.aspect;
@@ -201,7 +217,7 @@ public class ShootingStarsFX : MonoBehaviour
                 break;
         }
 
-        // Centrar respecto a la posición actual de la cámara
+        // Centrar respecto a la posición de la cámara
         Vector3 camCenter = cam.transform.position;
         pos += new Vector3(camCenter.x, camCenter.y, 0f);
 
@@ -221,7 +237,14 @@ public class ShootingStarsFX : MonoBehaviour
         ep.position = pos;
         ep.velocity = dir * speed;
         ep.startLifetime = lifetime;
-        ep.startSize = Random.Range(tamanoRango.x, tamanoRango.y);
+
+        // ⬇️ Tamaño según lo elegido
+        if (usarEmitParamsParaTamano)
+        {
+            ep.startSize = Random.Range(tamanoRango.x, tamanoRango.y);
+        }
+        // Si no usamos EmitParams para tamaño, el tamaño vendrá del Main.startSize (arriba).
+
         float a = Random.Range(alphaRango.x, alphaRango.y);
         ep.startColor = new Color(1f, 1f, 1f, a);
 
@@ -232,17 +255,13 @@ public class ShootingStarsFX : MonoBehaviour
     {
         // Limpiar el sistema de partículas al destruir
         if (ps != null && ps.isPlaying)
-        {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
     }
 
     void OnDisable()
     {
         // Detener emisión al desactivar
         if (ps != null && ps.isPlaying)
-        {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        }
     }
 }

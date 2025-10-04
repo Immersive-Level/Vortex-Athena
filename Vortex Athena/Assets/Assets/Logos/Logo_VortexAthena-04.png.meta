@@ -1,0 +1,1268 @@
+fileFormatVersion: 2
+guid: 40ccc5b0e2b526c4086c4833456cf724
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9141552912663363301
+    second: Logo_VortexAthena-04_0
+  - first:
+      213: 8095891366902390296
+    second: Logo_VortexAthena-04_1
+  - first:
+      213: -5135542164486287466
+    second: Logo_VortexAthena-04_2
+  - first:
+      213: -1037199103103614410
+    second: Logo_VortexAthena-04_3
+  - first:
+      213: 2681473225681210959
+    second: Logo_VortexAthena-04_4
+  - first:
+      213: 1278961600068713882
+    second: Logo_VortexAthena-04_5
+  - first:
+      213: 1231965751162803423
+    second: Logo_VortexAthena-04_6
+  - first:
+      213: 2188692097583875777
+    second: Logo_VortexAthena-04_7
+  - first:
+      213: 7593987829693475947
+    second: Logo_VortexAthena-04_8
+  - first:
+      213: 1375112697384468751
+    second: Logo_VortexAthena-04_9
+  - first:
+      213: -6147801356744021059
+    second: Logo_VortexAthena-04_10
+  - first:
+      213: -898582839431101519
+    second: Logo_VortexAthena-04_11
+  - first:
+      213: -8503655170678246378
+    second: Logo_VortexAthena-04_12
+  - first:
+      213: -3663126419242827347
+    second: Logo_VortexAthena-04_13
+  - first:
+      213: 6662573527448705607
+    second: Logo_VortexAthena-04_14
+  - first:
+      213: -2288618578742252740
+    second: Logo_VortexAthena-04_15
+  - first:
+      213: -2792089191159785054
+    second: Logo_VortexAthena-04_16
+  - first:
+      213: 36754344356992007
+    second: Logo_VortexAthena-04_17
+  - first:
+      213: -1507482425199093013
+    second: Logo_VortexAthena-04_18
+  - first:
+      213: -6943470582585212675
+    second: Logo_VortexAthena-04_19
+  - first:
+      213: -5956891515409856095
+    second: Logo_VortexAthena-04_20
+  - first:
+      213: -2241606327650169859
+    second: Logo_VortexAthena-04_21
+  - first:
+      213: 4569957970495340505
+    second: Logo_VortexAthena-04_22
+  - first:
+      213: -5721491440196038919
+    second: Logo_VortexAthena-04_23
+  - first:
+      213: 9013185653648043667
+    second: Logo_VortexAthena-04_24
+  - first:
+      213: 2630904246169201207
+    second: Logo_VortexAthena-04_25
+  - first:
+      213: 5165697361018694871
+    second: Logo_VortexAthena-04_26
+  - first:
+      213: -6171634582377414985
+    second: Logo_VortexAthena-04_27
+  - first:
+      213: -1748353898716675333
+    second: Logo_VortexAthena-04_28
+  - first:
+      213: -347552755343944042
+    second: Logo_VortexAthena-04_29
+  - first:
+      213: 8632634289736274221
+    second: Logo_VortexAthena-04_30
+  - first:
+      213: 7258393323471678613
+    second: Logo_VortexAthena-04_31
+  - first:
+      213: -1693459119841743448
+    second: Logo_VortexAthena-04_32
+  - first:
+      213: 3818889915576353997
+    second: Logo_VortexAthena-04_33
+  - first:
+      213: 3760012577858677126
+    second: Logo_VortexAthena-04_34
+  - first:
+      213: -8397292158217099904
+    second: Logo_VortexAthena-04_35
+  - first:
+      213: 8696555717716805888
+    second: Logo_VortexAthena-04_36
+  - first:
+      213: 5759032249324625467
+    second: Logo_VortexAthena-04_37
+  - first:
+      213: -76342955495113406
+    second: Logo_VortexAthena-04_38
+  - first:
+      213: 4771559357069860493
+    second: Logo_VortexAthena-04_39
+  - first:
+      213: 7336255933336507435
+    second: Logo_VortexAthena-04_40
+  - first:
+      213: -7829459582151381423
+    second: Logo_VortexAthena-04_41
+  - first:
+      213: 9098704417536563131
+    second: Logo_VortexAthena-04_42
+  - first:
+      213: -1257197371578474644
+    second: Logo_VortexAthena-04_43
+  - first:
+      213: 2855904264647136235
+    second: Logo_VortexAthena-04_44
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_0
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 771
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5eebcb6a0f15dde70800000000000000
+      internalID: 9141552912663363301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_1
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 776
+        width: 17
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81e5e58ed426a5070800000000000000
+      internalID: 8095891366902390296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_2
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 774
+        width: 17
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69f01c45c93eab8b0800000000000000
+      internalID: -5135542164486287466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_3
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 770
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632c72a39e02b91f0800000000000000
+      internalID: -1037199103103614410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_4
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 764
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e037311b1863520800000000000000
+      internalID: 2681473225681210959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_5
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9df57d8cc8cfb110800000000000000
+      internalID: 1278961600068713882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_6
+      rect:
+        serializedVersion: 2
+        x: 855
+        y: 763
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd4918dc252d81110800000000000000
+      internalID: 1231965751162803423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_7
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 528
+        width: 395
+        height: 238
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c60137dddbcf5e10800000000000000
+      internalID: 2188692097583875777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_8
+      rect:
+        serializedVersion: 2
+        x: 735
+        y: 756
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6ce48942b3436960800000000000000
+      internalID: 7593987829693475947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_9
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 760
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f010bbd66b1651310800000000000000
+      internalID: 1375112697384468751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_10
+      rect:
+        serializedVersion: 2
+        x: 863
+        y: 753
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbbab9d0d3f9eaaa0800000000000000
+      internalID: -6147801356744021059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_11
+      rect:
+        serializedVersion: 2
+        x: 689
+        y: 607
+        width: 129
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b3827e1ba79783f0800000000000000
+      internalID: -898582839431101519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_12
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 743
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6143f433da2fcf980800000000000000
+      internalID: -8503655170678246378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_13
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 729
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da1cea50ee5f92dc0800000000000000
+      internalID: -3663126419242827347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_14
+      rect:
+        serializedVersion: 2
+        x: 867
+        y: 731
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74a5089c257367c50800000000000000
+      internalID: 6662573527448705607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_15
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 674
+        width: 50
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3b65bb37813d30e0800000000000000
+      internalID: -2288618578742252740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_16
+      rect:
+        serializedVersion: 2
+        x: 674
+        y: 723
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a996bb7ca18049d0800000000000000
+      internalID: -2792089191159785054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_17
+      rect:
+        serializedVersion: 2
+        x: 753
+        y: 588
+        width: 117
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 704d957a1e3928000800000000000000
+      internalID: 36754344356992007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_18
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 711
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bea1dd4a8b8541be0800000000000000
+      internalID: -1507482425199093013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_19
+      rect:
+        serializedVersion: 2
+        x: 964
+        y: 700
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df042a01b46d3af90800000000000000
+      internalID: -6943470582585212675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_20
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 564
+        width: 65
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a9057a4abed45da0800000000000000
+      internalID: -5956891515409856095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_21
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 564
+        width: 103
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfbc42aebe634e0e0800000000000000
+      internalID: -2241606327650169859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_22
+      rect:
+        serializedVersion: 2
+        x: 717
+        y: 561
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dff6ddbf80cb6f30800000000000000
+      internalID: 4569957970495340505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_23
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 536
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe4da159dd2990b0800000000000000
+      internalID: -5721491440196038919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_24
+      rect:
+        serializedVersion: 2
+        x: 613
+        y: 554
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 39ea65c1994451d70800000000000000
+      internalID: 9013185653648043667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_25
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 545
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a6bf60979d28420800000000000000
+      internalID: 2630904246169201207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_26
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 518
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7dc21bc716e30b740800000000000000
+      internalID: 5165697361018694871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_27
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 527
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7beb0e9cb03f95aa0800000000000000
+      internalID: -6171634582377414985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_28
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 437
+        width: 92
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf2c25d64699cb7e0800000000000000
+      internalID: -1748353898716675333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_29
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 434
+        width: 88
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69614054c9e3d2bf0800000000000000
+      internalID: -347552755343944042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_30
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 437
+        width: 71
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d21569b16274dc770800000000000000
+      internalID: 8632634289736274221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_31
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 437
+        width: 66
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59ca895654efab460800000000000000
+      internalID: 7258393323471678613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_32
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 437
+        width: 60
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8adef2027ef9f78e0800000000000000
+      internalID: -1693459119841743448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_33
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 437
+        width: 85
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc40046152c6ff430800000000000000
+      internalID: 3818889915576353997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_34
+      rect:
+        serializedVersion: 2
+        x: 502
+        y: 437
+        width: 91
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6896446a48f3e2430800000000000000
+      internalID: 3760012577858677126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_35
+      rect:
+        serializedVersion: 2
+        x: 578
+        y: 437
+        width: 65
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085eb4ad543d67b80800000000000000
+      internalID: -8397292158217099904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_36
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 437
+        width: 67
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00907e3595f50b870800000000000000
+      internalID: 8696555717716805888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_37
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 437
+        width: 61
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e530f61513cef40800000000000000
+      internalID: 5759032249324625467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_38
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 437
+        width: 168
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24d3c988c76c0fef0800000000000000
+      internalID: -76342955495113406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_39
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 257
+        width: 182
+        height: 157
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8e17d654fbf73240800000000000000
+      internalID: 4771559357069860493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_40
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 403
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b24dfd7f6ed9fc560800000000000000
+      internalID: 7336255933336507435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_41
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 297
+        width: 198
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15ea6960efb285390800000000000000
+      internalID: -7829459582151381423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_42
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 217
+        width: 426
+        height: 187
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb75b83f577154e70800000000000000
+      internalID: 9098704417536563131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_43
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 403
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6f9286c6a98d8ee0800000000000000
+      internalID: -1257197371578474644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_VortexAthena-04_44
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 305
+        width: 197
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be3d0d62cc532a720800000000000000
+      internalID: 2855904264647136235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

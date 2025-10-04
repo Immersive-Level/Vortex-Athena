@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using TMPro;
+using UnityEngine.Events; // ← añadido para los UnityEvents
 
 namespace GameSystems
 {
@@ -37,7 +38,30 @@ namespace GameSystems
 
         [Header("Efectos")]
         [SerializeField] private GameObject deathEffectPrefab;
+
+        // --- Audio heredado del proyecto (opcional) ---
+        [Tooltip("Si está activo, se usarán los clips heredados (PlayClipAtPoint). Puedes desactivarlo si usarás solo UnityEvents.")]
+        [SerializeField] private bool useLegacyDeathClips = true;
         [SerializeField] private AudioClip[] deathSounds;
+
+        // --- NUEVO: SFX vía UnityEvents (arrastra tus prefabs/instancias SFX aquí) ---
+        [Header("SFX (UnityEvents)")]
+        [Tooltip("Se invoca al morir por agujero negro.")]
+        public UnityEvent onSfxDeathBlackHole;
+        [Tooltip("Se invoca al morir por colisión con otra nave.")]
+        public UnityEvent onSfxDeathPlayerCollision;
+        [Tooltip("Se invoca al morir por salir de límites (si lo usas).")]
+        public UnityEvent onSfxDeathOutOfBounds;
+
+        [Space(6)]
+        [Tooltip("Se invoca cuando el sistema indica que el jugador ya puede respawnear manualmente.")]
+        public UnityEvent onSfxRespawnReady;
+        [Tooltip("Se invoca cuando se ejecuta el respawn.")]
+        public UnityEvent onSfxRespawn;
+
+        [Space(6)]
+        [Tooltip("SFX de impacto de misil (llamar externamente cuando te golpea un misil).")]
+        public UnityEvent onSfxMissileImpact;
 
         // Estado optimizado
         private bool isDead = false;
@@ -110,6 +134,10 @@ namespace GameSystems
             // Eventos y efectos
             OnDeath?.Invoke(deathType);
             StopShip();
+
+            // --- NUEVO: disparar SFX por tipo de muerte (UnityEvents) ---
+            FireDeathUnityEvent(deathType);
+
             PlayDeathEffects(deathType);
             HideShipVisual();
 
@@ -159,6 +187,9 @@ namespace GameSystems
             }
 
             EnableRespawnButton();
+
+            // --- NUEVO: SFX cuando ya está listo para respawn manual ---
+            onSfxRespawnReady?.Invoke();
             OnRespawnReady?.Invoke();
 
             // Esperar hasta respawn
@@ -223,6 +254,9 @@ namespace GameSystems
             // Gravity fix optimizado
             StartCoroutine(PostRespawnGravityFix());
 
+            // --- NUEVO: SFX al respawnear ---
+            onSfxRespawn?.Invoke();
+
             OnRespawn?.Invoke();
         }
 
@@ -276,7 +310,9 @@ namespace GameSystems
                 Destroy(effect, 3f);
             }
 
-            // Sonido optimizado
+            // Sonido optimizado (heredado) - opcional
+            if (!useLegacyDeathClips) return;
+
             int soundIndex = (int)deathType;
             if (deathSounds != null && soundIndex < deathSounds.Length && deathSounds[soundIndex] != null)
             {
@@ -342,6 +378,36 @@ namespace GameSystems
             OnDeath = null;
             OnRespawn = null;
             OnRespawnReady = null;
+        }
+
+        // -------------------- NUEVO: utilidades de audio --------------------
+
+        /// <summary>
+        /// Dispara el UnityEvent de audio correspondiente al tipo de muerte.
+        /// </summary>
+        private void FireDeathUnityEvent(DeathType deathType)
+        {
+            switch (deathType)
+            {
+                case DeathType.BlackHole:
+                    onSfxDeathBlackHole?.Invoke();
+                    break;
+                case DeathType.PlayerCollision:
+                    onSfxDeathPlayerCollision?.Invoke();
+                    break;
+                case DeathType.OutOfBounds:
+                    onSfxDeathOutOfBounds?.Invoke();
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Llama esto externamente cuando esta nave reciba el impacto de un misil.
+        /// (Ej.: desde el script del misil en OnCollisionEnter2D, si el impacto fue válido).
+        /// </summary>
+        public void PlayMissileImpactSfx()
+        {
+            onSfxMissileImpact?.Invoke();
         }
 
 #if UNITY_EDITOR

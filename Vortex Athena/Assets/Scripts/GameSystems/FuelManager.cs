@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.Events; // SFX: para exponer UnityEvents
 
 namespace GameSystems
 {
@@ -25,12 +26,24 @@ namespace GameSystems
         [Header("Debug")]
         [SerializeField] private bool debugMode = false;
 
+        // ---------------- SFX: eventos de audio ----------------
+        [Header("SFX (UnityEvents)")]
+        [Tooltip("Se invoca cuando comienza la propulsión (se inicia el consumo).")]
+        public UnityEvent onPropulsionStart;
+        [Tooltip("Se invoca cuando se detiene la propulsión (al soltar, parar consumo o vaciar tanque).")]
+        public UnityEvent onPropulsionStop;
+        [Tooltip("Se invoca cuando se intenta impulsar sin combustible.")]
+        public UnityEvent onNoFuelAttempt;
+        // -------------------------------------------------------
+
         // Estado interno
         private float currentFuel;
         private float timeSinceLastConsumption = 0f;
         private bool isConsuming = false;
         private bool throttleHeld = false;           // Botón de empuje sostenido
 
+        // SFX: guard para no spamear start/stop
+        private bool sfxPropulsionActive = false;
 
         // Eventos
         public event Action OnFuelEmpty;
@@ -44,7 +57,6 @@ namespace GameSystems
         public float FuelPercentage => currentFuel / maxFuel;
 
         public bool CanStartThrust() => currentFuel >= minFuelToStart;
-
 
         private void Awake()
         {
@@ -89,10 +101,24 @@ namespace GameSystems
         /// </summary>
         public void StartConsuming()
         {
-            if (!HasFuel) return;
+            // Si no hay combustible suficiente para arrancar, no consumas; dispara intento fallido
+            if (!HasFuel || !CanStartThrust())
+            {
+                // SFX: intento sin combustible
+                onNoFuelAttempt?.Invoke();
+                if (debugMode) Debug.Log("[FuelManager] Intento de consumo sin combustible suficiente.");
+                return;
+            }
 
             isConsuming = true;
             timeSinceLastConsumption = 0f;
+
+            // SFX: arranque de propulsión (solo si no estaba activo)
+            if (!sfxPropulsionActive)
+            {
+                sfxPropulsionActive = true;
+                onPropulsionStart?.Invoke();
+            }
 
             if (debugMode)
                 Debug.Log("[FuelManager] Consumo iniciado");
@@ -104,6 +130,13 @@ namespace GameSystems
         public void StopConsuming()
         {
             isConsuming = false;
+
+            // SFX: detener propulsión (solo si estaba activo)
+            if (sfxPropulsionActive)
+            {
+                sfxPropulsionActive = false;
+                onPropulsionStop?.Invoke();
+            }
 
             if (debugMode)
                 Debug.Log("[FuelManager] Consumo detenido");
@@ -212,6 +245,14 @@ namespace GameSystems
         private void HandleFuelEmpty()
         {
             isConsuming = false;
+
+            // SFX: asegurar stop cuando se vacía
+            if (sfxPropulsionActive)
+            {
+                sfxPropulsionActive = false;
+                onPropulsionStop?.Invoke();
+            }
+
             OnFuelEmpty?.Invoke();
 
             if (debugMode)
@@ -243,6 +284,7 @@ namespace GameSystems
         {
             currentFuel = startingFuel;
             isConsuming = false;
+            sfxPropulsionActive = false; // SFX: aseguramos estado
             timeSinceLastConsumption = 0f;
             UpdateUI();
 
@@ -261,12 +303,23 @@ namespace GameSystems
         public void EndThrottleHold()
         {
             throttleHeld = false;
+
+            // SFX: si dejó de sostener y además no estamos consumiendo, garantiza stop
+            if (!isConsuming && sfxPropulsionActive)
+            {
+                sfxPropulsionActive = false;
+                onPropulsionStop?.Invoke();
+            }
         }
 
         /// Llamar cuando intentan consumir sin combustible (tap/press fallido).
         public void RegisterConsumptionAttempt()
         {
             timeSinceLastConsumption = 0f; // evita que aparezca “una rayita” por spam
+
+            // SFX: intento sin combustible
+            if (!HasFuel || !CanStartThrust())
+                onNoFuelAttempt?.Invoke();
         }
 
         private void OnValidate()

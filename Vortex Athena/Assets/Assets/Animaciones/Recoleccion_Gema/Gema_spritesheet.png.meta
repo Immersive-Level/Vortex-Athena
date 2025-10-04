@@ -1,0 +1,552 @@
+fileFormatVersion: 2
+guid: 5c603ddacf9d8204bae9c2cff73e4b88
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4076981740713051155
+    second: Gema_spritesheet_0
+  - first:
+      213: 257740365925953667
+    second: Gema_spritesheet_1
+  - first:
+      213: -2917639668045884393
+    second: Gema_spritesheet_2
+  - first:
+      213: 8621462409170766604
+    second: Gema_spritesheet_3
+  - first:
+      213: 3931179813514883100
+    second: Gema_spritesheet_4
+  - first:
+      213: -2741338909986826703
+    second: Gema_spritesheet_5
+  - first:
+      213: -9029323746510183588
+    second: Gema_spritesheet_6
+  - first:
+      213: 2037669004356719883
+    second: Gema_spritesheet_7
+  - first:
+      213: -7321292930591110902
+    second: Gema_spritesheet_8
+  - first:
+      213: 9110788315653036837
+    second: Gema_spritesheet_9
+  - first:
+      213: 2084190082116466332
+    second: Gema_spritesheet_10
+  - first:
+      213: 4097471750409657000
+    second: Gema_spritesheet_11
+  - first:
+      213: -7216218238728331181
+    second: Gema_spritesheet_12
+  - first:
+      213: -4139949563506540547
+    second: Gema_spritesheet_13
+  - first:
+      213: 4573616657614645247
+    second: Gema_spritesheet_14
+  - first:
+      213: 6393129777432613643
+    second: Gema_spritesheet_15
+  - first:
+      213: -1044646906972734573
+    second: Gema_spritesheet_16
+  - first:
+      213: -1281554764773906129
+    second: Gema_spritesheet_17
+  - first:
+      213: 8256933938249027675
+    second: Gema_spritesheet_18
+  - first:
+      213: -6322221522067019483
+    second: Gema_spritesheet_19
+  - first:
+      213: -7752989972081551532
+    second: Gema_spritesheet_20
+  - first:
+      213: 5697156800753299798
+    second: Gema_spritesheet_21
+  - first:
+      213: 4529599400966233433
+    second: Gema_spritesheet_22
+  - first:
+      213: 419379299237536696
+    second: Gema_spritesheet_23
+  - first:
+      213: -6778915998544618953
+    second: Gema_spritesheet_24
+  - first:
+      213: 7051110208161985295
+    second: Gema_spritesheet_25
+  - first:
+      213: -3011651300979100139
+    second: Gema_spritesheet_26
+  - first:
+      213: -759581557733114396
+    second: Gema_spritesheet_27
+  - first:
+      213: 143694782312855504
+    second: Gema_spritesheet_28
+  - first:
+      213: 5768533758336005380
+    second: Gema_spritesheet_29
+  - first:
+      213: 7061432147172673450
+    second: Gema_spritesheet_30
+  - first:
+      213: -1359767732076730945
+    second: Gema_spritesheet_31
+  - first:
+      213: 8128795895822214276
+    second: Gema_spritesheet_32
+  - first:
+      213: 4882874396218886838
+    second: Gema_spritesheet_33
+  - first:
+      213: 537527130082368273
+    second: Gema_spritesheet_34
+  - first:
+      213: 7364626639125206713
+    second: Gema_spritesheet_35
+  - first:
+      213: 5079742335201348559
+    second: Gema_spritesheet_36
+  - first:
+      213: 7523312101212493249
+    second: Gema_spritesheet_37
+  - first:
+      213: 2081799992461711166
+    second: Gema_spritesheet_38
+  - first:
+      213: -6304575235337086677
+    second: Gema_spritesheet_39
+  - first:
+      213: 2974746103392101965
+    second: Gema_spritesheet_40
+  - first:
+      213: -3108472022808539981
+    second: Gema_spritesheet_41
+  - first:
+      213: 6983180341853706914
+    second: Gema_spritesheet_42
+  - first:
+      213: -2231431271584994428
+    second: Gema_spritesheet_43
+  - first:
+      213: -9021662121188231636
+    second: Gema_spritesheet_44
+  - first:
+      213: -4802623127571589867
+    second: Gema_spritesheet_45
+  - first:
+      213: 8053165068366673356
+    second: Gema_spritesheet_46
+  - first:
+      213: -6556213204003476115
+    second: Gema_spritesheet_47
+  - first:
+      213: -6119192856379690859
+    second: Gema_spritesheet_48
+  - first:
+      213: -2744159268865692172
+    second: Gema_spritesheet_49
+  - first:
+      213: -479565870166640913
+    second: Gema_spritesheet_50
+  - first:
+      213: 7635194104799351850
+    second: Gema_spritesheet_51
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gema_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 984
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e336ca611ae883048a9047b70a6ffd9c
+      internalID: -656986761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 984
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46f18bf4413e85541a336977285fd9cc
+      internalID: -1795916241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 984
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90bc984b823050649a3db0ddff73cf17
+      internalID: 1560149295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 984
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 786264f334944fe44a42661ba2cd2fe6
+      internalID: -462384954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 492
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645092dea3b07c8458b523ec0e313734
+      internalID: 1261284429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 492
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd5128eabf006b48aa91136442d51eb
+      internalID: 1823551918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 492
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2d298e8a6baaba4daef9cbffdd4d2a6
+      internalID: 612869821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 492
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f30726400b953434a8c87fa7f017f75f
+      internalID: -440822586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 839377bf9e7399141bccd5c6ef50d95c
+      internalID: 335192354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 0
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72e6a1789770aa049b313c9c77119cfc
+      internalID: -1248393552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gema_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 926
+        y: 0
+        width: 463
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ca6f9665a3feec43a80a086f021102b
+      internalID: 1141915945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 4d2dfa73580dfc24b9827c9a49d05a86
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Gema_spritesheet_0: -656986761
+      Gema_spritesheet_1: -1795916241
+      Gema_spritesheet_10: 1141915945
+      Gema_spritesheet_2: 1560149295
+      Gema_spritesheet_3: -462384954
+      Gema_spritesheet_4: 1261284429
+      Gema_spritesheet_5: 1823551918
+      Gema_spritesheet_6: 612869821
+      Gema_spritesheet_7: -440822586
+      Gema_spritesheet_8: 335192354
+      Gema_spritesheet_9: -1248393552
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

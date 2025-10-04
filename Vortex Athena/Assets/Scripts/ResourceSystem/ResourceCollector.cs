@@ -1,5 +1,6 @@
 using UnityEngine;
-using GameSystems; // Para acceder a FuelManager
+using GameSystems; // Para acceder a FuelManager y UnifiedDeathManager
+using UnityEngine.Events; // <-- NUEVO: para exponer eventos de audio
 
 /// <summary>
 /// Componente que permite al jugador recolectar recursos
@@ -15,6 +16,13 @@ public class ResourceCollector : MonoBehaviour
 
     [Tooltip("Referencia al sistema de combustible")]
     public FuelManager fuelManager; // CAMBIADO: Fuel_System -> FuelManager
+
+    // --------- NUEVO: Integración con estado de muerte ----------
+    [Header("Estado del jugador (opcional)")]
+    [Tooltip("Si se asigna, puedes bloquear la recolección cuando la nave esté muerta.")]
+    [SerializeField] private UnifiedDeathManager deathManager;
+    [Tooltip("Si está activo, NO se recolectará ni se dispararán SFX cuando la nave esté muerta.")]
+    [SerializeField] private bool bloquearSiMuerto = true;
 
     [Header("Efectos visuales")]
     [Tooltip("Efecto general de recolección (fallback si no hay específico)")]
@@ -38,6 +46,15 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("Intervalo para verificación adicional")]
     public float checkInterval = 0.2f;
 
+    // --------- NUEVO: SFX por tipo de recolección ----------
+    [Header("SFX (UnityEvents)")]
+    [Tooltip("Se invoca al recolectar cualquier recurso (aparte del específico).")]
+    public UnityEvent onSfxCollectAny;
+    [Tooltip("Se invoca al recolectar GASOLINA.")]
+    public UnityEvent onSfxCollectFuel;
+    [Tooltip("Se invoca al recolectar PUNTOS/FRAGMENTOS.")]
+    public UnityEvent onSfxCollectPoints;
+
     // Control de tiempo para verificación adicional
     private float lastCheckTime;
 
@@ -58,10 +75,24 @@ public class ResourceCollector : MonoBehaviour
             if (fuelManager == null)
                 fuelManager = GetComponentInParent<FuelManager>();
         }
+
+        // NUEVO: intentar auto-asignar manejador de muerte
+        if (deathManager == null)
+        {
+            deathManager = GetComponent<UnifiedDeathManager>();
+            if (deathManager == null)
+                deathManager = GetComponentInParent<UnifiedDeathManager>();
+            if (deathManager == null)
+                deathManager = GetComponentInChildren<UnifiedDeathManager>();
+        }
     }
 
     private void Update()
     {
+        // Si está muerto y bloqueamos recolección, salir
+        if (bloquearSiMuerto && deathManager != null && deathManager.IsDead)
+            return;
+
         // Verificación adicional con OverlapCircle si está habilitada
         if (useCircleCheck && Time.time > lastCheckTime + checkInterval)
         {
@@ -75,23 +106,28 @@ public class ResourceCollector : MonoBehaviour
     /// </summary>
     private void CheckNearbyResources()
     {
-        // Usar buffer preasignado para evitar creación de arrays
         int count = Physics2D.OverlapCircleNonAlloc(transform.position, collectionRadius, colliderBuffer, resourceLayer);
 
         for (int i = 0; i < count; i++)
         {
-            // Verificar si es un recurso válido
             Collider2D collider = colliderBuffer[i];
             if (collider == null) continue;
 
             CollectibleResource resource = collider.GetComponent<CollectibleResource>();
             if (resource != null && !resource.isCollected)
             {
+                // Si está muerto y bloqueamos recolección, saltar
+                if (bloquearSiMuerto && deathManager != null && deathManager.IsDead)
+                    continue;
+
                 // Procesar lógica (puntaje/combustible)
                 ProcessResource(resource);
 
                 // Efecto visual (según tipo)
                 PlayCollectFX(resource, collider.transform.position);
+
+                // NUEVO: SFX (según tipo y genérico)
+                PlayCollectSFX(resource);
             }
         }
     }
@@ -103,7 +139,6 @@ public class ResourceCollector : MonoBehaviour
     {
         if (resource == null || resource.resourceType == null) return;
 
-        // Aplicar efecto según tipo
         switch (resource.resourceType.effect)
         {
             case ResourceType.ResourceEffect.Fuel:
@@ -130,6 +165,10 @@ public class ResourceCollector : MonoBehaviour
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // Si está muerto y bloqueamos recolección, salir
+        if (bloquearSiMuerto && deathManager != null && deathManager.IsDead)
+            return;
+
         CollectibleResource resource = other.GetComponent<CollectibleResource>();
         if (resource != null && !resource.isCollected)
         {
@@ -137,6 +176,9 @@ public class ResourceCollector : MonoBehaviour
 
             // Efecto visual (según tipo)
             PlayCollectFX(resource, other.transform.position);
+
+            // NUEVO: SFX (según tipo y genérico)
+            PlayCollectSFX(resource);
         }
     }
 
@@ -171,6 +213,27 @@ public class ResourceCollector : MonoBehaviour
         }
     }
 
+    // --------- NUEVO: disparo de SFX según el tipo ----------
+    private void PlayCollectSFX(CollectibleResource resource)
+    {
+        if (resource == null || resource.resourceType == null) return;
+
+        // Primero el específico por tipo
+        switch (resource.resourceType.effect)
+        {
+            case ResourceType.ResourceEffect.Fuel:
+                onSfxCollectFuel?.Invoke();
+                break;
+
+            case ResourceType.ResourceEffect.Points:
+                onSfxCollectPoints?.Invoke();
+                break;
+        }
+
+        // Luego el genérico "cualquier recolección"
+        onSfxCollectAny?.Invoke();
+    }
+
     // Visualizar radio de recolección
     private void OnDrawGizmosSelected()
     {
@@ -178,3 +241,4 @@ public class ResourceCollector : MonoBehaviour
         Gizmos.DrawSphere(transform.position, collectionRadius);
     }
 }
+

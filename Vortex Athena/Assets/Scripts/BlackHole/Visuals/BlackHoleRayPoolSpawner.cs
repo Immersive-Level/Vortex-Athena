@@ -134,14 +134,9 @@ public class BlackHoleRayPoolSpawner : MonoBehaviour
     private int ContarRayosActivos()
     {
         int conteo = 0;
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            var ch = transform.GetChild(i);
-            // Cuenta los que tengan Animator (nuestros rayos) y estén activos
-            var anim = ch.GetComponentInChildren<Animator>(true);
-            if (anim != null && ch.gameObject.activeInHierarchy)
+        for (int i = 0; i < _pool.Count; i++)
+            if (_pool[i] != null && _pool[i].gameObject.activeSelf)
                 conteo++;
-        }
         return conteo;
     }
 

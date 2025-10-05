@@ -390,7 +390,7 @@ PrefabInstance:
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: inputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349870}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: gravitationalObject
       value: 
@@ -938,7 +938,7 @@ PrefabInstance:
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349870}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInvulnerability
       value: 
@@ -1047,6 +1047,10 @@ PrefabInstance:
       propertyPath: fuelManager
       value: 
       objectReference: {fileID: 194704808}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 194704809}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collectEffectPoints
       value: 
@@ -1222,7 +1226,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349870}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.13138166
@@ -2163,7 +2167,7 @@ PrefabInstance:
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: inputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349872}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: gravitationalObject
       value: 
@@ -2687,7 +2691,7 @@ PrefabInstance:
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349872}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInvulnerability
       value: 
@@ -2752,6 +2756,10 @@ PrefabInstance:
       propertyPath: fuelManager
       value: 
       objectReference: {fileID: 900441901}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 900441902}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collectEffectPoints
       value: 
@@ -2935,7 +2943,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349872}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.11221737
@@ -4125,7 +4133,7 @@ PrefabInstance:
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: inputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349874}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: gravitationalObject
       value: 
@@ -4649,7 +4657,7 @@ PrefabInstance:
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349874}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInvulnerability
       value: 
@@ -4714,6 +4722,10 @@ PrefabInstance:
       propertyPath: fuelManager
       value: 
       objectReference: {fileID: 1526805309}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 1526805310}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collectEffectPoints
       value: 
@@ -4893,7 +4905,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349874}
     - target: {fileID: 8997046992031912739, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
       value: 0.1517107
@@ -10406,7 +10418,7 @@ PrefabInstance:
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: inputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349876}
     - target: {fileID: 1219413745525033032, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: gravitationalObject
       value: 
@@ -10782,7 +10794,7 @@ PrefabInstance:
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349876}
     - target: {fileID: 5971390852767820676, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: ShipInvulnerability
       value: 
@@ -10795,6 +10807,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: deathManager
+      value: 
+      objectReference: {fileID: 42232722947320374}
     - target: {fileID: 7714841270529153968, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: collectEffectPoints
       value: 
@@ -10950,7 +10966,7 @@ PrefabInstance:
     - target: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: shipInputController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 967349876}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12074,7 +12090,8 @@ PrefabInstance:
       value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6132753996801346724, guid: af289052e387dd5499c36e6a5397b0de, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af289052e387dd5499c36e6a5397b0de, type: 3}

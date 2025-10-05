@@ -254,6 +254,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1260,7 +1286,52 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Logo_VortexAthena-04_0: 9141552912663363301
+      Logo_VortexAthena-04_1: 8095891366902390296
+      Logo_VortexAthena-04_10: -6147801356744021059
+      Logo_VortexAthena-04_11: -898582839431101519
+      Logo_VortexAthena-04_12: -8503655170678246378
+      Logo_VortexAthena-04_13: -3663126419242827347
+      Logo_VortexAthena-04_14: 6662573527448705607
+      Logo_VortexAthena-04_15: -2288618578742252740
+      Logo_VortexAthena-04_16: -2792089191159785054
+      Logo_VortexAthena-04_17: 36754344356992007
+      Logo_VortexAthena-04_18: -1507482425199093013
+      Logo_VortexAthena-04_19: -6943470582585212675
+      Logo_VortexAthena-04_2: -5135542164486287466
+      Logo_VortexAthena-04_20: -5956891515409856095
+      Logo_VortexAthena-04_21: -2241606327650169859
+      Logo_VortexAthena-04_22: 4569957970495340505
+      Logo_VortexAthena-04_23: -5721491440196038919
+      Logo_VortexAthena-04_24: 9013185653648043667
+      Logo_VortexAthena-04_25: 2630904246169201207
+      Logo_VortexAthena-04_26: 5165697361018694871
+      Logo_VortexAthena-04_27: -6171634582377414985
+      Logo_VortexAthena-04_28: -1748353898716675333
+      Logo_VortexAthena-04_29: -347552755343944042
+      Logo_VortexAthena-04_3: -1037199103103614410
+      Logo_VortexAthena-04_30: 8632634289736274221
+      Logo_VortexAthena-04_31: 7258393323471678613
+      Logo_VortexAthena-04_32: -1693459119841743448
+      Logo_VortexAthena-04_33: 3818889915576353997
+      Logo_VortexAthena-04_34: 3760012577858677126
+      Logo_VortexAthena-04_35: -8397292158217099904
+      Logo_VortexAthena-04_36: 8696555717716805888
+      Logo_VortexAthena-04_37: 5759032249324625467
+      Logo_VortexAthena-04_38: -76342955495113406
+      Logo_VortexAthena-04_39: 4771559357069860493
+      Logo_VortexAthena-04_4: 2681473225681210959
+      Logo_VortexAthena-04_40: 7336255933336507435
+      Logo_VortexAthena-04_41: -7829459582151381423
+      Logo_VortexAthena-04_42: 9098704417536563131
+      Logo_VortexAthena-04_43: -1257197371578474644
+      Logo_VortexAthena-04_44: 2855904264647136235
+      Logo_VortexAthena-04_5: 1278961600068713882
+      Logo_VortexAthena-04_6: 1231965751162803423
+      Logo_VortexAthena-04_7: 2188692097583875777
+      Logo_VortexAthena-04_8: 7593987829693475947
+      Logo_VortexAthena-04_9: 1375112697384468751
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

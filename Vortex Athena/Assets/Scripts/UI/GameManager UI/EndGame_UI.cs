@@ -18,7 +18,6 @@ public class EndGame_UI : MonoBehaviour
 
     private void Start()
     {
-        // Configurar listeners de botones
         if (RestartButton != null)
         {
             RestartButton.onClick.AddListener(OnRestartPressed);
@@ -32,7 +31,6 @@ public class EndGame_UI : MonoBehaviour
 
     private void OnEnable()
     {
-        // Suscribirse al evento de cambio de estado
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
@@ -41,22 +39,16 @@ public class EndGame_UI : MonoBehaviour
 
     private void OnDisable()
     {
-        // Desuscribirse para evitar memory leaks
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
         }
     }
 
-    /// <summary>
-    /// Listener del evento de cambio de estado del juego
-    /// </summary>
     private void OnGameStateChanged(GameState newState)
     {
-        // Mostrar/ocultar este panel según el estado
         gameObject.SetActive(newState == GameState.InGameEnd);
 
-        // Activar el panel de scoreboard si existe
         if (newState == GameState.InGameEnd && ScoreboardPanel != null)
         {
             ScoreboardPanel.SetActive(true);
@@ -68,25 +60,17 @@ public class EndGame_UI : MonoBehaviour
     /// </summary>
     public void OnRestartPressed()
     {
-        Time.timeScale = 1f; // Asegurar que el tiempo esté normal
+        Time.timeScale = 1f;
         int sceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(sceneIndex);
     }
 
     /// <summary>
-    /// Regresa al menú principal
+    /// Regresa al menú principal recargando la escena
     /// </summary>
     public void OnQuitPressed()
     {
-        Time.timeScale = 1f; // Asegurar que el tiempo esté normal
-
-        // Opción 1: Por nombre de escena
-        SceneManager.LoadScene("Main Menu");
-
-        // Opción 2: O puedes usar el GameManager para regresar al menú
-        // if (GameManager.Instance != null)
-        // {
-        //     GameManager.Instance.ReturnToMenu();
-        // }
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
     }
 }

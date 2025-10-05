@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public List<GameObject> NavesActivas { get; private set; } = new();
     public GameObject TutorialRoot;
 
-    // Hacer GameDuration público para que BlackHole pueda accederlo
     public float GameDuration { get; private set; } = 60f;
     private float GameStartTime;
     public float Gametime { get; private set; }
@@ -31,9 +30,8 @@ public class GameManager : MonoBehaviour
     [Header("Tutorial")]
     [SerializeField] private bool tutorialCompletado = false;
 
-    // Propiedades públicas para InicioNave
     public bool TutorialCompletado => tutorialCompletado;
-    public bool SkipTutorialEnabled => tutorialCompletado; // Simplificado: mismo valor
+    public bool SkipTutorialEnabled => tutorialCompletado;
 
     private void Awake()
     {
@@ -43,7 +41,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // REMOVIDO: DontDestroyOnLoad(gameObject);
+        // Ahora el GameManager se destruye al recargar la escena
     }
 
     private void Start()
@@ -51,7 +50,6 @@ public class GameManager : MonoBehaviour
         SetState(GameState.InMenu);
         NavesActivas = new List<GameObject>();
 
-        // Mostrar tutorial si no está completado
         if (!tutorialCompletado && TutorialRoot != null)
         {
             TutorialRoot.SetActive(true);
@@ -114,9 +112,6 @@ public class GameManager : MonoBehaviour
             NavesActivas.Remove(inShip);
     }
 
-    /// <summary>
-    /// Alterna el tutorial - Las naves se manejan automáticamente
-    /// </summary>
     public void ToggleTutorial()
     {
         if (TutorialRoot == null) return;
@@ -125,34 +120,23 @@ public class GameManager : MonoBehaviour
 
         if (tutorialActivo)
         {
-            // Cerrar tutorial
             Time.timeScale = 1f;
             TutorialRoot.SetActive(false);
             tutorialCompletado = true;
-
-            // Las naves se desactivarán automáticamente cuando el estado cambie a InGame
-            // InicioNave maneja esto en OnGameStateChanged
         }
         else
         {
-            // Abrir tutorial
             Time.timeScale = 0f;
             TutorialRoot.SetActive(true);
         }
     }
 
-    /// <summary>
-    /// Obtiene el tiempo restante del juego
-    /// </summary>
     public float GetRemainingTime()
     {
         if (CurrentState != GameState.InGame) return GameDuration;
         return Mathf.Max(0f, GameDuration - Gametime);
     }
 
-    /// <summary>
-    /// Obtiene el progreso del juego (0-1)
-    /// </summary>
     public float GetGameProgress()
     {
         if (CurrentState != GameState.InGame) return 0f;

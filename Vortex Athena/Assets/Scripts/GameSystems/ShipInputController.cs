@@ -12,7 +12,7 @@ namespace GameSystems
     }
 
     /// <summary>
-    /// Controlador de input para la nave - Integrado con nueva l�gica de InicioNave
+    /// Controlador de input para la nave - Integrado con nueva lógica de InicioNave
     /// </summary>
     /// 
 
@@ -31,11 +31,11 @@ namespace GameSystems
         [SerializeField] private ShipController shipController;
         [SerializeField] private UnifiedDeathManager deathManager;
 
-        [Header("Configuraci�n Tap")]
+        [Header("Configuración Tap")]
         [SerializeField] private float tapThreshold = 0.15f;
         [SerializeField] private bool tapNudgeEnabled = true;
 
-        [Header("Visual del Bot�n")]
+        [Header("Visual del Botón")]
         [SerializeField] private float inactiveAlpha = 0.5f;
         [SerializeField] private float deadAlpha = 1f;
         [SerializeField] private bool blinkOnRespawnReady = true;
@@ -61,6 +61,31 @@ namespace GameSystems
         public event Action OnButtonPressed;
         public event Action OnButtonReleased;
         public event Action OnTapDetected;
+        public event Action<ButtonState> OnStateChanged;
+
+        // ============================================================
+        // NUEVAS PROPIEDADES PÚBLICAS PARA CONSULTA DE ESTADO
+        // ============================================================
+
+        /// <summary>
+        /// Indica si el juego está en estado Playing (puede procesar input de gameplay)
+        /// </summary>
+        public bool IsPlayingState => currentButtonState == ButtonState.Playing;
+
+        /// <summary>
+        /// Obtiene el estado actual del botón
+        /// </summary>
+        public ButtonState CurrentState => currentButtonState;
+
+        /// <summary>
+        /// Indica si el sistema puede aceptar input de gameplay en este momento
+        /// </summary>
+        public bool CanAcceptGameplayInput()
+        {
+            return currentButtonState == ButtonState.Playing && canPress && gameStarted;
+        }
+
+        // ============================================================
 
         private void Awake()
         {
@@ -145,6 +170,7 @@ namespace GameSystems
         {
             if (currentButtonState == newState) return;
 
+            ButtonState previousState = currentButtonState;
             currentButtonState = newState;
 
             if (blinkCoroutine != null)
@@ -190,8 +216,11 @@ namespace GameSystems
                     break;
             }
 
+            // Notificar cambio de estado a otros sistemas
+            OnStateChanged?.Invoke(newState);
+
             if (debugMode)
-                Debug.Log($"[ShipInput] Estado del bot�n: {newState}");
+                Debug.Log($"[ShipInput] Estado del botón: {previousState} → {newState}");
         }
 
         private IEnumerator BlinkEffect()
@@ -223,11 +252,11 @@ namespace GameSystems
                 if (GameManager.Instance != null && GameManager.Instance.CurrentState == GameState.InGame)
                 {
                     inicioNave.IniciarJuego();
-                    return; // El juego se iniciar� y el pr�ximo press ser� para movimiento
+                    return; // El juego se iniciará y el próximo press será para movimiento
                 }
             }
 
-            // L�gica normal de movimiento
+            // Lógica normal de movimiento
             if (!canPress)
             {
                 if (debugMode)
@@ -250,7 +279,7 @@ namespace GameSystems
             OnButtonPressed?.Invoke();
 
             if (debugMode)
-                Debug.Log("[ShipInput] Bot�n presionado - Iniciando movimiento");
+                Debug.Log("[ShipInput] Botón presionado - Iniciando movimiento");
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -290,7 +319,7 @@ namespace GameSystems
                 OnPointerUp(null);
 
             if (debugMode)
-                Debug.Log($"[ShipInput] Jugador muri� por {deathType}");
+                Debug.Log($"[ShipInput] Jugador murió por {deathType}");
         }
 
         private void HandleRespawnReady()
@@ -298,7 +327,7 @@ namespace GameSystems
             SetButtonState(ButtonState.RespawnReady);
 
             if (debugMode)
-                Debug.Log("[ShipInput] Respawn listo - Presiona el bot�n");
+                Debug.Log("[ShipInput] Respawn listo - Presiona el botón");
         }
 
         private void HandleRespawn()

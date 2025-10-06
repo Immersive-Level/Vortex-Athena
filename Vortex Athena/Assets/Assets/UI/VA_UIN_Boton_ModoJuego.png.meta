@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 20154f565d1739b4aa7ae28c73366eca
+guid: 8322905aff2df7a41a0bba0af99f97fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3700368829211626136
-    second: Logo_VortexAthena-05_0
+      213: -8887802339955087314
+    second: VA_UIN_Boton_ModoJuego_0
+  - first:
+      213: 7865950568491795387
+    second: VA_UIN_Boton_ModoJuego_1
+  - first:
+      213: 7226574206417316298
+    second: VA_UIN_Boton_ModoJuego_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,32 +116,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -152,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Logo_VortexAthena-05_0
+      name: VA_UIN_Boton_ModoJuego_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1000
-        height: 1000
+        y: 85
+        width: 483
+        height: 93
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 89a461348d95a5330800000000000000
-      internalID: 3700368829211626136
+      spriteID: e2867158cde28a480800000000000000
+      internalID: -8887802339955087314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UIN_Boton_ModoJuego_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 0
+        width: 36
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb34cbfcd58792d60800000000000000
+      internalID: 7865950568491795387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VA_UIN_Boton_ModoJuego_2
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 0
+        width: 36
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac92184e3f2f94460800000000000000
+      internalID: 7226574206417316298
       vertices: []
       indices: 
       edges: []
@@ -187,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Logo_VortexAthena-05_0: 3700368829211626136
+      VA_UIN_Boton_ModoJuego_0: -8887802339955087314
+      VA_UIN_Boton_ModoJuego_1: 7865950568491795387
+      VA_UIN_Boton_ModoJuego_2: 7226574206417316298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -31,13 +31,16 @@ public class GameManager : NetworkBehaviour
     public GameObject TutorialRoot;
 
     public ScoreSystem ScoreSystem { get; private set; }
+    public float GameDuration { get; private set; } = 60f;
+    private float GameStartTime;
+    public float Gametime { get; private set; }
+    [HideInInspector] public bool UseAbilities = true;
 
     [Header("Tutorial")]
     [SerializeField] private bool tutorialCompletado = false;
 
-    // Propiedades p�blicas para InicioNave
     public bool TutorialCompletado => tutorialCompletado;
-    public bool SkipTutorialEnabled => tutorialCompletado; // Simplificado: mismo valor
+    public bool SkipTutorialEnabled => tutorialCompletado;
 
     private void Awake()
     {
@@ -47,13 +50,14 @@ public class GameManager : NetworkBehaviour
             return;
         }
         Instance = this;
+        // REMOVIDO: DontDestroyOnLoad(gameObject);
+        // Ahora el GameManager se destruye al recargar la escena
     }
 
     private void Start()
     {
         NavesActivas = new List<GameObject>();
 
-        // Mostrar tutorial si no est� completado
         if (!tutorialCompletado && TutorialRoot != null)
         {
             TutorialRoot.SetActive(true);
@@ -142,9 +146,6 @@ public class GameManager : NetworkBehaviour
             NavesActivas.Remove(inShip);
     }
 
-    /// <summary>
-    /// Alterna el tutorial - Las naves se manejan autom�ticamente
-    /// </summary>
     public void ToggleTutorial()
     {
         if (TutorialRoot == null) return;
@@ -153,17 +154,12 @@ public class GameManager : NetworkBehaviour
 
         if (tutorialActivo)
         {
-            // Cerrar tutorial
             Time.timeScale = 1f;
             TutorialRoot.SetActive(false);
             tutorialCompletado = true;
-
-            // Las naves se desactivar�n autom�ticamente cuando el estado cambie a InGame
-            // InicioNave maneja esto en OnGameStateChanged
         }
         else
         {
-            // Abrir tutorial
             Time.timeScale = 0f;
             TutorialRoot.SetActive(true);
         }
@@ -200,9 +196,6 @@ public class GameManager : NetworkBehaviour
         return Mathf.Max(0f, GameDuration - Gametime);
     }
 
-    /// <summary>
-    /// Obtiene el progreso del juego (0-1)
-    /// </summary>
     public float GetGameProgress()
     {
         if (CurrentState != GameState.InGame) return 0f;

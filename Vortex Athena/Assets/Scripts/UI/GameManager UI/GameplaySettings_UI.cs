@@ -29,7 +29,7 @@ public class GameplaySettings_UI : MonoBehaviour
     // Opciones fijas para el selector de habilidades
     private readonly string[] opcionesHabilidades = { "OFF", "ON" };
 
-    private void Start()
+    private void Awake()
     {
         // Validar referencias críticas
         if (timeConfig == null)

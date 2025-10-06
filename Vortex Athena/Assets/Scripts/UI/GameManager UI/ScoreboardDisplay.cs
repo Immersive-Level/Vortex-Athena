@@ -40,6 +40,12 @@ public class ScoreboardDisplay : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.OnGameStateChanged += OnGameStateChanged;
+
+            // Si ya estamos en InGameEnd cuando nos activamos, generar la tabla inmediatamente
+            if (GameManager.Instance.CurrentState == GameState.InGameEnd)
+            {
+                PopulateScoreboard();
+            }
         }
     }
 
@@ -69,6 +75,8 @@ public class ScoreboardDisplay : MonoBehaviour
     /// </summary>
     public void PopulateScoreboard()
     {
+        Debug.Log("=== POPULATE SCOREBOARD INICIADO ===");
+
         // Validar referencias
         if (RowPrefab == null || RowContainer == null)
         {
@@ -82,11 +90,15 @@ public class ScoreboardDisplay : MonoBehaviour
             return;
         }
 
+        Debug.Log($"ScoreSystem contiene {GameManager.Instance.ScoreSystem.ScoreMap.Count} jugadores");
+
         // Limpiar filas anteriores
         ClearScoreboard();
 
         // Obtener jugadores ordenados
         List<PlayerScore> sortedPlayers = GetSortedPlayers();
+
+        Debug.Log($"Jugadores ordenados: {sortedPlayers.Count}");
 
         // Limitar cantidad de jugadores a mostrar
         int playersToShow = Mathf.Min(sortedPlayers.Count, MaxPlayersToShow);
@@ -94,10 +106,11 @@ public class ScoreboardDisplay : MonoBehaviour
         // Generar una fila por cada jugador
         for (int i = 0; i < playersToShow; i++)
         {
+            Debug.Log($"Generando fila {i + 1} para: {sortedPlayers[i].PlayerName} - Score: {sortedPlayers[i].Score}");
             CreateRow(i + 1, sortedPlayers[i]);
         }
 
-        Debug.Log($"Scoreboard generado con {playersToShow} jugadores");
+        Debug.Log($"=== Scoreboard generado con {playersToShow} jugadores ===");
     }
 
     /// <summary>

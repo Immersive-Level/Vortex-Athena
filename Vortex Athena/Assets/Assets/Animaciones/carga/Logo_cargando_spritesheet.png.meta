@@ -1,0 +1,1101 @@
+fileFormatVersion: 2
+guid: 6174ad1161c108e428c11a31a6e06c87
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7724170887808088385
+    second: Logo_cargando_spritesheet_0
+  - first:
+      213: 4041199075408305081
+    second: Logo_cargando_spritesheet_1
+  - first:
+      213: 5826159829158531287
+    second: Logo_cargando_spritesheet_2
+  - first:
+      213: -3626744556997600633
+    second: Logo_cargando_spritesheet_3
+  - first:
+      213: 9063206666984922096
+    second: Logo_cargando_spritesheet_4
+  - first:
+      213: 875685769907150848
+    second: Logo_cargando_spritesheet_5
+  - first:
+      213: 662637543129642220
+    second: Logo_cargando_spritesheet_6
+  - first:
+      213: -1409189885867535816
+    second: Logo_cargando_spritesheet_7
+  - first:
+      213: 2195702873852481680
+    second: Logo_cargando_spritesheet_8
+  - first:
+      213: 7273520261101789670
+    second: Logo_cargando_spritesheet_9
+  - first:
+      213: -8547408423961653238
+    second: Logo_cargando_spritesheet_10
+  - first:
+      213: -1142134006697779865
+    second: Logo_cargando_spritesheet_11
+  - first:
+      213: 5333553676328652660
+    second: Logo_cargando_spritesheet_12
+  - first:
+      213: 3962978671362425217
+    second: Logo_cargando_spritesheet_13
+  - first:
+      213: 4895336283101693447
+    second: Logo_cargando_spritesheet_14
+  - first:
+      213: -2502960677419229074
+    second: Logo_cargando_spritesheet_15
+  - first:
+      213: 7199637835129242080
+    second: Logo_cargando_spritesheet_16
+  - first:
+      213: -7613754703736936984
+    second: Logo_cargando_spritesheet_17
+  - first:
+      213: -3458466930585382065
+    second: Logo_cargando_spritesheet_18
+  - first:
+      213: -2792724067482676597
+    second: Logo_cargando_spritesheet_19
+  - first:
+      213: -8708373198487161423
+    second: Logo_cargando_spritesheet_20
+  - first:
+      213: -7293992477096914062
+    second: Logo_cargando_spritesheet_21
+  - first:
+      213: -7297136177148404864
+    second: Logo_cargando_spritesheet_22
+  - first:
+      213: 6200719595991173973
+    second: Logo_cargando_spritesheet_23
+  - first:
+      213: 5766521924283369571
+    second: Logo_cargando_spritesheet_24
+  - first:
+      213: 6708421498480130786
+    second: Logo_cargando_spritesheet_25
+  - first:
+      213: 2902887770342752391
+    second: Logo_cargando_spritesheet_26
+  - first:
+      213: -11254727612043933
+    second: Logo_cargando_spritesheet_27
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3598
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 149f6308f74c13b60800000000000000
+      internalID: 7724170887808088385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 3598
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bb595cd529351830800000000000000
+      internalID: 4041199075408305081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 3598
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d015ad0f7daad050800000000000000
+      internalID: 5826159829158531287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 3598
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a931d6a073badc0800000000000000
+      internalID: -3626744556997600633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 3598
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fb9697d17af6cd70800000000000000
+      internalID: 9063206666984922096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3084
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0002e22719f072c00800000000000000
+      internalID: 875685769907150848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 3084
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce4741da559223900800000000000000
+      internalID: 662637543129642220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 3084
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 832dac7d34d817ce0800000000000000
+      internalID: -1409189885867535816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 3084
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09018446124b87e10800000000000000
+      internalID: 2195702873852481680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 3084
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e12495042cb0f460800000000000000
+      internalID: 7273520261101789670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2570
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0095931351816980800000000000000
+      internalID: -8547408423961653238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 2570
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76d92e41c235620f0800000000000000
+      internalID: -1142134006697779865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 2570
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47f4c0c6fc6940a40800000000000000
+      internalID: 5333553676328652660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 2570
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 181c107da145ff630800000000000000
+      internalID: 3962978671362425217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 2570
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7068b52b96abfe340800000000000000
+      internalID: 4895336283101693447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2056
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e60e7af6682b34dd0800000000000000
+      internalID: -2502960677419229074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 2056
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e1475a37704ae360800000000000000
+      internalID: 7199637835129242080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 2056
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e5ecc4bf62865690800000000000000
+      internalID: -7613754703736936984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 2056
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f43d50f76ae0100d0800000000000000
+      internalID: -3458466930585382065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 2056
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b82d202d1404e39d0800000000000000
+      internalID: -2792724067482676597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1542
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b5f3a407b4a52780800000000000000
+      internalID: -8708373198487161423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 1542
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2735440cc7886ca90800000000000000
+      internalID: -7293992477096914062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 1542
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08bda6b0f4d5bba90800000000000000
+      internalID: -7297136177148404864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 1542
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55b8bd6ae916d0650800000000000000
+      internalID: 6200719595991173973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 1542
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3688966432dc60050800000000000000
+      internalID: 5766521924283369571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1028
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb796bbddad936c4ca6db680a6389c56
+      internalID: 6708421498480130786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 1028
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aa14f6dce7aee14fba46a87fcb6bf96
+      internalID: 2902887770342752391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 1028
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1973db75657d7774499be7cd4b5a8cc3
+      internalID: -11254727612043933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 1028
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e83b931f2d0b610459c37652bd5a7132
+      internalID: 2128265302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 1028
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 529e8873e95706f4489417e364014862
+      internalID: -644696499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 514
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90a7f5396bcca7a469eaaf1f3bc6274d
+      internalID: 259953550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 514
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12640852eb9fc747a0af9b85a8d14e8
+      internalID: -104296626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 514
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf24a6a6f2a3994eb53b113874d82e9
+      internalID: -991916671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 2175
+        y: 514
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9dbca3d67b83ed47b6c8ccad5c478a3
+      internalID: 1890651111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 2900
+        y: 514
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c4833f409bc2a54a9edda42492cdd74
+      internalID: -609343277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 942e13c42a9d9ec4d8b908b6cdedf274
+      internalID: -784041294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 725
+        y: 0
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8bec364b158d94baea53dedd9e50e2
+      internalID: -817131685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_cargando_spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 1450
+        y: 0
+        width: 725
+        height: 514
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d44ede8325afcb499af2d5b60437fe8
+      internalID: -1728189446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: bd7c8f588f832dc4484cefa66481a762
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Logo_cargando_spritesheet_0: 7724170887808088385
+      Logo_cargando_spritesheet_1: 4041199075408305081
+      Logo_cargando_spritesheet_10: -8547408423961653238
+      Logo_cargando_spritesheet_11: -1142134006697779865
+      Logo_cargando_spritesheet_12: 5333553676328652660
+      Logo_cargando_spritesheet_13: 3962978671362425217
+      Logo_cargando_spritesheet_14: 4895336283101693447
+      Logo_cargando_spritesheet_15: -2502960677419229074
+      Logo_cargando_spritesheet_16: 7199637835129242080
+      Logo_cargando_spritesheet_17: -7613754703736936984
+      Logo_cargando_spritesheet_18: -3458466930585382065
+      Logo_cargando_spritesheet_19: -2792724067482676597
+      Logo_cargando_spritesheet_2: 5826159829158531287
+      Logo_cargando_spritesheet_20: -8708373198487161423
+      Logo_cargando_spritesheet_21: -7293992477096914062
+      Logo_cargando_spritesheet_22: -7297136177148404864
+      Logo_cargando_spritesheet_23: 6200719595991173973
+      Logo_cargando_spritesheet_24: 5766521924283369571
+      Logo_cargando_spritesheet_25: 6708421498480130786
+      Logo_cargando_spritesheet_26: 2902887770342752391
+      Logo_cargando_spritesheet_27: -11254727612043933
+      Logo_cargando_spritesheet_28: 2128265302
+      Logo_cargando_spritesheet_29: -644696499
+      Logo_cargando_spritesheet_3: -3626744556997600633
+      Logo_cargando_spritesheet_30: 259953550
+      Logo_cargando_spritesheet_31: -104296626
+      Logo_cargando_spritesheet_32: -991916671
+      Logo_cargando_spritesheet_33: 1890651111
+      Logo_cargando_spritesheet_34: -609343277
+      Logo_cargando_spritesheet_35: -784041294
+      Logo_cargando_spritesheet_36: -817131685
+      Logo_cargando_spritesheet_37: -1728189446
+      Logo_cargando_spritesheet_4: 9063206666984922096
+      Logo_cargando_spritesheet_5: 875685769907150848
+      Logo_cargando_spritesheet_6: 662637543129642220
+      Logo_cargando_spritesheet_7: -1409189885867535816
+      Logo_cargando_spritesheet_8: 2195702873852481680
+      Logo_cargando_spritesheet_9: 7273520261101789670
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

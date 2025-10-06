@@ -1,0 +1,2047 @@
+fileFormatVersion: 2
+guid: dd421aac2465ba54bb37c07a14eb473d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2139786775478928632
+    second: Cargando_spritesheet_0
+  - first:
+      213: 3968651083662171997
+    second: Cargando_spritesheet_1
+  - first:
+      213: -1792169758657377199
+    second: Cargando_spritesheet_2
+  - first:
+      213: -3187167747838821833
+    second: Cargando_spritesheet_3
+  - first:
+      213: 8415809448211791356
+    second: Cargando_spritesheet_4
+  - first:
+      213: -5562322966305734103
+    second: Cargando_spritesheet_5
+  - first:
+      213: -5421685729502287490
+    second: Cargando_spritesheet_6
+  - first:
+      213: -112761956295193844
+    second: Cargando_spritesheet_7
+  - first:
+      213: -712309476629873521
+    second: Cargando_spritesheet_8
+  - first:
+      213: 4892953967458512763
+    second: Cargando_spritesheet_9
+  - first:
+      213: -4782345689629851862
+    second: Cargando_spritesheet_10
+  - first:
+      213: 7076394893055991386
+    second: Cargando_spritesheet_11
+  - first:
+      213: -6446852102375213890
+    second: Cargando_spritesheet_12
+  - first:
+      213: -2177496510221036555
+    second: Cargando_spritesheet_13
+  - first:
+      213: 8850416427722121501
+    second: Cargando_spritesheet_14
+  - first:
+      213: 1111045572231628603
+    second: Cargando_spritesheet_15
+  - first:
+      213: -6274233612803334244
+    second: Cargando_spritesheet_16
+  - first:
+      213: 5645525016296507132
+    second: Cargando_spritesheet_17
+  - first:
+      213: -6789564003506268354
+    second: Cargando_spritesheet_18
+  - first:
+      213: -8363975316986167064
+    second: Cargando_spritesheet_19
+  - first:
+      213: 3429263734601298343
+    second: Cargando_spritesheet_20
+  - first:
+      213: 1290360567083563548
+    second: Cargando_spritesheet_21
+  - first:
+      213: -5265861709481927717
+    second: Cargando_spritesheet_22
+  - first:
+      213: -2325813867295292243
+    second: Cargando_spritesheet_23
+  - first:
+      213: 4427106454425895757
+    second: Cargando_spritesheet_24
+  - first:
+      213: -5393953279478303413
+    second: Cargando_spritesheet_25
+  - first:
+      213: 6344551580810303277
+    second: Cargando_spritesheet_26
+  - first:
+      213: -8205577771202394247
+    second: Cargando_spritesheet_27
+  - first:
+      213: 5675671026994079122
+    second: Cargando_spritesheet_28
+  - first:
+      213: -2812200377099655344
+    second: Cargando_spritesheet_29
+  - first:
+      213: -6932384203449676953
+    second: Cargando_spritesheet_30
+  - first:
+      213: 3775983369817134038
+    second: Cargando_spritesheet_31
+  - first:
+      213: 8508306568413053440
+    second: Cargando_spritesheet_32
+  - first:
+      213: 5150343070178575169
+    second: Cargando_spritesheet_33
+  - first:
+      213: -2214366890502657472
+    second: Cargando_spritesheet_34
+  - first:
+      213: -5651489821521481844
+    second: Cargando_spritesheet_35
+  - first:
+      213: -8564764097968636598
+    second: Cargando_spritesheet_36
+  - first:
+      213: -4574741279476378370
+    second: Cargando_spritesheet_37
+  - first:
+      213: 3549901296408783377
+    second: Cargando_spritesheet_38
+  - first:
+      213: 6496624714879294455
+    second: Cargando_spritesheet_39
+  - first:
+      213: 4616074271482366379
+    second: Cargando_spritesheet_40
+  - first:
+      213: 5184311144479610145
+    second: Cargando_spritesheet_41
+  - first:
+      213: -3079064658915137916
+    second: Cargando_spritesheet_42
+  - first:
+      213: 1504411088997252957
+    second: Cargando_spritesheet_43
+  - first:
+      213: 1109148984612992824
+    second: Cargando_spritesheet_44
+  - first:
+      213: -9015471849014202042
+    second: Cargando_spritesheet_45
+  - first:
+      213: 8272764878613577811
+    second: Cargando_spritesheet_46
+  - first:
+      213: -7507480672961222168
+    second: Cargando_spritesheet_47
+  - first:
+      213: 2887730628682576699
+    second: Cargando_spritesheet_48
+  - first:
+      213: 6300694340609276120
+    second: Cargando_spritesheet_49
+  - first:
+      213: -646130708095364624
+    second: Cargando_spritesheet_50
+  - first:
+      213: 772844162520106063
+    second: Cargando_spritesheet_51
+  - first:
+      213: -8087020297726535037
+    second: Cargando_spritesheet_52
+  - first:
+      213: 6987146519209205017
+    second: Cargando_spritesheet_53
+  - first:
+      213: 6612003845563503767
+    second: Cargando_spritesheet_54
+  - first:
+      213: -6941780134769029633
+    second: Cargando_spritesheet_55
+  - first:
+      213: -5701773950802779226
+    second: Cargando_spritesheet_56
+  - first:
+      213: 5366445143006902397
+    second: Cargando_spritesheet_57
+  - first:
+      213: -1657887160636766321
+    second: Cargando_spritesheet_58
+  - first:
+      213: -8400528020420768059
+    second: Cargando_spritesheet_59
+  - first:
+      213: 9143992447893674102
+    second: Cargando_spritesheet_60
+  - first:
+      213: -9017439375544682087
+    second: Cargando_spritesheet_61
+  - first:
+      213: -1251514562471387363
+    second: Cargando_spritesheet_62
+  - first:
+      213: 8470622844325635846
+    second: Cargando_spritesheet_63
+  - first:
+      213: -405337422390123195
+    second: Cargando_spritesheet_64
+  - first:
+      213: 3172063721817777714
+    second: Cargando_spritesheet_65
+  - first:
+      213: 6565892381230497839
+    second: Cargando_spritesheet_66
+  - first:
+      213: 3423178789893627283
+    second: Cargando_spritesheet_67
+  - first:
+      213: -4781092690170563567
+    second: Cargando_spritesheet_68
+  - first:
+      213: -5729667056855359676
+    second: Cargando_spritesheet_69
+  - first:
+      213: 9017678591523929700
+    second: Cargando_spritesheet_70
+  - first:
+      213: 8400287597641914065
+    second: Cargando_spritesheet_71
+  - first:
+      213: 5260731793584490855
+    second: Cargando_spritesheet_72
+  - first:
+      213: -604199170527684688
+    second: Cargando_spritesheet_73
+  - first:
+      213: -8193061515370583196
+    second: Cargando_spritesheet_74
+  - first:
+      213: -7525445679833681270
+    second: Cargando_spritesheet_75
+  - first:
+      213: -311198942968265464
+    second: Cargando_spritesheet_76
+  - first:
+      213: -3196077809546396295
+    second: Cargando_spritesheet_77
+  - first:
+      213: -4056306138659401296
+    second: Cargando_spritesheet_78
+  - first:
+      213: -5192130974870403524
+    second: Cargando_spritesheet_79
+  - first:
+      213: -2106012201970418851
+    second: Cargando_spritesheet_80
+  - first:
+      213: 4421392079657147710
+    second: Cargando_spritesheet_81
+  - first:
+      213: 5643238822368325185
+    second: Cargando_spritesheet_82
+  - first:
+      213: -7356305311485525959
+    second: Cargando_spritesheet_83
+  - first:
+      213: 8085438667535548697
+    second: Cargando_spritesheet_84
+  - first:
+      213: 8569817792815643241
+    second: Cargando_spritesheet_85
+  - first:
+      213: 5497283159225543434
+    second: Cargando_spritesheet_86
+  - first:
+      213: -3111120857138095343
+    second: Cargando_spritesheet_87
+  - first:
+      213: -3596819539358154345
+    second: Cargando_spritesheet_88
+  - first:
+      213: 2009875519022001695
+    second: Cargando_spritesheet_89
+  - first:
+      213: 4175096565126558277
+    second: Cargando_spritesheet_90
+  - first:
+      213: 7336683945518036796
+    second: Cargando_spritesheet_91
+  - first:
+      213: -308576887521367700
+    second: Cargando_spritesheet_92
+  - first:
+      213: -9219805035328501081
+    second: Cargando_spritesheet_93
+  - first:
+      213: 1266898068851075470
+    second: Cargando_spritesheet_94
+  - first:
+      213: -838702964794697938
+    second: Cargando_spritesheet_95
+  - first:
+      213: -7803915758412391000
+    second: Cargando_spritesheet_96
+  - first:
+      213: -7179244929491193891
+    second: Cargando_spritesheet_97
+  - first:
+      213: 329876276834609017
+    second: Cargando_spritesheet_98
+  - first:
+      213: -9161512404839023032
+    second: Cargando_spritesheet_99
+  - first:
+      213: -4123838548838104903
+    second: Cargando_spritesheet_100
+  - first:
+      213: 2460691477081939905
+    second: Cargando_spritesheet_101
+  - first:
+      213: 817207284976844821
+    second: Cargando_spritesheet_102
+  - first:
+      213: -2724964738344171316
+    second: Cargando_spritesheet_103
+  - first:
+      213: -5503366744517219218
+    second: Cargando_spritesheet_104
+  - first:
+      213: 2258286085345077479
+    second: Cargando_spritesheet_105
+  - first:
+      213: -4967592122320496310
+    second: Cargando_spritesheet_106
+  - first:
+      213: -6394696933814860229
+    second: Cargando_spritesheet_107
+  - first:
+      213: 1442704043894488038
+    second: Cargando_spritesheet_108
+  - first:
+      213: 7588885938781433163
+    second: Cargando_spritesheet_109
+  - first:
+      213: -917500258915847755
+    second: Cargando_spritesheet_110
+  - first:
+      213: -1350080387310087351
+    second: Cargando_spritesheet_111
+  - first:
+      213: 4201391200505651122
+    second: Cargando_spritesheet_112
+  - first:
+      213: -18537134441087218
+    second: Cargando_spritesheet_113
+  - first:
+      213: 6782581898685421722
+    second: Cargando_spritesheet_114
+  - first:
+      213: 5651353435198702661
+    second: Cargando_spritesheet_115
+  - first:
+      213: 2461552063246210309
+    second: Cargando_spritesheet_116
+  - first:
+      213: 1199639596961415692
+    second: Cargando_spritesheet_117
+  - first:
+      213: -6371982839986649448
+    second: Cargando_spritesheet_118
+  - first:
+      213: 207736000935649737
+    second: Cargando_spritesheet_119
+  - first:
+      213: 8733661506984615861
+    second: Cargando_spritesheet_120
+  - first:
+      213: -6977879763268812491
+    second: Cargando_spritesheet_121
+  - first:
+      213: 2142080065729777278
+    second: Cargando_spritesheet_122
+  - first:
+      213: -4949540405675609901
+    second: Cargando_spritesheet_123
+  - first:
+      213: 3914407473551393589
+    second: Cargando_spritesheet_124
+  - first:
+      213: -593434686980024310
+    second: Cargando_spritesheet_125
+  - first:
+      213: -5739001360290492032
+    second: Cargando_spritesheet_126
+  - first:
+      213: -1021441977288640724
+    second: Cargando_spritesheet_127
+  - first:
+      213: 1695478216744107223
+    second: Cargando_spritesheet_128
+  - first:
+      213: -1058388499422682480
+    second: Cargando_spritesheet_129
+  - first:
+      213: 4178035834102792284
+    second: Cargando_spritesheet_130
+  - first:
+      213: -4149113282979486110
+    second: Cargando_spritesheet_131
+  - first:
+      213: 9449379640049101
+    second: Cargando_spritesheet_132
+  - first:
+      213: 6824786791213013331
+    second: Cargando_spritesheet_133
+  - first:
+      213: -5167729828125800880
+    second: Cargando_spritesheet_134
+  - first:
+      213: -1027307503031966205
+    second: Cargando_spritesheet_135
+  - first:
+      213: 6681351142056891711
+    second: Cargando_spritesheet_136
+  - first:
+      213: -4594094442887592596
+    second: Cargando_spritesheet_137
+  - first:
+      213: 6123817224333072979
+    second: Cargando_spritesheet_138
+  - first:
+      213: 95993563637895357
+    second: Cargando_spritesheet_139
+  - first:
+      213: 6326650141062794717
+    second: Cargando_spritesheet_140
+  - first:
+      213: -7737799644612965498
+    second: Cargando_spritesheet_141
+  - first:
+      213: 1947558735994771617
+    second: Cargando_spritesheet_142
+  - first:
+      213: -4449459175354426639
+    second: Cargando_spritesheet_143
+  - first:
+      213: 5127074499341538055
+    second: Cargando_spritesheet_144
+  - first:
+      213: -2193165945360865208
+    second: Cargando_spritesheet_145
+  - first:
+      213: -5953083184413140792
+    second: Cargando_spritesheet_146
+  - first:
+      213: -1571771259833493603
+    second: Cargando_spritesheet_147
+  - first:
+      213: 4686372535403816575
+    second: Cargando_spritesheet_148
+  - first:
+      213: 7815149711038875219
+    second: Cargando_spritesheet_149
+  - first:
+      213: 9074425085789984397
+    second: Cargando_spritesheet_150
+  - first:
+      213: 313262476395469260
+    second: Cargando_spritesheet_151
+  - first:
+      213: 4472988950733926161
+    second: Cargando_spritesheet_152
+  - first:
+      213: 1521568420524098555
+    second: Cargando_spritesheet_153
+  - first:
+      213: -3242653874074756114
+    second: Cargando_spritesheet_154
+  - first:
+      213: -4820342298323891296
+    second: Cargando_spritesheet_155
+  - first:
+      213: -8195639486089528055
+    second: Cargando_spritesheet_156
+  - first:
+      213: 33475421542918102
+    second: Cargando_spritesheet_157
+  - first:
+      213: -7815436525724791467
+    second: Cargando_spritesheet_158
+  - first:
+      213: 2791733168938004325
+    second: Cargando_spritesheet_159
+  - first:
+      213: 6859187570523917680
+    second: Cargando_spritesheet_160
+  - first:
+      213: -2454468809158954275
+    second: Cargando_spritesheet_161
+  - first:
+      213: -1046409935541827396
+    second: Cargando_spritesheet_162
+  - first:
+      213: 3100036950602546048
+    second: Cargando_spritesheet_163
+  - first:
+      213: -9151328865706979256
+    second: Cargando_spritesheet_164
+  - first:
+      213: 1832401586338721187
+    second: Cargando_spritesheet_165
+  - first:
+      213: -2986960408771075432
+    second: Cargando_spritesheet_166
+  - first:
+      213: -915131557901097519
+    second: Cargando_spritesheet_167
+  - first:
+      213: 51844044424328797
+    second: Cargando_spritesheet_168
+  - first:
+      213: 7063924413058510799
+    second: Cargando_spritesheet_169
+  - first:
+      213: -3364975599663931297
+    second: Cargando_spritesheet_170
+  - first:
+      213: -4703918870485003249
+    second: Cargando_spritesheet_171
+  - first:
+      213: -943543360176863808
+    second: Cargando_spritesheet_172
+  - first:
+      213: -4993613705131920656
+    second: Cargando_spritesheet_173
+  - first:
+      213: 35771631513315855
+    second: Cargando_spritesheet_174
+  - first:
+      213: 257755579853086906
+    second: Cargando_spritesheet_175
+  - first:
+      213: 6843166683750367028
+    second: Cargando_spritesheet_176
+  - first:
+      213: -7028698245333826657
+    second: Cargando_spritesheet_177
+  - first:
+      213: -3726489332776254891
+    second: Cargando_spritesheet_178
+  - first:
+      213: -8384993884171830293
+    second: Cargando_spritesheet_179
+  - first:
+      213: -2604381525824718080
+    second: Cargando_spritesheet_180
+  - first:
+      213: -1303673991679026994
+    second: Cargando_spritesheet_181
+  - first:
+      213: -3906272030229214620
+    second: Cargando_spritesheet_182
+  - first:
+      213: -8117216812401215189
+    second: Cargando_spritesheet_183
+  - first:
+      213: 5453511526110341690
+    second: Cargando_spritesheet_184
+  - first:
+      213: -2773437956563714172
+    second: Cargando_spritesheet_185
+  - first:
+      213: 3674006623079977750
+    second: Cargando_spritesheet_186
+  - first:
+      213: 4273586465807189063
+    second: Cargando_spritesheet_187
+  - first:
+      213: 6336803467899046694
+    second: Cargando_spritesheet_188
+  - first:
+      213: 3058818011229571900
+    second: Cargando_spritesheet_189
+  - first:
+      213: 6693456311985221138
+    second: Cargando_spritesheet_190
+  - first:
+      213: 7748532034053441001
+    second: Cargando_spritesheet_191
+  - first:
+      213: 651841468942526988
+    second: Cargando_spritesheet_192
+  - first:
+      213: -3736789629556164034
+    second: Cargando_spritesheet_193
+  - first:
+      213: -8023649647957209043
+    second: Cargando_spritesheet_194
+  - first:
+      213: 5201380155016447320
+    second: Cargando_spritesheet_195
+  - first:
+      213: -8752322440454301033
+    second: Cargando_spritesheet_196
+  - first:
+      213: 5861516895435006343
+    second: Cargando_spritesheet_197
+  - first:
+      213: -5567712672125710048
+    second: Cargando_spritesheet_198
+  - first:
+      213: -7496366607578231299
+    second: Cargando_spritesheet_199
+  - first:
+      213: -6403249540927124438
+    second: Cargando_spritesheet_200
+  - first:
+      213: 1748580357670933158
+    second: Cargando_spritesheet_201
+  - first:
+      213: 7182288370939320044
+    second: Cargando_spritesheet_202
+  - first:
+      213: -8110958023471605323
+    second: Cargando_spritesheet_203
+  - first:
+      213: 890439105364961361
+    second: Cargando_spritesheet_204
+  - first:
+      213: 3085451012474578093
+    second: Cargando_spritesheet_205
+  - first:
+      213: -9170831549957326248
+    second: Cargando_spritesheet_206
+  - first:
+      213: -1112756970960283030
+    second: Cargando_spritesheet_207
+  - first:
+      213: 6227397468041851878
+    second: Cargando_spritesheet_208
+  - first:
+      213: -3196739421406899550
+    second: Cargando_spritesheet_209
+  - first:
+      213: -4264689989543718417
+    second: Cargando_spritesheet_210
+  - first:
+      213: -7049719526366423621
+    second: Cargando_spritesheet_211
+  - first:
+      213: 4543315788877225134
+    second: Cargando_spritesheet_212
+  - first:
+      213: 6015900748740962104
+    second: Cargando_spritesheet_213
+  - first:
+      213: 406222394250394175
+    second: Cargando_spritesheet_214
+  - first:
+      213: -814770982052984298
+    second: Cargando_spritesheet_215
+  - first:
+      213: -8380504336138894164
+    second: Cargando_spritesheet_216
+  - first:
+      213: 5950972345866400267
+    second: Cargando_spritesheet_217
+  - first:
+      213: 2357091032895897506
+    second: Cargando_spritesheet_218
+  - first:
+      213: 7384732699819064414
+    second: Cargando_spritesheet_219
+  - first:
+      213: -2167215347903439088
+    second: Cargando_spritesheet_220
+  - first:
+      213: -7497265263114726174
+    second: Cargando_spritesheet_221
+  - first:
+      213: -5264866570926796714
+    second: Cargando_spritesheet_222
+  - first:
+      213: -8351002717433691659
+    second: Cargando_spritesheet_223
+  - first:
+      213: -6265067082196948591
+    second: Cargando_spritesheet_224
+  - first:
+      213: -7930184980825563514
+    second: Cargando_spritesheet_225
+  - first:
+      213: -5030357508411771339
+    second: Cargando_spritesheet_226
+  - first:
+      213: 4707575047868674136
+    second: Cargando_spritesheet_227
+  - first:
+      213: -3057033843214034400
+    second: Cargando_spritesheet_228
+  - first:
+      213: 565417730599470554
+    second: Cargando_spritesheet_229
+  - first:
+      213: -7609891554007690646
+    second: Cargando_spritesheet_230
+  - first:
+      213: 4265473723685609972
+    second: Cargando_spritesheet_231
+  - first:
+      213: 2036535479910532318
+    second: Cargando_spritesheet_232
+  - first:
+      213: 5529660803747518887
+    second: Cargando_spritesheet_233
+  - first:
+      213: 8674774020764218754
+    second: Cargando_spritesheet_234
+  - first:
+      213: 3659490599057948643
+    second: Cargando_spritesheet_235
+  - first:
+      213: 8891759209529263555
+    second: Cargando_spritesheet_236
+  - first:
+      213: -4144036397629918479
+    second: Cargando_spritesheet_237
+  - first:
+      213: 3432280430279221503
+    second: Cargando_spritesheet_238
+  - first:
+      213: -3789974130163933056
+    second: Cargando_spritesheet_239
+  - first:
+      213: -2982090687001533002
+    second: Cargando_spritesheet_240
+  - first:
+      213: 6008910555514366306
+    second: Cargando_spritesheet_241
+  - first:
+      213: 464769240653792998
+    second: Cargando_spritesheet_242
+  - first:
+      213: -8768436432853065677
+    second: Cargando_spritesheet_243
+  - first:
+      213: 9038490274555202008
+    second: Cargando_spritesheet_244
+  - first:
+      213: -646290547905331506
+    second: Cargando_spritesheet_245
+  - first:
+      213: -635044439322928535
+    second: Cargando_spritesheet_246
+  - first:
+      213: -1675894053886039359
+    second: Cargando_spritesheet_247
+  - first:
+      213: -1687112691529087051
+    second: Cargando_spritesheet_248
+  - first:
+      213: 4181034318652664494
+    second: Cargando_spritesheet_249
+  - first:
+      213: -7100528755086013274
+    second: Cargando_spritesheet_250
+  - first:
+      213: 8760352234402090686
+    second: Cargando_spritesheet_251
+  - first:
+      213: 586132731383919325
+    second: Cargando_spritesheet_252
+  - first:
+      213: 1171484653040315727
+    second: Cargando_spritesheet_253
+  - first:
+      213: 924019888012684875
+    second: Cargando_spritesheet_254
+  - first:
+      213: 5615839662909218931
+    second: Cargando_spritesheet_255
+  - first:
+      213: 7597047665789717375
+    second: Cargando_spritesheet_256
+  - first:
+      213: 8181736140455312539
+    second: Cargando_spritesheet_257
+  - first:
+      213: 182677356605899367
+    second: Cargando_spritesheet_258
+  - first:
+      213: 4982512427639796956
+    second: Cargando_spritesheet_259
+  - first:
+      213: -3086466291278772355
+    second: Cargando_spritesheet_260
+  - first:
+      213: 2188201310885071250
+    second: Cargando_spritesheet_261
+  - first:
+      213: -5405808322909932535
+    second: Cargando_spritesheet_262
+  - first:
+      213: 6450280580100198642
+    second: Cargando_spritesheet_263
+  - first:
+      213: -3972874989728166366
+    second: Cargando_spritesheet_264
+  - first:
+      213: 6861255393237542107
+    second: Cargando_spritesheet_265
+  - first:
+      213: -1893418866607558147
+    second: Cargando_spritesheet_266
+  - first:
+      213: -6161027149340240497
+    second: Cargando_spritesheet_267
+  - first:
+      213: 4255017496281298940
+    second: Cargando_spritesheet_268
+  - first:
+      213: -6729562130983417366
+    second: Cargando_spritesheet_269
+  - first:
+      213: -7377728159841036967
+    second: Cargando_spritesheet_270
+  - first:
+      213: 3180648035337097247
+    second: Cargando_spritesheet_271
+  - first:
+      213: -6932324618701586645
+    second: Cargando_spritesheet_272
+  - first:
+      213: 1768477808265397914
+    second: Cargando_spritesheet_273
+  - first:
+      213: 873393066054562729
+    second: Cargando_spritesheet_274
+  - first:
+      213: 1307815420556032467
+    second: Cargando_spritesheet_275
+  - first:
+      213: -1727246657178097889
+    second: Cargando_spritesheet_276
+  - first:
+      213: -4964054324901157463
+    second: Cargando_spritesheet_277
+  - first:
+      213: 6819131118744370138
+    second: Cargando_spritesheet_278
+  - first:
+      213: -1203968668816111349
+    second: Cargando_spritesheet_279
+  - first:
+      213: -7045800063205364101
+    second: Cargando_spritesheet_280
+  - first:
+      213: 3432768127265309182
+    second: Cargando_spritesheet_281
+  - first:
+      213: 6817630605427228959
+    second: Cargando_spritesheet_282
+  - first:
+      213: -6403003761196036014
+    second: Cargando_spritesheet_283
+  - first:
+      213: 4706374792108804237
+    second: Cargando_spritesheet_284
+  - first:
+      213: 6931514767975034473
+    second: Cargando_spritesheet_285
+  - first:
+      213: -2912407537419476756
+    second: Cargando_spritesheet_286
+  - first:
+      213: 5876671731296869950
+    second: Cargando_spritesheet_287
+  - first:
+      213: 8225954857569415736
+    second: Cargando_spritesheet_288
+  - first:
+      213: -6223117934195336194
+    second: Cargando_spritesheet_289
+  - first:
+      213: -6113641719488981554
+    second: Cargando_spritesheet_290
+  - first:
+      213: -2049977874437873667
+    second: Cargando_spritesheet_291
+  - first:
+      213: 2751617266306978043
+    second: Cargando_spritesheet_292
+  - first:
+      213: 5011094437813733214
+    second: Cargando_spritesheet_293
+  - first:
+      213: 6077587166807926581
+    second: Cargando_spritesheet_294
+  - first:
+      213: 7491081002465164894
+    second: Cargando_spritesheet_295
+  - first:
+      213: 1748839514631220616
+    second: Cargando_spritesheet_296
+  - first:
+      213: 7512795448151074431
+    second: Cargando_spritesheet_297
+  - first:
+      213: 8082240838437963301
+    second: Cargando_spritesheet_298
+  - first:
+      213: 5669651618852332699
+    second: Cargando_spritesheet_299
+  - first:
+      213: 114628688316707188
+    second: Cargando_spritesheet_300
+  - first:
+      213: -3143487600579112844
+    second: Cargando_spritesheet_301
+  - first:
+      213: 5666744525461964652
+    second: Cargando_spritesheet_302
+  - first:
+      213: -6075025662934085154
+    second: Cargando_spritesheet_303
+  - first:
+      213: -183877210670546042
+    second: Cargando_spritesheet_304
+  - first:
+      213: -6636241100825719199
+    second: Cargando_spritesheet_305
+  - first:
+      213: -282622569172205531
+    second: Cargando_spritesheet_306
+  - first:
+      213: 5722752832430677763
+    second: Cargando_spritesheet_307
+  - first:
+      213: -51060044868547471
+    second: Cargando_spritesheet_308
+  - first:
+      213: 4889777116483977678
+    second: Cargando_spritesheet_309
+  - first:
+      213: -1296634798925197204
+    second: Cargando_spritesheet_310
+  - first:
+      213: 921982466176611431
+    second: Cargando_spritesheet_311
+  - first:
+      213: -3638774883225321646
+    second: Cargando_spritesheet_312
+  - first:
+      213: -8415859435947967161
+    second: Cargando_spritesheet_313
+  - first:
+      213: 4766936022413417614
+    second: Cargando_spritesheet_314
+  - first:
+      213: -4073228306098070695
+    second: Cargando_spritesheet_315
+  - first:
+      213: 4481798983172872823
+    second: Cargando_spritesheet_316
+  - first:
+      213: -4032998516997235234
+    second: Cargando_spritesheet_317
+  - first:
+      213: -2057084315342085732
+    second: Cargando_spritesheet_318
+  - first:
+      213: 4876657680795967549
+    second: Cargando_spritesheet_319
+  - first:
+      213: -8876690362216495346
+    second: Cargando_spritesheet_320
+  - first:
+      213: -709132145898601256
+    second: Cargando_spritesheet_321
+  - first:
+      213: -3557009363937886702
+    second: Cargando_spritesheet_322
+  - first:
+      213: -3268102644440983923
+    second: Cargando_spritesheet_323
+  - first:
+      213: -435093637064733901
+    second: Cargando_spritesheet_324
+  - first:
+      213: -1498919571707683275
+    second: Cargando_spritesheet_325
+  - first:
+      213: -6383316837015190118
+    second: Cargando_spritesheet_326
+  - first:
+      213: -3828478631421191851
+    second: Cargando_spritesheet_327
+  - first:
+      213: 3188564121101094065
+    second: Cargando_spritesheet_328
+  - first:
+      213: -7531060460139272060
+    second: Cargando_spritesheet_329
+  - first:
+      213: -5028907563006670541
+    second: Cargando_spritesheet_330
+  - first:
+      213: -3208731208270196994
+    second: Cargando_spritesheet_331
+  - first:
+      213: -7153488961183698123
+    second: Cargando_spritesheet_332
+  - first:
+      213: -6713335683195137814
+    second: Cargando_spritesheet_333
+  - first:
+      213: -3331079502460904391
+    second: Cargando_spritesheet_334
+  - first:
+      213: -816145707715917966
+    second: Cargando_spritesheet_335
+  - first:
+      213: 6846468198837653202
+    second: Cargando_spritesheet_336
+  - first:
+      213: -8509506809813037633
+    second: Cargando_spritesheet_337
+  - first:
+      213: 4669002748514998415
+    second: Cargando_spritesheet_338
+  - first:
+      213: 1729515196944280570
+    second: Cargando_spritesheet_339
+  - first:
+      213: 4894747303647068021
+    second: Cargando_spritesheet_340
+  - first:
+      213: -588830770395477771
+    second: Cargando_spritesheet_341
+  - first:
+      213: -6577101912459520939
+    second: Cargando_spritesheet_342
+  - first:
+      213: 9102600693123996926
+    second: Cargando_spritesheet_343
+  - first:
+      213: 8263252458554863843
+    second: Cargando_spritesheet_344
+  - first:
+      213: -5323138042874541837
+    second: Cargando_spritesheet_345
+  - first:
+      213: 7767148777112691576
+    second: Cargando_spritesheet_346
+  - first:
+      213: 8897511244607315905
+    second: Cargando_spritesheet_347
+  - first:
+      213: 2562077066477732760
+    second: Cargando_spritesheet_348
+  - first:
+      213: 6945535462056746133
+    second: Cargando_spritesheet_349
+  - first:
+      213: 4558396264759031584
+    second: Cargando_spritesheet_350
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cargando_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 910
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80bff78c343fd42e0800000000000000
+      internalID: -2139786775478928632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 910
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5f172f322b731730800000000000000
+      internalID: 3968651083662171997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 910
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15c870e891fe027e0800000000000000
+      internalID: -1792169758657377199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 910
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73a3c76d1d7e4c3d0800000000000000
+      internalID: -3187167747838821833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 910
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfd3a02ba16fac470800000000000000
+      internalID: 8415809448211791356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 780
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 922895b8bb8aec2b0800000000000000
+      internalID: -5562322966305734103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 780
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e792639ed8d42c4b0800000000000000
+      internalID: -5421685729502287490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 780
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0bc8d229936f6ef0800000000000000
+      internalID: -112761956295193844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 780
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8cf4531e4e5d16f0800000000000000
+      internalID: -712309476629873521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 780
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7fe3bc95b347e340800000000000000
+      internalID: 4892953967458512763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 650
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2ffd78eee1b1adb0800000000000000
+      internalID: -4782345689629851862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 650
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e9df2b9a7643260800000000000000
+      internalID: 7076394893055991386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 650
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb4f1767b2e2886a0800000000000000
+      internalID: -6446852102375213890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 650
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f35f98f57af7c1e0800000000000000
+      internalID: -2177496510221036555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 650
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d11a8a879def2da70800000000000000
+      internalID: 8850416427722121501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b370326bf0a3b6f00800000000000000
+      internalID: 1111045572231628603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 520
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9f9a0f75c17de8a0800000000000000
+      internalID: -6274233612803334244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 520
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf64fee471fe85e40800000000000000
+      internalID: 5645525016296507132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 520
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e37da3fe28f96c1a0800000000000000
+      internalID: -6789564003506268354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 520
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e087e073c03deb80800000000000000
+      internalID: -8363975316986167064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 390
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a13a069231379f20800000000000000
+      internalID: 3429263734601298343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 390
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1aff21691848e110800000000000000
+      internalID: 1290360567083563548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 390
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb9ff9cca6ebe6b0800000000000000
+      internalID: -5265861709481927717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 390
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da4cf224c9c09bfd0800000000000000
+      internalID: -2325813867295292243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 390
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4305ee4ddd307d30800000000000000
+      internalID: 4427106454425895757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 260
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4574a91214d425b0800000000000000
+      internalID: -5393953279478303413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 260
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2757514c006c0850800000000000000
+      internalID: 6344551580810303277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 260
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 977c3aafd7eef1e80800000000000000
+      internalID: -8205577771202394247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 260
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29565f16ab804ce40800000000000000
+      internalID: 5675671026994079122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 260
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05761cd18ae09f8d0800000000000000
+      internalID: -2812200377099655344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76b4adadb493bcf90800000000000000
+      internalID: -6932384203449676953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 130
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d39bbb6edcf66430800000000000000
+      internalID: 3775983369817134038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 130
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 002026abeb3931670800000000000000
+      internalID: 8508306568413053440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 130
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14383611cb1b97740800000000000000
+      internalID: 5150343070178575169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 130
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04ae3399b0df441e0800000000000000
+      internalID: -2214366890502657472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8fe97043ffd191b0800000000000000
+      internalID: -5651489821521481844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cargando_spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 0
+        width: 270
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4d7f835e68d32980800000000000000
+      internalID: -8564764097968636598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: be78f80d2d0a559499ec7e73df8ffc88
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Cargando_spritesheet_0: -2139786775478928632
+      Cargando_spritesheet_1: 3968651083662171997
+      Cargando_spritesheet_10: -4782345689629851862
+      Cargando_spritesheet_11: 7076394893055991386
+      Cargando_spritesheet_12: -6446852102375213890
+      Cargando_spritesheet_13: -2177496510221036555
+      Cargando_spritesheet_14: 8850416427722121501
+      Cargando_spritesheet_15: 1111045572231628603
+      Cargando_spritesheet_16: -6274233612803334244
+      Cargando_spritesheet_17: 5645525016296507132
+      Cargando_spritesheet_18: -6789564003506268354
+      Cargando_spritesheet_19: -8363975316986167064
+      Cargando_spritesheet_2: -1792169758657377199
+      Cargando_spritesheet_20: 3429263734601298343
+      Cargando_spritesheet_21: 1290360567083563548
+      Cargando_spritesheet_22: -5265861709481927717
+      Cargando_spritesheet_23: -2325813867295292243
+      Cargando_spritesheet_24: 4427106454425895757
+      Cargando_spritesheet_25: -5393953279478303413
+      Cargando_spritesheet_26: 6344551580810303277
+      Cargando_spritesheet_27: -8205577771202394247
+      Cargando_spritesheet_28: 5675671026994079122
+      Cargando_spritesheet_29: -2812200377099655344
+      Cargando_spritesheet_3: -3187167747838821833
+      Cargando_spritesheet_30: -6932384203449676953
+      Cargando_spritesheet_31: 3775983369817134038
+      Cargando_spritesheet_32: 8508306568413053440
+      Cargando_spritesheet_33: 5150343070178575169
+      Cargando_spritesheet_34: -2214366890502657472
+      Cargando_spritesheet_35: -5651489821521481844
+      Cargando_spritesheet_36: -8564764097968636598
+      Cargando_spritesheet_4: 8415809448211791356
+      Cargando_spritesheet_5: -5562322966305734103
+      Cargando_spritesheet_6: -5421685729502287490
+      Cargando_spritesheet_7: -112761956295193844
+      Cargando_spritesheet_8: -712309476629873521
+      Cargando_spritesheet_9: 4892953967458512763
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

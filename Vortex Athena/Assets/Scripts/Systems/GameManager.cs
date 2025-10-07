@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool UseAbilities = true;
 
     [Header("Tutorial")]
-    [SerializeField] private bool tutorialCompletado = false;
+    [SerializeField] public bool tutorialCompletado = false;
 
     public bool TutorialCompletado => tutorialCompletado;
     public bool SkipTutorialEnabled => tutorialCompletado;

@@ -61,8 +61,10 @@ public class ScoreboardDisplay : MonoBehaviour
     /// <summary>
     /// Listener del evento de cambio de estado del juego
     /// </summary>
-    private void OnGameStateChanged(GameState newState)
+    private void OnGameStateChanged()
     {
+        var newState = GameManager.Instance?.CurrentState;
+
         // Solo mostrar la tabla cuando el juego termina
         if (newState == GameState.InGameEnd)
         {

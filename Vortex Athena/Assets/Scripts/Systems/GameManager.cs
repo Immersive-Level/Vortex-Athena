@@ -2,7 +2,6 @@ using Fusion;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using UnityEngine.PlayerLoop;
 
 public enum GameState : byte
 {
@@ -31,10 +30,6 @@ public class GameManager : NetworkBehaviour
     public GameObject TutorialRoot;
 
     public ScoreSystem ScoreSystem { get; private set; }
-    public float GameDuration { get; private set; } = 60f;
-    private float GameStartTime;
-    public float Gametime { get; private set; }
-    [HideInInspector] public bool UseAbilities = true;
 
     [Header("Tutorial")]
     [SerializeField] private bool tutorialCompletado = false;

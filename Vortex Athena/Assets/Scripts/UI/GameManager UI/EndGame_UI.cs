@@ -45,8 +45,9 @@ public class EndGame_UI : MonoBehaviour
         }
     }
 
-    private void OnGameStateChanged(GameState newState)
+    private void OnGameStateChanged()
     {
+        var newState = GameManager.Instance?.CurrentState;
         gameObject.SetActive(newState == GameState.InGameEnd);
 
         if (newState == GameState.InGameEnd && ScoreboardPanel != null)

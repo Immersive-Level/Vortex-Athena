@@ -4,6 +4,7 @@ using UnityEngine;
 public class InGame_UI : MonoBehaviour
 {
     [SerializeField] private TMP_Text timeText;
+    [SerializeField] private TMP_Text timeText2;
 
     private void Update()
     {
@@ -22,6 +23,7 @@ public class InGame_UI : MonoBehaviour
 
         // Actualizar texto en formato mm:ss
         timeText.text = $"{minutes:00}:{seconds:00}";
+        timeText2.text = $"{minutes:00}:{seconds:00}";
     }
 
 

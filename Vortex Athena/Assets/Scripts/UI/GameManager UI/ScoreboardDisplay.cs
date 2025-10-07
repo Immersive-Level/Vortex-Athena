@@ -2,21 +2,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// Mapeo simple de nombre de jugador a su prefab personalizado
+/// </summary>
+[System.Serializable]
+public class PlayerPrefabMapping
+{
+    [Tooltip("Nombre del jugador (debe coincidir con PlayerScore.PlayerName)")]
+    public string PlayerName;
+
+    [Tooltip("Prefab personalizado para este jugador")]
+    public GameObject CustomPrefab;
+}
+
+/// <summary>
 /// Sistema principal para mostrar la tabla de puntajes al final del juego.
 /// Responsabilidad: Generar y poblar la tabla con datos del ScoreSystem.
 /// Uso: Attachar a un GameObject que contenga el contenedor de la tabla.
 /// </summary>
 public class ScoreboardDisplay : MonoBehaviour
 {
-    [Header("Configuración")]
-    [Tooltip("Prefab de la fila (debe tener componente ScoreboardRow)")]
-    public GameObject RowPrefab;
+    [Header("Configuración de Prefabs")]
+    [Tooltip("Prefabs personalizados por jugador - Se selecciona automáticamente por nombre")]
+    public List<PlayerPrefabMapping> PlayerPrefabs = new List<PlayerPrefabMapping>();
 
+    [Tooltip("Prefab genérico de respaldo (si no se encuentra prefab personalizado)")]
+    public GameObject FallbackPrefab;
+
+    [Header("Configuración General")]
     [Tooltip("Contenedor donde se generarán las filas (Content de un ScrollRect)")]
     public Transform RowContainer;
 
     [Tooltip("Cantidad máxima de jugadores a mostrar")]
-    public int MaxPlayersToShow = 10;
+    public int MaxPlayersToShow = 4;
 
     [Header("Colores de destacado (opcional)")]
     [Tooltip("Color para el 1er lugar")]
@@ -31,8 +48,17 @@ public class ScoreboardDisplay : MonoBehaviour
     [Tooltip("Aplicar colores de destacado a los primeros 3 lugares")]
     public bool UseHighlightColors = true;
 
+    // Caché de prefabs para búsqueda rápida
+    private Dictionary<string, GameObject> prefabCache = new Dictionary<string, GameObject>();
+
     // Lista de filas generadas para reutilización
     private List<GameObject> spawnedRows = new List<GameObject>();
+
+    private void Awake()
+    {
+        // Construir caché de prefabs para búsquedas O(1)
+        BuildPrefabCache();
+    }
 
     private void OnEnable()
     {
@@ -59,6 +85,26 @@ public class ScoreboardDisplay : MonoBehaviour
     }
 
     /// <summary>
+    /// Construye el diccionario de caché para búsqueda rápida de prefabs
+    /// </summary>
+    private void BuildPrefabCache()
+    {
+        prefabCache.Clear();
+
+        foreach (var mapping in PlayerPrefabs)
+        {
+            if (mapping.CustomPrefab != null && !string.IsNullOrEmpty(mapping.PlayerName))
+            {
+                // Usar el nombre exacto como key
+                prefabCache[mapping.PlayerName] = mapping.CustomPrefab;
+                Debug.Log($"Prefab mapeado: {mapping.PlayerName} ? {mapping.CustomPrefab.name}");
+            }
+        }
+
+        Debug.Log($"Caché de prefabs construido con {prefabCache.Count} entradas");
+    }
+
+    /// <summary>
     /// Listener del evento de cambio de estado del juego
     /// </summary>
     private void OnGameStateChanged(GameState newState)
@@ -78,9 +124,9 @@ public class ScoreboardDisplay : MonoBehaviour
         Debug.Log("=== POPULATE SCOREBOARD INICIADO ===");
 
         // Validar referencias
-        if (RowPrefab == null || RowContainer == null)
+        if (RowContainer == null)
         {
-            Debug.LogError("ScoreboardDisplay: Faltan referencias (RowPrefab o RowContainer)");
+            Debug.LogError("ScoreboardDisplay: Falta RowContainer");
             return;
         }
 
@@ -128,12 +174,47 @@ public class ScoreboardDisplay : MonoBehaviour
     }
 
     /// <summary>
+    /// Selecciona el prefab correcto para un jugador específico
+    /// </summary>
+    /// <param name="playerName">Nombre del jugador</param>
+    /// <returns>Prefab personalizado o fallback</returns>
+    private GameObject GetPrefabForPlayer(string playerName)
+    {
+        // Buscar en el caché
+        if (prefabCache.TryGetValue(playerName, out GameObject customPrefab))
+        {
+            Debug.Log($"Usando prefab personalizado para {playerName}: {customPrefab.name}");
+            return customPrefab;
+        }
+
+        // Si no se encontró, usar el fallback
+        if (FallbackPrefab != null)
+        {
+            Debug.LogWarning($"No se encontró prefab personalizado para '{playerName}'. Usando Fallback.");
+            return FallbackPrefab;
+        }
+
+        // Error si no hay ni personalizado ni fallback
+        Debug.LogError($"No hay prefab para '{playerName}' y tampoco hay FallbackPrefab asignado");
+        return null;
+    }
+
+    /// <summary>
     /// Crea una fila individual en la tabla
     /// </summary>
     private void CreateRow(int position, PlayerScore playerScore)
     {
-        // Instanciar el prefab
-        GameObject rowObject = Instantiate(RowPrefab, RowContainer);
+        // Seleccionar el prefab correcto basándose en el nombre del jugador
+        GameObject prefabToUse = GetPrefabForPlayer(playerScore.PlayerName);
+
+        if (prefabToUse == null)
+        {
+            Debug.LogError($"No se puede crear fila para {playerScore.PlayerName}: no hay prefab disponible");
+            return;
+        }
+
+        // Instanciar el prefab seleccionado
+        GameObject rowObject = Instantiate(prefabToUse, RowContainer);
         spawnedRows.Add(rowObject);
 
         // Obtener el componente ScoreboardRow
@@ -141,7 +222,7 @@ public class ScoreboardDisplay : MonoBehaviour
 
         if (row == null)
         {
-            Debug.LogError("ScoreboardDisplay: El prefab no tiene componente ScoreboardRow");
+            Debug.LogError($"El prefab {prefabToUse.name} no tiene componente ScoreboardRow");
             return;
         }
 

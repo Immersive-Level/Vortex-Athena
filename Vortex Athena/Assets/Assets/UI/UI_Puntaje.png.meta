@@ -144,12 +144,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Puntaje_0
+      name: UI_puntaje_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 976
+        width: 975
         height: 1129
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -157,142 +157,142 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef33d4ac97c7ac850800000000000000
-      internalID: 6398063083160155134
+      spriteID: 122f8a65711b1d946bd46a257519752e
+      internalID: -932016093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_1
+      name: UI_puntaje_1
       rect:
         serializedVersion: 2
-        x: 1060
-        y: 1013
-        width: 454
-        height: 91
+        x: 1061
+        y: 1014
+        width: 452
+        height: 89
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3dd03130274f0b2b0800000000000000
-      internalID: -5570683968542274093
+      spriteID: c4dd48814e1d10242af726ef79358337
+      internalID: 520464549
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_2
+      name: UI_puntaje_2
       rect:
         serializedVersion: 2
-        x: 1062
-        y: 865
-        width: 894
-        height: 72
+        x: 1063
+        y: 866
+        width: 893
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 132b5013fe4048200800000000000000
-      internalID: 181275310367814193
+      spriteID: d7e6369b6842128428713685035d348a
+      internalID: -653768659
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_3
+      name: UI_puntaje_3
       rect:
         serializedVersion: 2
-        x: 1035
-        y: 748
-        width: 64
-        height: 64
+        x: 1078
+        y: 746
+        width: 55
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e7653a1c028c2d580800000000000000
-      internalID: -8803754278542682498
+      spriteID: 675c04b74a21714439511152bea2bce8
+      internalID: -2003170202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_4
+      name: UI_puntaje_4
       rect:
         serializedVersion: 2
-        x: 1035
-        y: 626
-        width: 64
-        height: 65
+        x: 1078
+        y: 625
+        width: 55
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 43048b834c2488360800000000000000
-      internalID: 7172055817120137268
+      spriteID: f59c53b017768484b9b03e43b63f7f18
+      internalID: -708088762
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_5
+      name: UI_puntaje_5
       rect:
         serializedVersion: 2
-        x: 1036
-        y: 503
-        width: 64
-        height: 64
+        x: 1078
+        y: 502
+        width: 55
+        height: 55
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 985af165ec0673e90800000000000000
-      internalID: -7046056652673407607
+      spriteID: 49a62ec36add05f4b8e14c264c8cc243
+      internalID: -682669255
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Puntaje_6
+      name: UI_puntaje_6
       rect:
         serializedVersion: 2
-        x: 1036
-        y: 378
-        width: 64
-        height: 64
+        x: 1078
+        y: 377
+        width: 55
+        height: 56
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4c906f130714689d0800000000000000
-      internalID: -2772456570469611068
+      spriteID: 72f04dd9013247c4c82130a140e39142
+      internalID: -1807958397
       vertices: []
       indices: 
       edges: []
@@ -301,7 +301,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 09309dc444f853a4ca4f818641b45f3b
     internalID: 0
     vertices: []
     indices: 
@@ -311,13 +311,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      UI_Puntaje_0: 6398063083160155134
-      UI_Puntaje_1: -5570683968542274093
-      UI_Puntaje_2: 181275310367814193
-      UI_Puntaje_3: -8803754278542682498
-      UI_Puntaje_4: 7172055817120137268
-      UI_Puntaje_5: -7046056652673407607
-      UI_Puntaje_6: -2772456570469611068
+      UI_puntaje_0: -932016093
+      UI_puntaje_1: 520464549
+      UI_puntaje_2: -653768659
+      UI_puntaje_3: -2003170202
+      UI_puntaje_4: -708088762
+      UI_puntaje_5: -682669255
+      UI_puntaje_6: -1807958397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

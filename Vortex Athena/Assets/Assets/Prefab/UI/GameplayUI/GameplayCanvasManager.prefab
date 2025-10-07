@@ -584,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 5744119268555171915}
+  timeText2: {fileID: 0}
 --- !u!223 &6809392523268569133
 Canvas:
   m_ObjectHideFlags: 0
@@ -1733,7 +1734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35df358aecadf1540830ccc3b624174f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RowPrefab: {fileID: 2479534395253426285, guid: f9d22a453a135d54e8473c2b991550a8, type: 3}
+  PlayerPrefabs: []
+  FallbackPrefab: {fileID: 0}
   RowContainer: {fileID: 3161762073641044526}
   MaxPlayersToShow: 10
   FirstPlaceColor: {r: 1, g: 0.84, b: 0, a: 1}
@@ -5576,10 +5578,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce63ba8199318ef44b321b8299a68f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoDropdown: {fileID: 3726205183798823571}
-  habilidadesToggle: {fileID: 144934619559202304}
+  selectorTiempo: {fileID: 0}
+  selectorHabilidades: {fileID: 0}
   startButton: {fileID: 8856498797153857126}
   quitButton: {fileID: 7780687214491933007}
+  timeConfig: {fileID: 0}
 --- !u!223 &310610098406777282
 Canvas:
   m_ObjectHideFlags: 0
@@ -5706,6 +5709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 298103539315470945}
+  timeText2: {fileID: 0}
 --- !u!223 &6679371333384113843
 Canvas:
   m_ObjectHideFlags: 0
@@ -6284,9 +6288,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8234461066865187546}
+  - {fileID: 6300655336691589488}
   - {fileID: 3028966879598294226}
   - {fileID: 1868096781989358695}
-  - {fileID: 6300655336691589488}
   - {fileID: 3145913136796265028}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

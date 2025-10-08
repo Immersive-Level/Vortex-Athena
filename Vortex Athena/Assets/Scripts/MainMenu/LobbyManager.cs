@@ -67,4 +67,9 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
+    public async void ExitLobby()
+    {
+        await NetworkManager.Instance.Disconnect();
+        _ui.ResetSceen();
+    }
 }

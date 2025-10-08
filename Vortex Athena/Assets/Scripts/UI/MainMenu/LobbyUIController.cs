@@ -1,8 +1,10 @@
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Fusion;
+using Mono.Cecil.Cil;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class LobbyUIController : MonoBehaviour
 {
@@ -48,13 +50,28 @@ public class LobbyUIController : MonoBehaviour
 
     public void UpdatePlayerList(List<PlayerRef> players)
     {
-        foreach (Transform child in _playerListContainer)
-            Destroy(child.gameObject);
+        clearPlayerList();
 
         foreach (var player in players)
         {
             var entry = Instantiate(_playerEntryPrefab, _playerListContainer);
             entry.GetComponentInChildren<TMP_Text>().text = $"Jugador {player.PlayerId}";
         }
+    }
+
+    private void clearPlayerList()
+    {
+        foreach (Transform child in _playerListContainer)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+    public void ResetSceen()
+    {
+        clearPlayerList();
+        SetPlayButtonState(false);
+        _roomCodeDisplay.text = "";
+        _errorText.text = "";
     }
 }

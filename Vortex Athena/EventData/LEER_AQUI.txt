@@ -33,5 +33,18 @@ COLUMNAS DEL CSV:
 ==============================================
 Evento: SOFA_Event
 Día actual: 1
-Generado: 2025-10-07 20:21:13
+Generado: 2025-10-07 21:25:30
+==============================================
+
+==============================================
+  ESTADÍSTICAS ACTUALES
+==============================================
+Última actualización: 2025-10-07 21:26:43
+Total de partidas jugadas: 3
+
+MEJOR PUNTAJE GENERAL:
+  Antares - 770 pts (Día 1)
+
+MEJORES PUNTAJES POR DÍA:
+  Día 1: Antares - 770 pts (3 partidas)
 ==============================================

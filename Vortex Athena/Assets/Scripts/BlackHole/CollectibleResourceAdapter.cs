@@ -36,11 +36,11 @@ public class CollectibleResourceAdapter : MonoBehaviour, IGravityAffected
         {
             case "fuel":
             case "combustible":
-                gravityMultiplier = 0.8f;
+                gravityMultiplier = 0.7f;
                 break;
             case "points":
             case "puntos":
-                gravityMultiplier = 1.2f;
+                gravityMultiplier = 0.7f;
                 break;
             case "powerup":
             case "shield":

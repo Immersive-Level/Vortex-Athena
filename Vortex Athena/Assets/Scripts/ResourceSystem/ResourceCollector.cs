@@ -1,10 +1,11 @@
 using UnityEngine;
+using System.Collections;
 using GameSystems; // Para acceder a FuelManager y UnifiedDeathManager
-using UnityEngine.Events; // <-- NUEVO: para exponer eventos de audio
+using UnityEngine.Events; // Para exponer eventos de audio
 
 /// <summary>
 /// Componente que permite al jugador recolectar recursos
-/// Actualizado para trabajar con el nuevo FuelManager
+/// Sistema híbrido: VFX hijo para combustible, VFX instanciado para fragmentos
 /// </summary>
 public class ResourceCollector : MonoBehaviour
 {
@@ -15,25 +16,34 @@ public class ResourceCollector : MonoBehaviour
     public PlayerScoreSystem scoreSystem;
 
     [Tooltip("Referencia al sistema de combustible")]
-    public FuelManager fuelManager; // CAMBIADO: Fuel_System -> FuelManager
+    public FuelManager fuelManager;
 
-    // --------- NUEVO: Integración con estado de muerte ----------
+    // --------- Integración con estado de muerte ----------
     [Header("Estado del jugador (opcional)")]
     [Tooltip("Si se asigna, puedes bloquear la recolección cuando la nave esté muerta.")]
     [SerializeField] private UnifiedDeathManager deathManager;
     [Tooltip("Si está activo, NO se recolectará ni se dispararán SFX cuando la nave esté muerta.")]
     [SerializeField] private bool bloquearSiMuerto = true;
 
-    [Header("Efectos visuales")]
-    [Tooltip("Efecto general de recolección (fallback si no hay específico)")]
-    public GameObject collectEffect;
+    // --------- VFX para COMBUSTIBLE (GameObject hijo - activar/desactivar) ----------
+    [Header("VFX Combustible (GameObject hijo)")]
+    [Tooltip("VFX de recolección de GASOLINA (hijo de la nave, se activa/desactiva)")]
+    public GameObject collectVFXFuel;
 
-    [Tooltip("Efecto de recolección para GASOLINA")]
-    public GameObject collectEffectFuel;
+    [Tooltip("Duración del VFX de combustible antes de desactivarse (segundos)")]
+    [Range(0.1f, 5f)]
+    public float vfxFuelDuration = 1f;
 
-    [Tooltip("Efecto de recolección para PUNTOS/FRAGMENTOS")]
+    // --------- VFX para FRAGMENTOS (Prefab - Instantiate) ----------
+    [Header("VFX Fragmentos (Prefab instantiado)")]
+    [Tooltip("Prefab de VFX para PUNTOS/FRAGMENTOS (se instancia en posición del recurso)")]
     public GameObject collectEffectPoints;
 
+    [Tooltip("VFX general de recolección (fallback, se instancia)")]
+    public GameObject collectEffect;
+
+    // --------- Detección de recursos ----------
+    [Header("Detección de Recursos")]
     [Tooltip("Radio para detectar recursos")]
     public float collectionRadius = 0.8f;
 
@@ -46,7 +56,7 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("Intervalo para verificación adicional")]
     public float checkInterval = 0.2f;
 
-    // --------- NUEVO: SFX por tipo de recolección ----------
+    // --------- SFX por tipo de recolección ----------
     [Header("SFX (UnityEvents)")]
     [Tooltip("Se invoca al recolectar cualquier recurso (aparte del específico).")]
     public UnityEvent onSfxCollectAny;
@@ -55,10 +65,8 @@ public class ResourceCollector : MonoBehaviour
     [Tooltip("Se invoca al recolectar PUNTOS/FRAGMENTOS.")]
     public UnityEvent onSfxCollectPoints;
 
-    // Control de tiempo para verificación adicional
+    // Variables privadas
     private float lastCheckTime;
-
-    // Buffer para resultados de OverlapCircle para evitar creación de arrays
     private Collider2D[] colliderBuffer = new Collider2D[10];
 
     private void Start()
@@ -76,7 +84,7 @@ public class ResourceCollector : MonoBehaviour
                 fuelManager = GetComponentInParent<FuelManager>();
         }
 
-        // NUEVO: intentar auto-asignar manejador de muerte
+        // Intentar auto-asignar manejador de muerte
         if (deathManager == null)
         {
             deathManager = GetComponent<UnifiedDeathManager>();
@@ -85,6 +93,18 @@ public class ResourceCollector : MonoBehaviour
             if (deathManager == null)
                 deathManager = GetComponentInChildren<UnifiedDeathManager>();
         }
+
+        // Inicializar VFX de combustible (hijo)
+        InitializeFuelVFX();
+    }
+
+    /// <summary>
+    /// Inicializa el VFX de combustible asegurándose de que esté desactivado
+    /// </summary>
+    private void InitializeFuelVFX()
+    {
+        if (collectVFXFuel != null)
+            collectVFXFuel.SetActive(false);
     }
 
     private void Update()
@@ -123,10 +143,10 @@ public class ResourceCollector : MonoBehaviour
                 // Procesar lógica (puntaje/combustible)
                 ProcessResource(resource);
 
-                // Efecto visual (según tipo)
-                PlayCollectFX(resource, collider.transform.position);
+                // Activar efecto visual correspondiente
+                PlayCollectVFX(resource, collider.transform.position);
 
-                // NUEVO: SFX (según tipo y genérico)
+                // Disparar SFX según el tipo
                 PlayCollectSFX(resource);
             }
         }
@@ -174,46 +194,91 @@ public class ResourceCollector : MonoBehaviour
         {
             ProcessResource(resource);
 
-            // Efecto visual (según tipo)
-            PlayCollectFX(resource, other.transform.position);
+            // Activar efecto visual correspondiente
+            PlayCollectVFX(resource, other.transform.position);
 
-            // NUEVO: SFX (según tipo y genérico)
+            // Disparar SFX según el tipo
             PlayCollectSFX(resource);
         }
     }
 
     /// <summary>
-    /// Instancia el efecto visual adecuado según el tipo de recurso.
-    /// Si no hay efecto específico asignado, usa el general (collectEffect).
+    /// Sistema híbrido de VFX:
+    /// - FUEL: Activa VFX hijo de la nave (optimizado, sin instantiate)
+    /// - POINTS: Instancia VFX en la posición del recurso (visual claro de dónde estaba)
     /// </summary>
-    private void PlayCollectFX(CollectibleResource resource, Vector3 position)
+    private void PlayCollectVFX(CollectibleResource resource, Vector3 position)
     {
         if (resource == null || resource.resourceType == null) return;
-
-        GameObject fxToSpawn = null;
 
         switch (resource.resourceType.effect)
         {
             case ResourceType.ResourceEffect.Fuel:
-                fxToSpawn = collectEffectFuel != null ? collectEffectFuel : collectEffect;
+                // Sistema optimizado: activar VFX hijo
+                ActivateFuelVFX();
                 break;
 
             case ResourceType.ResourceEffect.Points:
-                fxToSpawn = collectEffectPoints != null ? collectEffectPoints : collectEffect;
+                // Sistema original: instanciar en posición del fragmento
+                InstantiatePointsVFX(position);
                 break;
 
             default:
-                fxToSpawn = collectEffect;
+                // Fallback: instanciar efecto general
+                if (collectEffect != null)
+                {
+                    Instantiate(collectEffect, position, Quaternion.identity);
+                }
                 break;
-        }
-
-        if (fxToSpawn != null)
-        {
-            Instantiate(fxToSpawn, position, Quaternion.identity);
         }
     }
 
-    // --------- NUEVO: disparo de SFX según el tipo ----------
+    /// <summary>
+    /// Activa el VFX de combustible (hijo de la nave)
+    /// Se desactivará automáticamente después de vfxFuelDuration segundos
+    /// </summary>
+    private void ActivateFuelVFX()
+    {
+        if (collectVFXFuel != null)
+        {
+            // Reiniciar el VFX (desactivar y activar para reiniciar particle systems)
+            collectVFXFuel.SetActive(false);
+            collectVFXFuel.SetActive(true);
+
+            // Programar desactivación automática
+            StartCoroutine(DeactivateVFXAfterDelay(collectVFXFuel, vfxFuelDuration));
+        }
+    }
+
+    /// <summary>
+    /// Instancia el VFX de fragmentos/puntos en la posición del recurso
+    /// </summary>
+    private void InstantiatePointsVFX(Vector3 position)
+    {
+        GameObject vfxPrefab = collectEffectPoints != null ? collectEffectPoints : collectEffect;
+
+        if (vfxPrefab != null)
+        {
+            Instantiate(vfxPrefab, position, Quaternion.identity);
+        }
+    }
+
+    /// <summary>
+    /// Coroutine que desactiva un VFX después de un tiempo determinado
+    /// </summary>
+    private IEnumerator DeactivateVFXAfterDelay(GameObject vfx, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (vfx != null)
+        {
+            vfx.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Dispara los eventos de SFX según el tipo de recurso
+    /// </summary>
     private void PlayCollectSFX(CollectibleResource resource)
     {
         if (resource == null || resource.resourceType == null) return;
@@ -234,11 +299,10 @@ public class ResourceCollector : MonoBehaviour
         onSfxCollectAny?.Invoke();
     }
 
-    // Visualizar radio de recolección
+    // Visualizar radio de recolección en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0.2f, 0.8f, 0.2f, 0.3f);
         Gizmos.DrawSphere(transform.position, collectionRadius);
     }
 }
-

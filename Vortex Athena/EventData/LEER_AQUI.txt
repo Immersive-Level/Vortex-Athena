@@ -1,0 +1,37 @@
+==============================================
+  DATOS DEL EVENTO - INSTRUCCIONES
+==============================================
+
+Los datos de las partidas se guardan en esta carpeta:
+  C:\Users\ESCOR\Desktop\DEV\ImmersiveLevel\VortexAthena\Vortex-Athena\Vortex Athena\EventData
+
+CONFIGURACIÓN DEL DÍA DEL EVENTO:
+  • Abre el archivo: EventConfig.txt (está junto al .exe)
+  • Cambia DAY=1 por DAY=2, DAY=3, etc.
+  • Guarda y reinicia el juego
+
+ARCHIVOS GENERADOS:
+  • SOFA_Event_Data.json - Base de datos completa (formato estructurado)
+  • SOFA_Event_Data.csv  - Tabla para Excel/Google Sheets
+
+CÓMO ANALIZAR LOS DATOS:
+  1. Abre el archivo CSV con Excel o Google Sheets
+  2. Usa filtros para ver datos por día
+  3. Ordena por 'Puntaje' para ver los mejores
+  4. Filtra 'Es Ganador' = TRUE para ver solo ganadores
+
+COLUMNAS DEL CSV:
+  - Match ID: Identificador único de la partida
+  - Fecha: Día en que se jugó
+  - Hora: Hora exacta
+  - Día Evento: Número del día del evento (1-5)
+  - Posición: Lugar que ocupó el jugador (1=primero)
+  - Jugador: Nombre del jugador
+  - Puntaje: Puntos obtenidos
+  - Es Ganador: TRUE si ganó esa partida
+
+==============================================
+Evento: SOFA_Event
+Día actual: 1
+Generado: 2025-10-07 20:21:13
+==============================================

@@ -1,0 +1,9 @@
+Match ID,Fecha,Hora,Día Evento,Posición,Jugador,Puntaje,Es Ganador
+D1_M1_201743,2025-10-07,20:17:43,1,1,Antares,770,True
+D1_M1_201743,2025-10-07,20:17:43,1,2,Zubenes,200,False
+D1_M1_201743,2025-10-07,20:17:43,1,3,Zeta,20,False
+D1_M1_201743,2025-10-07,20:17:43,1,4,Bellarix,-340,False
+D1_M2_201903,2025-10-07,20:19:03,1,1,Zubenes,110,True
+D1_M2_201903,2025-10-07,20:19:03,1,2,Bellarix,60,False
+D1_M2_201903,2025-10-07,20:19:03,1,3,Antares,-30,False
+D1_M2_201903,2025-10-07,20:19:03,1,4,Zeta,-30,False

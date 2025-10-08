@@ -254,7 +254,6 @@ public class PlayerInputManager : MonoBehaviour
         // Activar jugador si no está activo
         if (!player.isActive && GameManager.Instance.tutorialCompletado)
         {
-            Debug.LogError("eNTRO");
             ActivatePlayer(player);
             return;
         }

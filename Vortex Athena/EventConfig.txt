@@ -1,0 +1,35 @@
+# ===============================================
+# CONFIGURACIÓN DEL EVENTO SOFA
+# ===============================================
+#
+# INSTRUCCIONES:
+# 1. Edita este archivo con el Bloc de notas
+# 2. Cambia el número del DAY cada día del evento
+# 3. Guarda el archivo
+# 4. Reinicia el juego
+#
+# IMPORTANTE: Las líneas que empiezan con # son comentarios
+#
+# ===============================================
+
+# Día actual del evento (valores válidos: 1, 2, 3, 4, 5)
+DAY=1
+
+# Nombre del evento (opcional)
+EVENT_NAME=SOFA_Event
+
+# ===============================================
+# EJEMPLOS DE USO:
+# ===============================================
+#
+# Para el día 1:
+# DAY=1
+#
+# Para el día 2:
+# DAY=2
+#
+# Y así sucesivamente hasta el día 5
+#
+# ===============================================
+# Archivo generado: 2025-10-07 20:16:35
+# ===============================================

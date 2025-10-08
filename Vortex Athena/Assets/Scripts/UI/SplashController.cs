@@ -7,6 +7,7 @@ public class SplashController : MonoBehaviour
     public VideoPlayer logoPlayer;
     public VideoPlayer cinePlayer;
     public GameObject skipButton;
+    public GameObject skipButtonText;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class SplashController : MonoBehaviour
     {
         logoPlayer.gameObject.SetActive(false);
         skipButton.SetActive(true);
+        skipButtonText.SetActive(true);
         // Igual aquí nos aseguramos de partir desde 0
         cinePlayer.time = 0;
         cinePlayer.Play();

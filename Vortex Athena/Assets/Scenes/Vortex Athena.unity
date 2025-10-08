@@ -4580,6 +4580,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 881352615}
+    - target: {fileID: 4499025265345653499, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4197404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499025265345653499, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4197404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499025265345653499, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4197404
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499025265345653499, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4499025265345653499, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 4531707489289755725, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_Spacing
       value: 10

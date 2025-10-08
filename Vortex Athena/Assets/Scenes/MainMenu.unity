@@ -568,7 +568,7 @@ MonoBehaviour:
     3D]\n\r"
   creditsFile: {fileID: 0}
   playbackMode: 1
-  speed: 500
+  speed: 111
   useUnscaledTime: 1
   autoStart: 1
   gapPixels: 1500

@@ -3866,7 +3866,7 @@ PrefabInstance:
       objectReference: {fileID: 181944776}
     - target: {fileID: 778876643760645426, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 847292677216944141, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: timeConfig

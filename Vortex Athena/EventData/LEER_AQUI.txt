@@ -3,7 +3,7 @@
 ==============================================
 
 Los datos de las partidas se guardan en esta carpeta:
-  C:\Users\ESCOR\Desktop\DEV\ImmersiveLevel\VortexAthena\Vortex-Athena\Vortex Athena\EventData
+  C:\Users\sahen\Documents\1. Proyectos\Vortex-Athena\Vortex Athena\EventData
 
 CONFIGURACIÓN DEL DÍA DEL EVENTO:
   • Abre el archivo: EventConfig.txt (está junto al .exe)
@@ -33,5 +33,5 @@ COLUMNAS DEL CSV:
 ==============================================
 Evento: SOFA_Event
 Día actual: 1
-Generado: 2025-10-09 00:03:50
+Generado: 2025-10-09 08:58:34
 ==============================================

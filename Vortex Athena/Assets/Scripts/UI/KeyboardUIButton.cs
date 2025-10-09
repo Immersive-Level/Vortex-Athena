@@ -1,19 +1,30 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.InputSystem.Controls;
 
 public class KeyboardUIButton : MonoBehaviour
 {
-    [Header("Botones (1,2,3,4 en ese orden)")]
+    [Header("Botones en orden (1,2,3,4)")]
     public Button[] buttons = new Button[4];
 
     [Header("Opciones")]
     public bool includeNumpad = true;
-    [Tooltip("Duraci�n visible del 'Pressed' antes de soltar (segundos).")]
-    public float pressFeedbackDuration = 0.07f;
+
+    [Tooltip("Duración visible del estado 'Pressed'. Usa tiempo REAL si useUnscaledTime = true.")]
+    [Range(0f, 0.25f)] public float pressFeedbackDuration = 0.07f;
+
+    [Tooltip("Usar tiempo NO escalado (recomendado si tu UI pausa con timeScale=0).")]
+    public bool useUnscaledTime = true;
+
+    [Tooltip("Si ya hay un 'press' corriendo sobre el mismo botón, forzar release antes de iniciar otro.")]
+    public bool ensureReleaseOnNewPress = true;
+
+    // Corrutinas por botón para evitar solapes
+    private readonly Dictionary<Button, Coroutine> _running = new Dictionary<Button, Coroutine>();
 
     void Update()
     {
@@ -37,32 +48,58 @@ public class KeyboardUIButton : MonoBehaviour
         if (i < 0 || i >= buttons.Length) return;
         var btn = buttons[i];
         if (btn == null || !btn.interactable || !btn.gameObject.activeInHierarchy) return;
-        StartCoroutine(PressButtonRoutine(btn));
+
+        // Si ya había una corrutina “apretando” este botón, la soltamos primero
+        if (ensureReleaseOnNewPress && _running.TryGetValue(btn, out var co) && co != null)
+        {
+            StopCoroutine(co);
+            ForceRelease(btn);
+            _running.Remove(btn);
+        }
+
+        var c = StartCoroutine(PressButtonRoutine(btn));
+        _running[btn] = c;
     }
 
     IEnumerator PressButtonRoutine(Button btn)
     {
-        // seleccionar para que reciba estilo de "Selected" si tu transici�n lo usa
-        if (EventSystem.current != null)
-            EventSystem.current.SetSelectedGameObject(btn.gameObject);
+        var es = EventSystem.current;
+        if (es != null) es.SetSelectedGameObject(btn.gameObject);
 
-        // simular pointer enter + down (activa estado Pressed en ColorTint/SpriteSwap/Animation)
-        var ped = new PointerEventData(EventSystem.current);
+        var ped = new PointerEventData(es);
+
+        // pointer enter + down → activa transición "Pressed"
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerEnterHandler);
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerDownHandler);
 
-        // mantener un instante el estado �Pressed� para feedback visual
+        // Espera visible (realtime si quieres ignorar timeScale)
         if (pressFeedbackDuration > 0f)
-            yield return new WaitForSeconds(pressFeedbackDuration);
+        {
+            if (useUnscaledTime) yield return new WaitForSecondsRealtime(pressFeedbackDuration);
+            else yield return new WaitForSeconds(pressFeedbackDuration);
+        }
 
-        // soltar y disparar el click
+        // Si durante la espera el botón se desactivó/destruyó, salimos sin colgar estados
+        if (btn == null || !btn.gameObject.activeInHierarchy)
+        {
+            yield break;
+        }
+
+        // Soltar y click “real”
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerUpHandler);
-        // submit para Selectables que lo usen
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.submitHandler);
-        // y el onClick normal del Button
-        btn.onClick.Invoke();
+        btn.onClick?.Invoke();
+        ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerExitHandler);
 
-        // opcional: salir del hover (si no quieres que quede resaltado)
+        _running.Remove(btn);
+    }
+
+    void ForceRelease(Button btn)
+    {
+        if (btn == null || !btn.gameObject.activeInHierarchy) return;
+        var es = EventSystem.current;
+        var ped = new PointerEventData(es);
+        ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerUpHandler);
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerExitHandler);
     }
 }

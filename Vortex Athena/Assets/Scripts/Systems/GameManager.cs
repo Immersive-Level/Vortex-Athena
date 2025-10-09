@@ -49,12 +49,6 @@ public class GameManager : MonoBehaviour
     {
         SetState(GameState.InMenu);
         NavesActivas = new List<GameObject>();
-
-        if (!tutorialCompletado && TutorialRoot != null)
-        {
-            TutorialRoot.SetActive(true);
-            Time.timeScale = 0;
-        }
     }
 
     private void Update()
@@ -117,6 +111,7 @@ public class GameManager : MonoBehaviour
         if (TutorialRoot == null) return;
 
         bool tutorialActivo = TutorialRoot.activeInHierarchy;
+        Debug.Log(tutorialActivo);
 
         if (tutorialActivo)
         {

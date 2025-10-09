@@ -3873,6 +3873,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 2092e85100324034ca96c2a266f2e665, type: 2}
     - target: {fileID: 847292677216944141, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: startButton
+      value: 
+      objectReference: {fileID: 1303656969}
+    - target: {fileID: 847292677216944141, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: selectorTiempo
       value: 
       objectReference: {fileID: 2040864865}
@@ -4550,7 +4554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4817655903283725581, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4974597464574628805, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_IsActive
@@ -4784,7 +4788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6611239423535685846, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6679371333384113843, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_Camera
@@ -4792,7 +4796,7 @@ PrefabInstance:
       objectReference: {fileID: 1449113809}
     - target: {fileID: 6783722457653823363, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6847507322252509720, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: abilityManager
@@ -5415,9 +5419,37 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 881352615}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 8806018326245066964}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: ToggleTutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856498797153857126, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8861412952246539988, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5479,9 +5511,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1412414128276807361, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1232322424}
-    - targetCorrespondingSourceObject: {fileID: 1868096781989358695, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2129236055}
     - targetCorrespondingSourceObject: {fileID: 8765333876686849273, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1615291491}
@@ -5503,6 +5532,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5845487986450175824, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       insertIndex: 0
       addedObject: {fileID: 1137631473}
+    - targetCorrespondingSourceObject: {fileID: 1868096781989358695, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2129236055}
     - targetCorrespondingSourceObject: {fileID: 2114073356890287861, guid: 4abd5623d60b88842858e544fd1e670b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1356970381}

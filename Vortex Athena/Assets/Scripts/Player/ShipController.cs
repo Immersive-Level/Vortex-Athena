@@ -190,9 +190,6 @@ public class ShipController : MonoBehaviour
     /// </summary>
     public void StartMoving()
     {
-        if (!GameManager.Instance.tutorialCompletado) return;
-        if (GameManager.Instance.CurrentState == GameState.InMenu) return;
-
         if (!enabled || !rb) return;
 
         isMoving = true;

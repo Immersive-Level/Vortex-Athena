@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     public bool TutorialCompletado => tutorialCompletado;
     public bool SkipTutorialEnabled => tutorialCompletado;
 
+    [SerializeField] private GameObject Nave1;
+    [SerializeField] private GameObject Nave2;
+    [SerializeField] private GameObject Nave3;
+    [SerializeField] private GameObject Nave4;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -115,6 +120,11 @@ public class GameManager : MonoBehaviour
 
         if (tutorialActivo)
         {
+            Nave1.SetActive(true);
+            Nave2.SetActive(true);
+            Nave3.SetActive(true);
+            Nave4.SetActive(true);
+
             Time.timeScale = 1f;
             TutorialRoot.SetActive(false);
             tutorialCompletado = true;

@@ -58,6 +58,14 @@
             ],
             "WinnerName": "Zubenes",
             "WinnerScore": 110
+        },
+        {
+            "MatchID": "D1_M3_193932",
+            "DateTime": "2025-10-09 19:39:32",
+            "EventDay": 1,
+            "Players": [],
+            "WinnerName": "",
+            "WinnerScore": 0
         }
     ]
 }

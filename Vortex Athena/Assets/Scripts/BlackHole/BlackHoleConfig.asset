@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useConstantSize: 1
   constantIntensityValue: 1
-  baseGravityStrength: 200
-  maxGravityStrength: 350
+  baseGravityStrength: 100
+  maxGravityStrength: 200
   gravityFalloffCurve:
     serializedVersion: 2
     m_Curve:
@@ -83,7 +83,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   eventHorizonRadius: 0.5
-  influenceRadius: 9
-  maxInfluenceRadius: 9
+  influenceRadius: 12
+  maxInfluenceRadius: 12
   maxAffectedObjects: 50
   updateFrequency: 0.02

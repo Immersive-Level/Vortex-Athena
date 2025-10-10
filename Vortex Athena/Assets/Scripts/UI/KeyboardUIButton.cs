@@ -4,24 +4,17 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.InputSystem.Controls;
 
 public class KeyboardUIButton : MonoBehaviour
 {
-    [Header("Botones en orden (1,2,3,4)")]
+    [Header("Botones en orden")]
+    [Tooltip("Orden: [0]=→  [1]=↑  [2]=↓  [3]=←")]
     public Button[] buttons = new Button[4];
 
     [Header("Opciones")]
-    public bool includeNumpad = true;
-
-    [Tooltip("Duración visible del estado 'Pressed'. Usa tiempo REAL si useUnscaledTime = true.")]
-    [Range(0f, 0.25f)] public float pressFeedbackDuration = 0.07f;
-
-    [Tooltip("Usar tiempo NO escalado (recomendado si tu UI pausa con timeScale=0).")]
     public bool useUnscaledTime = true;
-
-    [Tooltip("Si ya hay un 'press' corriendo sobre el mismo botón, forzar release antes de iniciar otro.")]
     public bool ensureReleaseOnNewPress = true;
+    [Range(0f, 0.25f)] public float pressFeedbackDuration = 0.07f;
 
     // Corrutinas por botón para evitar solapes
     private readonly Dictionary<Button, Coroutine> _running = new Dictionary<Button, Coroutine>();
@@ -30,17 +23,11 @@ public class KeyboardUIButton : MonoBehaviour
     {
         if (Keyboard.current == null) return;
 
-        if (Pressed(Keyboard.current.digit1Key, Keyboard.current.numpad1Key)) ClickIndex(0);
-        if (Pressed(Keyboard.current.digit2Key, Keyboard.current.numpad2Key)) ClickIndex(1);
-        if (Pressed(Keyboard.current.digit3Key, Keyboard.current.numpad3Key)) ClickIndex(2);
-        if (Pressed(Keyboard.current.digit4Key, Keyboard.current.numpad4Key)) ClickIndex(3);
-    }
-
-    bool Pressed(KeyControl main, KeyControl numpad)
-    {
-        if (main != null && main.wasPressedThisFrame) return true;
-        if (includeNumpad && numpad != null && numpad.wasPressedThisFrame) return true;
-        return false;
+        // Asignaciones de teclas
+        if (Keyboard.current.rightArrowKey.wasPressedThisFrame) ClickIndex(0); // →
+        if (Keyboard.current.upArrowKey.wasPressedThisFrame) ClickIndex(1);    // ↑
+        if (Keyboard.current.downArrowKey.wasPressedThisFrame) ClickIndex(2);  // ↓
+        if (Keyboard.current.leftArrowKey.wasPressedThisFrame) ClickIndex(3);  // ←
     }
 
     void ClickIndex(int i)
@@ -103,4 +90,5 @@ public class KeyboardUIButton : MonoBehaviour
         ExecuteEvents.Execute(btn.gameObject, ped, ExecuteEvents.pointerExitHandler);
     }
 }
+
 

@@ -59,7 +59,7 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         // Asegurar configuración consistente del texto
-        morseDisplayText.enableWordWrapping = false;
+        morseDisplayText.textWrappingMode = TextWrappingModes.NoWrap;
         morseDisplayText.overflowMode = TextOverflowModes.Truncate;
 
         // Suscribirse a cambios de estado para limpiar input cuando sea necesario

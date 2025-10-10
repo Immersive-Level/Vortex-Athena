@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useConstantSize: 1
   constantIntensityValue: 1
-  baseGravityStrength: 100
-  maxGravityStrength: 200
+  baseGravityStrength: 160
+  maxGravityStrength: 300
   gravityFalloffCurve:
     serializedVersion: 2
     m_Curve:

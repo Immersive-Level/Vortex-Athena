@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GameplayTimeConfig
   m_EditorClassIdentifier: 
   tiemposDisponibles:
-  - 60
   - 90
   - 120
+  - 300

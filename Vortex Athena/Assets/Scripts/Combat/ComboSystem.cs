@@ -34,6 +34,7 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private const float shortPressThreshold = 0.15f;
     private float lastReleaseTime;
     private float entryCooldown = 1f;
+    private Vector3 originalTextScale;
 
     private string liveMorseCode = "";
 
@@ -59,8 +60,10 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         // Asegurar configuración consistente del texto
-        morseDisplayText.enableWordWrapping = false;
+        morseDisplayText.textWrappingMode = TextWrappingModes.NoWrap;
         morseDisplayText.overflowMode = TextOverflowModes.Truncate;
+
+        originalTextScale = textRect.localScale;
 
         // Suscribirse a cambios de estado para limpiar input cuando sea necesario
         if (shipInputController != null)
@@ -192,6 +195,7 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (newState != ShipInputController.ButtonState.Playing)
         {
             ClearInput();
+            textRect.localScale = originalTextScale;
 
             if (debugMode)
                 Debug.Log($"[ComboSystem] Estado cambiado a {newState} - Input limpiado");
@@ -262,7 +266,6 @@ public class ComboSystem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private void ShowDisabledFeedback()
     {
         morseDisplayText.color = new Color(1f, 1f, 1f, 0.3f);
-        textRect.DOShakePosition(0.2f, 2f, 20, 90, false, true);
     }
 
     /// <summary>

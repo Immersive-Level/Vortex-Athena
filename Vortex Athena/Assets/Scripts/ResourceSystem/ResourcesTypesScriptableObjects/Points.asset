@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceName: Points
   effect: 1
-  effectAmount: 10
+  effectAmount: 100
   sprite: {fileID: -1876848556120704046, guid: 8ac66ac3c8b4d314aa46639b4a5a98d7, type: 3}
   collectSound: {fileID: 0}
   collectEffect: {fileID: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceName: Fuel
   effect: 0
-  effectAmount: 10
+  effectAmount: 25
   sprite: {fileID: -9080678887866278605, guid: 8ac66ac3c8b4d314aa46639b4a5a98d7, type: 3}
   collectSound: {fileID: 0}
   collectEffect: {fileID: 0}

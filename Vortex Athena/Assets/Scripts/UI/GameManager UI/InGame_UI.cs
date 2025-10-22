@@ -8,23 +8,25 @@ public class InGame_UI : MonoBehaviour
 
     private void Update()
     {
-        // Validación de estado del juego
-        if (GameManager.Instance.CurrentState != GameState.InGame)
+        float remaining;
+
+        // Si estamos en juego, usamos el tiempo restante; si no, mostramos 00:00
+        if (GameManager.Instance.CurrentState == GameState.InGame)
         {
-            return;
+            remaining = GameManager.Instance.GetRemainingTime(); // ya viene con Mathf.Max(0, ...)
+        }
+        else
+        {
+            remaining = 0f;
         }
 
-        // Obtener tiempo actual de partida
-        float gameTime = GameManager.Instance.Gametime;
+        // Convertir a mm:ss (regresivo)
+        int minutes = Mathf.FloorToInt(remaining / 60f);
+        int seconds = Mathf.FloorToInt(remaining % 60f);
 
-        // Convertir a minutos y segundos
-        int minutes = Mathf.FloorToInt(gameTime / 60f);
-        int seconds = Mathf.FloorToInt(gameTime % 60f);
-
-        // Actualizar texto en formato mm:ss
-        timeText.text = $"{minutes:00}:{seconds:00}";
-        timeText2.text = $"{minutes:00}:{seconds:00}";
+        string formatted = $"{minutes:00}:{seconds:00}";
+        if (timeText != null) timeText.text = formatted;
+        if (timeText2 != null) timeText2.text = formatted;
     }
-
-
 }
+

@@ -83,6 +83,9 @@ public class AudioSFX : MonoBehaviour
     /// </summary>
     public void OnThrustPressed()
     {
+        if (!GameManager.Instance.tutorialCompletado) return;
+        if (GameManager.Instance.CurrentState == GameState.InMenu) return;
+
         pressStartTime = Time.time;
 
         // Si había fades en curso, los cortamos para relanzar limpio

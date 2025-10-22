@@ -3,7 +3,7 @@
 ==============================================
 
 Los datos de las partidas se guardan en esta carpeta:
-  C:\Users\ESCOR\Desktop\DEV\ImmersiveLevel\VortexAthena\Vortex-Athena\Vortex Athena\EventData
+  C:\Users\sahen\Documents\1. Proyectos\Vortex-Athena\Vortex Athena\EventData
 
 CONFIGURACIÓN DEL DÍA DEL EVENTO:
   • Abre el archivo: EventConfig.txt (está junto al .exe)
@@ -33,18 +33,5 @@ COLUMNAS DEL CSV:
 ==============================================
 Evento: SOFA_Event
 Día actual: 1
-Generado: 2025-10-07 21:25:30
-==============================================
-
-==============================================
-  ESTADÍSTICAS ACTUALES
-==============================================
-Última actualización: 2025-10-07 21:26:43
-Total de partidas jugadas: 3
-
-MEJOR PUNTAJE GENERAL:
-  Antares - 770 pts (Día 1)
-
-MEJORES PUNTAJES POR DÍA:
-  Día 1: Antares - 770 pts (3 partidas)
+Generado: 2025-10-10 14:53:45
 ==============================================

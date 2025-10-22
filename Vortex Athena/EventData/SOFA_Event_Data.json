@@ -60,33 +60,62 @@
             "WinnerScore": 110
         },
         {
-            "MatchID": "D1_M3_212643",
-            "DateTime": "2025-10-07 21:26:43",
+            "MatchID": "D1_M3_135856",
+            "DateTime": "2025-10-10 13:58:56",
             "EventDay": 1,
             "Players": [
                 {
                     "PlayerName": "Zeta",
-                    "Score": 730,
+                    "Score": 50,
                     "Position": 1
                 },
                 {
-                    "PlayerName": "Zubenes",
-                    "Score": 610,
+                    "PlayerName": "Antares",
+                    "Score": 0,
                     "Position": 2
                 },
                 {
-                    "PlayerName": "Antares",
-                    "Score": 550,
+                    "PlayerName": "Bellarix",
+                    "Score": -100,
                     "Position": 3
                 },
                 {
-                    "PlayerName": "Bellarix",
-                    "Score": 500,
+                    "PlayerName": "Zubenes",
+                    "Score": -150,
                     "Position": 4
                 }
             ],
             "WinnerName": "Zeta",
-            "WinnerScore": 730
+            "WinnerScore": 50
+        },
+        {
+            "MatchID": "D1_M4_145022",
+            "DateTime": "2025-10-10 14:50:22",
+            "EventDay": 1,
+            "Players": [
+                {
+                    "PlayerName": "Zeta",
+                    "Score": 400,
+                    "Position": 1
+                },
+                {
+                    "PlayerName": "Bellarix",
+                    "Score": 0,
+                    "Position": 2
+                },
+                {
+                    "PlayerName": "Antares",
+                    "Score": -50,
+                    "Position": 3
+                },
+                {
+                    "PlayerName": "Zubenes",
+                    "Score": -150,
+                    "Position": 4
+                }
+            ],
+            "WinnerName": "Zeta",
+            "WinnerScore": 400
         }
     ]
 }

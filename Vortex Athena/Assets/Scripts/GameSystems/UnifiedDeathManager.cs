@@ -231,7 +231,7 @@ namespace GameSystems
         {
             // Reset físico
             transform.position = respawnPoint.position;
-            transform.rotation = Quaternion.identity;
+            transform.rotation = respawnPoint.rotation;
             transform.localScale = originalScale;
             ResetPhysics();
 

@@ -766,6 +766,30 @@ PrefabInstance:
       propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: randomAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinImpulse
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinVariance
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleImpulse
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: consumeShieldOnRepel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleCoreLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: Player 4
@@ -3520,6 +3544,30 @@ PrefabInstance:
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: randomAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinImpulse
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinVariance
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleImpulse
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: consumeShieldOnRepel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleCoreLayers.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
@@ -9131,6 +9179,30 @@ PrefabInstance:
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: randomAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinImpulse
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinVariance
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleImpulse
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: consumeShieldOnRepel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleCoreLayers.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
@@ -17443,11 +17515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 546018219249494030, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000022178472
+      value: 4.3285923
       objectReference: {fileID: 0}
     - target: {fileID: 546018219249494030, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0000023731197
+      value: -0.30010056
       objectReference: {fileID: 0}
     - target: {fileID: 546018219249494030, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -17676,6 +17748,30 @@ PrefabInstance:
     - target: {fileID: 1834230592424447696, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: randomAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinImpulse
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: spinVariance
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleImpulse
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: consumeShieldOnRepel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: blackHoleCoreLayers.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 2144839741039488508, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
@@ -18853,6 +18949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlackHoleCore
       objectReference: {fileID: 0}
+    - target: {fileID: 3718816689528358223, guid: f22744da4d6983a4692adf5d7dc94c45, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4710497444237675064, guid: f22744da4d6983a4692adf5d7dc94c45, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -18900,6 +19000,10 @@ PrefabInstance:
     - target: {fileID: 6313933919252984947, guid: f22744da4d6983a4692adf5d7dc94c45, type: 3}
       propertyPath: affectedLayers.m_Bits
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8668686625877322204, guid: f22744da4d6983a4692adf5d7dc94c45, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9043781438668414066, guid: f22744da4d6983a4692adf5d7dc94c45, type: 3}
       propertyPath: m_IsTrigger

@@ -546,6 +546,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoParpadeo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoInvulnerabilidad
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
       value: InicioNave D
@@ -2292,7 +2304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &363091430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3288,6 +3300,18 @@ PrefabInstance:
     - target: {fileID: 546018219249494030, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoParpadeo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoInvulnerabilidad
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
@@ -8879,6 +8903,18 @@ PrefabInstance:
     - target: {fileID: 546018219249494030, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoParpadeo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoInvulnerabilidad
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Name
@@ -17418,8 +17454,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: tiempoParpadeo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 977790932892868827, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: tiempoInvulnerabilidad
-      value: 0.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 994999629172448748, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: m_Layer

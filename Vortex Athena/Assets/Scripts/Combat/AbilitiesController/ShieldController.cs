@@ -2,38 +2,55 @@
 
 public class ShieldController : MonoBehaviour
 {
+    // # refs principales
     private CombatSystem _combatSystem;
+    private Rigidbody2D _shipRb;          // cache (se resuelve JIT para evitar el bug del primer respawn)
 
-    // ─────────────────────────────────────────────────────────────
-    // Black Hole Repel (ya lo tenías)
-    // ─────────────────────────────────────────────────────────────
+    // # black hole repel (config)
     [Header("Black Hole Repel")]
+    [Tooltip("Activa la repulsión cuando el escudo toca el collider central del agujero negro (por LayerMask).")]
     [SerializeField] private bool repelBlackHole = true;
+
+    [Tooltip("Layers que identifican el collider central del agujero negro.")]
     [SerializeField] private LayerMask blackHoleCoreLayers;
+
+    [Tooltip("Impulso lineal aplicado a la nave al repeler.")]
     [SerializeField] private float blackHoleImpulse = 45f;
+
+    [Tooltip("Aleatoriedad (grados) aplicada a la dirección de salida.")]
     [SerializeField] private float randomAngle = 20f;
+
+    [Tooltip("Si es true, el escudo se consume al repeler el agujero.")]
     [SerializeField] private bool consumeShieldOnRepel = false;
+
+    [Tooltip("Pequeño cooldown para evitar múltiples impulsos por solapes de colliders.")]
     [SerializeField] private float repelCooldown = 0.15f;
 
-    // ─────────────────────────────────────────────────────────────
-    // NUEVO: Spin al repeler
-    // ─────────────────────────────────────────────────────────────
-    [Header("NUEVO · Spin al repeler")]
+    // # spin al repeler (config)
+    [Header("Spin al repeler")]
     [Tooltip("Aplica un pequeño giro cuando el escudo expulsa la nave del agujero negro.")]
-    [SerializeField] private bool addSpinOnRepel = true; // NUEVO
+    [SerializeField] private bool addSpinOnRepel = true;
 
-    [Tooltip("Impulso de torque (grados·masa·unidad / s). Valores pequeños: 5–25.")]
-    [SerializeField] private float spinImpulse = 8f; // NUEVO
+    [Tooltip("Impulso de torque (valores típicos: 8–16).")]
+    [SerializeField] private float spinImpulse = 12f;
 
     [Tooltip("Variación ± en porcentaje sobre el impulso de giro.")]
-    [Range(0f, 1f)][SerializeField] private float spinVariance = 0.35f; // NUEVO
+    [Range(0f, 1f)]
+    [SerializeField] private float spinVariance = 0.35f;
 
     [Tooltip("Si está activo, el signo del spin se elige al azar.")]
-    [SerializeField] private bool randomizeSpinSign = true; // NUEVO
+    [SerializeField] private bool randomizeSpinSign = true;
 
-    private Rigidbody2D _shipRb;
+    [Tooltip("Limitar la velocidad angular tras aplicar el giro.")]
+    [SerializeField] private bool limitAngularVelocity = true;
+
+    [Tooltip("Máximo absoluto de angularVelocity (°/s).")]
+    [SerializeField] private float maxAngularSpeed = 240f;
+
+    // # runtime
     private float _lastRepelTime = -999f;
 
+    // # api pública
     public void ActivateShield(float inTimer, CombatSystem combatSystem)
     {
         Debug.Log("Active shield");
@@ -45,12 +62,9 @@ public class ShieldController : MonoBehaviour
             return;
         }
 
-        if (_shipRb == null)
-        {
-            _shipRb = _combatSystem.GetComponent<Rigidbody2D>()
-                   ?? _combatSystem.GetComponentInParent<Rigidbody2D>()
-                   ?? _combatSystem.GetComponentInChildren<Rigidbody2D>();
-        }
+        // re-resolver RB al activar (por si es el primer spawn)
+        _shipRb = null;
+        GetShipRB();
 
         gameObject.SetActive(true);
         _combatSystem.IsInvencible = true;
@@ -69,11 +83,15 @@ public class ShieldController : MonoBehaviour
 
         gameObject.SetActive(false);
         _combatSystem.IsInvencible = false;
+
+        // si tu respawn destruye/instancia, evita mantener refs muertas
+        _shipRb = null;
     }
 
+    // # colisiones
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Repeler agujero negro (núcleo en LayerMask)
+        // — repulsión de agujero negro (núcleo por LayerMask)
         if (repelBlackHole)
         {
             int bit = 1 << collision.gameObject.layer;
@@ -83,37 +101,39 @@ public class ShieldController : MonoBehaviour
                 {
                     _lastRepelTime = Time.time;
 
+                    var rb = GetShipRB(); // JIT: arregla el fallo del primer respawn
+
                     Vector2 center = collision.bounds.center;
-                    Vector2 outDir = (_shipRb != null ? _shipRb.position : (Vector2)transform.position) - center;
+                    Vector2 outDir = (rb != null ? rb.position : (Vector2)transform.position) - center;
                     if (outDir.sqrMagnitude < 0.0001f) outDir = Vector2.up;
                     outDir.Normalize();
 
+                    // jitter angular para que no salga siempre igual
                     if (randomAngle > 0f)
                     {
                         float jitter = Random.Range(-randomAngle, randomAngle);
                         outDir = (Vector2)(Quaternion.Euler(0f, 0f, jitter) * outDir);
                     }
 
-                    if (_shipRb != null)
+                    // aplicar impulsos
+                    if (rb != null)
                     {
-                        // Impulso lineal
-                        _shipRb.AddForce(outDir * blackHoleImpulse, ForceMode2D.Impulse);
+                        rb.AddForce(outDir * blackHoleImpulse, ForceMode2D.Impulse);
 
-                        // ─────────────────────────────────────────────
-                        // NUEVO: Impulso angular para que salga girando
-                        // ─────────────────────────────────────────────
                         if (addSpinOnRepel && Mathf.Abs(spinImpulse) > 0f)
                         {
                             float spin = spinImpulse * (1f + Random.Range(-spinVariance, spinVariance));
                             if (randomizeSpinSign && Random.value < 0.5f) spin = -spin;
-                            _shipRb.AddTorque(spin, ForceMode2D.Impulse);
+                            rb.AddTorque(spin, ForceMode2D.Impulse);
+
+                            if (limitAngularVelocity)
+                                rb.angularVelocity = Mathf.Clamp(rb.angularVelocity, -maxAngularSpeed, maxAngularSpeed);
                         }
                     }
                     else
                     {
-                        // Fallback suave sin Rigidbody2D
+                        // fallback sin RB (desaconsejado, pero seguro)
                         transform.root.position += (Vector3)(outDir * blackHoleImpulse * 0.02f);
-                        // (Sin RB2D no hay torque posible)
                     }
 
                     if (consumeShieldOnRepel)
@@ -125,7 +145,7 @@ public class ShieldController : MonoBehaviour
             }
         }
 
-        // Lógica original: consumir por Arena/Nave/Missil si aplica en tu proyecto
+        // — comportamiento original (conservado)
         bool isArena = collision.gameObject.CompareTag("Arena");
         bool isNave = collision.gameObject.CompareTag("Nave");
         bool isMissil = collision.gameObject.CompareTag("Missil");
@@ -134,4 +154,28 @@ public class ShieldController : MonoBehaviour
             DeactivateShield();
         }
     }
+
+    // # helpers
+    /// <summary>Resuelve (y cachea) el Rigidbody2D de la nave de forma robusta.</summary>
+    Rigidbody2D GetShipRB()
+    {
+        if (_shipRb != null) return _shipRb;
+
+        if (_combatSystem != null)
+        {
+            _shipRb = _combatSystem.GetComponent<Rigidbody2D>()
+                  ?? _combatSystem.GetComponentInParent<Rigidbody2D>()
+                  ?? _combatSystem.GetComponentInChildren<Rigidbody2D>();
+            if (_shipRb != null) return _shipRb;
+        }
+
+        var root = transform.root;
+        if (root != null)
+        {
+            _shipRb = root.GetComponent<Rigidbody2D>()
+                  ?? root.GetComponentInChildren<Rigidbody2D>();
+        }
+        return _shipRb;
+    }
 }
+

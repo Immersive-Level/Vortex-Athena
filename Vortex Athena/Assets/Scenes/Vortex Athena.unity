@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinImpulse
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinVariance
@@ -784,6 +784,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: consumeShieldOnRepel
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
+      propertyPath: limitAngularVelocity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
@@ -3551,7 +3555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinImpulse
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinVariance
@@ -9186,7 +9190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinImpulse
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinVariance
@@ -17755,7 +17759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinImpulse
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1996471282410199521, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}
       propertyPath: spinVariance

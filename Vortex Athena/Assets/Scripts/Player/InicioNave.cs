@@ -8,8 +8,8 @@ public class InicioNave : MonoBehaviour
 {
     [Header("Configuración de Nave")]
     public GameObject nave;
-    public float impulsoInicial = 5f;
-    public Vector2 direccionImpulso;
+    //public float impulsoInicial = 5f;
+    //public Vector2 direccionImpulso;
 
     [Header("Configuración Inicial")]
     public float combustibleInicial = 100f;
@@ -77,56 +77,56 @@ public class InicioNave : MonoBehaviour
         juegoIniciado = true;
         nave.SetActive(true);
 
-        var rb = nave.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.bodyType = RigidbodyType2D.Dynamic;
-            rb.simulated = true;
+        //var rb = nave.GetComponent<Rigidbody2D>();
+        //if (rb != null)
+        //{
+        //    rb.bodyType = RigidbodyType2D.Dynamic;
+        //    rb.simulated = true;
 
-            // Configurar velocidad inicial
-            Vector2 vDir = CalcularDireccionInicial(rb);
-            rb.linearVelocity = vDir * impulsoInicial;
+        //    // Configurar velocidad inicial
+        //    Vector2 vDir = CalcularDireccionInicial(rb);
+        //    rb.linearVelocity = vDir * impulsoInicial;
 
-            // Configurar rotación para órbita
-            ConfigurarRotacionInicial(rb);
-        }
+        //    // Configurar rotación para órbita
+        //    ConfigurarRotacionInicial(rb);
+        //}
 
         ConfigurarSistemas();
     }
 
-    private Vector2 CalcularDireccionInicial(Rigidbody2D rb)
-    {
-        if (!usarOrbitaInicial)
-            return direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
+    //private Vector2 CalcularDireccionInicial(Rigidbody2D rb)
+    //{
+    //    if (!usarOrbitaInicial)
+    //        return direccionImpulso.sqrMagnitude > 0f ? direccionImpulso.normalized : Vector2.right;
 
-        Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
-                        (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
+    //    Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
+    //                    (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
 
-        Vector2 radial = ((Vector2)rb.worldCenterOfMass - centro);
-        if (radial.sqrMagnitude < 0.0001f) radial = Vector2.right;
-        radial.Normalize();
+    //    Vector2 radial = ((Vector2)rb.worldCenterOfMass - centro);
+    //    if (radial.sqrMagnitude < 0.0001f) radial = Vector2.right;
+    //    radial.Normalize();
 
-        return new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
-    }
+    //    return new Vector2(-radial.y, radial.x) * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+    //}
 
-    private void ConfigurarRotacionInicial(Rigidbody2D rb)
-    {
-        if (!usarOrbitaInicial)
-        {
-            rb.angularVelocity = 0f;
-            return;
-        }
+    //private void ConfigurarRotacionInicial(Rigidbody2D rb)
+    //{
+    //    if (!usarOrbitaInicial)
+    //    {
+    //        rb.angularVelocity = 0f;
+    //        return;
+    //    }
 
-        Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
-                        (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
+    //    Vector2 centro = orbitaCentro ? (Vector2)orbitaCentro.position :
+    //                    (blackHoleCore ? (Vector2)blackHoleCore.transform.position : Vector2.zero);
 
-        float r = Vector2.Distance(rb.worldCenterOfMass, centro);
-        if (r > 0.001f)
-        {
-            float omega = (impulsoInicial / r) * Mathf.Rad2Deg;
-            rb.angularVelocity = omega * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
-        }
-    }
+    //    float r = Vector2.Distance(rb.worldCenterOfMass, centro);
+    //    if (r > 0.001f)
+    //    {
+    //        float omega = (impulsoInicial / r) * Mathf.Rad2Deg;
+    //        rb.angularVelocity = omega * Mathf.Sign(sentidoOrbita == 0 ? 1 : sentidoOrbita);
+    //    }
+    //}
 
     private void ConfigurarSistemas()
     {
@@ -181,11 +181,11 @@ public class InicioNave : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        impulsoInicial = Mathf.Max(0f, impulsoInicial);
-        if (sentidoOrbita == 0) sentidoOrbita = 1;
-    }
+    //private void OnValidate()
+    //{
+    //    impulsoInicial = Mathf.Max(0f, impulsoInicial);
+    //    if (sentidoOrbita == 0) sentidoOrbita = 1;
+    //}
 
     private void OnDestroy()
     {

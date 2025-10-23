@@ -350,7 +350,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37199673}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ade235826540a3498d9c0220ca105dc, type: 3}
   m_Name: 
@@ -810,6 +810,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436947884}
   m_CullTransparentMesh: 1
+--- !u!1001 &502378242
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2668.9587
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1285.2214
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18.784393
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506037474203686657, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2856288756365611390, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: lockToThisOrientation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5495233305947364403, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
+      propertyPath: m_Name
+      value: SceneSettings
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b32eec6f08333ca40ae45fd8492b2b77, type: 3}
 --- !u!1 &977557991
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,7 +911,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977557991}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: eb13e480508870d49ab43658d11dd145, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: dcb3447b01ee83a4abb5a66e6302bd0a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -859,7 +920,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 5
+  m_AspectRatio: 3
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -922,7 +983,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005860027}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 793ecd0e6f262cf4e980d6bc13532911, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 395b775cbc527b94895fa9252f9a3fcc, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -931,7 +992,7 @@ VideoPlayer:
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
-  m_AspectRatio: 5
+  m_AspectRatio: 0
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
@@ -1201,6 +1262,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 502378242}
   - {fileID: 1256893314}
   - {fileID: 1392069546}
   - {fileID: 1992791285}

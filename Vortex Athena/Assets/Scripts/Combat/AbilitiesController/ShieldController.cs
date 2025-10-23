@@ -2,11 +2,18 @@
 
 public class ShieldController : MonoBehaviour
 {
-    // # refs principales
+    // # Refs principales
     private CombatSystem _combatSystem;
     private Rigidbody2D _shipRb;          // cache (se resuelve JIT para evitar el bug del primer respawn)
 
-    // # black hole repel (config)
+    // # Temporizador robusto (FIX variación de duración)
+    [Header("Shield Lifetime (Timer)")]
+    [Tooltip("Usar tiempo no escalado para la duración del escudo (opcional).")]
+    [SerializeField] private bool useUnscaledTime = false; // si tu juego usa timeScale en menú, puedes activarlo
+    private float _shieldEndTime = -1f;
+    private bool _lifetimeRunning = false;
+
+    // # Black hole repel (config)
     [Header("Black Hole Repel")]
     [Tooltip("Activa la repulsión cuando el escudo toca el collider central del agujero negro (por LayerMask).")]
     [SerializeField] private bool repelBlackHole = true;
@@ -26,7 +33,7 @@ public class ShieldController : MonoBehaviour
     [Tooltip("Pequeño cooldown para evitar múltiples impulsos por solapes de colliders.")]
     [SerializeField] private float repelCooldown = 0.15f;
 
-    // # spin al repeler (config)
+    // # Spin al repeler (config)
     [Header("Spin al repeler")]
     [Tooltip("Aplica un pequeño giro cuando el escudo expulsa la nave del agujero negro.")]
     [SerializeField] private bool addSpinOnRepel = true;
@@ -47,10 +54,10 @@ public class ShieldController : MonoBehaviour
     [Tooltip("Máximo absoluto de angularVelocity (°/s).")]
     [SerializeField] private float maxAngularSpeed = 240f;
 
-    // # runtime
+    // # Runtime
     private float _lastRepelTime = -999f;
 
-    // # api pública
+    // # API pública (ACTIVATE / DEACTIVATE)
     public void ActivateShield(float inTimer, CombatSystem combatSystem)
     {
         Debug.Log("Active shield");
@@ -62,14 +69,25 @@ public class ShieldController : MonoBehaviour
             return;
         }
 
-        // re-resolver RB al activar (por si es el primer spawn)
+        // Re-resolver RB al activar (por si es el primer spawn)
         _shipRb = null;
         GetShipRB();
+
+        // Cancelar cualquier temporizador previo (FIX variaciones)
+        CancelInvoke();
+        _lifetimeRunning = false;
+        _shieldEndTime = Now() + Mathf.Max(0f, inTimer);
 
         gameObject.SetActive(true);
         _combatSystem.IsInvencible = true;
 
-        Invoke(nameof(DeactivateShield), inTimer);
+        // Arrancar temporizador robusto
+        if (!_lifetimeRunning)
+        {
+            _lifetimeRunning = true;
+            // Usamos UpdateTick en vez de Invoke/Coroutine para no depender del estado activo
+            // (cuando se desactiva el GO, OnDisable limpia todo).
+        }
     }
 
     public void DeactivateShield()
@@ -84,14 +102,32 @@ public class ShieldController : MonoBehaviour
         gameObject.SetActive(false);
         _combatSystem.IsInvencible = false;
 
-        // si tu respawn destruye/instancia, evita mantener refs muertas
+        // Limpiar temporizador (FIX: evita “residuos” entre activaciones)
+        CancelInvoke();
+        _lifetimeRunning = false;
+        _shieldEndTime = -1f;
+
+        // Si tu respawn destruye/instancia, evita mantener refs muertas
         _shipRb = null;
     }
 
-    // # colisiones
+    // # Ciclo de vida del temporizador (tick por frame)
+    private void Update()
+    {
+        if (!_lifetimeRunning) return;
+        if (_shieldEndTime < 0f) return;
+
+        if (Now() >= _shieldEndTime)
+        {
+            _lifetimeRunning = false;
+            DeactivateShield();
+        }
+    }
+
+    // # Colisiones
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // — repulsión de agujero negro (núcleo por LayerMask)
+        // — Repulsión de agujero negro (núcleo por LayerMask)
         if (repelBlackHole)
         {
             int bit = 1 << collision.gameObject.layer;
@@ -132,7 +168,7 @@ public class ShieldController : MonoBehaviour
                     }
                     else
                     {
-                        // fallback sin RB (desaconsejado, pero seguro)
+                        // Fallback sin RB (desaconsejado, pero seguro)
                         transform.root.position += (Vector3)(outDir * blackHoleImpulse * 0.02f);
                     }
 
@@ -145,7 +181,7 @@ public class ShieldController : MonoBehaviour
             }
         }
 
-        // — comportamiento original (conservado)
+        // — Comportamiento original (conservado)
         bool isArena = collision.gameObject.CompareTag("Arena");
         bool isNave = collision.gameObject.CompareTag("Nave");
         bool isMissil = collision.gameObject.CompareTag("Missil");
@@ -155,7 +191,15 @@ public class ShieldController : MonoBehaviour
         }
     }
 
-    // # helpers
+    private void OnDisable()
+    {
+        // Si alguien desactiva el GO desde fuera, asegúrate de limpiar el temporizador
+        CancelInvoke();
+        _lifetimeRunning = false;
+        _shieldEndTime = -1f;
+    }
+
+    // # Helpers
     /// <summary>Resuelve (y cachea) el Rigidbody2D de la nave de forma robusta.</summary>
     Rigidbody2D GetShipRB()
     {
@@ -177,5 +221,9 @@ public class ShieldController : MonoBehaviour
         }
         return _shipRb;
     }
+
+    /// <summary>Reloj según configuración (scaled/unscaled).</summary>
+    float Now() => useUnscaledTime ? Time.unscaledTime : Time.time;
 }
+
 

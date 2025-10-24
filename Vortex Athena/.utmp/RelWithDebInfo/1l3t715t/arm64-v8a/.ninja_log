@@ -1,12 +1,14 @@
 # ninja log v5
 67	578	7829488168503863	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	7f25ffb38e2afa0e
-581	805	7829488170776471	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110
+8	3143	7829488194162602	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
 21	2654	7829488189196563	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	af17f255cf06a0b0
+581	805	7829488170776471	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110
 38	2664	7829488189247119	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e996b20da03cde86
 14	2711	7829488189765289	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	fd379db0fa4a6f66
-57	2720	7829488189881624	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ac0f314060911a1f
 1	2802	7829488190765003	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8eabe66ce5c6076c
+57	2720	7829488189881624	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ac0f314060911a1f
 30	3026	7829488193021535	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9344fc0f9324555c
-8	3143	7829488194162602	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
 47	3197	7829488194699413	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce3d91897c2b6137
 3198	3327	7829488196008337	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libgame.so	e9249eefa8a389a3
+18	811	7830342975804159	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	7f25ffb38e2afa0e
+812	998	7830342977672801	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110

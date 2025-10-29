@@ -3129,6 +3129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 788801181}
   - component: {fileID: 788801182}
+  - component: {fileID: 788801184}
   - component: {fileID: 788801183}
   m_Layer: 0
   m_Name: Muros
@@ -3224,6 +3225,23 @@ MonoBehaviour:
   continuous: 0
   settleFrames: 2
   maxWaitFrames: 10
+--- !u!114 &788801184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 788801180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35da2dd5270a6b42a027419bf24786d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 1449113809}
+  forceLandscapeOnAwake: 1
+  settleFrames: 2
+  maxWaitFrames: 15
+  continuous: 1
 --- !u!114 &817909504 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8967864817423197334, guid: b9716b2469e8eaa4580b2f2c47787e9f, type: 3}

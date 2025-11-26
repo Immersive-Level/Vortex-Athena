@@ -1,76 +1,92 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[DefaultExecutionOrder(200)] // corre despu�s de tu script que fuerza la orientaci�n
+[DefaultExecutionOrder(200)]  // Se ejecuta después de los controladores de orientación
 public class ArenaWallAutoScale : MonoBehaviour
 {
-    [SerializeField] private Camera targetCamera;     // opcional; si es null usa Camera.main
-    [SerializeField] private bool continuous = false; // si true, re-ajusta cuando cambie el aspect
-    [SerializeField] private int settleFrames = 2;    // frames consecutivos con mismo aspect para considerarlo �estable�
-    [SerializeField] private int maxWaitFrames = 10;  // tope de espera tras cargar la escena
+    [Header("Cámara objetivo (opcional)")]
+    [SerializeField] private Camera targetCamera;
+
+    [Header("Ajuste automático")]
+    [SerializeField] private bool continuousAdjust = true; // reajustar si cambia aspect
+    [SerializeField] private int settleChecks = 3;          // cuántos frames iguales para estabilizar
+    [SerializeField] private int maxStartupFrames = 12;     // máximo tiempo de ajuste al inicio
 
     private SpriteRenderer sr;
     private float lastAspect = -1f;
 
-    void Awake()
+    private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        StartCoroutine(WaitAndFit());
+        StartCoroutine(AutoFitRoutine());
     }
 
-    IEnumerator WaitAndFit()
+    private IEnumerator AutoFitRoutine()
     {
         Camera cam = targetCamera != null ? targetCamera : Camera.main;
         if (cam == null || !cam.orthographic) yield break;
 
-        // Espera a que la orientaci�n/viewport se estabilice
         int stable = 0;
-        int tries = 0;
-        while (stable < settleFrames && tries < maxWaitFrames)
-        {
-            float a = cam.aspect;
-            if (Mathf.Approximately(a, lastAspect)) stable++;
-            else { stable = 0; lastAspect = a; }
+        int attempts = 0;
 
-            FitToCamera(cam);
-            tries++;
-            yield return null; // espera al siguiente frame
+        // --- 🟦 AJUSTE INICIAL — HASTA QUE LA ORIENTACIÓN ESTÉ ESTABLE ---
+        while (stable < settleChecks && attempts < maxStartupFrames)
+        {
+            float aspect = cam.aspect;
+
+            if (Mathf.Approximately(aspect, lastAspect))
+                stable++;
+            else
+            {
+                stable = 0;
+                lastAspect = aspect;
+            }
+
+            ApplyScale(cam);
+
+            attempts++;
+            yield return null;
         }
 
-        // Opcional: seguir ajustando si cambia el aspect (por split-screen, resize, etc.)
-        if (continuous)
+        // --- 🟩 AJUSTE CONTINUO (opcional) ---
+        if (continuousAdjust)
         {
-            while (enabled)
+            while (true)
             {
-                cam = targetCamera != null ? targetCamera : Camera.main;
-                if (cam != null && cam.orthographic)
+                float aspect = cam.aspect;
+
+                if (!Mathf.Approximately(aspect, lastAspect))
                 {
-                    if (!Mathf.Approximately(cam.aspect, lastAspect))
-                    {
-                        lastAspect = cam.aspect;
-                        FitToCamera(cam);
-                    }
+                    lastAspect = aspect;
+                    ApplyScale(cam);
                 }
+
                 yield return null;
             }
         }
     }
 
-    void FitToCamera(Camera cam)
+    private void ApplyScale(Camera cam)
     {
-        float worldH = cam.orthographicSize * 2f;
-        float worldW = worldH * cam.aspect;
+        // 📌 Tamaño del mundo visible
+        float worldHeight = cam.orthographicSize * 2f;
+        float worldWidth = worldHeight * cam.aspect;
 
+        // 📌 Tamaño real del sprite (en unidades del mundo)
         Vector2 spriteSize = sr.sprite.bounds.size;
 
+        // 📌 Escalado horizontal forzado (Landscape)
         Vector3 newScale = transform.localScale;
-        newScale.x = worldW / spriteSize.x;
-        newScale.y = worldH / spriteSize.y;
+        newScale.x = worldWidth / spriteSize.x;
+
+        // Sólo escalamos Y cuando sea necesario (útil si tu sprite ya está rotado a landscape)
+        newScale.y = worldHeight / spriteSize.y;
+
         transform.localScale = newScale;
     }
 }

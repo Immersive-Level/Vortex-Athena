@@ -327,4 +327,55 @@ public class SpawnAnchor2D : MonoBehaviour
             && Mathf.Approximately(a.y, b.y)
             && Mathf.Approximately(a.z, b.z);
     }
+
+    // =====================
+    //  Añadir dentro de SpawnAnchor2D
+    // =====================
+    #region Respawn Reanchor API
+
+    /// <summary>
+    /// Recalcula el anclaje AHORA mismo reutilizando tu flujo actual de OnEnable().
+    /// No modifica ningún valor serializado ni tu estructura: simplemente
+    /// fuerza el re-enable de este componente para que se dispare tu OnEnable.
+    /// </summary>
+    [ContextMenu("SpawnAnchor2D/Reanchor Now")]
+    public void ReanchorNow()
+    {
+        // Cortar cualquier coroutine propia (si las usas en OnEnable/Start)
+        try { StopAllCoroutines(); } catch { /* por si no usas coroutines */ }
+
+        // Si este componente NO está habilitado, habilítalo (disparará OnEnable de inmediato)
+        if (!isActiveAndEnabled)
+        {
+            enabled = true;
+            return;
+        }
+
+        // Si ya estaba habilitado, usamos un “toggle” 1 frame para forzar que se ejecute tu OnEnable otra vez,
+        // sin tocar ningún dato serializado ni referencias.
+        StartCoroutine(_ReenableNextFrame());
+    }
+
+    /// <summary>
+    /// Variante pensada para llamar tras el respawn. Hace lo mismo que ReanchorNow(),
+    /// solo que la dejamos con un nombre semántico para tu GameManager.
+    /// </summary>
+    public void OnPlayerRespawned()
+    {
+        ReanchorNow();
+    }
+
+    // --- helpers internos ---
+    private System.Collections.IEnumerator _ReenableNextFrame()
+    {
+        // Deshabilita este componente para que Unity llame a OnDisable (si lo tienes)
+        enabled = false;
+        // Espera 1 frame para que la cámara/orientación/rect se estabilicen si es necesario
+        yield return null;
+        // Vuelve a habilitar: Unity llamará a OnEnable y tu flujo actual se ejecutará de nuevo
+        enabled = true;
+    }
+
+    #endregion
+
 }

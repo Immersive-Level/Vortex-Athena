@@ -1,16 +1,6 @@
 # ninja log v5
-134	1030	7832012629430510	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	7f25ffb38e2afa0e
-33	11909	7832012738140750	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
-99	11382	7832012732816112	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	af17f255cf06a0b0
-1031	1305	7832012632191301	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110
-71	11403	7832012733056941	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e996b20da03cde86
-49	11455	7832012733558464	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	fd379db0fa4a6f66
-62	11546	7832012734537846	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8eabe66ce5c6076c
-90	11465	7832012733675721	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ac0f314060911a1f
-106	11791	7832012737021164	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9344fc0f9324555c
-116	11940	7832012738501875	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce3d91897c2b6137
-11940	12067	7832012739785229	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libgame.so	e9249eefa8a389a3
 140	1098	7858598739663924	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	7f25ffb38e2afa0e
+35	12698	7858598855625997	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
 1099	1542	7858598744104492	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110
 115	12203	7858598850603175	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	af17f255cf06a0b0
 78	12248	7858598851074602	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e996b20da03cde86
@@ -18,6 +8,16 @@
 91	12295	7858598851605779	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ac0f314060911a1f
 65	12340	7858598852049381	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8eabe66ce5c6076c
 103	12592	7858598854593690	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9344fc0f9324555c
-35	12698	7858598855625997	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
 127	12764	7858598856314605	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce3d91897c2b6137
 12764	12909	7858598857771882	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libgame.so	e9249eefa8a389a3
+118	1120	7858814528552237	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	7f25ffb38e2afa0e
+1121	1530	7858814532696678	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libswappywrapper.so	324d29a7b6f110
+93	12176	7858814639079295	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	af17f255cf06a0b0
+76	12204	7858814639396819	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	e996b20da03cde86
+68	12248	7858814639824827	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	fd379db0fa4a6f66
+101	12267	7858814639990400	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	ac0f314060911a1f
+61	12332	7858814640675766	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8eabe66ce5c6076c
+85	12588	7858814643255222	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9344fc0f9324555c
+39	12692	7858814644301991	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	660b908097897cb7
+109	12749	7858814644888946	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	ce3d91897c2b6137
+12750	12917	7858814646556532	C:/Users/sahen/Documents/1. Proyectos/Vortex-Athena/Vortex Athena/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1l3t715t/obj/arm64-v8a/libgame.so	e9249eefa8a389a3

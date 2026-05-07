@@ -1,0 +1,3 @@
+VortexAthena_i0S/Libraries/com.unity.services.vivox/Plug/libvivoxsdk.a filter=lfs diff=lfs merge=lfs -text
+VortexAthena_i0S/Libraries/libiPhone-lib.a filter=lfs diff=lfs merge=lfs -text
+*.a filter=lfs diff=lfs merge=lfs -text

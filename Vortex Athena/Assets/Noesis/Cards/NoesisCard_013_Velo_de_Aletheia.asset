@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d28551940e1724f8a4954e4e19fafd, type: 3}
+  m_Name: NoesisCard_013_Velo_de_Aletheia
+  m_EditorClassIdentifier: Assembly-CSharp::NoesisCardData
+  cardId: 13
+  cardNumber: 013
+  displayName: Velo de Aletheia
+  noesisMessage: Observa con mas profundidad. Lo que hoy parece confuso guarda una
+    verdad que solo se revela a quien sabe mirar mas alla de la superficie.
+  frontSprite: {fileID: 0}
+  customBackSprite: {fileID: 0}
+  revealSound: {fileID: 0}

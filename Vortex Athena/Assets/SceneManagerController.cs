@@ -10,5 +10,16 @@ public class SceneManagerController : MonoBehaviour
     {
         SceneManager.LoadScene(targetScene);
     }
+
+    public void ChangeScene(string sceneName)
+    {
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            Debug.LogWarning("[SceneManagerController] Scene name is empty.", this);
+            return;
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
 }
 

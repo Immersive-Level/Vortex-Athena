@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Velo de Aletheia
   noesisMessage: Observa con mas profundidad. Lo que hoy parece confuso guarda una
     verdad que solo se revela a quien sabe mirar mas alla de la superficie.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 5016518e44bfaf9468b2d64172f7841a, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

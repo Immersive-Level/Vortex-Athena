@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Chispa
   noesisMessage: Muevete. No esperes a que el caos termine para avanzar, porque a
     veces el impulso correcto nace justo en medio de la incertidumbre.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 66f1a95afec60144d9c702d1a8ba6f5c, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

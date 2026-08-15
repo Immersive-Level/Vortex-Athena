@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Nexo de Blindaje
   noesisMessage: Hay momentos en los que proteger tu energia no es retroceder, sino
     reconocer que no todo debe tocarte para poder transformarte.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 563f410dbc66513438c2614e78611d1a, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

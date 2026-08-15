@@ -17,6 +17,10 @@ public static class NoesisSetupRunner
     private const string ScenePath = "Assets/Scenes/NoesisReadingScene.unity";
     private const string CardPrefabPath = "Assets/Noesis/Prefabs/NoesisCardView.prefab";
     private const string MenuScenePath = "Assets/Scenes/MainMenu.unity";
+    private const string CardArtFolder = "Assets/Assets/Cartas";
+    private const string CardBackPath = CardArtFolder + "/VA_Reverso Cartas.png";
+    private const string UiSheetPath = "Assets/Assets/UI/VA_UINuevo_01.png";
+    private const string BackIconSpriteName = "VA_UINuevo_01_2";
 
     private struct CardDefinition
     {
@@ -43,7 +47,7 @@ public static class NoesisSetupRunner
     [MenuItem("Tools/Vortex Athena/Test Noesis Select First Card")]
     public static void TestSelectFirstCard()
     {
-        NoesisCardView[] cards = UnityEngine.Object.FindObjectsByType<NoesisCardView>(FindObjectsSortMode.None);
+        NoesisCardView[] cards = UnityEngine.Object.FindObjectsByType<NoesisCardView>();
         NoesisCardView card = cards.FirstOrDefault(view => view != null && view.gameObject.activeInHierarchy);
         if (card == null)
         {
@@ -53,6 +57,32 @@ public static class NoesisSetupRunner
 
         card.OnPointerClick(null);
         Debug.Log("[NoesisSetup] Selected first active Noesis card for validation.");
+    }
+
+    [MenuItem("Tools/Vortex Athena/Refresh Noesis Menu Button")]
+    public static void RefreshMenuButton()
+    {
+        AddButtonToMainMenu();
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("[NoesisSetup] MainMenu Noesis button refreshed.");
+    }
+
+    [MenuItem("Tools/Vortex Athena/Apply Noesis Presentation Corrections")]
+    public static void ApplyNoesisPresentationCorrections()
+    {
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        NoesisReadingController controller = FindSceneObject("NoesisReadingController", scene)?.GetComponent<NoesisReadingController>();
+        if (controller == null)
+        {
+            Debug.LogWarning("[NoesisSetup] NoesisReadingController was not found in NoesisReadingScene.");
+            return;
+        }
+
+        ApplyNoesisPresentationToScene(scene, controller);
+        EditorSceneManager.SaveScene(scene);
+        AssetDatabase.SaveAssets();
+        Debug.Log("[NoesisSetup] Noesis presentation corrections applied.");
     }
 
     public static string Run()
@@ -79,7 +109,8 @@ public static class NoesisSetupRunner
         string prefabsFolder = EnsureFolder(root, "Prefabs");
         string spritesFolder = EnsureFolder(root, "Sprites");
 
-        Sprite defaultBack = EnsureDefaultBackSprite(spritesFolder);
+        ConfigureCardSpriteImports();
+        Sprite defaultBack = AssetDatabase.LoadAssetAtPath<Sprite>(CardBackPath) ?? EnsureDefaultBackSprite(spritesFolder);
         List<UnityEngine.Object> cardAssets = CreateCardAssets(cardsFolder, cardDataType);
         UnityEngine.Object cardPrefabComponent = CreateCardPrefab(defaultBack, cardViewType, prefabsFolder);
         CreateNoesisScene(defaultBack, cardAssets, cardPrefabComponent, controllerType, fanLayoutType, safeAreaType);
@@ -184,6 +215,32 @@ public static class NoesisSetupRunner
         return AssetDatabase.LoadAssetAtPath<Sprite>(texturePath);
     }
 
+    private static void ConfigureCardSpriteImports()
+    {
+        for (int i = 1; i <= 17; i++)
+            ConfigureSingleSprite($"{CardArtFolder}/VA_Cartas_Juego-{i:00}.png");
+        ConfigureSingleSprite(CardBackPath);
+    }
+
+    private static void ConfigureSingleSprite(string assetPath)
+    {
+        TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+        if (importer == null)
+        {
+            Debug.LogWarning($"[NoesisSetup] Card texture not found at {assetPath}.");
+            return;
+        }
+
+        bool changed = importer.textureType != TextureImporterType.Sprite
+            || importer.spriteImportMode != SpriteImportMode.Single
+            || !importer.alphaIsTransparency;
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Single;
+        importer.alphaIsTransparency = true;
+        if (changed)
+            importer.SaveAndReimport();
+    }
+
     private static List<UnityEngine.Object> CreateCardAssets(string cardsFolder, Type cardDataType)
     {
         List<UnityEngine.Object> assets = new List<UnityEngine.Object>();
@@ -198,10 +255,17 @@ public static class NoesisSetupRunner
             }
 
             SerializedObject serialized = new SerializedObject(data);
-            serialized.FindProperty("cardId").stringValue = card.Id;
-            serialized.FindProperty("cardNumber").stringValue = card.Number;
-            serialized.FindProperty("displayName").stringValue = card.Name;
-            serialized.FindProperty("noesisMessage").stringValue = card.Message;
+            SerializedProperty cardId = serialized.FindProperty("cardId");
+            SerializedProperty cardNumber = serialized.FindProperty("cardNumber");
+            SerializedProperty displayName = serialized.FindProperty("displayName");
+            SerializedProperty noesisMessage = serialized.FindProperty("noesisMessage");
+            if (string.IsNullOrWhiteSpace(cardId.stringValue)) cardId.stringValue = card.Id;
+            if (string.IsNullOrWhiteSpace(cardNumber.stringValue)) cardNumber.stringValue = card.Number;
+            if (string.IsNullOrWhiteSpace(displayName.stringValue)) displayName.stringValue = card.Name;
+            if (string.IsNullOrWhiteSpace(noesisMessage.stringValue)) noesisMessage.stringValue = card.Message;
+
+            string frontPath = $"{CardArtFolder}/VA_Cartas_Juego-{int.Parse(card.Number):00}.png";
+            serialized.FindProperty("frontSprite").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Sprite>(frontPath);
             serialized.ApplyModifiedProperties();
             EditorUtility.SetDirty(data);
             assets.Add(data);
@@ -297,7 +361,6 @@ public static class NoesisSetupRunner
         Button consultAgainButton;
         Button backButton;
         CreateRevealSection(content, font, defaultBack, out revealSection, out revealedCardImage, out numberText, out nameText, out messageText, out consultAgainButton, out backButton);
-        NoesisCardView sceneCardTemplate = CreateSceneCardTemplate(content, defaultBack);
 
         GameObject controllerObject = new GameObject("NoesisReadingController", typeof(AudioSource));
         Component controller = controllerObject.AddComponent(controllerType);
@@ -307,7 +370,7 @@ public static class NoesisSetupRunner
         for (int i = 0; i < cardAssets.Count; i++)
             cards.GetArrayElementAtIndex(i).objectReferenceValue = cardAssets[i];
         serialized.FindProperty("fanContainer").objectReferenceValue = fanContainer;
-        serialized.FindProperty("cardPrefab").objectReferenceValue = sceneCardTemplate;
+        serialized.FindProperty("cardPrefab").objectReferenceValue = cardPrefabComponent;
         serialized.FindProperty("defaultBackSprite").objectReferenceValue = defaultBack;
         serialized.FindProperty("pickerSection").objectReferenceValue = pickerSection;
         serialized.FindProperty("revealSection").objectReferenceValue = revealSection;
@@ -328,41 +391,122 @@ public static class NoesisSetupRunner
         serialized.ApplyModifiedProperties();
         EditorUtility.SetDirty(controller);
 
+        ApplyNoesisPresentationToScene(scene, controller as NoesisReadingController);
+
         EditorSceneManager.SaveScene(scene, ScenePath);
     }
 
-    private static NoesisCardView CreateSceneCardTemplate(GameObject parent, Sprite defaultBack)
+    private static void ApplyNoesisPresentationToScene(Scene scene, NoesisReadingController controller)
     {
-        GameObject template = new GameObject("NoesisCardTemplate", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(CanvasGroup), typeof(NoesisCardView));
-        template.transform.SetParent(parent.transform, false);
-        RectTransform rectTransform = template.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(110f, 188f);
+        if (controller == null) return;
 
-        Image cardImage = template.GetComponent<Image>();
-        cardImage.sprite = defaultBack;
-        cardImage.color = Color.white;
-        cardImage.preserveAspect = true;
+        GameObject content = FindSceneObject("Content", scene);
+        GameObject header = FindSceneObject("Header", scene);
+        GameObject pickerSection = FindSceneObject("PickerSection", scene);
+        GameObject revealSection = FindSceneObject("RevealSection", scene);
+        GameObject revealedCard = FindSceneObject("RevealedCardImage", scene);
+        if (content == null || pickerSection == null || revealSection == null || revealedCard == null)
+        {
+            Debug.LogWarning("[NoesisSetup] Noesis presentation hierarchy is incomplete.");
+            return;
+        }
 
-        CanvasGroup canvasGroup = template.GetComponent<CanvasGroup>();
+        Sprite backIcon = AssetDatabase.LoadAllAssetsAtPath(UiSheetPath)
+            .OfType<Sprite>()
+            .FirstOrDefault(sprite => sprite.name == BackIconSpriteName);
+        if (backIcon == null)
+            Debug.LogWarning($"[NoesisSetup] Sprite {BackIconSpriteName} was not found in {UiSheetPath}.");
 
-        GameObject highlight = new GameObject("Highlight", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-        highlight.transform.SetParent(template.transform, false);
-        RectTransform highlightTransform = highlight.GetComponent<RectTransform>();
-        highlightTransform.anchorMin = Vector2.zero;
-        highlightTransform.anchorMax = Vector2.one;
-        highlightTransform.offsetMin = new Vector2(-5f, -5f);
-        highlightTransform.offsetMax = new Vector2(5f, 5f);
-        Image highlightImage = highlight.GetComponent<Image>();
-        highlightImage.color = new Color(0.88f, 0.74f, 0.36f, 0.22f);
-        highlightImage.raycastTarget = false;
-        highlightImage.enabled = false;
+        Button pickerBack = GetOrCreateIconButton(content.transform, "PickerBackIconButton", backIcon);
+        Button revealBack = GetOrCreateIconButton(revealSection.transform, "RevealBackIconButton", backIcon);
 
-        NoesisCardView cardView = template.GetComponent<NoesisCardView>();
-        cardView.cardImage = cardImage;
-        cardView.highlightImage = highlightImage;
-        cardView.canvasGroup = canvasGroup;
-        template.SetActive(false);
-        return cardView;
+        RectTransform revealTransform = revealSection.GetComponent<RectTransform>();
+        revealTransform.anchorMin = Vector2.zero;
+        revealTransform.anchorMax = Vector2.one;
+        revealTransform.offsetMin = Vector2.zero;
+        revealTransform.offsetMax = Vector2.zero;
+
+        GameObject cardArea = FindSceneObject("RevealedCardArea", scene);
+        if (cardArea == null)
+        {
+            cardArea = new GameObject("RevealedCardArea", typeof(RectTransform));
+            cardArea.transform.SetParent(revealSection.transform, false);
+        }
+        RectTransform areaTransform = cardArea.GetComponent<RectTransform>();
+        areaTransform.anchorMin = Vector2.zero;
+        areaTransform.anchorMax = Vector2.one;
+        areaTransform.offsetMin = new Vector2(36f, 36f);
+        areaTransform.offsetMax = new Vector2(-36f, -112f);
+        areaTransform.SetAsFirstSibling();
+
+        revealedCard.transform.SetParent(cardArea.transform, false);
+        RectTransform cardTransform = revealedCard.GetComponent<RectTransform>();
+        cardTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        cardTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        cardTransform.pivot = new Vector2(0.5f, 0.5f);
+        cardTransform.anchoredPosition = Vector2.zero;
+        cardTransform.sizeDelta = new Vector2(860f, 1473f);
+        Image revealedImage = revealedCard.GetComponent<Image>();
+        revealedImage.preserveAspect = true;
+        AspectRatioFitter fitter = revealedCard.GetComponent<AspectRatioFitter>() ?? revealedCard.AddComponent<AspectRatioFitter>();
+        fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+        fitter.aspectRatio = 414f / 709f;
+
+        string[] hiddenRevealObjects =
+        {
+            "RevealedCardNumberText",
+            "RevealedCardNameText",
+            "RevealedCardMessageText",
+            "Buttons"
+        };
+        foreach (string objectName in hiddenRevealObjects)
+        {
+            GameObject hiddenObject = FindSceneObject(objectName, scene);
+            if (hiddenObject != null)
+                hiddenObject.SetActive(false);
+        }
+
+        controller.headerRoot = header;
+        controller.pickerBackButton = pickerBack;
+        controller.revealBackButton = revealBack;
+        controller.pickerBackButtonImage = pickerBack.GetComponent<Image>();
+        controller.revealBackButtonImage = revealBack.GetComponent<Image>();
+        controller.fanScaleFactor = 1.25f;
+        NoesisFanLayout fanLayout = controller.fanContainer != null ? controller.fanContainer.GetComponent<NoesisFanLayout>() : null;
+        if (fanLayout != null)
+            fanLayout.maxCardHeight = 400f;
+
+        EditorUtility.SetDirty(controller);
+        EditorUtility.SetDirty(revealTransform);
+        EditorUtility.SetDirty(cardTransform);
+        EditorSceneManager.MarkSceneDirty(scene);
+    }
+
+    private static Button GetOrCreateIconButton(Transform parent, string name, Sprite sprite)
+    {
+        Transform existing = parent.Find(name);
+        GameObject gameObject = existing != null
+            ? existing.gameObject
+            : new GameObject(name, typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(Button));
+        gameObject.transform.SetParent(parent, false);
+        gameObject.SetActive(true);
+        gameObject.transform.SetAsLastSibling();
+
+        RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+        rectTransform.anchorMin = Vector2.one;
+        rectTransform.anchorMax = Vector2.one;
+        rectTransform.pivot = Vector2.one;
+        rectTransform.anchoredPosition = new Vector2(-20f, -20f);
+        rectTransform.sizeDelta = new Vector2(96f, 96f);
+
+        Image image = gameObject.GetComponent<Image>();
+        image.sprite = sprite;
+        image.type = Image.Type.Simple;
+        image.preserveAspect = true;
+        image.color = Color.white;
+        Button button = gameObject.GetComponent<Button>();
+        button.targetGraphic = image;
+        return button;
     }
 
     private static void CreateCamera()
@@ -423,9 +567,9 @@ public static class NoesisSetupRunner
         pickerSection.transform.SetParent(content.transform, false);
         RectTransform pickerTransform = pickerSection.GetComponent<RectTransform>();
         pickerTransform.anchorMin = new Vector2(0f, 0f);
-        pickerTransform.anchorMax = new Vector2(1f, 1f);
+        pickerTransform.anchorMax = new Vector2(1f, 0.72f);
         pickerTransform.offsetMin = Vector2.zero;
-        pickerTransform.offsetMax = new Vector2(0f, -315f);
+        pickerTransform.offsetMax = Vector2.zero;
 
         instructionText = AddText(pickerSection, "InstructionText", "ELIGE UNA CARTA", 34f, new Color(0.79f, 0.66f, 0.30f, 1f), TextAlignmentOptions.Center, font);
         SetTopRect(instructionText.rectTransform, -6f, 70f);
@@ -446,9 +590,9 @@ public static class NoesisSetupRunner
         revealSection.transform.SetParent(content.transform, false);
         RectTransform revealTransform = revealSection.GetComponent<RectTransform>();
         revealTransform.anchorMin = Vector2.zero;
-        revealTransform.anchorMax = Vector2.one;
+        revealTransform.anchorMax = new Vector2(1f, 0.72f);
         revealTransform.offsetMin = Vector2.zero;
-        revealTransform.offsetMax = new Vector2(0f, -315f);
+        revealTransform.offsetMax = Vector2.zero;
         revealSection.SetActive(false);
 
         GameObject revealedCard = new GameObject("RevealedCardImage", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(AspectRatioFitter));
@@ -524,33 +668,37 @@ public static class NoesisSetupRunner
         GameObject sceneControllerObject = FindSceneObject("SceneManagerController", menuScene);
         SceneManagerController sceneController = sceneControllerObject != null ? sceneControllerObject.GetComponent<SceneManagerController>() : null;
 
+        GameObject templateButton = FindSceneObject("PlayLocal", menuScene);
+        if (templateButton == null)
+        {
+            Debug.LogWarning("[NoesisSetup] Could not find PlayLocal in MainMenu; button not created.");
+            EditorSceneManager.SaveScene(menuScene);
+            return;
+        }
+
         GameObject existingButton = FindSceneObject("NoesisReadingBtn", menuScene);
+        if (existingButton != null && existingButton.transform.parent != templateButton.transform.parent)
+        {
+            UnityEngine.Object.DestroyImmediate(existingButton);
+            existingButton = null;
+        }
+
         if (existingButton == null)
         {
-            GameObject localButton = FindSceneObject("LocalBtn", menuScene);
-            if (localButton == null)
-            {
-                Debug.LogWarning("[NoesisSetup] Could not find LocalBtn in MainMenu; button not created.");
-                EditorSceneManager.SaveScene(menuScene);
-                return;
-            }
-
-            existingButton = UnityEngine.Object.Instantiate(localButton, localButton.transform.parent);
+            existingButton = UnityEngine.Object.Instantiate(templateButton, templateButton.transform.parent);
             existingButton.name = "NoesisReadingBtn";
-            RectTransform noesisTransform = existingButton.GetComponent<RectTransform>();
-            noesisTransform.sizeDelta = new Vector2(520f, 100f);
-            noesisTransform.anchoredPosition = new Vector2(noesisTransform.anchoredPosition.x, noesisTransform.anchoredPosition.y - 130f);
-            noesisTransform.SetSiblingIndex(localButton.transform.GetSiblingIndex() + 1);
+            existingButton.transform.SetSiblingIndex(Mathf.Min(2, existingButton.transform.parent.childCount - 1));
+        }
 
-            TextMeshProUGUI label = existingButton.GetComponentInChildren<TextMeshProUGUI>(true);
-            if (label != null)
-            {
-                label.text = "LECTURA DE NOESIS";
-                label.fontSizeMax = 42f;
-                label.fontSizeMin = 16f;
-                label.textWrappingMode = TextWrappingModes.Normal;
-                label.alignment = TextAlignmentOptions.Center;
-            }
+        TextMeshProUGUI label = existingButton.GetComponentInChildren<TextMeshProUGUI>(true);
+        if (label != null)
+        {
+            label.text = "LECTURA DE NOESIS";
+            label.enableAutoSizing = true;
+            label.fontSizeMax = 42f;
+            label.fontSizeMin = 14f;
+            label.textWrappingMode = TextWrappingModes.Normal;
+            label.alignment = TextAlignmentOptions.Center;
         }
 
         Button button = existingButton.GetComponent<Button>();

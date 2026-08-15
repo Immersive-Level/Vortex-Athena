@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Lucaris
   noesisMessage: Lo mas valioso se esconde tras el polvo. No te desesperes buscando
     respuestas inmediatas. Observa, razona, y confia en que tu mente sera tu faro.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: ad6241c75c2aff24b963531c853e48cc, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

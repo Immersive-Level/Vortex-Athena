@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Zeta
   noesisMessage: Tu mente como herramienta es sagrada. No permitas que tus miedos
     bloqueen tu potencial. Eres capaz de grandes logros, pero debes atreverte a confiar.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 6181ad491c8e5c24382e0c92afb9c0b1, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

@@ -17,6 +17,6 @@ MonoBehaviour:
   displayName: Halora
   noesisMessage: El universo tiene patrones; tu mision es reconocerlos antes de moverte.
     No reacciones por miedo, ordena tus ideas y responde con claridad.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 492e10838ee7a3447be51a957addc68b, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

@@ -18,6 +18,6 @@ MonoBehaviour:
   noesisMessage: Actua sin adornos. No expliques tanto. No pidas permiso. La llama
     en ti no es decorativa, es impulso, es decision. Haz que tus pasos quemen, no
     que suenen.
-  frontSprite: {fileID: 0}
+  frontSprite: {fileID: 21300000, guid: 4a6bd7b2b9f015f4f96b7a8c68dc7ac1, type: 3}
   customBackSprite: {fileID: 0}
   revealSound: {fileID: 0}

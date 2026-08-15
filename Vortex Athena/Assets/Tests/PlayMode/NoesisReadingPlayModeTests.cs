@@ -47,11 +47,18 @@ public class NoesisReadingPlayModeTests
         }
         Assert.IsNotNull(GetField(controller, "defaultBackSprite"));
 
-        float introDuration = GetFloat(controller, "fanIntroDuration");
-        yield return new WaitForSecondsRealtime(introDuration + 0.2f);
+        float openDuration = GetFloat(controller, "openAnimationDuration");
+        float staggerDelay = GetFloat(controller, "staggerDelay");
+        float totalOpenDuration = openDuration + staggerDelay * 16f;
+        yield return WaitForCardCount(cardViewType, 17);
 
         List<Component> views = FindActiveSceneComponents(cardViewType);
         Assert.AreEqual(17, views.Count, "The fan must instantiate all 17 cards.");
+        float stackedMinX = views.Min(view => view.GetComponent<RectTransform>().anchoredPosition.x);
+        float stackedMaxX = views.Max(view => view.GetComponent<RectTransform>().anchoredPosition.x);
+        Assert.Less(stackedMaxX - stackedMinX, 20f, "Cards must begin as a compact stacked deck.");
+
+        yield return new WaitForSecondsRealtime(totalOpenDuration + 0.2f);
         foreach (Component view in views)
         {
             CanvasGroup group = view.GetComponent<CanvasGroup>();
@@ -62,15 +69,61 @@ public class NoesisReadingPlayModeTests
             Assert.IsNotNull(view.GetComponent<Image>().sprite);
         }
 
-        views = views.OrderBy(view => view.GetComponent<RectTransform>().anchoredPosition.x).ToList();
-        RectTransform leftCard = views[0].GetComponent<RectTransform>();
-        RectTransform centerCard = views[views.Count / 2].GetComponent<RectTransform>();
-        RectTransform rightCard = views[views.Count - 1].GetComponent<RectTransform>();
-        Assert.Greater(centerCard.anchoredPosition.y, leftCard.anchoredPosition.y, "The fan center must sit above the left edge.");
-        Assert.Greater(centerCard.anchoredPosition.y, rightCard.anchoredPosition.y, "The fan center must sit above the right edge.");
-        Assert.Greater(Mathf.DeltaAngle(0f, leftCard.localEulerAngles.z), 0f, "Left cards must open outward.");
-        Assert.Less(Mathf.DeltaAngle(0f, rightCard.localEulerAngles.z), 0f, "Right cards must open outward.");
-        Assert.That(GetFloat(controller, "fanScaleFactor"), Is.EqualTo(1.25f).Within(0.01f));
+        Type fanLayoutType = FindProjectType("NoesisFanLayout");
+        Component fanLayout = fanContainer.GetComponent(fanLayoutType);
+        Vector2 radialCenter = (Vector2)GetProperty(fanLayout, "LastRadialCenter");
+        List<float> radialAngles = new List<float>();
+        RectTransform representativeCard = views[0].GetComponent<RectTransform>();
+        foreach (Component view in views)
+        {
+            RectTransform cardTransform = view.GetComponent<RectTransform>();
+            Vector2 fromCenter = cardTransform.anchoredPosition - radialCenter;
+            float radialAngle = Mathf.Atan2(fromCenter.x, fromCenter.y) * Mathf.Rad2Deg;
+            radialAngles.Add(radialAngle);
+            Assert.That(
+                Mathf.Abs(Mathf.DeltaAngle(0f, cardTransform.localEulerAngles.z) + radialAngle),
+                Is.LessThan(1f),
+                "Each card must face away from the radial center.");
+        }
+
+        Assert.Greater(radialAngles.Max() - radialAngles.Min(), 280f, "Cards must cover a near-complete circle.");
+        Assert.IsTrue(views.Any(view => view.GetComponent<RectTransform>().anchoredPosition.y > radialCenter.y));
+        Assert.IsTrue(views.Any(view => view.GetComponent<RectTransform>().anchoredPosition.y < radialCenter.y));
+        Assert.IsTrue(views.Any(view => view.GetComponent<RectTransform>().anchoredPosition.x > radialCenter.x));
+        Assert.IsTrue(views.Any(view => view.GetComponent<RectTransform>().anchoredPosition.x < radialCenter.x));
+        Assert.Less(Mathf.Abs(radialCenter.x - fanContainer.rect.width * 0.5f), fanContainer.rect.width * 0.2f);
+        Assert.Less(Mathf.Abs(radialCenter.y - fanContainer.rect.height * 0.5f), fanContainer.rect.height * 0.25f);
+        Assert.Greater(views.Max(view => view.GetComponent<RectTransform>().anchoredPosition.x)
+            - views.Min(view => view.GetComponent<RectTransform>().anchoredPosition.x), representativeCard.rect.width);
+        Assert.That(GetFloat(controller, "cardScale"), Is.EqualTo(1.25f).Within(0.01f));
+        Assert.That(GetFloat(controller, "fanRadius"), Is.GreaterThan(0f));
+        Assert.That(GetFloat(controller, "totalAngle"), Is.GreaterThan(280f));
+
+        Vector2 averagePivot = Vector2.zero;
+        List<Vector2> bottomPivots = new List<Vector2>();
+        foreach (Component view in views)
+        {
+            RectTransform cardTransform = view.GetComponent<RectTransform>();
+            Vector2 bottomPivot = cardTransform.anchoredPosition
+                + (Vector2)(cardTransform.localRotation * new Vector3(0f, -cardTransform.rect.height * 0.5f, 0f));
+            bottomPivots.Add(bottomPivot);
+            averagePivot += bottomPivot;
+        }
+        averagePivot /= bottomPivots.Count;
+        float pivotSpread = bottomPivots.Max(point => Vector2.Distance(point, averagePivot));
+        Assert.Less(pivotSpread, representativeCard.rect.width * 0.2f, "Cards must share a compact radial pivot.");
+
+        GameObject headerRoot = (GameObject)GetField(controller, "headerRoot");
+        Assert.IsTrue(headerRoot.activeInHierarchy, "Title and subtitle must remain visible above the radial fan.");
+        TMP_Text titleText = (TMP_Text)GetField(controller, "titleText");
+        TMP_Text subtitleText = (TMP_Text)GetField(controller, "subtitleText");
+        Assert.IsTrue(titleText.gameObject.activeInHierarchy);
+        Assert.IsTrue(subtitleText.gameObject.activeInHierarchy);
+        float titleWorldY = titleText.rectTransform.TransformPoint(titleText.rectTransform.rect.center).y;
+        float subtitleWorldY = subtitleText.rectTransform.TransformPoint(subtitleText.rectTransform.rect.center).y;
+        float fanWorldY = views.Average(view => view.GetComponent<RectTransform>().TransformPoint(view.GetComponent<RectTransform>().rect.center).y);
+        Assert.Greater(titleWorldY, fanWorldY, "The title must remain above the radial fan.");
+        Assert.Greater(subtitleWorldY, fanWorldY, "The subtitle must remain above the radial fan.");
 
         Button pickerBackButton = (Button)GetField(controller, "pickerBackButton");
         Assert.IsTrue(pickerBackButton.gameObject.activeInHierarchy);
@@ -81,7 +134,10 @@ public class NoesisReadingPlayModeTests
         GameObject.Find("NoesisReadingBtn").GetComponent<Button>().onClick.Invoke();
         yield return WaitForScene("NoesisReadingScene");
         controller = FindSceneComponent(controllerType);
-        yield return new WaitForSecondsRealtime(GetFloat(controller, "fanIntroDuration") + 0.2f);
+        yield return new WaitForSecondsRealtime(
+            GetFloat(controller, "openAnimationDuration")
+            + GetFloat(controller, "staggerDelay") * 16f
+            + 0.2f);
         views = FindActiveSceneComponents(cardViewType);
 
         Component selectedView = views[0];
@@ -116,7 +172,7 @@ public class NoesisReadingPlayModeTests
         float heightUsage = revealedTransform.rect.height / Mathf.Max(1f, parentRect.height);
         Assert.Greater(Mathf.Max(widthUsage, heightUsage), 0.85f, "The revealed card must use most of its available area.");
 
-        GameObject headerRoot = (GameObject)GetField(controller, "headerRoot");
+        headerRoot = (GameObject)GetField(controller, "headerRoot");
         Assert.IsFalse(headerRoot.activeSelf, "The header must be hidden in reveal view.");
         Assert.AreEqual(0, revealSection.GetComponentsInChildren<TMP_Text>(false).Length, "Reveal view must contain no visible text.");
         Button consultAgainButton = (Button)GetField(controller, "consultAgainButton");
@@ -126,7 +182,7 @@ public class NoesisReadingPlayModeTests
         Assert.IsTrue(revealBackButton.gameObject.activeInHierarchy);
         Assert.AreEqual("VA_UINuevo_01_2", revealBackButton.GetComponent<Image>().sprite.name);
         revealBackButton.onClick.Invoke();
-        yield return new WaitForSecondsRealtime(GetFloat(controller, "revealFadeDuration") + introDuration + 0.4f);
+        yield return new WaitForSecondsRealtime(GetFloat(controller, "revealFadeDuration") + totalOpenDuration + 0.4f);
 
         Assert.AreEqual("NoesisReadingScene", SceneManager.GetActiveScene().name);
         Assert.IsTrue(pickerSection.activeSelf, "PickerSection must return from the revealed card.");
@@ -146,6 +202,14 @@ public class NoesisReadingPlayModeTests
             yield return null;
         Assert.AreEqual(sceneName, SceneManager.GetActiveScene().name);
         yield return null;
+    }
+
+    private static IEnumerator WaitForCardCount(Type cardViewType, int expectedCount)
+    {
+        float timeout = Time.realtimeSinceStartup + 5f;
+        while (FindActiveSceneComponents(cardViewType).Count < expectedCount && Time.realtimeSinceStartup < timeout)
+            yield return null;
+        Assert.AreEqual(expectedCount, FindActiveSceneComponents(cardViewType).Count);
     }
 
     private static Type FindProjectType(string name)

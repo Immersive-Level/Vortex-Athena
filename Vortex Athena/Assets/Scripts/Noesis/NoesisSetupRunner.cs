@@ -471,10 +471,20 @@ public static class NoesisSetupRunner
         controller.revealBackButton = revealBack;
         controller.pickerBackButtonImage = pickerBack.GetComponent<Image>();
         controller.revealBackButtonImage = revealBack.GetComponent<Image>();
-        controller.fanScaleFactor = 1.25f;
+        controller.fanRadius = 240f;
+        controller.totalAngle = 320f;
+        controller.cardScale = 1.25f;
+        controller.angleStep = 20f;
+        controller.fanCenterOffset = new Vector2(0f, -10f);
+        controller.openAnimationDuration = 0.72f;
+        controller.staggerDelay = 0.025f;
+        controller.stackedStartOffset = new Vector2(0f, -36f);
         NoesisFanLayout fanLayout = controller.fanContainer != null ? controller.fanContainer.GetComponent<NoesisFanLayout>() : null;
         if (fanLayout != null)
-            fanLayout.maxCardHeight = 400f;
+        {
+            fanLayout.baseCardHeight = 380f;
+            fanLayout.maxCardHeight = 500f;
+        }
 
         EditorUtility.SetDirty(controller);
         EditorUtility.SetDirty(revealTransform);

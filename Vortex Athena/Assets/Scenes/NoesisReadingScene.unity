@@ -1380,13 +1380,40 @@ MonoBehaviour:
   revealBackButtonImage: {fileID: 1832317817}
   consultAgainButton: {fileID: 1027442609}
   backButton: {fileID: 564403762}
-  fanArcDegrees: 68
-  fanRadiusFactor: 2.6
-  fanHorizontalFactor: 0.55
-  fanScaleFactor: 1.25
+  fanRadius: 240
+  totalAngle: 320
+  cardScale: 1.25
+  angleStep: 20
+  fanCenterOffset: {x: 0, y: -10}
   cardHoverLift: 24
   cardHoverScale: 1.06
-  fanIntroDuration: 0.65
+  openAnimationDuration: 0.72
+  staggerDelay: 0.025
+  stackedStartOffset: {x: 0, y: -36}
+  openAnimationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   selectedCardMoveDuration: 0.38
   cardFlipDuration: 0.46
   flyAwayDuration: 0.55
@@ -2203,11 +2230,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoesisFanLayout
   cardAspectRatio: 0.583921
-  maxCardHeight: 400
+  baseCardHeight: 380
+  maxCardHeight: 500
   minCardHeight: 90
   widthPadding: 12
-  heightUsage: 0.92
-  verticalArcFactor: 0.18
+  heightPadding: 18
 --- !u!1 &1665670459
 GameObject:
   m_ObjectHideFlags: 0

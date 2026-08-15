@@ -103,21 +103,25 @@ public class NoesisCardView : MonoBehaviour, IPointerClickHandler, IPointerEnter
         canvasGroup.blocksRaycasts = value && interactable;
     }
 
-    public IEnumerator PlayIntro(float delay, float duration)
+    public IEnumerator PlayFanOpen(
+        float delay,
+        float duration,
+        Vector2 stackPosition,
+        Vector2 stackedStartOffset,
+        AnimationCurve openCurve)
     {
         transitionLocked = true;
         SetInteractable(false);
         Vector2 endPosition = baseAnchoredPosition;
-        Vector2 startPosition = endPosition - Vector2.up * Mathf.Min(rectTransform.rect.height * 0.2f, 55f);
+        Vector2 startPosition = stackPosition + stackedStartOffset;
         Quaternion endRotation = baseRotation;
-        float signedEndAngle = Mathf.DeltaAngle(0f, endRotation.eulerAngles.z);
-        Quaternion startRotation = Quaternion.Euler(0f, 0f, signedEndAngle * 0.65f);
-        Vector3 startScale = Vector3.one * 0.86f;
+        Quaternion startRotation = Quaternion.identity;
+        Vector3 startScale = Vector3.one * 0.96f;
 
         rectTransform.anchoredPosition = startPosition;
         rectTransform.localRotation = startRotation;
         rectTransform.localScale = startScale;
-        if (canvasGroup != null) canvasGroup.alpha = 0f;
+        if (canvasGroup != null) canvasGroup.alpha = 1f;
 
         yield return WaitRealtime(delay);
 
@@ -125,11 +129,10 @@ public class NoesisCardView : MonoBehaviour, IPointerClickHandler, IPointerEnter
         while (elapsed < duration)
         {
             elapsed += Time.unscaledDeltaTime;
-            float t = Evaluate(movementCurve, elapsed / Mathf.Max(duration, 0.0001f));
+            float t = Evaluate(openCurve, elapsed / Mathf.Max(duration, 0.0001f));
             rectTransform.anchoredPosition = Vector2.LerpUnclamped(startPosition, endPosition, t);
             rectTransform.localRotation = Quaternion.SlerpUnclamped(startRotation, endRotation, t);
             rectTransform.localScale = Vector3.LerpUnclamped(startScale, Vector3.one, t);
-            if (canvasGroup != null) canvasGroup.alpha = Mathf.Clamp01(t);
             yield return null;
         }
 

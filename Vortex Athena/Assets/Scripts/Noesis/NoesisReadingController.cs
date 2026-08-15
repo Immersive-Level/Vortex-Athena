@@ -33,16 +33,21 @@ public class NoesisReadingController : MonoBehaviour
     [Tooltip("Legacy hidden button retained for scene compatibility.")]
     public Button backButton;
 
-    [Header("Fan Layout")]
-    [Range(0f, 160f)] public float fanArcDegrees = 68f;
-    [FormerlySerializedAs("radiusFactor")] public float fanRadiusFactor = 2.6f;
-    [FormerlySerializedAs("horizontalFactor")] public float fanHorizontalFactor = 0.55f;
-    [Range(0.5f, 1.5f)] public float fanScaleFactor = 1.25f;
+    [Header("Radial Fan Layout")]
+    [Min(0f)] public float fanRadius = 240f;
+    [FormerlySerializedAs("fanArcDegrees"), Range(0f, 350f)] public float totalAngle = 320f;
+    [FormerlySerializedAs("fanScaleFactor"), Range(0.5f, 1.75f)] public float cardScale = 1.25f;
+    [Min(0f), Tooltip("Zero distributes cards evenly across Total Angle.")]
+    public float angleStep = 20f;
+    public Vector2 fanCenterOffset = new Vector2(0f, -10f);
     public float cardHoverLift = 24f;
     [Min(1f)] public float cardHoverScale = 1.06f;
 
     [Header("Animation")]
-    [Min(0f)] public float fanIntroDuration = 0.65f;
+    [FormerlySerializedAs("fanIntroDuration"), Min(0f)] public float openAnimationDuration = 0.72f;
+    [Min(0f)] public float staggerDelay = 0.025f;
+    public Vector2 stackedStartOffset = new Vector2(0f, -36f);
+    public AnimationCurve openAnimationCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
     [Min(0f)] public float selectedCardMoveDuration = 0.38f;
     [Min(0f)] public float cardFlipDuration = 0.46f;
     [Min(0f)] public float flyAwayDuration = 0.55f;
@@ -253,13 +258,16 @@ public class NoesisReadingController : MonoBehaviour
         state = ReadingState.Introducing;
         TrySetTrigger(pickerAnimator, "Show");
 
-        float cardDuration = fanIntroDuration * 0.72f;
-        float staggerRange = Mathf.Max(0f, fanIntroDuration - cardDuration);
-        float stagger = activeViews.Count > 1 ? staggerRange / (activeViews.Count - 1) : 0f;
         for (int i = 0; i < activeViews.Count; i++)
-            StartCoroutine(activeViews[i].PlayIntro(i * stagger, cardDuration));
+        {
+            StartCoroutine(activeViews[i].PlayFanOpen(
+                i * staggerDelay,
+                openAnimationDuration,
+                fanLayout.LastStackPosition,
+                stackedStartOffset,
+                openAnimationCurve));
+        }
 
-        yield return WaitRealtime(fanIntroDuration);
         bool introStillRunning;
         do
         {
@@ -406,7 +414,7 @@ public class NoesisReadingController : MonoBehaviour
     {
         if (fanLayout == null || fanContainer == null) return;
         lastFanSize = fanContainer.rect.size;
-        fanLayout.ApplyLayout(activeViews, fanArcDegrees, fanRadiusFactor, fanHorizontalFactor, fanScaleFactor);
+        fanLayout.ApplyLayout(activeViews, fanRadius, totalAngle, cardScale, angleStep, fanCenterOffset);
     }
 
     private void ClearCards()

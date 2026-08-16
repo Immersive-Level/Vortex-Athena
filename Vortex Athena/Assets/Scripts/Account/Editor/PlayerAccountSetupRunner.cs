@@ -25,7 +25,7 @@ public static class PlayerAccountSetupRunner
     [MenuItem("Tools/Vortex Athena/Setup Player Account Base")]
     public static void RunFromMenu()
     {
-        CreateAccountScene();
+        PlayerProfileSceneBuilder.BuildAccountScene();
         AddSceneToBuildSettings();
         WireMainMenu();
         AssetDatabase.SaveAssets();
@@ -102,6 +102,33 @@ public static class PlayerAccountSetupRunner
         ClickRuntimeButton("BackButton");
     }
 
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Previous Character")]
+    public static void ClickPreviousCharacter() => ClickRuntimeButton("PreviousCharacterButton");
+
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Next Character")]
+    public static void ClickNextCharacter() => ClickRuntimeButton("NextCharacterButton");
+
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Select Character")]
+    public static void ClickSelectCharacter() => ClickRuntimeButton("SelectCharacterButton");
+
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Open Username Editor")]
+    public static void OpenUsernameEditor() => ClickRuntimeButton("EditUsernameButton");
+
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Set Test Username And Save")]
+    public static void SetTestUsernameAndSave()
+    {
+        if (!EditorApplication.isPlaying) return;
+        TMP_InputField input = Resources.FindObjectsOfTypeAll<TMP_InputField>()
+            .FirstOrDefault(candidate => candidate.name == "UsernameInput" && candidate.gameObject.activeInHierarchy);
+        if (input == null)
+        {
+            Debug.LogWarning("[PlayerAccountTest] Active UsernameInput was not found.");
+            return;
+        }
+        input.text = "Perfil MCP";
+        ClickRuntimeButton("SaveUsernameButton");
+    }
+
     [MenuItem("Tools/Vortex Athena/Test Account/Report State")]
     public static void ReportRuntimeState()
     {
@@ -130,9 +157,10 @@ public static class PlayerAccountSetupRunner
         }
 
         PlayerAccountController controller = Object.FindFirstObjectByType<PlayerAccountController>();
-        if (controller == null || !controller.IsShowingProfile)
+        if (controller == null || (controller.SessionState != PlayerSessionState.Guest
+            && controller.SessionState != PlayerSessionState.Linked))
         {
-            Debug.LogWarning("[PlayerAccountTest] A linked mock account is required.");
+            Debug.LogWarning("[PlayerAccountTest] An authenticated Guest or Linked session is required.");
             return;
         }
 

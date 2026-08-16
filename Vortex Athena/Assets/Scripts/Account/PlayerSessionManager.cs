@@ -20,7 +20,7 @@ public sealed class PlayerSessionManager : MonoBehaviour
     public event Action<PlayerProfileData> ProfileChanged;
 
     [Header("Authentication")]
-    [SerializeField] private bool useMockAuthInEditor = true;
+    [SerializeField] private bool useMockAuthInEditor;
     [SerializeField] private bool autoSignInAnonymously = true;
     [Tooltip("Assign an Android Google Play Games or iOS Apple/Game Center adapter when installed.")]
     [SerializeField] private PlatformAccountLinkerBehaviour platformLinker;
@@ -33,6 +33,8 @@ public sealed class PlayerSessionManager : MonoBehaviour
     public string LastError { get; private set; }
     public string LastErrorDetails { get; private set; }
     public string LastPersistenceWarning => repository?.LastWarning;
+    public PlayerProfileLoadSource LastProfileLoadSource => repository?.LastLoadSource ?? PlayerProfileLoadSource.None;
+    public bool LastCloudSaveSucceeded => repository?.LastCloudSaveSucceeded ?? false;
     public bool IsBusy { get; private set; }
     public bool IsSignedIn => State == PlayerSessionState.Guest || State == PlayerSessionState.Linked;
     public bool IsAuthenticated => IsSignedIn;

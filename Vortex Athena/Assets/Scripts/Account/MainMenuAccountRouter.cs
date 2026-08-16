@@ -28,6 +28,15 @@ public sealed class MainMenuAccountRouter : MonoBehaviour
 
     public bool IsOnlineLocked => session == null || !session.IsLinkedAccount;
     public bool IsLoginRequiredDialogVisible => loginRequiredDialog != null && loginRequiredDialog.activeSelf;
+    public PlayerSessionState SessionState => session != null ? session.State : PlayerSessionState.NotInitialized;
+    public string PlayerId => session?.GetPlayerId() ?? string.Empty;
+    public string AuthenticationProvider => session?.ProviderName ?? string.Empty;
+    public bool IsUsingMockAuthentication => session?.IsUsingSimulatedProvider ?? true;
+    public string ProfileUsername => session?.Profile?.username ?? string.Empty;
+    public string ProfileLoadSource => session?.LastProfileLoadSource.ToString() ?? PlayerProfileLoadSource.None.ToString();
+    public bool CloudSaveSucceeded => session?.LastCloudSaveSucceeded ?? false;
+    public string AccountError => session?.LastError ?? string.Empty;
+    public string PersistenceWarning => session?.LastPersistenceWarning ?? string.Empty;
 
     private PlayerSessionManager session;
     private Color onlineBaseColor = Color.white;

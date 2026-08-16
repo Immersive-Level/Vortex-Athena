@@ -49,7 +49,7 @@ public sealed class PlayerProfileData
         isLinkedAccount = linked;
         if (string.IsNullOrWhiteSpace(selectedCharacterId)) selectedCharacterId = "default";
         unlockedCharacters ??= new List<string>();
-        if (!unlockedCharacters.Contains(selectedCharacterId)) unlockedCharacters.Add(selectedCharacterId);
+        if (!unlockedCharacters.Contains("default")) unlockedCharacters.Add("default");
         claimedRewards ??= new List<string>();
         if (string.IsNullOrWhiteSpace(profileCreatedAt)) profileCreatedAt = DateTime.UtcNow.ToString("O");
         lastLoginDate = DateTime.UtcNow.ToString("O");

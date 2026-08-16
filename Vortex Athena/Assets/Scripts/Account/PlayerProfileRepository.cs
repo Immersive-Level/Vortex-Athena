@@ -6,9 +6,19 @@ using Unity.Services.Authentication;
 using Unity.Services.CloudSave;
 using UnityEngine;
 
+public enum PlayerProfileLoadSource
+{
+    None,
+    CloudSave,
+    LocalCache,
+    CreatedDefault
+}
+
 public interface IPlayerProfileRepository
 {
     string LastWarning { get; }
+    PlayerProfileLoadSource LastLoadSource { get; }
+    bool LastCloudSaveSucceeded { get; }
     Task<PlayerProfileData> LoadProfileAsync();
     Task<PlayerProfileData> CreateDefaultProfileAsync(string playerId, string accountType, bool linked);
     Task SaveProfileAsync(PlayerProfileData profile);
@@ -24,6 +34,8 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
     private readonly bool useCloudSave;
 
     public string LastWarning { get; private set; }
+    public PlayerProfileLoadSource LastLoadSource { get; private set; }
+    public bool LastCloudSaveSucceeded { get; private set; }
 
     public PlayerProfileRepository(string playerId, bool useCloudSave)
     {
@@ -34,6 +46,7 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
     public async Task<PlayerProfileData> LoadProfileAsync()
     {
         LastWarning = null;
+        LastLoadSource = PlayerProfileLoadSource.None;
         if (CanUseCloudSave())
         {
             try
@@ -47,6 +60,7 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
                     if (cloudProfile != null)
                     {
                         SaveLocal(cloudProfile);
+                        LastLoadSource = PlayerProfileLoadSource.CloudSave;
                         return cloudProfile;
                     }
                 }
@@ -58,13 +72,17 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
             }
         }
 
-        return LoadLocal();
+        PlayerProfileData localProfile = LoadLocal();
+        if (localProfile != null)
+            LastLoadSource = PlayerProfileLoadSource.LocalCache;
+        return localProfile;
     }
 
     public async Task<PlayerProfileData> CreateDefaultProfileAsync(string id, string accountType, bool linked)
     {
         PlayerProfileData profile = PlayerProfileData.CreateDefault(id, accountType, linked);
         await SaveProfileAsync(profile);
+        LastLoadSource = PlayerProfileLoadSource.CreatedDefault;
         return profile;
     }
 
@@ -74,6 +92,7 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
             throw new ArgumentNullException(nameof(profile));
 
         SaveLocal(profile);
+        LastCloudSaveSucceeded = false;
         if (!CanUseCloudSave())
             return;
 
@@ -83,6 +102,7 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
                 new Dictionary<string, object> { { CloudKey, profile } },
                 new Unity.Services.CloudSave.Models.Data.Player.SaveOptions());
             LastWarning = null;
+            LastCloudSaveSucceeded = true;
         }
         catch (Exception exception)
         {
@@ -96,8 +116,6 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
         if (string.IsNullOrWhiteSpace(characterId))
             throw new ArgumentException("El personaje seleccionado no puede estar vacio.", nameof(characterId));
         profile.selectedCharacterId = characterId.Trim();
-        if (!profile.unlockedCharacters.Contains(profile.selectedCharacterId))
-            profile.unlockedCharacters.Add(profile.selectedCharacterId);
         return SaveProfileAsync(profile);
     }
 

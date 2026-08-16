@@ -10,6 +10,7 @@ public sealed class PlayerAccountController : MonoBehaviour
     [SerializeField] private GameObject registerPanel;
     [SerializeField] private GameObject profilePanel;
     [SerializeField] private GameObject busyOverlay;
+    [SerializeField] private PlayerProfileViewController profileViewController;
 
     [Header("Guest / Link")]
     [SerializeField] private Button simulatedLoginButton;
@@ -29,15 +30,22 @@ public sealed class PlayerAccountController : MonoBehaviour
 
     [Header("Navigation")]
     [SerializeField] private Button backButton;
+    [SerializeField] private Button signedOutBackButton;
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     public bool IsShowingLogin => loginPanel != null && loginPanel.activeSelf;
     public bool IsShowingProfile => profilePanel != null && profilePanel.activeSelf;
-    public bool IsShowingGuest => IsShowingLogin && session != null && session.IsGuest;
+    public bool IsShowingGuest => IsShowingProfile && session != null && session.IsGuest;
     public PlayerSessionState SessionState => session != null ? session.State : PlayerSessionState.NotInitialized;
     public string ProfileUsername => session?.Profile?.username ?? string.Empty;
     public string SelectedCharacterId => session?.Profile?.selectedCharacterId ?? string.Empty;
     public string LastErrorDetails => session?.LastErrorDetails ?? string.Empty;
+    public string PlayerId => session?.GetPlayerId() ?? string.Empty;
+    public string AuthenticationProvider => session?.ProviderName ?? string.Empty;
+    public bool IsUsingMockAuthentication => session?.IsUsingSimulatedProvider ?? true;
+    public string ProfileLoadSource => session?.LastProfileLoadSource.ToString() ?? PlayerProfileLoadSource.None.ToString();
+    public bool CloudSaveSucceeded => session?.LastCloudSaveSucceeded ?? false;
+    public string PersistenceWarning => session?.LastPersistenceWarning ?? string.Empty;
 
     private PlayerSessionManager session;
 
@@ -47,12 +55,14 @@ public sealed class PlayerAccountController : MonoBehaviour
         BindButtons();
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         session ??= PlayerSessionManager.EnsureInstance();
         session.SessionStateChanged += HandleSessionStateChanged;
         session.ProfileChanged += HandleProfileChanged;
         Refresh();
+        if (session.IsSignedIn)
+            await session.ReloadProfileAsync();
     }
 
     private void OnDisable()
@@ -77,7 +87,10 @@ public sealed class PlayerAccountController : MonoBehaviour
     public async void SimulateLogin()
     {
         SetButtonsInteractable(false);
-        await session.LinkWithPlatformAsync();
+        if (session.IsGuest)
+            await session.LinkWithPlatformAsync();
+        else
+            await session.SignInAnonymouslyAsync();
     }
 
     public async void SimulateRegister()
@@ -101,9 +114,9 @@ public sealed class PlayerAccountController : MonoBehaviour
 #if UNITY_EDITOR
     public async void SimulateProfileUpdateAndReload()
     {
-        if (session == null || !session.IsLinkedAccount || session.IsBusy)
+        if (session == null || !session.IsSignedIn || session.IsBusy)
             return;
-        await session.UpdateUsernameAsync("Piloto Persistente");
+        await session.UpdateUsernameAsync("UGS Cloud Test");
         await session.UpdateSelectedCharacterAsync("test-character");
         await session.ReloadProfileAsync();
     }
@@ -111,7 +124,7 @@ public sealed class PlayerAccountController : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
-        if (session != null && session.IsBusy)
+        if ((session != null && session.IsBusy) || (profileViewController != null && profileViewController.IsSaving))
             return;
         if (!Application.CanStreamedLevelBeLoaded(mainMenuSceneName))
         {
@@ -129,6 +142,7 @@ public sealed class PlayerAccountController : MonoBehaviour
         Bind(registerBackButton, ShowLogin);
         Bind(logoutButton, Logout);
         Bind(backButton, ReturnToMainMenu);
+        Bind(signedOutBackButton, ReturnToMainMenu);
     }
 
     private static void Bind(Button button, UnityEngine.Events.UnityAction action)
@@ -148,7 +162,7 @@ public sealed class PlayerAccountController : MonoBehaviour
         bool busy = session.IsBusy;
         if (busyOverlay != null) busyOverlay.SetActive(busy);
 
-        if (session.IsLinkedAccount)
+        if (session.IsSignedIn)
         {
             SetView(login: false, register: false, profile: true);
             PopulateProfile(session.Profile);
@@ -163,9 +177,9 @@ public sealed class PlayerAccountController : MonoBehaviour
             if (!string.IsNullOrWhiteSpace(session.LastError))
                 loginProviderText.text = session.LastError;
             else if (session.IsGuest)
-                loginProviderText.text = session.IsUsingSimulatedProvider
-                    ? "Sesion invitada - vinculacion simulada disponible"
-                    : "Sesion invitada - vincula una cuenta para proteger tu progreso";
+                loginProviderText.text = "Sesion invitada activa";
+            else if (session.State == PlayerSessionState.SignedOut)
+                loginProviderText.text = "Continua como invitado para cargar tu perfil.";
             else
                 loginProviderText.text = $"Proveedor: {session.ProviderName}";
         }
@@ -213,5 +227,6 @@ public sealed class PlayerAccountController : MonoBehaviour
         if (registerBackButton != null) registerBackButton.interactable = interactable;
         if (logoutButton != null) logoutButton.interactable = interactable;
         if (backButton != null) backButton.interactable = interactable;
+        if (signedOutBackButton != null) signedOutBackButton.interactable = interactable;
     }
 }

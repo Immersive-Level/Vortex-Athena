@@ -148,8 +148,9 @@ public sealed class PlayerSessionManager : MonoBehaviour
         try
         {
             EnsureProvider();
+            PlayerProfileData profileBeforeLink = Profile;
             PlayerAuthSession linkedSession = await provider.LinkWithPlatformAsync(platformLinker);
-            await ApplySessionAsync(linkedSession);
+            await ApplySessionAsync(linkedSession, profileBeforeLink);
             return IsLinkedAccount;
         }
         catch (Exception exception)
@@ -262,7 +263,7 @@ public sealed class PlayerSessionManager : MonoBehaviour
         await ApplySessionAsync(guestSession);
     }
 
-    private async Task ApplySessionAsync(PlayerAuthSession authSession)
+    private async Task ApplySessionAsync(PlayerAuthSession authSession, PlayerProfileData profileToMigrate = null)
     {
         if (string.IsNullOrWhiteSpace(authSession.PlayerId))
             throw new InvalidOperationException("El proveedor devolvio un Player ID vacio.");
@@ -270,6 +271,13 @@ public sealed class PlayerSessionManager : MonoBehaviour
         EnsureProvider();
         repository = new PlayerProfileRepository(authSession.PlayerId, useCloudSave && !provider.IsSimulated);
         PlayerProfileData profile = await repository.LoadProfileAsync();
+        if (profile == null && profileToMigrate != null)
+        {
+            profile = profileToMigrate;
+            profile.playerId = authSession.PlayerId;
+            profile.accountType = authSession.AccountType;
+            profile.isLinkedAccount = authSession.IsLinked;
+        }
         profile ??= await repository.CreateDefaultProfileAsync(authSession.PlayerId, authSession.AccountType, authSession.IsLinked);
         profile.Normalize(authSession.PlayerId, authSession.AccountType, authSession.IsLinked);
         Profile = profile;

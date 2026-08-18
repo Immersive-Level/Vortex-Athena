@@ -655,8 +655,23 @@ public static class PlayerProfileSceneBuilder
     private static void CreateAccountServices()
     {
         GameObject services = new GameObject("PlayerAccountServices", typeof(PlayerSessionManager), typeof(MobilePlatformAccountLinker));
+        MobilePlatformAccountLinker mobileLinker = services.GetComponent<MobilePlatformAccountLinker>();
+        GooglePlayGamesAccountLinker googleLinker = services.AddComponent<GooglePlayGamesAccountLinker>();
+        AppleGameCenterAccountLinker appleLinker = services.AddComponent<AppleGameCenterAccountLinker>();
+        MissingGooglePlayGamesCredentialSource googleSource = services.AddComponent<MissingGooglePlayGamesCredentialSource>();
+        MissingAppleGameCenterCredentialSource appleSource = services.AddComponent<MissingAppleGameCenterCredentialSource>();
+        SerializedObject mobileSerialized = new SerializedObject(mobileLinker);
+        Set(mobileSerialized, "googlePlayGamesLinker", googleLinker);
+        Set(mobileSerialized, "appleOrGameCenterLinker", appleLinker);
+        mobileSerialized.ApplyModifiedPropertiesWithoutUndo();
+        SerializedObject googleSerialized = new SerializedObject(googleLinker);
+        Set(googleSerialized, "credentialSource", googleSource);
+        googleSerialized.ApplyModifiedPropertiesWithoutUndo();
+        SerializedObject appleSerialized = new SerializedObject(appleLinker);
+        Set(appleSerialized, "credentialSource", appleSource);
+        appleSerialized.ApplyModifiedPropertiesWithoutUndo();
         SerializedObject manager = new SerializedObject(services.GetComponent<PlayerSessionManager>());
-        Set(manager, "platformLinker", services.GetComponent<MobilePlatformAccountLinker>());
+        Set(manager, "platformLinker", mobileLinker);
         manager.FindProperty("useMockAuthInEditor").boolValue = false;
         manager.FindProperty("autoSignInAnonymously").boolValue = true;
         manager.FindProperty("useCloudSave").boolValue = true;

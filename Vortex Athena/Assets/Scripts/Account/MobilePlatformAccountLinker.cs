@@ -30,6 +30,8 @@ public sealed class MobilePlatformAccountLinker : PlatformAccountLinkerBehaviour
             return "Google Play Games";
 #elif UNITY_IOS
             return "Apple / Game Center";
+#elif UNITY_EDITOR
+            return "Editor (vinculacion real solo en dispositivo)";
 #else
             return "Unsupported platform";
 #endif
@@ -37,6 +39,8 @@ public sealed class MobilePlatformAccountLinker : PlatformAccountLinkerBehaviour
     }
 
     public override bool IsAvailable => ActiveLinker != null && ActiveLinker.IsAvailable;
+
+    public bool HasConfiguredAdapter => ActiveLinker != null;
 
     public override Task LinkCurrentUnityPlayerAsync()
     {

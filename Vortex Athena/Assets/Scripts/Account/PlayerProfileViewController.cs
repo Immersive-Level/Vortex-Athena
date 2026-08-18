@@ -192,6 +192,27 @@ public sealed class PlayerProfileViewController : MonoBehaviour
         IsSaving = false;
     }
 
+    public async void LinkAccount()
+    {
+        if (IsSaving || session == null || session.IsBusy || !session.IsGuest)
+            return;
+
+#if UNITY_EDITOR
+        SetFeedback("La vinculacion real se prueba en un dispositivo Android o iOS.", true);
+        return;
+#else
+        IsSaving = true;
+        SetFeedback("VINCULANDO CUENTA...", false);
+        SetInteractable(false);
+        bool linked = await session.LinkWithPlatformAsync();
+        IsSaving = false;
+        SetFeedback(linked
+            ? "Cuenta vinculada correctamente."
+            : "No se pudo vincular la cuenta; tu sesion Guest se conserva.", !linked);
+        Refresh(session.Profile);
+#endif
+    }
+
     private void ChangePreview(int direction)
     {
         if (characters == null || characters.Count == 0 || IsSaving || session == null || session.IsBusy)
@@ -287,7 +308,7 @@ public sealed class PlayerProfileViewController : MonoBehaviour
         if (linkAccountButton != null)
         {
             linkAccountButton.gameObject.SetActive(guest && showGuestLinkPrompt);
-            linkAccountButton.interactable = false;
+            linkAccountButton.interactable = guest && !IsSaving && session != null && !session.IsBusy;
         }
     }
 
@@ -337,6 +358,7 @@ public sealed class PlayerProfileViewController : MonoBehaviour
         if (settingsButton != null) settingsButton.interactable = interactable;
         if (closeAccountStateButton != null) closeAccountStateButton.interactable = interactable;
         if (logoutButton != null) logoutButton.interactable = interactable;
+        if (linkAccountButton != null) linkAccountButton.interactable = interactable && session != null && session.IsGuest;
         if (backButton != null) backButton.interactable = interactable;
         if (profileTabButton != null) profileTabButton.interactable = false;
         if (shopTabButton != null) shopTabButton.interactable = false;
@@ -355,6 +377,7 @@ public sealed class PlayerProfileViewController : MonoBehaviour
         Bind(settingsButton, ToggleAccountStatePanel);
         Bind(closeAccountStateButton, CloseAccountStatePanel);
         Bind(logoutButton, Logout);
+        Bind(linkAccountButton, LinkAccount);
     }
 
     private static void Bind(Button button, UnityEngine.Events.UnityAction action)

@@ -111,6 +111,9 @@ public static class PlayerAccountSetupRunner
     [MenuItem("Tools/Vortex Athena/Test Account/Profile/Select Character")]
     public static void ClickSelectCharacter() => ClickRuntimeButton("SelectCharacterButton");
 
+    [MenuItem("Tools/Vortex Athena/Test Account/Profile/Link Account")]
+    public static void ClickLinkAccount() => ClickRuntimeButton("LinkAccountButton");
+
     [MenuItem("Tools/Vortex Athena/Test Account/Profile/Open Username Editor")]
     public static void OpenUsernameEditor() => ClickRuntimeButton("EditUsernameButton");
 

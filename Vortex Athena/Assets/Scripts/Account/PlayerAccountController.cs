@@ -39,6 +39,10 @@ public sealed class PlayerAccountController : MonoBehaviour
     public PlayerSessionState SessionState => session != null ? session.State : PlayerSessionState.NotInitialized;
     public string ProfileUsername => session?.Profile?.username ?? string.Empty;
     public string SelectedCharacterId => session?.Profile?.selectedCharacterId ?? string.Empty;
+    public string UnlockedCharacterIds => session?.Profile?.unlockedCharacters == null
+        ? string.Empty
+        : string.Join(",", session.Profile.unlockedCharacters);
+    public int ProfileSchemaVersion => session?.Profile?.schemaVersion ?? 0;
     public string LastErrorDetails => session?.LastErrorDetails ?? string.Empty;
     public string PlayerId => session?.GetPlayerId() ?? string.Empty;
     public string AuthenticationProvider => session?.ProviderName ?? string.Empty;
@@ -117,7 +121,7 @@ public sealed class PlayerAccountController : MonoBehaviour
         if (session == null || !session.IsSignedIn || session.IsBusy)
             return;
         await session.UpdateUsernameAsync("UGS Cloud Test");
-        await session.UpdateSelectedCharacterAsync("test-character");
+        await session.UpdateSelectedCharacterAsync(PlayerProfileData.AntaresCharacterId);
         await session.ReloadProfileAsync();
     }
 #endif

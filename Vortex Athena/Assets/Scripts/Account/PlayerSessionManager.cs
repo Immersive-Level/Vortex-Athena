@@ -228,6 +228,7 @@ public sealed class PlayerSessionManager : MonoBehaviour
             {
                 loaded.Normalize(GetPlayerId(), Profile.accountType, IsLinkedAccount);
                 Profile = loaded;
+                await repository.SaveProfileAsync(Profile);
                 ProfileChanged?.Invoke(Profile);
             }
         }

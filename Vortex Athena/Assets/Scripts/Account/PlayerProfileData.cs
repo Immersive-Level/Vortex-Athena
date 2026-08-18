@@ -4,7 +4,12 @@ using System.Collections.Generic;
 [Serializable]
 public sealed class PlayerProfileData
 {
-    public const int CurrentSchemaVersion = 1;
+    public const int CurrentSchemaVersion = 2;
+    public const string AntaresCharacterId = "antares";
+    public const string BellatrixCharacterId = "bellatrix";
+    public const string ZetaCharacterId = "zeta";
+    public const string ZubenesCharacterId = "zubenes";
+    public const string LegacyDefaultCharacterId = "default";
 
     public int schemaVersion = CurrentSchemaVersion;
     public string playerId;
@@ -32,8 +37,8 @@ public sealed class PlayerProfileData
             username = linked ? "Nuevo Piloto" : "Piloto Invitado",
             accountType = string.IsNullOrWhiteSpace(type) ? "Guest" : type,
             isLinkedAccount = linked,
-            selectedCharacterId = "default",
-            unlockedCharacters = new List<string> { "default" },
+            selectedCharacterId = AntaresCharacterId,
+            unlockedCharacters = new List<string> { AntaresCharacterId },
             claimedRewards = new List<string>(),
             lastLoginDate = now,
             profileCreatedAt = now
@@ -47,11 +52,38 @@ public sealed class PlayerProfileData
         if (string.IsNullOrWhiteSpace(username)) username = linked ? "Nuevo Piloto" : "Piloto Invitado";
         if (!string.IsNullOrWhiteSpace(fallbackAccountType)) accountType = fallbackAccountType;
         isLinkedAccount = linked;
-        if (string.IsNullOrWhiteSpace(selectedCharacterId)) selectedCharacterId = "default";
+        selectedCharacterId = NormalizeCharacterId(selectedCharacterId);
         unlockedCharacters ??= new List<string>();
-        if (!unlockedCharacters.Contains("default")) unlockedCharacters.Add("default");
+        var normalizedUnlocked = new List<string>();
+        foreach (string characterId in unlockedCharacters)
+        {
+            string normalizedId = NormalizeCharacterId(characterId);
+            if (IsKnownCharacterId(normalizedId) && !normalizedUnlocked.Contains(normalizedId))
+                normalizedUnlocked.Add(normalizedId);
+        }
+        if (!normalizedUnlocked.Contains(AntaresCharacterId)) normalizedUnlocked.Add(AntaresCharacterId);
+        unlockedCharacters = normalizedUnlocked;
+        if (!unlockedCharacters.Contains(selectedCharacterId)) selectedCharacterId = AntaresCharacterId;
         claimedRewards ??= new List<string>();
         if (string.IsNullOrWhiteSpace(profileCreatedAt)) profileCreatedAt = DateTime.UtcNow.ToString("O");
         lastLoginDate = DateTime.UtcNow.ToString("O");
+    }
+
+    public static bool IsKnownCharacterId(string characterId)
+    {
+        return string.Equals(characterId, AntaresCharacterId, StringComparison.Ordinal)
+            || string.Equals(characterId, BellatrixCharacterId, StringComparison.Ordinal)
+            || string.Equals(characterId, ZetaCharacterId, StringComparison.Ordinal)
+            || string.Equals(characterId, ZubenesCharacterId, StringComparison.Ordinal);
+    }
+
+    public static string NormalizeCharacterId(string characterId)
+    {
+        if (string.IsNullOrWhiteSpace(characterId) || string.Equals(characterId.Trim(), LegacyDefaultCharacterId, StringComparison.OrdinalIgnoreCase))
+            return AntaresCharacterId;
+        if (string.Equals(characterId.Trim(), "bellarix", StringComparison.OrdinalIgnoreCase))
+            return BellatrixCharacterId;
+        string normalized = characterId.Trim().ToLowerInvariant();
+        return IsKnownCharacterId(normalized) ? normalized : AntaresCharacterId;
     }
 }

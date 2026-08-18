@@ -115,7 +115,12 @@ public sealed class PlayerProfileRepository : IPlayerProfileRepository
     {
         if (string.IsNullOrWhiteSpace(characterId))
             throw new ArgumentException("El personaje seleccionado no puede estar vacio.", nameof(characterId));
-        profile.selectedCharacterId = characterId.Trim();
+        string normalizedId = PlayerProfileData.NormalizeCharacterId(characterId);
+        if (!PlayerProfileData.IsKnownCharacterId(normalizedId))
+            throw new ArgumentException("El personaje seleccionado no es valido.", nameof(characterId));
+        if (profile == null || profile.unlockedCharacters == null || !profile.unlockedCharacters.Contains(normalizedId))
+            throw new InvalidOperationException("El personaje seleccionado esta bloqueado.");
+        profile.selectedCharacterId = normalizedId;
         return SaveProfileAsync(profile);
     }
 

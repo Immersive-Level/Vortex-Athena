@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dea23a5f8421fb4eb0ce8541c1a7f3a, type: 3}
   m_Name: PlayerCharacter_Antares
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterData
-  characterId: default
+  characterId: antares
   displayName: Antares
   silhouetteSprite: {fileID: -5122957016790324050, guid: 6b03735bd3267204ca24e57251b437a4, type: 3}
-  isUnlockedByDefault: 1
+  isUnlockedByDefault: 0
   empireIcon: {fileID: 0}
   statsPreview: 

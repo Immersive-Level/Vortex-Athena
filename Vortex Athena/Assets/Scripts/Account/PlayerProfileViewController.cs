@@ -57,6 +57,8 @@ public sealed class PlayerProfileViewController : MonoBehaviour
     [Header("Presentation")]
     [SerializeField] private Color unlockedColor = Color.white;
     [SerializeField] private Color lockedColor = new Color(0.72f, 0.72f, 0.72f, 0.78f);
+    [Tooltip("Enable only when the online progression system is ready to grant character IDs.")]
+    [SerializeField] private bool allowProfileUnlocks;
     [SerializeField] private bool showAccountStatus = true;
     [SerializeField] private bool showGuestLinkPrompt = true;
     [SerializeField] private bool showDebugPlayerId;
@@ -291,8 +293,7 @@ public sealed class PlayerProfileViewController : MonoBehaviour
 
     private bool IsUnlocked(PlayerCharacterData character, PlayerProfileData profile)
     {
-        if (character == null) return false;
-        if (character.IsUnlockedByDefault) return true;
+        if (!allowProfileUnlocks || character == null) return false;
         return profile?.unlockedCharacters != null && profile.unlockedCharacters.Contains(character.CharacterId);
     }
 

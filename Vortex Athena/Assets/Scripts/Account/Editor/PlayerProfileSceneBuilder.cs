@@ -433,8 +433,8 @@ public static class PlayerProfileSceneBuilder
 
         CharacterDefinition[] definitions =
         {
-            new CharacterDefinition("default", "Antares", true),
-            new CharacterDefinition("bellarix", "Bellarix", false),
+            new CharacterDefinition("antares", "Antares", false),
+            new CharacterDefinition("bellatrix", "Bellatrix", false),
             new CharacterDefinition("zeta", "Zeta", false),
             new CharacterDefinition("zubenes", "Zubenes", false)
         };

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2051498070714354465}
   - component: {fileID: 8911468361146664327}
   m_Layer: 5
-  m_Name: ScoreboardRow_Bellarix
+  m_Name: ScoreboardRow_Bellatrix
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
